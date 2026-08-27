@@ -1,3 +1,4 @@
+466d187e68b48477b042afc241c2ca617c253c76ef933e7c70b656bc9dfe2759  00-proposals/FitGap_RDODI_v1_3_0_Alignment_v1_0_0.md  (8261b)
 1bb4721908dac0aa3a4671643ea84f90596886dce14b16fd3e438702729d3785  00-proposals/Handover_RDODI_Template_Drift_v1_0_0.md  (7812b)
 97c2b2000fa92c9bc5b0d6df354f8f4b02d88c913352f482a67dec0ffde77516  00-proposals/Proposal_RDODI_Stage3F_Wiring_v1_0_0.md  (7537b)
 0acd0093ff02a4ff0012f4090e65f13349e9fe599cccfa0f15b67f38cfd650c7  00-proposals/REFERENCE_ONLY_stage3f_ttl_bridge_v1_0_0.py  (4009b)
