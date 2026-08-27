@@ -28,16 +28,18 @@
     dcterms:created "2026-08-27"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
     dcterms:description "RDODI Stage 4 page ABox for code-abundance-rdodi: 21 page regions (1:1 with Stage 3 sections) and 15 real, Playwright-tested click-to-reveal widgets grounding each leaf concept's exemplar citation."@en ;
-    dcterms:identifier "code_abundance_page_abox_v1_0_0" ;
+    dcterms:identifier "code_abundance_page_abox_v1_1_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-08-27"^^xsd:date ;
     dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
     dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
-    owl:versionIRI <http://example.org/rdodi/code-abundance/page/1.0.0> ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <http://example.org/rdodi/code-abundance/page/1.1.0> ;
+    owl:versionInfo "1.1.0" ;
+    owl:priorVersion <http://example.org/rdodi/code-abundance/page/1.0.0> ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
-    prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> .
+    prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> ;
+    rdfs:comment "v1.1.0 MINOR: page rebuilt against the ecosystem's actual reference visual standard (ch10 v4.0.0 CSS/typography/hero/topbar-scrollspy), and one new widget added -- a citation-verification status bar -- for genuine visual/interaction density beyond the reveal-toggle pattern alone, per the user's finding that the prior page did not match RDODI's de facto template."@en .
 
 cai:CodeAbundancePage a ipo:Page, owl:NamedIndividual ;
     rdfs:label "When Code Is Abundant: A Research Companion (interactive page)"@en ;
@@ -368,3 +370,26 @@ cai:Widget_BuilderRole a ipo:InstructionalWidget, owl:NamedIndividual ;
     dcterms:source cad:Sec_BuilderRole ;
     wp:designTestPassed true ;
     dcterms:identifier "toggle-sec-builderrole" .
+
+# ----------------------------------------------------------------------------
+# New in v1.1.0: citation-verification status bar (a second, distinct widget
+# primitive -- a data visualization, not a click-to-reveal toggle -- added
+# for genuine visual/interaction density per the ecosystem's own documented
+# floor rule (RDODI_interactive_page_standard_analysis_v1_0_0.md SS3).
+# ----------------------------------------------------------------------------
+
+ca:CitationVerificationStatusBar a wp:WidgetPrimitive, owl:NamedIndividual ;
+    rdfs:label "Citation Verification Status Bar"@en ;
+    skos:definition "A segmented horizontal bar visualizing how many of the report's 15 concept exemplars were independently verified, partially verified, or flagged unavailable. Data-driven from the Stage 1 research artifact's own quality scorecard, not decorative."@en ;
+    dcterms:source "Authored for code-abundance-rdodi Stage 4, v1.1.0; a package-scoped widget primitive."@en .
+
+cai:Widget_CitationVerificationStatus a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Citation verification status bar"@en ;
+    skos:definition "Renders the count of verified (13), partially verified (1) and unavailable (1) citations among the report's 15 concept exemplars, sourced from the Stage 1 quality scorecard."@en ;
+    wp:instantiatesPrimitive ca:CitationVerificationStatusBar ;
+    ds:selectionWarrant "The Stage 1 quality scorecard discloses a specific, countable verification breakdown across citations -- warrants a data visualization rather than prose restatement."@en ;
+    wp:demonstratesConcept ca:IndustryImplementation ;
+    ipo:demonstratesSubject ca:IndustryImplementation ;
+    dcterms:source cad:Sec_IndustryImplementation ;
+    wp:designTestPassed true ;
+    dcterms:identifier "status-bar-industryimplementation" .
