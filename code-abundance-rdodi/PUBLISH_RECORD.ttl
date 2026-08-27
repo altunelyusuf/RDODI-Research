@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_1_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.1.0"@en ;
+pkg:Decision_v1_1_1 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.1.1"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.1.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_0_0 ;
+    owl:versionInfo "1.1.1"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_1_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
-    pub:manifestVerified 12 ;
-    pub:manifestTotal 12 ;
+    pub:manifestVerified 13 ;
+    pub:manifestTotal 13 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_1_0 ;
-    prov:generatedAtTime "2026-08-27T08:25:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_1_1 ;
+    prov:generatedAtTime "2026-08-27T09:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_1_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.1.0 (MINOR release)"@en ;
-    rdfs:comment "MINOR release responding to two user-identified gaps in v1.0.0. (1) Stage 3 shipped as an ABox only; the procedure's own SS2.2 step 6 requires a companion DOCX/PDF render, which v1.0.0 omitted. Added code_abundance_document_v1_1_0.docx, generated programmatically from the same TTL (no re-authoring), verified by LibreOffice conversion + visual page inspection. (2) The v1.0.0 interactive page was gate-conformant but did not match this ecosystem's own documented visual/interaction standard (see rdodi-ecosystem/05-documentation/RDODI_interactive_page_standard_analysis_v1_0_0.md's own admission that 'conformance discipline is being mistaken for design discipline'). Rebuilt the page reusing the ecosystem's actual reference CSS/JS (ch10_quality_companion_interactive_v4_0_0.html's typography, color system, hero, sticky topbar with scroll-spy) and added a second, distinct widget primitive -- a citation-verification status bar, data-driven from the Stage 1 quality scorecard -- for genuine visual/interaction density beyond the reveal-toggle pattern alone. All 6 mechanical Stage4/Cross gates and all 3 widget gates re-verified PASS (16 widgets now, up from 15). Real Playwright verification: 0 console errors, 0 modal dialogs, 21/21 sections in DOM, 15/15 reveal-widget interactions passed, the new status bar's rendered aria-label and text independently read from the live DOM and confirmed to state the correct 13/1/1 breakdown. Disclosed interpretive choice: the top navigation lists the 6 H1 (major) sections, not all 21 sections including H2 leaves -- read as satisfying BP-D34's 'identifies all major sections' at the heading-level-1 granularity, verified reachable at a 390px mobile viewport without scrolling the nav itself; the 15 leaf sections remain reachable by scroll within their parent, not by a second click."@en ;
-    pub:transcriptSHA256 "028154f6c541456fc56f3c2b88706b6923473b704784516fdb9cd1b0c3c58d2f"^^xsd:string .
+pkg:Evidence_v1_1_1 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.1.1 (PATCH release)"@en ;
+    rdfs:comment "PATCH: documentation-only addition, no ontology/gate content change to the four-stage artifacts. Adds 00-proposals/Handover_RDODI_Template_Drift_v1_0_0.md, filed after the user reported the Stage 4 page does not match an expected sidebar-tree/sub-tabs/grounded-prompt template. Investigation verified: (1) the DOCX companion added in v1.1.0 is genuinely on GitHub -- fetched directly via raw.githubusercontent.com, HTTP 200, SHA-256 matches the local file byte-for-byte; the reported inaccessibility is most likely GitHub's lack of an inline .docx preview, not a push failure. (2) No shipped RDODI artifact -- not the procedure, not ch10 v1-v4, not rdodi_presentation_renderer_v1_0_0.py, not either presentation-samples output, not kb_explorer -- implements sub-tabs or a hierarchical sidebar tree; all are single flowing pages with anchor-based in-page navigation. The interactive-page ontology declares real but entirely unconsumed vocabulary for that richer pattern (ipo:SubPageTabs, ipo:PageHierarchy, ipo:LandingPageVariant) -- grepped end to end, zero consumers in procedure, gates, renderer, or worked examples. The feature set the user described (collapsible tree sidebar, sub-tabs, a live-LLM-grounded prompt console) exists verbatim in a separate, unrelated package -- lcw-principles-kb/04-page/lcw_kb_interactive_v0_92_0.html -- built under a different commission with no cross-reference from any RDODI document. Handover returns two options to the RDODI session (B1, package-owner decision, not made here): adopt the richer pattern as RDODI's real Stage 4 standard and build a consuming renderer, or document the single-page boundary explicitly and mark the unused vocabulary as aspirational."@en ;
+    pub:transcriptSHA256 "95b3d2e0829a534032b7212bc14f5702bf5215f37d142080fe3ee9258023708f"^^xsd:string .
