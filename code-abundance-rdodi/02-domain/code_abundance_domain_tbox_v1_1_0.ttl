@@ -20,17 +20,19 @@
     dcterms:created "2026-08-27"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
     dcterms:description "RDODI Stage 2 subject taxonomy for the code-abundance-rdodi run: a 2-level class hierarchy over the six thematic clusters and fifteen concepts identified in Stage 1's concept inventory of Staples (2026), 'When Code Is Abundant.'"@en ;
-    dcterms:identifier "code_abundance_domain_tbox_v1_0_0" ;
+    dcterms:identifier "code_abundance_domain_tbox_v1_1_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-08-27"^^xsd:date ;
     dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
     dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
     rdfs:comment "ORIGINATION lineage. Taxonomy method: top-down clustering of the Stage 1 concept inventory by the article's own section structure (a CompetencyQuestionDrivenMethod in RDODI methodology terms, combined with top-down: which economic unit, which architectural pillars, which development modes, which role, which lifecycle model, which concrete implementations)."@en ;
-    owl:versionIRI <http://example.org/rdodi/code-abundance/domain/tbox/1.0.0> ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <http://example.org/rdodi/code-abundance/domain/tbox/1.1.0> ;
+    owl:versionInfo "1.1.0" ;
+    owl:priorVersion <http://example.org/rdodi/code-abundance/domain/tbox/1.0.0> ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
-    prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> .
+    prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> ;
+    rdfs:comment "v1.1.0 MINOR: adds CriticalAnalysisAndConclusion (1 top-level class + 3 leaves) -- the report's prior 21-class taxonomy was purely descriptive (one concept, one section) and lacked the argument-evaluation and synthesis apparatus a report genre requires. Added per user finding that the resulting document was academically and industrially insufficient."@en .
 
 # ----------------------------------------------------------------------------
 # Top-level classes (H1 sections in Stage 3)
@@ -186,3 +188,32 @@ ca:GitLabDuoAgentPlatform a owl:Class ;
     rdfs:subClassOf ca:IndustryImplementation ;
     dcterms:source "code_abundance_research_v1_0_0.ttl#ca:C14_GitLabDuoAgentPlatform"@en ;
     skos:definition "GitLab's own platform for creating, customizing and operating owned agents, presented as the concrete implementation of the Agent Platform pillar."@en .
+
+# ----------------------------------------------------------------------------
+# v1.1.0 addition: critical-analysis and conclusion apparatus
+# ----------------------------------------------------------------------------
+
+ca:CriticalAnalysisAndConclusion a owl:Class ;
+    rdfs:label "Critical Analysis and Conclusion"@en ;
+    dcterms:source "Added v1.1.0 per user finding that the report lacked argument-evaluation and synthesis structure."@en ;
+    skos:definition "The report's evaluation of the article's central claims against counter-evidence and alternative theoretical readings, and its synthesis of where the evidence actually lands."@en .
+
+ca:DeveloperDemandCritique a owl:Class ;
+    rdfs:label "Developer Demand Critique"@en ;
+    rdfs:subClassOf ca:CriticalAnalysisAndConclusion ;
+    dcterms:source "Grounded in the historical-abstraction analogy the article itself invokes (assembly to compilers to higher-level languages) and Jevons (1865)."@en ;
+    skos:definition "An evaluation of whether cheaper code generation increases or decreases aggregate demand for developers, using the historical pattern of prior software abstractions as the comparison case."@en .
+
+ca:MetricValidityAndSelectionBiasCritique a owl:Class ;
+    rdfs:label "Metric Validity and Selection Bias Critique"@en ;
+    rdfs:subClassOf ca:CriticalAnalysisAndConclusion ;
+    owl:disjointWith ca:DeveloperDemandCritique ;
+    dcterms:source "Grounded in the article's own hedge that Stripe, Spotify and Amplitude are unusually capable organizations, and in the throughput-vs-outcome distinction."@en ;
+    skos:definition "An evaluation of whether the article's throughput metrics (PR volume, cycle time) measure business outcome, and of the representativeness of its three cited organizations."@en .
+
+ca:SynthesisAndImplications a owl:Class ;
+    rdfs:label "Synthesis and Implications"@en ;
+    rdfs:subClassOf ca:CriticalAnalysisAndConclusion ;
+    owl:disjointWith ca:DeveloperDemandCritique, ca:MetricValidityAndSelectionBiasCritique ;
+    dcterms:source "Authored for code-abundance-rdodi v1.1.0 as the report's closing synthesis."@en ;
+    skos:definition "The report's own conclusion: which of the article's claims hold up under the evidence gathered in this research, which are underdetermined, and what follows for practitioners."@en .

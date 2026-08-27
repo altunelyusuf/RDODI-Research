@@ -12,14 +12,15 @@
     dcterms:created "2026-08-27"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
     dcterms:description "RDODI Stage 2 exemplar individuals, one per leaf class in code_abundance_domain_tbox_v1_0_0.ttl, each carrying dcterms:source citing the Stage 1 research artifact per Stage2.E."@en ;
-    dcterms:identifier "code_abundance_domain_abox_v1_0_0" ;
+    dcterms:identifier "code_abundance_domain_abox_v1_1_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-08-27"^^xsd:date ;
     dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
     dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
-    owl:versionIRI <http://example.org/rdodi/code-abundance/domain/abox/1.0.0> ;
-    owl:versionInfo "1.0.0" ;
+    owl:versionIRI <http://example.org/rdodi/code-abundance/domain/abox/1.1.0> ;
+    owl:versionInfo "1.1.0" ;
+    owl:priorVersion <http://example.org/rdodi/code-abundance/domain/abox/1.0.0> ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
     prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> .
 
@@ -96,4 +97,19 @@ cai:SpotifyHonkSystemInstance a ca:HonkAgent, owl:NamedIndividual ;
 cai:GitLabDuoAgentPlatformSystemInstance a ca:GitLabDuoAgentPlatform, owl:NamedIndividual ;
     rdfs:label "GitLab Duo Agent Platform (the product)"@en ;
     skos:definition "GitLab's platform for creating, customizing and operating agents around an organization's own workflows and expertise, letting customers choose underlying models and infrastructure."@en ;
+    dcterms:source "code_abundance_research_v1_0_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+
+cai:HistoricalAbstractionPatternInstance a ca:DeveloperDemandCritique, owl:NamedIndividual ;
+    rdfs:label "The assembly-to-compiler-to-high-level-language pattern as counter-evidence"@en ;
+    skos:definition "Each prior abstraction (assembly, compilers, high-level languages) cut the skill needed for the eliminated task, yet total programmer employment rose for decades afterward because cheaper software raised the ceiling on what got attempted."@en ;
+    dcterms:source "code_abundance_research_v1_0_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+
+cai:StripeSpotifyAmplitudeSelectionInstance a ca:MetricValidityAndSelectionBiasCritique, owl:NamedIndividual ;
+    rdfs:label "Staples' own hedge that his three cases are atypically well-resourced"@en ;
+    skos:definition "Staples writes that Stripe, Spotify and Amplitude are unusually capable engineering organizations whose experience should not be treated as proof every enterprise will work the same way, then generalizes architectural prescriptions from exactly those three cases regardless."@en ;
+    dcterms:source "code_abundance_research_v1_0_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+
+cai:CostPerAcceptedChangeSynthesisInstance a ca:SynthesisAndImplications, owl:NamedIndividual ;
+    rdfs:label "Cost-per-accepted-change survives scrutiny; the demand and metric claims do not without qualification"@en ;
+    skos:definition "The reframing from cost-per-line-of-code to cost-per-accepted-change is well-supported by the Theory of Constraints and by all three cited organizations' own infrastructure investment. The claim that engineering judgment simply relocates upward, rather than that aggregate developer demand rises, is not independently established by the evidence this research corpus could verify."@en ;
     dcterms:source "code_abundance_research_v1_0_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
