@@ -75,6 +75,18 @@ bl:GoalStage4Conformance a backlog:Goal, owl:NamedIndividual ;
     backlog:derivesFromScope bl:CodeAbundanceScope ;
     backlog:contributesToMission bl:CodeAbundanceMission .
 
+# ----------------------------------------------------------------------------
+# Stage 4 of 5 (Objective). Carries a real baseline/target per G4 -- an
+# objective without a metric cannot be missed and constrains no decision.
+# ----------------------------------------------------------------------------
+
+bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
+    rdfs:label "Stage4.A-K and Cross.B gates pass against the corpus-instantiated page"@en ;
+    backlog:hasObjectiveStatement "The number of Stage 4 / Cross gates (per the currently-governing RDODI procedure) that pass when actually run against this package's interactive-page artifact, out of the total gates that apply to it."@en ;
+    backlog:hasBaselineValue "0"^^xsd:decimal ;
+    backlog:hasTargetValue "1"^^xsd:decimal ;
+    backlog:contributesToGoal bl:GoalStage4Conformance .
+
 bl:StageOutput_Scope a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 2 (Scope) output"@en ;
     backlog:outputOfStage backlog:Stage_Scope ;
@@ -86,3 +98,9 @@ bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
     backlog:outputOfStage backlog:Stage_Goal ;
     backlog:consumesOutput bl:StageOutput_Scope ;
     backlog:hasStateDigest "58630de05c822af7f7f9519fc313faa544244599a59ca0b1d5bff7f4f7d36251" .
+
+bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
+    rdfs:label "Stage 4 (Objective) output"@en ;
+    backlog:outputOfStage backlog:Stage_Objective ;
+    backlog:consumesOutput bl:StageOutput_Goal ;
+    backlog:hasStateDigest "f7485980c21d9e72295b86eca7bb948b166750537c537742419c82d4d2950d87" .
