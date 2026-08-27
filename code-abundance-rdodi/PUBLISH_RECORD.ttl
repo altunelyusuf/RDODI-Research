@@ -1,0 +1,28 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pkg: <http://example.org/rdodi/code-abundance/publish#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix pub: <http://example.org/oe/publish#> .
+@prefix quality: <http://example.org/oe/quality#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rel: <http://example.org/oe/reliability#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+pkg:Decision_v1_0_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.0.0"@en ;
+    dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
+    owl:versionInfo "1.0.0"^^xsd:string ;
+    quality:passesGate true ;
+    pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
+    pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
+    pub:manifestVerified 12 ;
+    pub:manifestTotal 12 ;
+    pub:packageGate "PASS"^^xsd:string ;
+    rel:authoringSession "article-review-session"^^xsd:string ;
+    quality:evidencedBy pkg:Evidence_v1_0_0 ;
+    prov:generatedAtTime "2026-08-27T08:00:00Z"^^xsd:dateTime .
+
+pkg:Evidence_v1_0_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Full RDODI four-stage pipeline gate transcript for code-abundance-rdodi v1.0.0"@en ;
+    rdfs:comment "All 15 mechanically-implemented gates PASS (Stage1.A/B, Stage2.A/C, Stage3.A/B/E.cov/E.sub/src, Stage4.A/B/cov/sub/src, Cross.B), plus the 3 widget gates from rdodi-ecosystem/06-widget-stage (Stage4.widget.warrant/grounded/tested). Manual gates verified: Stage1.C/D/E, Stage2.D/E/F/G, Stage3.C/D/F/G/H, Stage4.C/D-structural/E/F (the last four via real Playwright execution against code_abundance_page_v1_0_0.html: 0 console errors, 0 modal dialogs, 21/21 nav pills, 15/15 widget click-to-reveal interactions passed). One cross-session proposal filed against rdodi-ecosystem (Proposal_RDODI_Stage3F_Wiring_v1_0_0.md) for a gap found and worked around, not silently absorbed."@en ;
+    pub:transcriptSHA256 "643bc2cb59388e9d102f0f2ff76de5cea78dda730904bed7dff5b1b50ab6e237"^^xsd:string .

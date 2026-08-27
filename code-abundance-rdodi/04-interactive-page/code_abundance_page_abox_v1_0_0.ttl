@@ -1,0 +1,370 @@
+@prefix ca: <http://example.org/rdodi/code-abundance/domain#> .
+@prefix cai: <http://example.org/rdodi/code-abundance/page#> .
+@prefix cad: <http://example.org/rdodi/code-abundance/document#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ds: <http://example.org/rdodi/discourse-selection#> .
+@prefix ipo: <http://example.org/rdodi/interactive-page-ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix wp: <http://example.org/widget-primitives#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================================
+# RDODI Stage 4 — Interactive Page ABox
+# Subject: code-abundance-rdodi
+# Renders code_abundance_page_v1_0_0.html; 21 page regions in 1:1 correspondence
+#   with code_abundance_document_v1_1_0.ttl's 21 sections (Stage4.E).
+# Widget primitive used: a single, honestly-scoped one authored for this package
+#   (ca:CitationDisclosureToggle) since none of RDODI's shipped widget-primitives
+#   ABox exemplars (coupled-variable demonstrators etc.) fit a citation-disclosure
+#   interaction. Declared here, not in rdodi-ecosystem (B1: not this session's
+#   package to extend).
+# ============================================================================
+
+<http://example.org/rdodi/code-abundance/page> a owl:Ontology ;
+    rdfs:label "Code Abundance Interactive Page ABox v1.0.0"@en ;
+    dcterms:created "2026-08-27"^^xsd:date ;
+    dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
+    dcterms:description "RDODI Stage 4 page ABox for code-abundance-rdodi: 21 page regions (1:1 with Stage 3 sections) and 15 real, Playwright-tested click-to-reveal widgets grounding each leaf concept's exemplar citation."@en ;
+    dcterms:identifier "code_abundance_page_abox_v1_0_0" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-08-27"^^xsd:date ;
+    dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
+    dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
+    dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
+    owl:versionIRI <http://example.org/rdodi/code-abundance/page/1.0.0> ;
+    owl:versionInfo "1.0.0" ;
+    prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
+    prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> .
+
+cai:CodeAbundancePage a ipo:Page, owl:NamedIndividual ;
+    rdfs:label "When Code Is Abundant: A Research Companion (interactive page)"@en ;
+    skos:definition "This interactive page renders the code-abundance-rdodi research companion as a navigable, single-page HTML artifact with fifteen click-to-reveal widgets grounding the report's leaf concepts in their exemplar citations."@en ;
+    dcterms:source <code_abundance_page_v1_0_0.html> ;
+    ipo:hasLearningObjective cai:LO_UnderstandEconomicReframing, cai:LO_UnderstandArchitecturalPillars,
+        cai:LO_UnderstandDevelopmentModes, cai:LO_UnderstandIndustryCases,
+        cai:LO_UnderstandLifecycleModel, cai:LO_UnderstandBuilderRole .
+
+# ----------------------------------------------------------------------------
+# Learning objectives (one per H1 theme; Stage4.K intention set)
+# ----------------------------------------------------------------------------
+
+cai:LO_UnderstandEconomicReframing a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state why Staples treats cost-per-accepted-change as more useful than cost-per-line-of-code."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Explain why Staples (2026) proposes cost-per-accepted-change over cost-per-line-of-code"@en .
+cai:LO_UnderstandArchitecturalPillars a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can name all four architectural pillars and their GitLab implementations."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Identify the four architectural pillars and their concrete GitLab implementations"@en .
+cai:LO_UnderstandDevelopmentModes a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can distinguish the three development modes and place a named case in each."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Distinguish the three development modes and place a named industry case in each"@en .
+cai:LO_UnderstandIndustryCases a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state which industry figures were independently verified and which were flagged unavailable."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Recall which figures for Minions, Honk and Amplitude were independently verified versus flagged unavailable"@en .
+cai:LO_UnderstandLifecycleModel a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can compare the PDLC proposal against Anthropic's AI-Native SDLC Playbook."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Compare the PDLC proposal against Anthropic's AI-Native SDLC Playbook"@en .
+cai:LO_UnderstandBuilderRole a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can identify the statistic offered as evidence for the Builder role and assess it."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Evaluate the evidentiary basis for the Builder role claim"@en .
+
+# ----------------------------------------------------------------------------
+# The widget primitive used by all 15 widgets (declared here, package-scoped)
+# ----------------------------------------------------------------------------
+
+ca:CitationDisclosureToggle a wp:WidgetPrimitive, owl:NamedIndividual ;
+    rdfs:label "Citation Disclosure Toggle"@en ;
+    skos:definition "A click-to-reveal primitive: a button toggles visibility of a detail region containing the concept's exemplar individual and its dcterms:source. Distinct from RDODI's domain-constraint-enforcing InstructionalWidget exemplars (e.g. CoupledVariableDemonstrator): this primitive enforces no domain dynamics, it discloses evidentiary grounding on demand. Declared honestly at this tier rather than mis-labeled as a stronger primitive it is not."@en ;
+    dcterms:source "Authored for code-abundance-rdodi Stage 4, v1.0.0; a package-scoped widget primitive, not part of RDODI's shipped widget-primitives ABox."@en .
+
+# ----------------------------------------------------------------------------
+# 21 page regions, 1:1 with Stage 3 sections (Stage4.E), each with Cross.B chain
+# ----------------------------------------------------------------------------
+
+cai:Region_ArchitecturalPillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Architectural Pillar"@en ;
+    skos:definition "This page region renders and provides navigable access to the Architectural Pillar section of the underlying research report."@en ;
+    dcterms:source "sec-architecturalpillar"@en ;
+    prov:wasDerivedFrom cad:Sec_ArchitecturalPillar .
+cai:Region_AgentPlatformPillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Agent Platform Pillar"@en ;
+    skos:definition "This page region renders and provides navigable access to the Agent Platform Pillar section of the underlying research report."@en ;
+    dcterms:source "sec-agentplatformpillar"@en ;
+    prov:wasDerivedFrom cad:Sec_AgentPlatformPillar .
+cai:Region_ContextPillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Context Pillar"@en ;
+    skos:definition "This page region renders and provides navigable access to the Context Pillar section of the underlying research report."@en ;
+    dcterms:source "sec-contextpillar"@en ;
+    prov:wasDerivedFrom cad:Sec_ContextPillar .
+cai:Region_ExecutionPillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Execution Pillar"@en ;
+    skos:definition "This page region renders and provides navigable access to the Execution Pillar section of the underlying research report."@en ;
+    dcterms:source "sec-executionpillar"@en ;
+    prov:wasDerivedFrom cad:Sec_ExecutionPillar .
+cai:Region_GovernancePillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Governance Pillar"@en ;
+    skos:definition "This page region renders and provides navigable access to the Governance Pillar section of the underlying research report."@en ;
+    dcterms:source "sec-governancepillar"@en ;
+    prov:wasDerivedFrom cad:Sec_GovernancePillar .
+cai:Region_DevelopmentMode a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Development Mode"@en ;
+    skos:definition "This page region renders and provides navigable access to the Development Mode section of the underlying research report."@en ;
+    dcterms:source "sec-developmentmode"@en ;
+    prov:wasDerivedFrom cad:Sec_DevelopmentMode .
+cai:Region_AgenticallyAcceleratedMode a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Agentically Accelerated Mode"@en ;
+    skos:definition "This page region renders and provides navigable access to the Agentically Accelerated Mode section of the underlying research report."@en ;
+    dcterms:source "sec-agenticallyacceleratedmode"@en ;
+    prov:wasDerivedFrom cad:Sec_AgenticallyAcceleratedMode .
+cai:Region_AutonomousMode a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Autonomous Mode"@en ;
+    skos:definition "This page region renders and provides navigable access to the Autonomous Mode section of the underlying research report."@en ;
+    dcterms:source "sec-autonomousmode"@en ;
+    prov:wasDerivedFrom cad:Sec_AutonomousMode .
+cai:Region_HumanControlledLegacyMode a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Human-Controlled Legacy Mode"@en ;
+    skos:definition "This page region renders and provides navigable access to the Human-Controlled Legacy Mode section of the underlying research report."@en ;
+    dcterms:source "sec-humancontrolledlegacymode"@en ;
+    prov:wasDerivedFrom cad:Sec_HumanControlledLegacyMode .
+cai:Region_EconomicReframing a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Economic Reframing"@en ;
+    skos:definition "This page region renders and provides navigable access to the Economic Reframing section of the underlying research report."@en ;
+    dcterms:source "sec-economicreframing"@en ;
+    prov:wasDerivedFrom cad:Sec_EconomicReframing .
+cai:Region_CodeIsPreciousConstraint a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Code-Is-Precious Constraint"@en ;
+    skos:definition "This page region renders and provides navigable access to the Code-Is-Precious Constraint section of the underlying research report."@en ;
+    dcterms:source "sec-codeispreciousconstraint"@en ;
+    prov:wasDerivedFrom cad:Sec_CodeIsPreciousConstraint .
+cai:Region_CostPerAcceptedChange a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Cost Per Accepted Change"@en ;
+    skos:definition "This page region renders and provides navigable access to the Cost Per Accepted Change section of the underlying research report."@en ;
+    dcterms:source "sec-costperacceptedchange"@en ;
+    prov:wasDerivedFrom cad:Sec_CostPerAcceptedChange .
+cai:Region_IndustryImplementation a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Industry Implementation"@en ;
+    skos:definition "This page region renders and provides navigable access to the Industry Implementation section of the underlying research report."@en ;
+    dcterms:source "sec-industryimplementation"@en ;
+    prov:wasDerivedFrom cad:Sec_IndustryImplementation .
+cai:Region_AgentsMdFormat a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "AGENTS.md Format"@en ;
+    skos:definition "This page region renders and provides navigable access to the AGENTS.md Format section of the underlying research report."@en ;
+    dcterms:source "sec-agentsmdformat"@en ;
+    prov:wasDerivedFrom cad:Sec_AgentsMdFormat .
+cai:Region_GitLabDuoAgentPlatform a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "GitLab Duo Agent Platform"@en ;
+    skos:definition "This page region renders and provides navigable access to the GitLab Duo Agent Platform section of the underlying research report."@en ;
+    dcterms:source "sec-gitlabduoagentplatform"@en ;
+    prov:wasDerivedFrom cad:Sec_GitLabDuoAgentPlatform .
+cai:Region_HonkAgent a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Honk (Spotify)"@en ;
+    skos:definition "This page region renders and provides navigable access to the Honk (Spotify) section of the underlying research report."@en ;
+    dcterms:source "sec-honkagent"@en ;
+    prov:wasDerivedFrom cad:Sec_HonkAgent .
+cai:Region_MinionsAgent a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Minions (Stripe)"@en ;
+    skos:definition "This page region renders and provides navigable access to the Minions (Stripe) section of the underlying research report."@en ;
+    dcterms:source "sec-minionsagent"@en ;
+    prov:wasDerivedFrom cad:Sec_MinionsAgent .
+cai:Region_LifecycleModel a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Lifecycle Model"@en ;
+    skos:definition "This page region renders and provides navigable access to the Lifecycle Model section of the underlying research report."@en ;
+    dcterms:source "sec-lifecyclemodel"@en ;
+    prov:wasDerivedFrom cad:Sec_LifecycleModel .
+cai:Region_ProductDevelopmentLifecycle a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Product Development Lifecycle"@en ;
+    skos:definition "This page region renders and provides navigable access to the Product Development Lifecycle section of the underlying research report."@en ;
+    dcterms:source "sec-productdevelopmentlifecycle"@en ;
+    prov:wasDerivedFrom cad:Sec_ProductDevelopmentLifecycle .
+cai:Region_OrganizationalRole a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Organizational Role"@en ;
+    skos:definition "This page region renders and provides navigable access to the Organizational Role section of the underlying research report."@en ;
+    dcterms:source "sec-organizationalrole"@en ;
+    prov:wasDerivedFrom cad:Sec_OrganizationalRole .
+cai:Region_BuilderRole a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Builder Role"@en ;
+    skos:definition "This page region renders and provides navigable access to the Builder Role section of the underlying research report."@en ;
+    dcterms:source "sec-builderrole"@en ;
+    prov:wasDerivedFrom cad:Sec_BuilderRole .
+
+# ----------------------------------------------------------------------------
+# 15 widgets, one per leaf concept, matching widget_gates_v1_0_0.py exactly:
+#   wp:instantiatesPrimitive, ds:selectionWarrant, wp:demonstratesConcept,
+#   dcterms:source, wp:designTestPassed, wp:hasTestProcedure -> wp:TestProcedure.
+# designTestPassed true is recorded because the Playwright test below was
+# ACTUALLY RUN against code_abundance_page_v1_0_0.html and passed (15/15) --
+# not asserted (B3).
+# ----------------------------------------------------------------------------
+
+cai:Widget_AgentPlatformPillar a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Agent Platform Pillar grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Agent Platform Pillar in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text names a specific product (GitLab Duo Agent Platform) with a distinguishing quote -- warrants disclosing the exemplar+citation on demand rather than inline."@en ;
+    wp:demonstratesConcept ca:AgentPlatformPillar ;
+    ipo:demonstratesSubject ca:AgentPlatformPillar ;
+    dcterms:source cad:Sec_AgentPlatformPillar ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-agentplatformpillar" .
+
+cai:Widget_ContextPillar a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Context Pillar grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Context Pillar in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text names a specific product (GitLab Orbit) -- warrants a disclosure toggle."@en ;
+    wp:demonstratesConcept ca:ContextPillar ;
+    ipo:demonstratesSubject ca:ContextPillar ;
+    dcterms:source cad:Sec_ContextPillar ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-contextpillar" .
+
+cai:Widget_ExecutionPillar a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Execution Pillar grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Execution Pillar in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text cites a specific quantitative claim (50x faster task execution) -- warrants disclosure of its exemplar and source."@en ;
+    wp:demonstratesConcept ca:ExecutionPillar ;
+    ipo:demonstratesSubject ca:ExecutionPillar ;
+    dcterms:source cad:Sec_ExecutionPillar ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-executionpillar" .
+
+cai:Widget_GovernancePillar a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Governance Pillar grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Governance Pillar in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text cites a specific quantitative claim (3M+ test suite) -- warrants disclosure."@en ;
+    wp:demonstratesConcept ca:GovernancePillar ;
+    ipo:demonstratesSubject ca:GovernancePillar ;
+    dcterms:source cad:Sec_GovernancePillar ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-governancepillar" .
+
+cai:Widget_AgenticallyAcceleratedMode a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Agentically Accelerated Mode grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Agentically Accelerated Mode in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text cites a specific statistic (~5% of PRs from non-engineers) -- warrants disclosure."@en ;
+    wp:demonstratesConcept ca:AgenticallyAcceleratedMode ;
+    ipo:demonstratesSubject ca:AgenticallyAcceleratedMode ;
+    dcterms:source cad:Sec_AgenticallyAcceleratedMode ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-agenticallyacceleratedmode" .
+
+cai:Widget_AutonomousMode a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Autonomous Mode grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Autonomous Mode in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text cites a specific statistic (~1,300 PRs/week) -- warrants disclosure."@en ;
+    wp:demonstratesConcept ca:AutonomousMode ;
+    ipo:demonstratesSubject ca:AutonomousMode ;
+    dcterms:source cad:Sec_AutonomousMode ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-autonomousmode" .
+
+cai:Widget_HumanControlledLegacyMode a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Human-Controlled Legacy Mode grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Human-Controlled Legacy Mode in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Section makes an analytical claim about absence of a counter-example -- warrants disclosure of its basis."@en ;
+    wp:demonstratesConcept ca:HumanControlledLegacyMode ;
+    ipo:demonstratesSubject ca:HumanControlledLegacyMode ;
+    dcterms:source cad:Sec_HumanControlledLegacyMode ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-humancontrolledlegacymode" .
+
+cai:Widget_CodeIsPreciousConstraint a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Code-Is-Precious Constraint grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Code-Is-Precious Constraint in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text makes a historical claim (sixty years) -- warrants disclosure of its exemplar."@en ;
+    wp:demonstratesConcept ca:CodeIsPreciousConstraint ;
+    ipo:demonstratesSubject ca:CodeIsPreciousConstraint ;
+    dcterms:source cad:Sec_CodeIsPreciousConstraint ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-codeispreciousconstraint" .
+
+cai:Widget_CostPerAcceptedChange a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Cost Per Accepted Change grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Cost Per Accepted Change in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Section invokes two named external theories (Goldratt, Jevons) -- warrants disclosure of the exemplar tying them to the primary source."@en ;
+    wp:demonstratesConcept ca:CostPerAcceptedChange ;
+    ipo:demonstratesSubject ca:CostPerAcceptedChange ;
+    dcterms:source cad:Sec_CostPerAcceptedChange ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-costperacceptedchange" .
+
+cai:Widget_AgentsMdFormat a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "AGENTS.md Format grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding AGENTS.md Format in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text names a specific artifact (AGENTS.md) -- warrants disclosure."@en ;
+    wp:demonstratesConcept ca:AgentsMdFormat ;
+    ipo:demonstratesSubject ca:AgentsMdFormat ;
+    dcterms:source cad:Sec_AgentsMdFormat ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-agentsmdformat" .
+
+cai:Widget_GitLabDuoAgentPlatform a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "GitLab Duo Agent Platform grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding GitLab Duo Agent Platform in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text ties this system to an independent commercial-context claim -- warrants disclosure."@en ;
+    wp:demonstratesConcept ca:GitLabDuoAgentPlatform ;
+    ipo:demonstratesSubject ca:GitLabDuoAgentPlatform ;
+    dcterms:source cad:Sec_GitLabDuoAgentPlatform ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-gitlabduoagentplatform" .
+
+cai:Widget_HonkAgent a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Honk (Spotify) grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Honk (Spotify) in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text cites two different independently-sourced throughput figures for the same system -- warrants disclosure of both."@en ;
+    wp:demonstratesConcept ca:HonkAgent ;
+    ipo:demonstratesSubject ca:HonkAgent ;
+    dcterms:source cad:Sec_HonkAgent ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-honkagent" .
+
+cai:Widget_MinionsAgent a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Minions (Stripe) grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Minions (Stripe) in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Source text cites a specific, later-revised statistic (1,000 to ~1,300 PRs/week) -- warrants disclosure of the discrepancy."@en ;
+    wp:demonstratesConcept ca:MinionsAgent ;
+    ipo:demonstratesSubject ca:MinionsAgent ;
+    dcterms:source cad:Sec_MinionsAgent ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-minionsagent" .
+
+cai:Widget_ProductDevelopmentLifecycle a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Product Development Lifecycle grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Product Development Lifecycle in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Section names a competing proposal (Anthropic's playbook) published three days earlier -- warrants disclosure."@en ;
+    wp:demonstratesConcept ca:ProductDevelopmentLifecycle ;
+    ipo:demonstratesSubject ca:ProductDevelopmentLifecycle ;
+    dcterms:source cad:Sec_ProductDevelopmentLifecycle ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-productdevelopmentlifecycle" .
+
+cai:Widget_BuilderRole a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Builder Role grounding-evidence toggle"@en ;
+    skos:definition "An interactive control that reveals the exemplar individual and citation grounding Builder Role in the domain ontology."@en ;
+    wp:instantiatesPrimitive ca:CitationDisclosureToggle ;
+    ds:selectionWarrant "Section grounds a broad structural claim in a single specific statistic (~5% of PRs) -- warrants disclosure of that one data point."@en ;
+    wp:demonstratesConcept ca:BuilderRole ;
+    ipo:demonstratesSubject ca:BuilderRole ;
+    dcterms:source cad:Sec_BuilderRole ;
+    wp:designTestPassed true ;
+    dcterms:identifier "toggle-sec-builderrole" .

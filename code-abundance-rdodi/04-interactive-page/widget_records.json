@@ -1,0 +1,107 @@
+[
+  {
+    "slug": "Sec_AgentPlatformPillar",
+    "anchor": "sec-agentplatformpillar",
+    "btn_id": "toggle-sec-agentplatformpillar",
+    "detail_id": "detail-sec-agentplatformpillar",
+    "class_local": "AgentPlatformPillar"
+  },
+  {
+    "slug": "Sec_ContextPillar",
+    "anchor": "sec-contextpillar",
+    "btn_id": "toggle-sec-contextpillar",
+    "detail_id": "detail-sec-contextpillar",
+    "class_local": "ContextPillar"
+  },
+  {
+    "slug": "Sec_ExecutionPillar",
+    "anchor": "sec-executionpillar",
+    "btn_id": "toggle-sec-executionpillar",
+    "detail_id": "detail-sec-executionpillar",
+    "class_local": "ExecutionPillar"
+  },
+  {
+    "slug": "Sec_GovernancePillar",
+    "anchor": "sec-governancepillar",
+    "btn_id": "toggle-sec-governancepillar",
+    "detail_id": "detail-sec-governancepillar",
+    "class_local": "GovernancePillar"
+  },
+  {
+    "slug": "Sec_AgenticallyAcceleratedMode",
+    "anchor": "sec-agenticallyacceleratedmode",
+    "btn_id": "toggle-sec-agenticallyacceleratedmode",
+    "detail_id": "detail-sec-agenticallyacceleratedmode",
+    "class_local": "AgenticallyAcceleratedMode"
+  },
+  {
+    "slug": "Sec_AutonomousMode",
+    "anchor": "sec-autonomousmode",
+    "btn_id": "toggle-sec-autonomousmode",
+    "detail_id": "detail-sec-autonomousmode",
+    "class_local": "AutonomousMode"
+  },
+  {
+    "slug": "Sec_HumanControlledLegacyMode",
+    "anchor": "sec-humancontrolledlegacymode",
+    "btn_id": "toggle-sec-humancontrolledlegacymode",
+    "detail_id": "detail-sec-humancontrolledlegacymode",
+    "class_local": "HumanControlledLegacyMode"
+  },
+  {
+    "slug": "Sec_CodeIsPreciousConstraint",
+    "anchor": "sec-codeispreciousconstraint",
+    "btn_id": "toggle-sec-codeispreciousconstraint",
+    "detail_id": "detail-sec-codeispreciousconstraint",
+    "class_local": "CodeIsPreciousConstraint"
+  },
+  {
+    "slug": "Sec_CostPerAcceptedChange",
+    "anchor": "sec-costperacceptedchange",
+    "btn_id": "toggle-sec-costperacceptedchange",
+    "detail_id": "detail-sec-costperacceptedchange",
+    "class_local": "CostPerAcceptedChange"
+  },
+  {
+    "slug": "Sec_AgentsMdFormat",
+    "anchor": "sec-agentsmdformat",
+    "btn_id": "toggle-sec-agentsmdformat",
+    "detail_id": "detail-sec-agentsmdformat",
+    "class_local": "AgentsMdFormat"
+  },
+  {
+    "slug": "Sec_GitLabDuoAgentPlatform",
+    "anchor": "sec-gitlabduoagentplatform",
+    "btn_id": "toggle-sec-gitlabduoagentplatform",
+    "detail_id": "detail-sec-gitlabduoagentplatform",
+    "class_local": "GitLabDuoAgentPlatform"
+  },
+  {
+    "slug": "Sec_HonkAgent",
+    "anchor": "sec-honkagent",
+    "btn_id": "toggle-sec-honkagent",
+    "detail_id": "detail-sec-honkagent",
+    "class_local": "HonkAgent"
+  },
+  {
+    "slug": "Sec_MinionsAgent",
+    "anchor": "sec-minionsagent",
+    "btn_id": "toggle-sec-minionsagent",
+    "detail_id": "detail-sec-minionsagent",
+    "class_local": "MinionsAgent"
+  },
+  {
+    "slug": "Sec_ProductDevelopmentLifecycle",
+    "anchor": "sec-productdevelopmentlifecycle",
+    "btn_id": "toggle-sec-productdevelopmentlifecycle",
+    "detail_id": "detail-sec-productdevelopmentlifecycle",
+    "class_local": "ProductDevelopmentLifecycle"
+  },
+  {
+    "slug": "Sec_BuilderRole",
+    "anchor": "sec-builderrole",
+    "btn_id": "toggle-sec-builderrole",
+    "detail_id": "detail-sec-builderrole",
+    "class_local": "BuilderRole"
+  }
+]
