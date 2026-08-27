@@ -87,6 +87,50 @@ bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
     backlog:hasTargetValue "1"^^xsd:decimal ;
     backlog:contributesToGoal bl:GoalStage4Conformance .
 
+# ----------------------------------------------------------------------------
+# Stage 5 of 5 (Backlog). Granularity: Epic (coarsest ordinary choice, per
+# ceremony declaration), decomposed into Stories before planning (G3: an
+# undecomposed epic may not be planned into an iteration).
+# ----------------------------------------------------------------------------
+
+bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
+    rdfs:label "Adopt RDODI v1.3.0 default interactive-page pattern for code-abundance-rdodi"@en ;
+    backlog:hasWorkItemTitle "Adopt RDODI v1.3.0 default interactive-page pattern for code-abundance-rdodi"@en ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing ;
+    backlog:metricMovableBy bl:EpicAdoptRichDefault .
+
+bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
+    rdfs:label "Author the corpus contract"@en ;
+    backlog:asRole "a reader of the interactive companion" ;
+    backlog:wantsCapability "the subject's 18 concepts, 7 categories, 15 citations and their relations expressed as a corpus contract matching 01-schema/corpus_contract_v1_0_0.json" ;
+    backlog:soThat "the corpus-instantiation script can build a working page from real, structured data rather than placeholders" ;
+    backlog:partOf bl:EpicAdoptRichDefault ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
+bl:StoryQuizAndGlossary a backlog:Story, owl:NamedIndividual ;
+    rdfs:label "Author quiz and glossary content"@en ;
+    backlog:asRole "a reader checking their own understanding" ;
+    backlog:wantsCapability "quiz questions and a glossary genuinely grounded in the Stage 1-3 research, not filler" ;
+    backlog:soThat "the InstructionalChapterCompanion's mandatory section roles (Introduction, Body, Quiz, Glossary, References) are satisfied with real content, not stub sections" ;
+    backlog:partOf bl:EpicAdoptRichDefault ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
+bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
+    rdfs:label "Instantiate the corpus and verify per the template's own reference checks"@en ;
+    backlog:asRole "the package maintainer" ;
+    backlog:wantsCapability "to run instantiate_corpus_v1_0_0.py against a real source page and this subject's corpus contract, then verify the result" ;
+    backlog:soThat "the claim 'this page works' is checked the same way the template's own build instructions require, not asserted" ;
+    backlog:partOf bl:EpicAdoptRichDefault ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
+bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
+    rdfs:label "Bring the page's section structure into 1:1 sync with Stage 3's 25 sections"@en ;
+    backlog:asRole "the package maintainer" ;
+    backlog:wantsCapability "the new page's sections to match Stage 3 v1.2.0's 25-section structure exactly" ;
+    backlog:soThat "Stage4.E and Cross.B pass, closing the path-independent gap identified in the fit-gap analysis regardless of which Stage 4 pattern was chosen" ;
+    backlog:partOf bl:EpicAdoptRichDefault ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
 bl:StageOutput_Scope a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 2 (Scope) output"@en ;
     backlog:outputOfStage backlog:Stage_Scope ;
@@ -104,3 +148,9 @@ bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
     backlog:outputOfStage backlog:Stage_Objective ;
     backlog:consumesOutput bl:StageOutput_Goal ;
     backlog:hasStateDigest "f7485980c21d9e72295b86eca7bb948b166750537c537742419c82d4d2950d87" .
+
+bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
+    rdfs:label "Stage 5 (Backlog) output"@en ;
+    backlog:outputOfStage backlog:Stage_Backlog ;
+    backlog:consumesOutput bl:StageOutput_Objective ;
+    backlog:hasStateDigest "dd1f0ead9ea521efb7cb5111a035e98eb3cc05b2aabbb89b87aa328d21e0a3ba" .
