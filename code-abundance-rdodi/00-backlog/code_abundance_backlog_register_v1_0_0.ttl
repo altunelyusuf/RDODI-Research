@@ -64,8 +64,25 @@ bl:Exclusion_Stage1to3Recontent a backlog:ScopeExclusion, owl:NamedIndividual ;
     rdfs:label "Re-opening Stage 1-3 content quality"@en ;
     backlog:exclusionRationale "Stage 1-3 content quality was already addressed in v1.2.0 (academic/industrial depth rewrite) and is not the subject of this lineage. This lineage touches Stage 4 only, plus whatever Stage 3 structural sync (section count) Stage 4 conformance requires."@en .
 
+# ----------------------------------------------------------------------------
+# Stage 3 of 5 (Goal). Derived from the scope, not attached to the mission
+# directly (G13) -- carries both derivesFromScope and contributesToMission.
+# ----------------------------------------------------------------------------
+
+bl:GoalStage4Conformance a backlog:Goal, owl:NamedIndividual ;
+    rdfs:label "Bring Stage 4 into conformance with the currently-governing RDODI default"@en ;
+    backlog:hasGoalStatement "Whoever reads this package's Stage 4 artifact experiences the same kind of interactive companion RDODI's own governed standard calls for at the time they read it, not whatever pattern happened to be default when the package was first built."@en ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission .
+
 bl:StageOutput_Scope a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 2 (Scope) output"@en ;
     backlog:outputOfStage backlog:Stage_Scope ;
     backlog:consumesOutput bl:StageOutput_Mission ;
     backlog:hasStateDigest "f4855388983cb56fa99d45a0beb3afb8bcac3bdd4ee911ca0115b8c27db32cf8" .
+
+bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
+    rdfs:label "Stage 3 (Goal) output"@en ;
+    backlog:outputOfStage backlog:Stage_Goal ;
+    backlog:consumesOutput bl:StageOutput_Scope ;
+    backlog:hasStateDigest "58630de05c822af7f7f9519fc313faa544244599a59ca0b1d5bff7f4f7d36251" .
