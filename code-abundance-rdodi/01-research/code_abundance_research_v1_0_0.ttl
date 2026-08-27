@@ -1,0 +1,283 @@
+@prefix ca: <http://example.org/rdodi/code-abundance/research#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix res: <http://example.org/rdodi/research-ontology#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================================
+# RDODI Stage 1 — Research Artifact
+# Subject: code-abundance-rdodi
+# Primary source: Staples, B. (2026). "When Code Is Abundant." GitLab / LinkedIn.
+# Conforms to: rdodi-research:ResearchProject per
+#   RDODI_FourStage_Pipeline_Procedure_v1_2_1.md §2.2 (corrected 2026-08-27;
+#   supersedes the non-existent ResearchArtefact/ResearchArtifact naming).
+# Governance: OE_Operating_Discipline_v2_3_0.md (sha256 cf469352...);
+#   OE ABox knowledge_base_abox_v2_22_0.ttl (oe-pack copy, sha256 a6e090b8...).
+# ============================================================================
+
+<http://example.org/rdodi/code-abundance/research> a owl:Ontology ;
+    rdfs:label "Code Abundance Research Artifact v1.0.0"@en ;
+    dcterms:created "2026-08-27"^^xsd:date ;
+    dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
+    dcterms:description "RDODI Stage 1 Research artifact for the code-abundance-rdodi subject run: the economics and governance of AI-native software development, as argued in Staples (2026) and its cited industry cases."@en ;
+    dcterms:identifier "code_abundance_research_v1_0_0" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-08-27"^^xsd:date ;
+    dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
+    dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
+    rdfs:comment "ORIGINATION lineage: first RDODI subject run on this topic. Conforms to res:ResearchProject / res:Publication per the corrected Stage 1 procedure (v1.2.1) and validates against research_ontology_shacl_v1_1_0.ttl."@en ;
+    owl:versionIRI <http://example.org/rdodi/code-abundance/research/1.0.0> ;
+    owl:versionInfo "1.0.0" ;
+    prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> .
+
+# ----------------------------------------------------------------------------
+# The research corpus (res:ResearchProject)
+# ----------------------------------------------------------------------------
+
+ca:CodeAbundanceResearchCorpus a res:ResearchProject,
+        owl:NamedIndividual ;
+    rdfs:label "Code abundance research corpus: economics and governance of AI-native software development"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "A research corpus assembled to ground a scholarly review of Bill Staples' 'When Code Is Abundant' (2026), covering the primary source, the industry cases it cites (Stripe, Spotify, Amplitude), the Anthropic playbook it responds to, and independent commentary including critical coverage of GitLab's concurrent Act 2 restructuring."@en ;
+    dcterms:source "Primary source: Staples, B. (2026-08-24). 'When Code Is Abundant.' https://about.gitlab.com/blog/when-code-is-abundant/ (also cross-posted to LinkedIn, https://www.linkedin.com/pulse/when-code-abundant-bill-staples-8o0ec/)."@en ;
+    rdfs:member ca:Staples2026WhenCodeAbundant,
+        ca:GitLabAct2Letter2026,
+        ca:AnthropicAINativeSDLCPlaybook2026,
+        ca:AnthropicSecuresSDLC2026,
+        ca:StripeMinionsPart1_2026,
+        ca:StripeMinionsPart2_2026,
+        ca:InfoQStripeMinions2026,
+        ca:InfoQSpotifyHonk2026,
+        ca:CursorAmplitudeCaseStudy2026,
+        ca:AmplitudeLastBottleneck2026,
+        ca:DevOpsComAct2Commentary2026,
+        ca:MediumAct2LayoffCommentary2026,
+        ca:InfoWorldAct2Pricing2026,
+        ca:Goldratt1984TheGoal,
+        ca:Jevons1865TheCoalQuestion ;
+    skos:note "QUALITY SCORECARD (Stage1.E, 4 components). (1) Topic coverage: 14/14 primary-source-named concepts from the article's own section structure are represented in the concept inventory (Stage1.C, 14 >= 10 required). (2) Citation strength: 15 Publications, 13 independently verified via live web search/fetch against real, openable URLs (primary source, GitLab, Anthropic x2, Stripe x3, Spotify/InfoQ, Amplitude/Cursor x2, independent commentary x3); 2 are classic print sources cited by author/year/ISBN (Goldratt 1984) or full-text scan (Jevons 1865) rather than a live vendor blog. (3) Methodology compliance: primary source read in full via pdftotext extraction of the user-supplied PDF, not summarized from a snippet; every external claim in this corpus carries a dcterms:source (Stage1.D reference rule, 0 dangling). (4) Known limitation, disclosed rather than hidden: the primary source's two most specific quantitative claims -- monthly bugs falling from 715 to 319, and PR cycle time falling from 5.2 hours to 44 minutes, both attributed to Amplitude -- could NOT be independently verified against any publicly indexed Amplitude or Cursor publication found during this research (see ca:CursorAmplitudeCaseStudy2026 and ca:AmplitudeLastBottleneck2026). Per the Stage1.D reference rule these two figures are flagged unavailable rather than presented as independently confirmed."@en .
+
+# ----------------------------------------------------------------------------
+# Publications — primary source
+# ----------------------------------------------------------------------------
+
+ca:Staples2026WhenCodeAbundant a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Staples (2026) — When Code Is Abundant"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "The primary source under review. Argues that AI collapses the cost of code generation, shifting the binding constraint from producing code to trusting it, reframes the economic unit as cost per accepted change, and proposes a model- and cloud-neutral governance platform (GitLab's architectural bet) as the durable layer beneath agentic development."@en ;
+    dcterms:source "https://about.gitlab.com/blog/when-code-is-abundant/"@en ;
+    dcterms:date "2026-08-24"^^xsd:date .
+
+# ----------------------------------------------------------------------------
+# Publications — GitLab's own concurrent material (background / conflict-of-interest context)
+# ----------------------------------------------------------------------------
+
+ca:GitLabAct2Letter2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Staples (2026) — GitLab Act 2 (open letter)"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "GitLab's May 2026 restructuring letter, source of the article's framing that the cost of producing software collapsing expands demand for it, and the origin of the article's four architectural bets (agent platform, execution, context, governance). Coincided with headcount reduction and a flattened management structure."@en ;
+    dcterms:source "https://about.gitlab.com/blog/gitlab-act-2/"@en .
+
+# ----------------------------------------------------------------------------
+# Publications — the Anthropic playbook the article responds to
+# ----------------------------------------------------------------------------
+
+ca:AnthropicAINativeSDLCPlaybook2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Anthropic Applied AI team (2026) — The AI-Native SDLC Playbook"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Published 2026-08-21, three days before Staples' article, which opens by quoting this playbook's line 'Code is no longer the bottleneck.' Reorganizes the six-stage SDLC (Plan, Design, Build, Test, Deploy, Maintain) around versioned, machine-readable Markdown artifacts and hooks/skills as enforcement points."@en ;
+    dcterms:source "https://claude.com/blog/the-ai-native-sdlc-playbook"@en .
+
+ca:AnthropicSecuresSDLC2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Clinton, J. (2026) — How Anthropic secures its AI-native software development lifecycle"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Companion piece by Anthropic's Deputy CISO on the security-control composition referenced by the AI-Native SDLC Playbook."@en ;
+    dcterms:source "https://claude.com/blog/how-anthropic-secures-its-ai-native-software-development-lifecycle"@en .
+
+# ----------------------------------------------------------------------------
+# Publications — the three industry cases the article cites
+# ----------------------------------------------------------------------------
+
+ca:StripeMinionsPart1_2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Gray, A. (2026) — Minions: Stripe's one-shot, end-to-end coding agents"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Stripe's own engineering-blog account of Minions, its unattended coding agents, which the article cites as merging 1,000+ human-reviewed, agent-written pull requests weekly."@en ;
+    dcterms:source "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents"@en .
+
+ca:StripeMinionsPart2_2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Stripe Engineering (2026) — Minions Part 2"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Second installment detailing Minions' isolated devbox infrastructure, blueprint architecture (deterministic nodes plus agent loops), and selective test execution against a suite of 3M+ tests."@en ;
+    dcterms:source "https://stripe.dev/blog/minions-stripes-one-shot-end-to-end-coding-agents-part-2"@en .
+
+ca:InfoQStripeMinions2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "InfoQ (2026) — Stripe Engineers Deploy Minions"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Independent trade-press account confirming Minions' weekly PR volume (reported at 1,300/week by March 2026, up from 1,000) and noting all output is human-reviewed but contains no human-written code."@en ;
+    dcterms:source "https://www.infoq.com/news/2026/03/stripe-autonomous-coding-agents/"@en .
+
+ca:InfoQSpotifyHonk2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Curtis, D. (2026) — QCon London: Rewriting All of Spotify's Code Base, All the Time"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Independent report on Spotify's QCon London 2026 talk on Honk, the internal AI coding agent the article cites as having merged 1,500+ pull requests into production. Reports 1,000 merged PRs per 10 days and that Honk replaced deterministic migration scripts to handle the long tail of edge cases the scripts could not."@en ;
+    dcterms:source "https://www.infoq.com/news/2026/03/spotify-honk-rewrite/"@en .
+
+ca:CursorAmplitudeCaseStudy2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Cursor (2026) — Amplitude ships 3x more production code with Cursor"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Vendor case study reporting Amplitude's 3x increase in weekly production commits and 60-70% of low-risk pull requests merging without developer intervention. NOTE (citation-provenance finding): this source does not contain the article's specific '715 to 319 monthly bugs' or '5.2 hours to 44 minutes PR-cycle-time' figures; those two figures could not be independently verified against any publicly indexed Amplitude or Cursor publication as of this research and are flagged unavailable per the Stage 1 reference rule (BP-D41)."@en ;
+    dcterms:source "https://cursor.com/blog/amplitude"@en .
+
+ca:AmplitudeLastBottleneck2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Amplitude Engineering (2026) — The Last Bottleneck"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Amplitude's own blog on agent-driven investigation and monitoring; consulted while attempting to verify the article's specific bug-count and cycle-time figures, without success (see citation-provenance finding on ca:CursorAmplitudeCaseStudy2026)."@en ;
+    dcterms:source "https://amplitude.com/blog/the-last-bottleneck"@en .
+
+# ----------------------------------------------------------------------------
+# Publications — independent / critical commentary (comparative analysis material)
+# ----------------------------------------------------------------------------
+
+ca:DevOpsComAct2Commentary2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "DevOps.com (2026) — GitLab Act 2: Still an Open Book"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Independent commentary questioning whether GitLab's culture of transparency and collaboration survives the Act 2 transition, providing a counterpoint to the article's optimistic framing of the same restructuring."@en ;
+    dcterms:source "https://devops.com/gitlab-act-2-still-an-open-book/"@en .
+
+ca:MediumAct2LayoffCommentary2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "The Dev Loop (2026) — GitLab's Layoff Memo Denied What the Same Memo Described"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Critical commentary arguing GitLab's Act 2 letter denied being a cost-cutting exercise while describing using AI agents to automate reviews and approvals and to right-size roles accordingly — directly relevant to evaluating whether the article's 'engineering judgment does not become abundant' claim matches GitLab's own concurrent workforce decisions."@en ;
+    dcterms:source "https://thedevloop.medium.com/the-layoff-memo-that-denied-itself-in-100-words-10bbca9620b6"@en .
+
+ca:InfoWorldAct2Pricing2026 a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "InfoWorld (2026) — GitLab CEO sees developer tool bill increasing 100-fold"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Independent trade-press report on GitLab's shift to consumption-based pricing for agent work, evidencing that agent-driven volume growth also has a direct commercial dimension for GitLab as a vendor, relevant to assessing the article's disinterestedness."@en ;
+    dcterms:source "https://www.infoworld.com/article/4170263/gitlab-ceo-sees-developer-tool-bill-increasing-100-fold.html"@en .
+
+# ----------------------------------------------------------------------------
+# Publications — foundational economic/management theory the article invokes implicitly
+# ----------------------------------------------------------------------------
+
+ca:Goldratt1984TheGoal a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Goldratt, E. M., & Cox, J. (1984) — The Goal: A Process of Ongoing Improvement"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Origin of the Theory of Constraints, which the article invokes explicitly ('That is exactly what the Theory of Constraints predicts: remove one bottleneck and the system exposes the next one') to justify the cost-per-accepted-change reframing."@en ;
+    dcterms:source "Goldratt, E. M., & Cox, J. (1984). The Goal: A Process of Ongoing Improvement. North River Press. ISBN 978-0884271956."@en .
+
+ca:Jevons1865TheCoalQuestion a res:Publication,
+        owl:NamedIndividual ;
+    rdfs:label "Jevons, W. S. (1865) — The Coal Question"@en ;
+    rdfs:isDefinedBy <http://example.org/rdodi/research-ontology> ;
+    skos:definition "Origin of the Jevons paradox (efficiency gains increasing, not decreasing, aggregate resource consumption). Not cited by the article itself, but the closest formal economic analogue to its central claim that cheaper code production increases total demand for software; included for comparative analysis."@en ;
+    dcterms:source "Jevons, W. S. (1865). The Coal Question; An Inquiry Concerning the Progress of the Nation, and the Probable Exhaustion of Our Coal-Mines. Macmillan and Co. Full-text scan: https://archive.org/stream/bub_gb_nVtJUsGgLcoC/bub_gb_nVtJUsGgLcoC_djvu.txt"@en .
+
+# ----------------------------------------------------------------------------
+# Concept inventory (Stage1.C: >=10 primary-source-named concepts)
+# Modeled as skos:Concept individuals linked via dcterms:subject (standard,
+# non-fabricated vocabulary) since the shipped TBox has no ConceptInventory class.
+# ----------------------------------------------------------------------------
+
+ca:CodeAbundanceResearchCorpus dcterms:subject ca:C01_CostPerAcceptedChange,
+        ca:C02_CodeIsPrecious,
+        ca:C03_TheoryOfConstraints,
+        ca:C04_ThreeModes,
+        ca:C05_AgentPlatform,
+        ca:C06_Execution,
+        ca:C07_Context,
+        ca:C08_Governance,
+        ca:C09_PDLC,
+        ca:C10_Builder,
+        ca:C11_AgentsMdFormat,
+        ca:C12_Minions,
+        ca:C13_Honk,
+        ca:C14_GitLabDuoAgentPlatform .
+
+ca:C01_CostPerAcceptedChange a skos:Concept ;
+    rdfs:label "Cost per accepted change"@en ;
+    skos:definition "The article's proposed economic unit, replacing cost per line of code: bundles generation, environment setup, context, verification, review, remediation and governance."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C02_CodeIsPrecious a skos:Concept ;
+    rdfs:label "Code is precious (the 60-year constraint)"@en ;
+    skos:definition "The article's framing of the historical constraint software engineering organized around before AI: code as scarce, expensive, and fragile."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C03_TheoryOfConstraints a skos:Concept ;
+    rdfs:label "Theory of Constraints"@en ;
+    skos:definition "Explicitly invoked by the article to justify why speeding up generation alone does not speed up the whole system."@en ;
+    dcterms:source ca:Goldratt1984TheGoal .
+
+ca:C04_ThreeModes a skos:Concept ;
+    rdfs:label "Three modes of development (human-controlled legacy, agentically accelerated, autonomous)"@en ;
+    skos:definition "The article's claim that three modes coexist long-term rather than forming a single maturity curve."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C05_AgentPlatform a skos:Concept ;
+    rdfs:label "Agent platform (architectural pillar)"@en ;
+    skos:definition "One of the article's four architectural capabilities: the ability to create, customize and operate agents the organization owns."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C06_Execution a skos:Concept ;
+    rdfs:label "Execution (architectural pillar)"@en ;
+    skos:definition "Next-generation Git, artifact management, CI/CD, and machine-scale build/test/deploy capacity, per the article's four-pillar architecture."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C07_Context a skos:Concept ;
+    rdfs:label "Context (architectural pillar)"@en ;
+    skos:definition "A coherent, persistent picture of requirement, code, history, priority and constraints, instantiated by GitLab Orbit in the article."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C08_Governance a skos:Concept ;
+    rdfs:label "Governance (architectural pillar)"@en ;
+    skos:definition "Enforceable boundaries around security, compliance, quality, identity and permissions; the article's claim that governance, not model capability, is the binding constraint on autonomy."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C09_PDLC a skos:Concept ;
+    rdfs:label "Product Development Lifecycle (PDLC)"@en ;
+    skos:definition "The article's proposed successor to the SDLC once planning, building and operating collapse into continuous agentic loops."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C10_Builder a skos:Concept ;
+    rdfs:label "Builder (role)"@en ;
+    skos:definition "The article's broadened role covering any person -- engineer, designer, PM, marketer -- who can express intent, direct agents and evaluate results."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C11_AgentsMdFormat a skos:Concept ;
+    rdfs:label "AGENTS.md (open format)"@en ;
+    skos:definition "An open format for providing project instructions and context to coding agents, cited by the article as an example of portable organizational context."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
+
+ca:C12_Minions a skos:Concept ;
+    rdfs:label "Minions (Stripe's coding agents)"@en ;
+    skos:definition "Stripe's homegrown, unattended coding agents, cited by the article as merging 1,000+ human-reviewed pull requests weekly."@en ;
+    dcterms:source ca:StripeMinionsPart1_2026 .
+
+ca:C13_Honk a skos:Concept ;
+    rdfs:label "Honk (Spotify's coding agent)"@en ;
+    skos:definition "Spotify's background coding agent for large-scale code migration, cited by the article as having merged 1,500+ pull requests into production."@en ;
+    dcterms:source ca:InfoQSpotifyHonk2026 .
+
+ca:C14_GitLabDuoAgentPlatform a skos:Concept ;
+    rdfs:label "GitLab Duo Agent Platform"@en ;
+    skos:definition "GitLab's own platform for creating, customizing and operating owned agents, presented in the article as the concrete implementation of the 'agent platform' pillar."@en ;
+    dcterms:source ca:Staples2026WhenCodeAbundant .
