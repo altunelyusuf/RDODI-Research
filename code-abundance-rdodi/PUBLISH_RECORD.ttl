@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_2_1 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.2.1"@en ;
+pkg:Decision_v1_3_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.3.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.2.1"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_2_0 ;
+    owl:versionInfo "1.3.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_2_1 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
-    pub:manifestVerified 14 ;
-    pub:manifestTotal 14 ;
+    pub:manifestVerified 15 ;
+    pub:manifestTotal 15 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_2_1 ;
-    prov:generatedAtTime "2026-08-27T10:10:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_3_0 ;
+    prov:generatedAtTime "2026-08-27T12:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_2_1 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.2.1 (PATCH release)"@en ;
-    rdfs:comment "PATCH: documentation-only. Adds 00-proposals/FitGap_RDODI_v1_3_0_Alignment_v1_0_0.md after rdodi-ecosystem updated to v1.98.0 / procedure v1.3.0, which adopted this package's own template-drift handover as an owner ruling: the rich sidebar/tabs/chat pattern is now RDODI's default Stage 4 deliverable, with the single flowing anchor-page and native S6 generator retained as named variations, not deprecated. The fit-gap analysis verifies, against the actual new bytes: (1) Stages 1-3 are unaffected; (2) the existing single-flowing-page Stage 4 pattern remains a legitimate, explicitly-named option; (3) a path-independent gap exists regardless of which Stage 4 approach is chosen -- the current page (built for Stage 3's prior 21-section structure) is stale against Stage 3 v1.2.0's 25 sections, and a fresh BP-D34 check (not from memory) found 2 of 25 section titles exceed the 30-char pill threshold, meaning even the existing Variation used the wrong navigation shape (flat pill-bar rather than the grouped top-bar plus sidebar the rule actually calls for at this title-length mix); (4) adopting the new Default is a substantially larger undertaking, verified against the real build instructions and schema, requiring new content (quiz, glossary) this package has never authored, not just re-templating existing prose, though proportionality against RDODI's own existing corpus instantiation confirms this package's scale is comparable and not disproportionate to attempt. Two paths are stated plainly with no default recommendation, returned to the user for a scope decision before any further Stage 4 work proceeds."@en ;
-    pub:transcriptSHA256 "7f2a16f0fb50c9df2c00ce92a7e1ff3e2d42f4ed4303da869d2f453419b10bd8"^^xsd:string .
+pkg:Evidence_v1_3_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.3.0 (MINOR release)"@en ;
+    rdfs:comment "MINOR: adds a BRSF-governed backlog (00-backlog/code_abundance_backlog_register_v1_0_0.ttl) replacing the ad-hoc plan the user asked to avoid for Path B (adopting RDODI v1.3.0's new default interactive-page pattern). Built the full 5-stage lineage ceremony from backlog-roadmap-framework's LINEAGE_OPERATING_DISCIPLINE_v5_0_0.md: Mission -> Scope -> Goal -> Objective -> Backlog, each stage closing in its own separately-pushed git commit per G18 (order witnessed by the remote, not claimed). Level declared L2_EvidenceBound (target L3_Governed, review 2026-11-25), granularity Epic (stated as the coarsest ordinary choice per G1), deployment PlanningEvent->Iteration->DeploymentUnit mapped onto this package's existing git-tag-per-release pattern. One Epic (EPIC-1) decomposed into 4 Stories before planning, per G3: corpus-contract authoring, quiz/glossary content, instantiate-and-verify, and Stage3-to-Stage4 section-count sync (the path-independent gap the fit-gap analysis identified). Both real checks pass: backlog_pipeline_verify_v1_0_0.py (order; all 5 stage digests reproduce from the finished register) and backlog_validate_v1_4_0.py at the declared level (0 sh:Violation, 44 sh:Warning -- legitimate disclosures, not defects). Reaching 0 violations took 3 rounds of fixing against the shapes file's exact SPARQL text rather than the TBox's prose, including one real bug found and fixed: several property values carried @en language tags, making them rdf:langString where the shapes require plain xsd:string."@en ;
+    pub:transcriptSHA256 "c244a4731ccad34cbaa877d2cd23cc2ff9b5e808f8fac71aab64c83564508587"^^xsd:string .
