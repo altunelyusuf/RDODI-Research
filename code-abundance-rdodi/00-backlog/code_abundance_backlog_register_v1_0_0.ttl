@@ -26,4 +26,46 @@ bl:CodeAbundanceMission a backlog:Mission, owl:NamedIndividual ;
 bl:StageOutput_Mission a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 1 (Mission) output"@en ;
     backlog:outputOfStage backlog:Stage_Mission ;
-    backlog:hasStateDigest "d24c7567c48c36b556305314a4171d2eec2911436a2fcffc5f8fdc71172ffa75" .
+    backlog:hasStateDigest "d24c7567c48c36b556305314a4171d2eec2911436a2fcffc5f8fdc71172ffa75" ;
+    backlog:closedAtCommit "143dff605d2889b3ca35050925cbae78b099cf01" .
+
+# ----------------------------------------------------------------------------
+# Stage 2 of 5 (Scope). Deliverables enumerated clause-by-clause from the
+# Mission statement, per G17 -- each states what must be true, not what
+# someone will do.
+# ----------------------------------------------------------------------------
+
+bl:CodeAbundanceScope a backlog:ScopeStatement, owl:NamedIndividual ;
+    rdfs:label "code-abundance-rdodi Path B scope"@en ;
+    backlog:hasScopeText "Bring code-abundance-rdodi's Stage 4 deliverable into conformance with whichever RDODI Stage 4 pattern the currently-governing procedure specifies (as of this lineage: the rich sidebar/tabs/chat default, per procedure v1.3.0), while keeping Stages 1-3 gate-clean and every prior evidentiary disclosure intact."@en ;
+    backlog:requiresDeliverable bl:Deliverable_AllStagesGateClean, bl:Deliverable_DisclosedLimitsPreserved, bl:Deliverable_Stage4ConformsToCurrentDefault .
+
+bl:Deliverable_AllStagesGateClean a backlog:ScopeDeliverable, owl:NamedIndividual ;
+    rdfs:label "All four RDODI stages pass their gates at the version this lineage ships"@en ;
+    backlog:deliverableStatement "Research, domain, document, and interactive-page artifacts each pass every gate defined for their stage in the currently-governing RDODI procedure, re-run and verified, not asserted."@en .
+
+bl:Deliverable_DisclosedLimitsPreserved a backlog:ScopeDeliverable, owl:NamedIndividual ;
+    rdfs:label "Every previously-disclosed evidentiary limit remains visible in the new artifact"@en ;
+    backlog:deliverableStatement "The Amplitude citation-verification gap, the GitLab-conflict-of-interest note, and every other disclosed limitation already recorded in Stage 1-3 remain visible and unweakened in whatever Stage 4 artifact this lineage produces."@en .
+
+bl:Deliverable_Stage4ConformsToCurrentDefault a backlog:ScopeDeliverable, owl:NamedIndividual ;
+    rdfs:label "Stage 4 artifact instantiates the corpus-template default pattern"@en ;
+    backlog:deliverableStatement "A working HTML page produced via 08-brsf-corpus-template's instantiate_corpus_v1_0_0.py against a real corpus contract for this subject, verified per that mechanism's own five reference checks (renders; old corpus fully gone; 11 agents intact; SHACL >100KB present; zero page errors)."@en .
+
+bl:Exclusion_S6Reconciliation a backlog:ScopeExclusion, owl:NamedIndividual ;
+    rdfs:label "Reconciling the native S6 generator with the corpus-instantiation approach"@en ;
+    backlog:exclusionRationale "Named by the ecosystem itself as an open question, unchanged across multiple releases (28-interactive-html-surface/README_v1_1_0.md). Not this package's decision to make; out of scope for this lineage."@en .
+
+bl:Exclusion_SharedToolingEdits a backlog:ScopeExclusion, owl:NamedIndividual ;
+    rdfs:label "Modifying rdodi-ecosystem's own shared tooling or vocabulary"@en ;
+    backlog:exclusionRationale "B1 boundary: rdodi-ecosystem is owned by another session lineage. This package proposes findings (00-proposals/), it does not edit that package's files directly."@en .
+
+bl:Exclusion_Stage1to3Recontent a backlog:ScopeExclusion, owl:NamedIndividual ;
+    rdfs:label "Re-opening Stage 1-3 content quality"@en ;
+    backlog:exclusionRationale "Stage 1-3 content quality was already addressed in v1.2.0 (academic/industrial depth rewrite) and is not the subject of this lineage. This lineage touches Stage 4 only, plus whatever Stage 3 structural sync (section count) Stage 4 conformance requires."@en .
+
+bl:StageOutput_Scope a backlog:StageOutput, owl:NamedIndividual ;
+    rdfs:label "Stage 2 (Scope) output"@en ;
+    backlog:outputOfStage backlog:Stage_Scope ;
+    backlog:consumesOutput bl:StageOutput_Mission ;
+    backlog:hasStateDigest "f4855388983cb56fa99d45a0beb3afb8bcac3bdd4ee911ca0115b8c27db32cf8" .
