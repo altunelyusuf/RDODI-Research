@@ -1,0 +1,29 @@
+@prefix backlog: <http://example.org/backlog#> .
+@prefix bl: <http://example.org/rdodi/code-abundance/backlog#> .
+@prefix core: <http://www.w3.org/ns/prov#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================================
+# code-abundance-rdodi BRSF lineage register
+# Lineage ceremony declarations (LINEAGE_OPERATING_DISCIPLINE_v5_0_0.md):
+#   Level: L2_EvidenceBound. Rationale: real, executed gate-verification
+#     culture already exists (RDODI's own 4-stage pipeline); not yet at the
+#     deployment/drift/measured-objective enforcement L3/L4 require.
+#   Target level: L3_Governed. Review date: 2026-11-25.
+#   Granularity: Epic (coarsest ordinary choice, stated as such per G1).
+#   Deployment: PlanningEvent -> Iteration -> DeploymentUnit, mapped onto the
+#     git-tag-per-release pattern already used for every prior publish in
+#     this package.
+# Stage 1 of 5 (Mission). Each stage closes in its own commit per G18.
+# ============================================================================
+
+bl:CodeAbundanceMission a backlog:Mission, owl:NamedIndividual ;
+    rdfs:label "code-abundance-rdodi package mission"@en ;
+    backlog:hasMissionStatement "Produce and maintain a research companion to Staples (2026), 'When Code Is Abundant,' that is gate-verifiable at every RDODI stage, discloses rather than hides its own evidentiary limits, and keeps pace with RDODI's own evolving standard for what a Stage 4 deliverable is, rather than freezing at whatever pattern was current when the package was first built."@en .
+
+bl:StageOutput_Mission a backlog:StageOutput, owl:NamedIndividual ;
+    rdfs:label "Stage 1 (Mission) output"@en ;
+    backlog:outputOfStage backlog:Stage_Mission ;
+    backlog:hasStateDigest "d24c7567c48c36b556305314a4171d2eec2911436a2fcffc5f8fdc71172ffa75" .
