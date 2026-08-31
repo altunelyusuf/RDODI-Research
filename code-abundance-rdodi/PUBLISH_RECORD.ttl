@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_6_3 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.6.3"@en ;
+pkg:Decision_v1_7_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.7.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.6.3"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_6_2 ;
+    owl:versionInfo "1.7.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_6_3 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_6_3 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_6_3 ;
-    prov:generatedAtTime "2026-08-31T01:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_7_0 ;
+    prov:generatedAtTime "2026-08-31T03:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_6_3 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.6.3 (PATCH release)"@en ;
-    rdfs:comment "PATCH: user directly challenged the previous turn's offer to 'close all 7' L3 gaps, pointing out the lineage is still at Backlog stage with zero PBIs planned or Done. Confirmed by direct query before responding: 5/5 WorkItems Proposed, 0 PlanningEvent, 0 Iteration, 0 KickOff, 0 DeploymentUnit. Re-examined each of the 3 remaining gap classes against this reality rather than proceeding with the prior offer. Mission outcome (Out_InFlight) and Epic-level Definition of Done (appliesDefinitionOfDone, reusing the existing Backlog-level DoD rather than duplicating it) are both true, no-progress-claimed classifications/criteria statements, legitimately authorable before any work starts -- closed. The 6 (actually 5, prior turn's count was off by one) objective checkpoints each require a real checkpointDate + expectedValue prediction, which with zero planning in place would be fabricated -- the same G31 anti-pattern already caught and removed once this session. Explicitly left open rather than closed. Re-verified: pipeline order unchanged (5/5 digests reproduce), L2 still 0 violations, L3 re-test-driven 7 -> 5, matching exactly the 2 legitimate closures with the 5 checkpoint violations correctly untouched."@en ;
-    pub:transcriptSHA256 "f5cdb2875c1a98ee7e51a17826da15d160d97bef4ae9820c48f90dccf0ed6619"^^xsd:string .
+pkg:Evidence_v1_7_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.7.0 (MINOR release)"@en ;
+    rdfs:comment "MINOR: user asked for a full revisit of the mission-scope-goal-objective chain before any roadmap/planning work begins. Re-verified all 8 shapes currently targeting Mission in the shapes file (backlog_shacl_v1_73_0.ttl): all already satisfied. Re-confirmed the G28 scope-area derivation from the prior pass still holds unchanged. Closed the one remaining substantive gap: built the 3 missing mission-facing Goals (G29's own closure test), one per mission clause, each with a real Objective measuring that clause's CURRENT standing truth (distinct from the scope-facing objective, which measures this lineage's own area completion) -- Clause 1 (gate-verifiable at every stage): 3/4 RDODI stages fully clean, Stage 4 partial, re-checked directly. Clause 2 (discloses limits): 2/2 disclosed limitations confirmed still visible. Clause 3 (keeps pace with Stage 4's standard): honestly 0/1 -- the current artifact does not yet match the currently-governing default, which is precisely the gap this Epic exists to close. Re-ran G29's own closure test directly against the final register: 8 goals total, correctly split 3 mission-facing / 1 scope-facing / 1 containment-facing / 3 exclusion-facing -- complete by construction. Re-closed Stage_Goal/Objective/Backlog with recomputed digests (16/24/29 subjects) across two commits (content, then closedAtCommit backfill), matching this package's established two-step pattern. Re-verified after every step: pipeline order (5/5 digests reproduce), full SHACL 0 violations (116 warnings, all legitimate disclosures)."@en ;
+    pub:transcriptSHA256 "f889673d6669042610c90914fe11bd017a7f8adf84ffcdb6c668c4e200ae31e0"^^xsd:string .
