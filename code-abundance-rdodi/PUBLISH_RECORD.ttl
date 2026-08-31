@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_7_3 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.7.3"@en ;
+pkg:Decision_v1_8_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.8.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.7.3"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_7_2 ;
+    owl:versionInfo "1.8.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_7_3 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_7_3 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_7_3 ;
-    prov:generatedAtTime "2026-08-31T06:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_8_0 ;
+    prov:generatedAtTime "2026-08-31T07:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_7_3 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.7.3 (PATCH release)"@en ;
-    rdfs:comment "PATCH: user instructed reviving the BRSF methodology from BACKLOG_ROADMAP_FRAMEWORK_STANDARD_v1_70_0.md directly rather than continuing to infer the taxonomy piecemeal from TBox/SHACL property definitions. Found a genuine structural error: the standard documents two mutually exclusive Scope<->Objective properties -- fillsScope (Objective->Scope, for a scope-first lineage) and scopeRealizesObjective (Scope->Objective, for the reverse construction order) -- and this register had used scopeRealizesObjective throughout, despite this lineage being built explicitly scope-first (independently confirmed earlier by a G13 bidirectional-traversal test). A real contradiction between the property used and the actual construction order, invisible to SHACL since both directions are independently valid vocabulary for different lineages. Fixed: removed scopeRealizesObjective, added fillsScope in the correct direction. Also checked two advisories the standard names explicitly (StageOrderWitnessShape, ScopeContentLateShape) against this register for the first time -- both fire; verified via git merge-base that the 'later commit' advisory is a known imprecision in the check (tests commit-value inequality, not chronology) and confirmed the actual commit order is correct. Read the standard's own ScopeArea/Layer/ProductScopeKind/GoalFacing sections and confirmed everything built in earlier turns already matches the documented methodology. Re-verified: pipeline order unaffected (5/5 digests reproduce), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "4450da30bad0456220cd5a4b04f9dd33782b39198991f4004b2a7eb7c6e8fdf4"^^xsd:string .
+pkg:Evidence_v1_8_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.8.0 (MINOR release)"@en ;
+    rdfs:comment "MINOR: user challenged whether a single Epic could genuinely match the richness of all 4 RDODI stages' own gate requirements, and asked for real domain engineering rather than defended structure. Re-read the RDODI procedure's actual gate tables for all 4 stages and the 5 cross-stage gates directly, then checked concrete current state rather than assumed. Two real, previously-unowned findings: (1) Cross.D (all 4 stage files at one coherent release version) genuinely fails right now -- checked directly: v1.0.0/v1.1.0/v1.2.0/v1.1.0, four different versions, no backlog item addressed this. Added STORY-5. (2) Cross.A (Stage2=Stage3=Stage4 section count, 1:1:1) genuinely fails (25=25, page=21) -- but the deeper finding, confirmed by reading the corpus-instantiation template's own schema directly, is that STORY-4 as originally scoped ('sync 21 sections to 25') was the wrong fix for the artifact this Epic is building: the template organizes content as CATEGORIES(7) x PRINCIPLES(18) = 25, matching Stage 2's taxonomy exactly, but as a two-level hierarchy, not 25 flat page sections. Cross.A's literal wording does not transfer to that structure; its actual intent (full traceable coverage) does. Rescoped STORY-4 accordingly, resolving the obsolescence question left open for 3 turns. Checked before adding: whether ExecutionTask should exist yet -- its own definition names it as produced by planning a PBI into an iteration; with zero PlanningEvent/Iteration in this backlog, creating one now would repeat the checkpoint-fabrication error already caught once. Correctly stays absent. Backlog now 1 Epic, 5 Stories (was 4). Re-verified: pipeline order (Stage_Backlog digest recomputed to 30 subjects, reproduces; earlier stages unaffected), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "f9a1d4ef0c6428acc1fa67e851dd5bce6facc95be7ce43a0a43be21f6c2bd551"^^xsd:string .
