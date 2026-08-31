@@ -464,21 +464,24 @@ bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 3 (Goal) output"@en ;
     backlog:outputOfStage backlog:Stage_Goal ;
     backlog:consumesOutput bl:StageOutput_Scope ;
-    backlog:hasStateDigest "600d8d9dd92487ec08392c46b4847fb794aa67faa9c8c6682a9c5667eae36d52" .
+    backlog:hasStateDigest "600d8d9dd92487ec08392c46b4847fb794aa67faa9c8c6682a9c5667eae36d52" ;
+    backlog:closedAtCommit "6f19d5fa6e0976577be9471c1e3ba69a43127ad8" .
 
 bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 4 (Objective) output"@en ;
     backlog:outputOfStage backlog:Stage_Objective ;
     backlog:consumesOutput bl:StageOutput_Goal ;
-    backlog:hasStateDigest "6a0766e8192d355a438148529c04d3fd7d3c53a6b06a5120ab89c8a21e0c5274" .
+    backlog:hasStateDigest "6a0766e8192d355a438148529c04d3fd7d3c53a6b06a5120ab89c8a21e0c5274" ;
+    backlog:closedAtCommit "6f19d5fa6e0976577be9471c1e3ba69a43127ad8" .
 
 bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "8a9dda0eec0fb56f7214af696e4bbce171a39dde3b8e86a19e78152049eaf26a" .
+    backlog:hasStateDigest "8a9dda0eec0fb56f7214af696e4bbce171a39dde3b8e86a19e78152049eaf26a" ;
+    backlog:closedAtCommit "6f19d5fa6e0976577be9471c1e3ba69a43127ad8" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
