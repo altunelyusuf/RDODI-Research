@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_7_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.7.0"@en ;
+pkg:Decision_v1_7_1 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.7.1"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.7.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_6_3 ;
+    owl:versionInfo "1.7.1"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_7_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_7_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_7_0 ;
-    prov:generatedAtTime "2026-08-31T03:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_7_1 ;
+    prov:generatedAtTime "2026-08-31T04:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_7_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.7.0 (MINOR release)"@en ;
-    rdfs:comment "MINOR: user asked for a full revisit of the mission-scope-goal-objective chain before any roadmap/planning work begins. Re-verified all 8 shapes currently targeting Mission in the shapes file (backlog_shacl_v1_73_0.ttl): all already satisfied. Re-confirmed the G28 scope-area derivation from the prior pass still holds unchanged. Closed the one remaining substantive gap: built the 3 missing mission-facing Goals (G29's own closure test), one per mission clause, each with a real Objective measuring that clause's CURRENT standing truth (distinct from the scope-facing objective, which measures this lineage's own area completion) -- Clause 1 (gate-verifiable at every stage): 3/4 RDODI stages fully clean, Stage 4 partial, re-checked directly. Clause 2 (discloses limits): 2/2 disclosed limitations confirmed still visible. Clause 3 (keeps pace with Stage 4's standard): honestly 0/1 -- the current artifact does not yet match the currently-governing default, which is precisely the gap this Epic exists to close. Re-ran G29's own closure test directly against the final register: 8 goals total, correctly split 3 mission-facing / 1 scope-facing / 1 containment-facing / 3 exclusion-facing -- complete by construction. Re-closed Stage_Goal/Objective/Backlog with recomputed digests (16/24/29 subjects) across two commits (content, then closedAtCommit backfill), matching this package's established two-step pattern. Re-verified after every step: pipeline order (5/5 digests reproduce), full SHACL 0 violations (116 warnings, all legitimate disclosures)."@en ;
-    pub:transcriptSHA256 "f889673d6669042610c90914fe11bd017a7f8adf84ffcdb6c668c4e200ae31e0"^^xsd:string .
+pkg:Evidence_v1_7_1 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.7.1 (PATCH release)"@en ;
+    rdfs:comment "PATCH: user directly challenged the pattern of every prior 'revisit' turning into a re-run of the same two mechanical checks rather than a genuine content read. Did a full line-by-line read of the register for the first time in several turns and found 3 real problems, none of them SHACL violations: (1) the header comment had said 'discipline v5.0.0' since the very first commit, never updated across the framework's growth to v7.0.0 -- removed, now points at the AdoptionProfile as the single source of truth rather than duplicating it. (2) A real coherence gap: the Epic and all 4 Stories pursuesObjective'd only the original scope-facing objective; the other 7 objectives built across the last two turns (each already correctly metricMovableBy the Epic) were never actually pursued by any work item -- mechanically invisible, but real. Fixed: Epic now pursues all 8. Also corrected ObjNoOutOfAreaWork's own statement text, which described the old, incomplete state as the full picture. (3) AdoptionProfile's decision rationale was stale, citing an L3 measurement ('25 violations') from before the mission-facing goals existed. Re-test-drove L3 fresh: 8 violations (all 8 objectives need checkpoints), corrected the text with the real current number. Independently re-verified two specific factual claims rather than trusting their prose: re-ran all 18 RDODI gates live (still true), re-queried the Stage3/Stage4 section counts directly (still 25 vs 21, still real). Re-verified after every fix: pipeline order unaffected (5/5 digests reproduce), full SHACL 0 violations. STORY-4's obsolescence question from an earlier turn remains open and unresolved, explicitly re-raised rather than left silent."@en ;
+    pub:transcriptSHA256 "c882cbd6b7536a6a7e010849692804e442ce19fd921b26ae20117d310862c339"^^xsd:string .
