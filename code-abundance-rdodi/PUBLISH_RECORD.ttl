@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_5_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.5.0"@en ;
+pkg:Decision_v1_6_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.6.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.5.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_4_0 ;
+    owl:versionInfo "1.6.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_5_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_5_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 17 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_5_0 ;
-    prov:generatedAtTime "2026-08-27T16:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_6_0 ;
+    prov:generatedAtTime "2026-08-27T18:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_5_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.5.0 (MINOR release)"@en ;
-    rdfs:comment "MINOR: response to a direct user challenge asking whether the v1.4.0 'compliant' claim was actually comprehensively verified. Audited own tool usage first: only 2 of ~29 tools this framework now ships had ever been run against this register (backlog_pipeline_verify, backlog_validate). Ran a third, backlog_lineage_completeness_v1_1_0.py, for real. It requires backlog:LineageLayer individuals the shared TBox does not carry (they exist only in the framework's own internal register_abox) -- worked around locally by merging the public data rather than fabricating it, then ran the tool for real. Two outcomes: (1) a genuine, previously undetected defect in this register -- Epic/Story linkage only ever asserted the inverse partOf direction, never decomposesInto, which any SPARQL-based (non-OWL-inferencing) tool queries directly; reported 0 decomposition edges; fixed by adding the explicit decomposesInto triples; re-verified 4 edges now present, pipeline and L2 SHACL both re-confirmed clean after the fix. (2) The tool's LAYERS-table tier annotations do not reliably match current shape severities -- spot-checked MetricObservation specifically: the tool reports 'fails at L2', the actual shape (backlog_shacl_v1_72_0.ttl) enforces it at L4; this register's own clean L2 validate() run is consistent with the real shape, not the tool's stale annotation. Both findings filed as a proposal (00-proposals/Proposal_BRSF_LineageLayerGaps_v1_0_0.md) rather than fixed in the framework directly (B1/L-110). Checked and ruled not applicable to this register: backlog_number_origin and backlog_adoption_check only ever parse the framework's own TBox, never a register; backlog_reachability_gate checks class-design health of the vocabulary itself, not adopter content. The remaining 9 layers the completeness tool reports absent (MetricObservation, ExecutionTask, PlanningEvent, Iteration, Milestone, CrossCuttingInvariant, CostEstimate, Evidence, Forecast) are correctly and intentionally absent: this backlog has zero execution history by design (all items Proposed, per the user's own explicit instruction not to jump to implementation), and would become required as work actually begins, not now. Final state re-verified after every fix: pipeline order (5/5 digests reproduce), full SHACL at declared L2_EvidenceBound (0 sh:Violation, 86 sh:Warning)."@en ;
-    pub:transcriptSHA256 "60c59fdb6b4b196102679778c65a27768d54fd9738c2796d76d242333225fbc8"^^xsd:string .
+pkg:Evidence_v1_6_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.6.0 (MINOR release)"@en ;
+    rdfs:comment "MINOR: user directly challenged whether 1 Area/1 Goal/1 Objective/1 Epic was actually mature, given G29's own closure test names 8 required goals (mission x3 clauses, scope x1, containment x1, exclusion x3) where this lineage had 1. Confirmed real. Applied G28 first (scope derived by testing the Mission against an external taxonomy's structure, not paraphrase): built a reference table from the RDODI Four-Stage Pipeline Procedure v1.3.0's real 4-stage structure crossed against the 3 mission clauses, found the single existing Area (Stage 4 only) badly under-covered Clause 1 ('gate-verifiable at every RDODI stage', which the existing Deliverable already named all 4 stages for) -- split into 3 Areas matching each clause's actual footprint, re-pointed all 3 Deliverables to their correct area, and widened the one scope-facing Goal to cover all 3 areas per G29's exact wording (one goal covering EVERY area, not one goal per area). Then built the G29 completeness layer scoped to this session (containment + exclusion, mission-facing deferred as its own pass): 1 containment-facing Goal+Objective (verified 0 out-of-area work items by direct query) and 3 exclusion-facing Goals+Objectives, each with a real, checked baseline (e.g. 0 commits touching rdodi-ecosystem/ from this session, verified via git log against the actual clone). Adding this content to already-closed stages was correctly caught by backlog_pipeline_verify_v1_0_0.py (3 stage digests failed to reproduce) -- re-closed Stage_Goal/Objective/Backlog with recomputed digests reflecting the real new state, all three genuinely closing together in one commit, disclosed as such (not presented as separately ordered), with closedAtCommit backfilled in a follow-up commit per the framework's own established pending-commit precedent. Re-verified after every step: pipeline order (5/5 digests reproduce), full SHACL at L2 (0 violations). G29 test re-run directly against the final register: 5 of 8 required goals now present and correctly typed (scope-facing 1/1, containment-facing 1/1, exclusion-facing 3/3); mission-facing (3/3) remains open, explicitly deferred with the user's agreement."@en ;
+    pub:transcriptSHA256 "84156281329bfaa918a5ed8d2d954e9146a3b94d23fb3ecb29977fa798ea5afe"^^xsd:string .
