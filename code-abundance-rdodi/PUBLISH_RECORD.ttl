@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_6_2 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.6.2"@en ;
+pkg:Decision_v1_6_3 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.6.3"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.6.2"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_6_1 ;
+    owl:versionInfo "1.6.3"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_6_2 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_6_2 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_6_2 ;
-    prov:generatedAtTime "2026-08-31T00:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_6_3 ;
+    prov:generatedAtTime "2026-08-31T01:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_6_2 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.6.2 (PATCH release)"@en ;
-    rdfs:comment "PATCH: processed the returned handover (HANDOVER_backlog-roadmap-framework_to_code-abundance-rdodi_v1_0_0.md, uploaded by the user) confirming BRSF adopted Proposal_BRSF_ProductScopeKind_v1_0_0.md in full at v1.143.0 (commit 42585ab). Pulled the framework update (TBox 1.62.0->1.63.0, SHACL 1.72.0 with the new ProductScopeKindShape, register 9.8.0->9.9.0), cross-checked the changelog entry against the handover document -- both agree. Applied hasProductScopeKind to all 3 Deliverables using the exact classification the original proposal specified: Del_AllStagesGateClean and Del_DisclosedLimitsPreserved as Kind_NonFunctional (verification/reliability and transparency claims respectively), Del_Stage4ConformsToCurrentDefault as Kind_Functional (the one actual capability). Re-verified against the new BRSF version: pipeline order unaffected (5/5 digests reproduce, ProductScopeKind touches no pipeline-tracked stage type), full SHACL 0 violations. Confirmed directly that the new ProductScopeKindShape advisory stays silent on this register (genuinely mixed 2/1 split), consistent with BRSF's own test-drive against its own mixed 1/1 case in the same release."@en ;
-    pub:transcriptSHA256 "6eeceb8e3050f851ce94963af99b65f1ba4b8937de093f61b82f6b437dd8487c"^^xsd:string .
+pkg:Evidence_v1_6_3 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.6.3 (PATCH release)"@en ;
+    rdfs:comment "PATCH: user directly challenged the previous turn's offer to 'close all 7' L3 gaps, pointing out the lineage is still at Backlog stage with zero PBIs planned or Done. Confirmed by direct query before responding: 5/5 WorkItems Proposed, 0 PlanningEvent, 0 Iteration, 0 KickOff, 0 DeploymentUnit. Re-examined each of the 3 remaining gap classes against this reality rather than proceeding with the prior offer. Mission outcome (Out_InFlight) and Epic-level Definition of Done (appliesDefinitionOfDone, reusing the existing Backlog-level DoD rather than duplicating it) are both true, no-progress-claimed classifications/criteria statements, legitimately authorable before any work starts -- closed. The 6 (actually 5, prior turn's count was off by one) objective checkpoints each require a real checkpointDate + expectedValue prediction, which with zero planning in place would be fabricated -- the same G31 anti-pattern already caught and removed once this session. Explicitly left open rather than closed. Re-verified: pipeline order unchanged (5/5 digests reproduce), L2 still 0 violations, L3 re-test-driven 7 -> 5, matching exactly the 2 legitimate closures with the 5 checkpoint violations correctly untouched."@en ;
+    pub:transcriptSHA256 "f5cdb2875c1a98ee7e51a17826da15d160d97bef4ae9820c48f90dccf0ed6619"^^xsd:string .
