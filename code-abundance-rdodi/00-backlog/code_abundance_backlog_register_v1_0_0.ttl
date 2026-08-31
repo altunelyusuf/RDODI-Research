@@ -79,7 +79,6 @@ bl:CodeAbundanceScope a backlog:ScopeStatement, owl:NamedIndividual ;
     backlog:requiresDeliverable bl:Deliverable_AllStagesGateClean, bl:Deliverable_DisclosedLimitsPreserved, bl:Deliverable_Stage4ConformsToCurrentDefault ;
     backlog:decidedBy backlog:Owner ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:scopeRealizesObjective bl:ObjRDODIDefaultGatesPassing ;
     backlog:scopeForMission bl:CodeAbundanceMission ;
     backlog:hasScopeExclusion bl:Exclusion_S6Reconciliation, bl:Exclusion_SharedToolingEdits, bl:Exclusion_Stage1to3Recontent .
 
@@ -355,6 +354,7 @@ bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalStage4Conformance ;
+    backlog:fillsScope bl:CodeAbundanceScope ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
     # No hasCheckpoint (G31, discipline v7.0.0): this objective's real timing
     # depends on unpredictable engineering work (when Story 1 closes), not a
