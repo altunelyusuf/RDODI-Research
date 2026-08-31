@@ -20,7 +20,14 @@
 # Stage 1 of 5 (Mission). Each stage closes in its own commit per G18.
 # ============================================================================
 
+bl:CodeAbundanceLineage a backlog:Lineage, owl:NamedIndividual ;
+    rdfs:label "code-abundance-rdodi Path B lineage: Mission through Backlog"@en ;
+    backlog:lineageForMission bl:CodeAbundanceMission ;
+    backlog:lineageOrdinal "1"^^xsd:integer ;
+    backlog:lineageArchived false .
+
 bl:CodeAbundanceMission a backlog:Mission, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "code-abundance-rdodi package mission"@en ;
     backlog:hasMissionStatement "Produce and maintain a research companion to Staples (2026), 'When Code Is Abundant,' that is gate-verifiable at every RDODI stage, discloses rather than hides its own evidentiary limits, and keeps pace with RDODI's own evolving standard for what a Stage 4 deliverable is, rather than freezing at whatever pattern was current when the package was first built." ;
     backlog:decidedBy backlog:Owner ;
@@ -28,6 +35,7 @@ bl:CodeAbundanceMission a backlog:Mission, owl:NamedIndividual ;
     backlog:missionFor bl:CodeAbundanceBacklog .
 
 bl:StageOutput_Mission a backlog:StageOutput, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 1 (Mission) output"@en ;
     backlog:outputOfStage backlog:Stage_Mission ;
     backlog:hasStateDigest "d24c7567c48c36b556305314a4171d2eec2911436a2fcffc5f8fdc71172ffa75" ;
@@ -40,6 +48,7 @@ bl:StageOutput_Mission a backlog:StageOutput, owl:NamedIndividual ;
 # ----------------------------------------------------------------------------
 
 bl:AreaStage4Artifact a backlog:ScopeArea, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The code-abundance-rdodi Stage 4 artifact (04-interactive-page/)"@en ;
     skos:definition "The interactive-page HTML and its page ABox under code-abundance-rdodi/04-interactive-page/, whatever pattern the currently-governing RDODI procedure specifies for it."@en ;
     backlog:areaLocation "code-abundance-rdodi/04-interactive-page/" ;
@@ -47,6 +56,7 @@ bl:AreaStage4Artifact a backlog:ScopeArea, owl:NamedIndividual ;
     backlog:hasScopeLayer backlog:Layer_Product .
 
 bl:CodeAbundanceScope a backlog:ScopeStatement, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:coversArea bl:AreaStage4Artifact ;
     rdfs:label "code-abundance-rdodi Path B scope"@en ;
     backlog:hasScopeText "Bring code-abundance-rdodi's Stage 4 deliverable into conformance with whichever RDODI Stage 4 pattern the currently-governing procedure specifies (as of this lineage: the rich sidebar/tabs/chat default, per procedure v1.3.0), while keeping Stages 1-3 gate-clean and every prior evidentiary disclosure intact." ;
@@ -58,6 +68,7 @@ bl:CodeAbundanceScope a backlog:ScopeStatement, owl:NamedIndividual ;
     backlog:hasScopeExclusion bl:Exclusion_S6Reconciliation, bl:Exclusion_SharedToolingEdits, bl:Exclusion_Stage1to3Recontent .
 
 bl:Deliverable_AllStagesGateClean a backlog:ScopeDeliverable, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "All four RDODI stages pass their gates at the version this lineage ships"@en ;
     backlog:deliverableStatement "Research, domain, document, and interactive-page artifacts each pass every gate defined for their stage in the currently-governing RDODI procedure, re-run and verified, not asserted."@en ;
     backlog:derivesFromMissionClause "gate-verifiable at every RDODI stage" ;
@@ -65,6 +76,7 @@ bl:Deliverable_AllStagesGateClean a backlog:ScopeDeliverable, owl:NamedIndividua
     backlog:deliverableForArea bl:AreaStage4Artifact .
 
 bl:Deliverable_DisclosedLimitsPreserved a backlog:ScopeDeliverable, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Every previously-disclosed evidentiary limit remains visible in the new artifact"@en ;
     backlog:deliverableStatement "The Amplitude citation-verification gap, the GitLab-conflict-of-interest note, and every other disclosed limitation already recorded in Stage 1-3 remain visible and unweakened in whatever Stage 4 artifact this lineage produces."@en ;
     backlog:derivesFromMissionClause "discloses rather than hides its own evidentiary limits" ;
@@ -72,6 +84,7 @@ bl:Deliverable_DisclosedLimitsPreserved a backlog:ScopeDeliverable, owl:NamedInd
     backlog:deliverableForArea bl:AreaStage4Artifact .
 
 bl:Deliverable_Stage4ConformsToCurrentDefault a backlog:ScopeDeliverable, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 4 artifact instantiates the corpus-template default pattern"@en ;
     backlog:deliverableStatement "A working HTML page produced via 08-brsf-corpus-template's instantiate_corpus_v1_0_0.py against a real corpus contract for this subject, verified per that mechanism's own five reference checks (renders; old corpus fully gone; 11 agents intact; SHACL >100KB present; zero page errors)."@en ;
     backlog:derivesFromMissionClause "keeps pace with RDODI's own evolving standard for what a Stage 4 deliverable is" ;
@@ -79,6 +92,7 @@ bl:Deliverable_Stage4ConformsToCurrentDefault a backlog:ScopeDeliverable, owl:Na
     backlog:deliverableForArea bl:AreaStage4Artifact .
 
 bl:Exclusion_S6Reconciliation a backlog:ScopeExclusion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Reconciling the native S6 generator with the corpus-instantiation approach"@en ;
     backlog:excludesConcern "Reconciling 06-s6-exemplar/ with 08-brsf-corpus-template/ as alternate Stage 4 mechanisms." ;
     backlog:hasExclusionRationale "Named by the ecosystem itself as an open question, unchanged across multiple releases (28-interactive-html-surface/README_v1_1_0.md). Not this package's decision to make; out of scope for this lineage." ;
@@ -86,6 +100,7 @@ bl:Exclusion_S6Reconciliation a backlog:ScopeExclusion, owl:NamedIndividual ;
     backlog:hasScopeLayer backlog:Layer_Work .
 
 bl:Exclusion_SharedToolingEdits a backlog:ScopeExclusion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Modifying rdodi-ecosystem's own shared tooling or vocabulary"@en ;
     backlog:excludesConcern "Direct edits to any file under altunelyusuf/Ontologies/rdodi-ecosystem/." ;
     backlog:hasExclusionRationale "B1 boundary: rdodi-ecosystem is owned by another session lineage. This package proposes findings (00-proposals/), it does not edit that package's files directly." ;
@@ -93,6 +108,7 @@ bl:Exclusion_SharedToolingEdits a backlog:ScopeExclusion, owl:NamedIndividual ;
     backlog:hasScopeLayer backlog:Layer_Work .
 
 bl:Exclusion_Stage1to3Recontent a backlog:ScopeExclusion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Re-opening Stage 1-3 content quality"@en ;
     backlog:excludesConcern "Rewriting or re-scoring Stage 1-3 research, domain, or document prose quality." ;
     backlog:hasExclusionRationale "Stage 1-3 content quality was already addressed in v1.2.0 (academic/industrial depth rewrite) and is not the subject of this lineage. This lineage touches Stage 4 only, plus whatever Stage 3 structural sync (section count) Stage 4 conformance requires." ;
@@ -105,6 +121,7 @@ bl:Exclusion_Stage1to3Recontent a backlog:ScopeExclusion, owl:NamedIndividual ;
 # ----------------------------------------------------------------------------
 
 bl:GoalStage4Conformance a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Bring Stage 4 into conformance with the currently-governing RDODI default"@en ;
     backlog:hasGoalStatement "Whoever reads this package's Stage 4 artifact experiences the same kind of interactive companion RDODI's own governed standard calls for at the time they read it, not whatever pattern happened to be default when the package was first built." ;
     backlog:derivesFromScope bl:CodeAbundanceScope ;
@@ -122,12 +139,8 @@ bl:GoalStage4Conformance a backlog:Goal, owl:NamedIndividual ;
 bl:MetricGatePassRate a core:Metric, owl:NamedIndividual ;
     rdfs:label "Applicable Stage4/Cross gate pass rate"@en .
 
-bl:CheckpointStory1Complete a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
-    rdfs:label "Checkpoint: after Story 1 (corpus contract) closes"@en ;
-    backlog:checkpointDate "2026-09-15T00:00:00"^^xsd:dateTime ;
-    backlog:expectedValue "0.25"^^xsd:decimal .
-
 bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage4.A-K and Cross.B gates pass against the corpus-instantiated page"@en ;
     backlog:hasObjectiveStatement "The number of Stage 4 / Cross gates (per the currently-governing RDODI procedure) that pass when actually run against this package's interactive-page artifact, out of the total gates that apply to it." ;
     backlog:hasSuccessMetric bl:MetricGatePassRate ;
@@ -135,10 +148,16 @@ bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
     backlog:hasBaselineValue "0"^^xsd:decimal ;
     backlog:hasTargetValue "1"^^xsd:decimal ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
-    backlog:hasCheckpoint bl:CheckpointStory1Complete ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalStage4Conformance ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    # No hasCheckpoint (G31, discipline v7.0.0): this objective's real timing
+    # depends on unpredictable engineering work (when Story 1 closes), not a
+    # calendar date. The shipped ObjectiveCheckpoint class supports only
+    # checkpointDate, with no condition-based form -- a genuine framework
+    # gap, filed as a proposal rather than minted here (L-110/B1: not this
+    # session's vocabulary to extend on single-producer evidence). Not
+    # required at the declared L2 level.
 
 # ----------------------------------------------------------------------------
 # Stage 5 of 5 (Backlog). Granularity: Epic (coarsest ordinary choice, per
@@ -147,6 +166,7 @@ bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
 # ----------------------------------------------------------------------------
 
 bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Adopt RDODI v1.3.0 default interactive-page pattern for code-abundance-rdodi"@en ;
     backlog:hasWorkItemTitle "Adopt RDODI v1.3.0 default interactive-page pattern for code-abundance-rdodi" ;
     backlog:hasIdentifier "EPIC-1" ;
@@ -159,6 +179,7 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
 bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-1" ;
     backlog:hasState backlog:Proposed ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
@@ -174,6 +195,7 @@ bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
 bl:StoryQuizAndGlossary a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-2" ;
     backlog:hasState backlog:Proposed ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
@@ -189,6 +211,7 @@ bl:StoryQuizAndGlossary a backlog:Story, owl:NamedIndividual ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
 bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-3" ;
     backlog:hasState backlog:Proposed ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
@@ -204,6 +227,7 @@ bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
 bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-4" ;
     backlog:hasState backlog:Proposed ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
@@ -219,6 +243,7 @@ bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
 bl:StageOutput_Scope a backlog:StageOutput, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 2 (Scope) output"@en ;
     backlog:outputOfStage backlog:Stage_Scope ;
     backlog:consumesOutput bl:StageOutput_Mission ;
@@ -226,6 +251,7 @@ bl:StageOutput_Scope a backlog:StageOutput, owl:NamedIndividual ;
     backlog:closedAtCommit "716b270af8bb246b94cd4cd638fd1ef39b8372b5" .
 
 bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 3 (Goal) output"@en ;
     backlog:outputOfStage backlog:Stage_Goal ;
     backlog:consumesOutput bl:StageOutput_Scope ;
@@ -233,6 +259,7 @@ bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
     backlog:closedAtCommit "782fdf7a1514707af74263c2fddd86597a6dfa42" .
 
 bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 4 (Objective) output"@en ;
     backlog:outputOfStage backlog:Stage_Objective ;
     backlog:consumesOutput bl:StageOutput_Goal ;
@@ -240,6 +267,7 @@ bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
     backlog:closedAtCommit "77ac0388e8fd35414f8cfe3a4296d1a584046a12" .
 
 bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
@@ -253,21 +281,25 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
 # ----------------------------------------------------------------------------
 
 bl:DoDCriterionGatesPass a backlog:DoDCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Applicable RDODI stage gates pass"@en ;
     backlog:hasCheckQuery "Re-run every gate the currently-governing RDODI procedure defines for the stage(s) touched; verdict PASS for all of them." ;
     backlog:hasExpectedResult "PASS on every applicable gate." ;
     backlog:hasCriterionStatus backlog:NotYetEnforceable .
 
 bl:DoDCodeAbundance a backlog:DefinitionOfDone, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "code-abundance-rdodi Definition of Done"@en ;
     backlog:hasDoDCriterion bl:DoDCriterionGatesPass .
 
 bl:CommitmentCodeAbundance a backlog:Commitment, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "code-abundance-rdodi backlog commitment"@en ;
     backlog:commitsToGoal bl:GoalStage4Conformance ;
     backlog:commitsToDefinitionOfDone bl:DoDCodeAbundance .
 
 bl:CodeAbundanceBacklog a backlog:Backlog, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "code-abundance-rdodi backlog"@en ;
     backlog:hasIdentifier "code-abundance-rdodi-backlog" ;
     backlog:hasScopeStatement bl:CodeAbundanceScope ;
@@ -276,6 +308,7 @@ bl:CodeAbundanceBacklog a backlog:Backlog, owl:NamedIndividual ;
     backlog:appliesDefinitionOfDone bl:DoDCodeAbundance .
 
 bl:CodeAbundanceAdoptionProfile a backlog:AdoptionProfile, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "code-abundance-rdodi BRSF adoption profile"@en ;
     backlog:governsBacklog bl:CodeAbundanceBacklog ;
     backlog:adoptsFacet backlog:CoreFacet, backlog:EvidenceFacet, backlog:InvariantFacet, backlog:AuditFacet ;

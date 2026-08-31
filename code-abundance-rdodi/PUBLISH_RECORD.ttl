@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_3_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.3.0"@en ;
+pkg:Decision_v1_4_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.4.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.3.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_2_1 ;
+    owl:versionInfo "1.4.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_3_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
-    pub:manifestVerified 15 ;
-    pub:manifestTotal 15 ;
+    pub:manifestVerified 16 ;
+    pub:manifestTotal 16 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_3_0 ;
-    prov:generatedAtTime "2026-08-27T12:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_4_0 ;
+    prov:generatedAtTime "2026-08-27T14:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_3_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.3.0 (MINOR release)"@en ;
-    rdfs:comment "MINOR: adds a BRSF-governed backlog (00-backlog/code_abundance_backlog_register_v1_0_0.ttl) replacing the ad-hoc plan the user asked to avoid for Path B (adopting RDODI v1.3.0's new default interactive-page pattern). Built the full 5-stage lineage ceremony from backlog-roadmap-framework's LINEAGE_OPERATING_DISCIPLINE_v5_0_0.md: Mission -> Scope -> Goal -> Objective -> Backlog, each stage closing in its own separately-pushed git commit per G18 (order witnessed by the remote, not claimed). Level declared L2_EvidenceBound (target L3_Governed, review 2026-11-25), granularity Epic (stated as the coarsest ordinary choice per G1), deployment PlanningEvent->Iteration->DeploymentUnit mapped onto this package's existing git-tag-per-release pattern. One Epic (EPIC-1) decomposed into 4 Stories before planning, per G3: corpus-contract authoring, quiz/glossary content, instantiate-and-verify, and Stage3-to-Stage4 section-count sync (the path-independent gap the fit-gap analysis identified). Both real checks pass: backlog_pipeline_verify_v1_0_0.py (order; all 5 stage digests reproduce from the finished register) and backlog_validate_v1_4_0.py at the declared level (0 sh:Violation, 44 sh:Warning -- legitimate disclosures, not defects). Reaching 0 violations took 3 rounds of fixing against the shapes file's exact SPARQL text rather than the TBox's prose, including one real bug found and fixed: several property values carried @en language tags, making them rdf:langString where the shapes require plain xsd:string."@en ;
-    pub:transcriptSHA256 "c244a4731ccad34cbaa877d2cd23cc2ff9b5e808f8fac71aab64c83564508587"^^xsd:string .
+pkg:Evidence_v1_4_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.4.0 (MINOR release)"@en ;
+    rdfs:comment "MINOR: re-verified this package's lineage against backlog-roadmap-framework's grown state (Lineage Operating Discipline v5.0.0 -> v7.0.0, TBox v1.54.0 -> v1.62.0, SHACL v1.65.0 -> v1.72.0, adding G19-G32). Re-read the full discipline fresh from GitHub bytes per B5/BP-D2, not from memory of the earlier version. Checked whether the LineageAdaptation construct (Assess/Fit-gap/Ruling/Re-link) applied: it does not -- its own Stage_Assess definition scopes it specifically to converting scope-last lineages to scope-first, and this lineage was already scope-first (independently re-verified by bidirectional traversal). Instead re-ran the actual mechanical checks against the grown vocabulary. Found and fixed: (1) a new Lineage/belongsToLineage requirement (v1.69.0 shape) that every WorkItem, and per the property's own definition every BacklogConcept, must declare -- added one Lineage individual and tagged all 27 applicable individuals in the register, not only the 5 that were mechanically flagged, per the framework's own G20 lesson about partial adoption; the new Lineage individual itself then needed lineageForMission/lineageOrdinal/lineageArchived, found and fixed in a second pass. (2) A genuine G31 violation in this session's own prior work: ObjRDODIDefaultGatesPassing's checkpoint used a fabricated calendar date (2026-09-15) for a metric whose real timing depends on unpredictable engineering work (Story 1 closing), not the calendar -- removed rather than kept as false precision, since it was not required at the declared L2 level; filed as a proposal (00-proposals/Proposal_BRSF_ConditionBasedCheckpoint_v1_0_0.md) since the shipped ObjectiveCheckpoint class has no condition-based form and minting one is not this session's vocabulary to extend (L-110/B1). Also checked G32 (exclusion rationale must cite the mission or a checked current fact, not legacy/unverified authority) against all 3 exclusions: clean, no fix needed. Both real checks re-verified after every fix: backlog_pipeline_verify_v1_0_0.py (order; 5/5 digests reproduce, unaffected throughout since the new content was outside the tracked stage types) and backlog_validate_v1_4_0.py at the declared L2_EvidenceBound level (0 sh:Violation, 86 sh:Warning -- legitimate advisories, not defects)."@en ;
+    pub:transcriptSHA256 "d9136bbd8d2e8408c402dec46cc67b22819c258e99a6e869d47de1c73ebd0b4c"^^xsd:string .
