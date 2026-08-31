@@ -160,6 +160,84 @@ bl:GoalStage4Conformance a backlog:Goal, owl:NamedIndividual ;
 bl:MetricGatePassRate a core:Metric, owl:NamedIndividual ;
     rdfs:label "Applicable Stage4/Cross gate pass rate"@en .
 
+bl:MetricStagesFullyGateClean a core:Metric, owl:NamedIndividual ;
+    rdfs:label "RDODI stages (of 4) whose own defined gates all currently pass"@en .
+
+bl:MetricDisclosedLimitsVisible a core:Metric, owl:NamedIndividual ;
+    rdfs:label "Disclosed evidentiary limits currently visible and unweakened"@en .
+
+bl:MetricStage4MatchesCurrentDefault a core:Metric, owl:NamedIndividual ;
+    rdfs:label "Whether the current Stage 4 artifact matches the currently-governing RDODI default pattern"@en .
+
+bl:GoalMissionGateVerifiable a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The mission's gate-verifiability clause holds as a standing fact"@en ;
+    backlog:hasGoalStatement "This package is gate-verifiable at every RDODI stage: each of Stage 1 (Research), Stage 2 (Domain), Stage 3 (Document) and Stage 4 (Interactive Page) passes every gate the currently-governing RDODI procedure defines for it, checked now, not once at some earlier version." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Mission .
+
+bl:ObjStagesFullyGateClean a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "All 4 RDODI stages fully gate-clean, right now"@en ;
+    backlog:hasObjectiveStatement "Count of the 4 RDODI stages whose own defined gates all currently pass, re-run directly, not assumed from an earlier check. As of this pass: Stage 1, 2 and 3 are fully clean; Stage 4 is partial -- its mechanical gates (A/B/cov/sub/src, Cross.B) pass, but Stage4.E (section-count sync, 21 vs the document's 25) is separately, manually known non-conformant." ;
+    backlog:hasSuccessMetric bl:MetricStagesFullyGateClean ;
+    backlog:hasTargetDirection backlog:Dir_Increase ;
+    backlog:hasBaselineValue "3"^^xsd:decimal ;
+    backlog:hasTargetValue "4"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:EpicAdoptRichDefault ;
+    backlog:contributesToGoal bl:GoalMissionGateVerifiable ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+
+bl:GoalMissionDisclosureHolds a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The mission's disclosure clause holds as a standing fact"@en ;
+    backlog:hasGoalStatement "This package discloses rather than hides its own evidentiary limits: every limitation this research corpus found stays visible and unweakened in whatever artifact currently represents each RDODI stage, checked now." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Mission .
+
+bl:ObjDisclosedLimitsVisible a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Both disclosed limitations remain visible and unweakened"@en ;
+    backlog:hasObjectiveStatement "Count of this package's disclosed evidentiary limitations currently visible in their governing artifact. As of this pass: 2 -- the Amplitude PR-cycle-time/bug-count figures (flagged unavailable, Stage 1 quality scorecard) and GitLab's own commercial stake in the Agent Platform pillar (Stage 3, GitLab Duo Agent Platform section). Neither has been weakened or removed since first disclosed." ;
+    backlog:hasSuccessMetric bl:MetricDisclosedLimitsVisible ;
+    backlog:hasTargetDirection backlog:Dir_Hold ;
+    backlog:hasBaselineValue "2"^^xsd:decimal ;
+    backlog:hasTargetValue "2"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:EpicAdoptRichDefault ;
+    backlog:contributesToGoal bl:GoalMissionDisclosureHolds ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+
+bl:GoalMissionKeepsPace a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The mission's keeps-pace clause holds as a standing fact"@en ;
+    backlog:hasGoalStatement "This package keeps pace with RDODI's own evolving standard for what a Stage 4 deliverable is: the current Stage 4 artifact matches whatever pattern the currently-governing RDODI procedure names as its default, not whatever pattern was current when the package was first built." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Mission .
+
+bl:ObjStage4MatchesCurrentDefault a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The current Stage 4 artifact matches the currently-governing RDODI default"@en ;
+    backlog:hasObjectiveStatement "Binary check, counted: does the artifact at code-abundance-rdodi/04-interactive-page/ match the pattern RDODI procedure v1.3.0 names as its default. As of this pass: no -- the current artifact is the single-flowing-page pattern (built under procedure v1.2.2, before the v1.3.0 default changed), not the corpus-instantiated rich pattern v1.3.0 actually names as default. This is the precise, standing gap this Epic exists to close." ;
+    backlog:hasSuccessMetric bl:MetricStage4MatchesCurrentDefault ;
+    backlog:hasTargetDirection backlog:Dir_Increase ;
+    backlog:hasBaselineValue "0"^^xsd:decimal ;
+    backlog:hasTargetValue "1"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:EpicAdoptRichDefault ;
+    backlog:contributesToGoal bl:GoalMissionKeepsPace ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+
 bl:MetricOutOfAreaWork a core:Metric, owl:NamedIndividual ;
     rdfs:label "Work items pursuing something outside a declared Area"@en .
 
@@ -386,24 +464,21 @@ bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 3 (Goal) output"@en ;
     backlog:outputOfStage backlog:Stage_Goal ;
     backlog:consumesOutput bl:StageOutput_Scope ;
-    backlog:hasStateDigest "8842c6ee64150573d19a38779208f3f9d48ae582bd85b8b1b89635800463c1a1" ;
-    backlog:closedAtCommit "8242c83f4dc4c0cbac2d87875cddec98d4140722" .
+    backlog:hasStateDigest "600d8d9dd92487ec08392c46b4847fb794aa67faa9c8c6682a9c5667eae36d52" .
 
 bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 4 (Objective) output"@en ;
     backlog:outputOfStage backlog:Stage_Objective ;
     backlog:consumesOutput bl:StageOutput_Goal ;
-    backlog:hasStateDigest "dbef51fb6928992ce5816a85ba66a2a613ef60994c80872ebe069cc349a92ac1" ;
-    backlog:closedAtCommit "8242c83f4dc4c0cbac2d87875cddec98d4140722" .
+    backlog:hasStateDigest "6a0766e8192d355a438148529c04d3fd7d3c53a6b06a5120ab89c8a21e0c5274" .
 
 bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "a7c7a23a4a0a3a942b70b0c2d2ed73673c60ade8f408c8fe2327ed8b1c05940b" ;
-    backlog:closedAtCommit "8242c83f4dc4c0cbac2d87875cddec98d4140722" .
+    backlog:hasStateDigest "8a9dda0eec0fb56f7214af696e4bbce171a39dde3b8e86a19e78152049eaf26a" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
