@@ -8,11 +8,9 @@
 
 # ============================================================================
 # code-abundance-rdodi BRSF lineage register
-# Lineage ceremony declarations (LINEAGE_OPERATING_DISCIPLINE_v5_0_0.md):
-#   Level: L2_EvidenceBound. Rationale: real, executed gate-verification
-#     culture already exists (RDODI's own 4-stage pipeline); not yet at the
-#     deployment/drift/measured-objective enforcement L3/L4 require.
-#   Target level: L3_Governed. Review date: 2026-11-25.
+# Lineage ceremony declarations, as currently governed (see the
+# AdoptionProfile individual below for the live, current rationale --
+# this header is a pointer, not a duplicate source of truth):
 #   Granularity: Epic (coarsest ordinary choice, stated as such per G1).
 #   Deployment: PlanningEvent -> Iteration -> DeploymentUnit, mapped onto the
 #     git-tag-per-release pattern already used for every prior publish in
@@ -264,7 +262,7 @@ bl:GoalContainment a backlog:Goal, owl:NamedIndividual ;
 bl:ObjNoOutOfAreaWork a backlog:Objective, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Zero work items pursuing something outside a declared Area"@en ;
-    backlog:hasObjectiveStatement "Count of work items in this backlog (Epic, Stories) whose pursuesObjective chain does not trace to a declared ScopeArea via a Deliverable or the Goal. Currently 0 by direct check: all 5 work items pursue ObjRDODIDefaultGatesPassing, which the widened GoalStage4Conformance covers across all 3 areas." ;
+    backlog:hasObjectiveStatement "Count of work items in this backlog (Epic, Stories) whose pursuesObjective chain does not trace to a declared ScopeArea via a Deliverable or Goal. Currently 0 by direct check: the Epic pursues all 8 objectives it is declared able to move (metricMovableBy), each tracing to a declared Area through its Goal; the 4 Stories each pursue the scope-facing objective specifically, the one most directly tied to their own execution work." ;
     backlog:hasSuccessMetric bl:MetricOutOfAreaWork ;
     backlog:hasTargetDirection backlog:Dir_Hold ;
     backlog:hasBaselineValue "0"^^xsd:decimal ;
@@ -385,7 +383,9 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:notYetScoreable true ;
     backlog:hasScoreabilityReason "Freshly decomposed from the Epic in this planning pass; not yet run through the framework's prioritisation method." ;
     backlog:decomposesInto bl:StoryCorpusContract, bl:StoryQuizAndGlossary, bl:StoryInstantiateAndVerify, bl:StorySyncStage4ToStage3 ;
-    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing, bl:ObjStagesFullyGateClean,
+        bl:ObjDisclosedLimitsVisible, bl:ObjStage4MatchesCurrentDefault, bl:ObjNoOutOfAreaWork,
+        bl:ObjNoS6ReconciliationDecisions, bl:ObjNoSharedToolingEdits, bl:ObjNoStage1to3RecontentEdits .
 
 bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -525,4 +525,4 @@ bl:CodeAbundanceAdoptionProfile a backlog:AdoptionProfile, owl:NamedIndividual ;
     backlog:hasTargetConformanceLevel backlog:L3_Governed ;
     backlog:hasLevelReviewDate "2026-11-25T00:00:00"^^xsd:dateTime ;
     backlog:decidedBy backlog:Owner ;
-    backlog:hasDecisionRationale "Real, executed gate-verification culture already exists in this package (RDODI's own 4-stage pipeline, re-run and re-verified at every version); not yet at the deployment/drift/measured-objective enforcement L3/L4 require. L1 would understate what already holds: Done items in this package's history have carried verified evidence throughout, which is exactly L2's bar. Test-driven against L3_Governed on 2026-08-27 per G11: 0 violations on a scratch copy declaring L3, closed from an initial 25. Not promoted to L3 on that result alone -- with zero WorkItems yet Done, L3's Done-anchored checks (deployment verification, per-item re-verification, executable cross-cutting invariants) are vacuously satisfied rather than genuinely exercised, per G4 (completion is not accomplishment). Promotion is deferred until at least one Story completes a full cycle and L3 is re-tested against real Done/evidence content, not an empty backlog."^^xsd:string .
+    backlog:hasDecisionRationale "Real, executed gate-verification culture already exists in this package (RDODI's own 4-stage pipeline, re-run and re-verified at every version, most recently 2026-08-31); not yet at the deployment/drift/measured-objective enforcement L3/L4 require. L1 would understate what already holds: Done items in this package's history have carried verified evidence throughout, which is exactly L2's bar. L3_Governed re-test-driven fresh on 2026-08-31 (not trusted from any earlier measurement): 8 violations, all the same class -- every one of the register's 8 Objectives has no checkpoint. Not promoted to L3 on that result: with zero WorkItems yet Done, L3's Done-anchored checks (deployment verification, per-item re-verification, executable cross-cutting invariants) would be vacuously satisfied rather than genuinely exercised, per G4 (completion is not accomplishment); and per G31 (discipline v7.0.0), a checkpoint needs a real predicted value by a real date, which with zero PlanningEvent/Iteration/KickOff in this backlog would be fabricated, not derived from actual planning. Promotion is deferred until at least one Story completes a full cycle through real planning and L3 is re-tested against genuine Done/evidence content."^^xsd:string .
