@@ -47,6 +47,22 @@ bl:StageOutput_Mission a backlog:StageOutput, owl:NamedIndividual ;
 # someone will do.
 # ----------------------------------------------------------------------------
 
+bl:AreaAllStagesGateCleanliness a backlog:ScopeArea, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "All four RDODI stage artifacts (01-research/, 02-domain/, 03-document/, 04-interactive-page/)"@en ;
+    skos:definition "The full set of code-abundance-rdodi's RDODI-governed artifacts across all four pipeline stages, tested against the mission's own 'gate-verifiable at every RDODI stage' clause per G28 (the RDODI Four-Stage Pipeline Procedure v1.3.0 is the external taxonomy this area is derived from, not paraphrase)."@en ;
+    backlog:areaLocation "code-abundance-rdodi/{01-research,02-domain,03-document,04-interactive-page}/" ;
+    backlog:areaMeasure "18 of 18 mechanically-checked gates pass (Stage1.A/B, Stage2.A/C, Stage3.A/B/E.cov/E.sub/src, Stage4.A/B/cov/sub/src, Cross.B, 3 widget gates), re-run 2026-08-27. Stage4.E (section-count sync, 21 vs 25) is separately, manually known non-conformant pending Story-4." ;
+    backlog:hasScopeLayer backlog:Layer_Product .
+
+bl:AreaDisclosedLimits a backlog:ScopeArea, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Disclosed evidentiary limits across Research, Document, and Interactive-Page (not Domain)"@en ;
+    skos:definition "Where this package's disclosed limitations actually live, tested per G28 against the RDODI stage taxonomy: the Amplitude citation-verification gap in Stage 1's quality scorecard, the GitLab conflict-of-interest note in Stage 3's sections, and their preservation in whatever Stage 4 artifact exists. Stage 2 (Domain) is out: a taxonomy carries no evidentiary prose to disclose or hide."@en ;
+    backlog:areaLocation "code-abundance-rdodi/01-research/, code-abundance-rdodi/03-document/, code-abundance-rdodi/04-interactive-page/" ;
+    backlog:areaMeasure "2 named, disclosed limitations tracked: the Amplitude PR-cycle-time/bug-count figures (flagged unavailable, Stage 1 quality scorecard), and GitLab's own commercial stake in the Agent Platform pillar (Stage 3, GitLab Duo Agent Platform section). Both present and unweakened as of v1.2.0/v1.1.0." ;
+    backlog:hasScopeLayer backlog:Layer_Product .
+
 bl:AreaStage4Artifact a backlog:ScopeArea, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The code-abundance-rdodi Stage 4 artifact (04-interactive-page/)"@en ;
@@ -57,7 +73,7 @@ bl:AreaStage4Artifact a backlog:ScopeArea, owl:NamedIndividual ;
 
 bl:CodeAbundanceScope a backlog:ScopeStatement, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
-    backlog:coversArea bl:AreaStage4Artifact ;
+    backlog:coversArea bl:AreaAllStagesGateCleanliness, bl:AreaDisclosedLimits, bl:AreaStage4Artifact ;
     rdfs:label "code-abundance-rdodi Path B scope"@en ;
     backlog:hasScopeText "Bring code-abundance-rdodi's Stage 4 deliverable into conformance with whichever RDODI Stage 4 pattern the currently-governing procedure specifies (as of this lineage: the rich sidebar/tabs/chat default, per procedure v1.3.0), while keeping Stages 1-3 gate-clean and every prior evidentiary disclosure intact." ;
     backlog:requiresDeliverable bl:Deliverable_AllStagesGateClean, bl:Deliverable_DisclosedLimitsPreserved, bl:Deliverable_Stage4ConformsToCurrentDefault ;
@@ -73,7 +89,7 @@ bl:Deliverable_AllStagesGateClean a backlog:ScopeDeliverable, owl:NamedIndividua
     backlog:deliverableStatement "Research, domain, document, and interactive-page artifacts each pass every gate defined for their stage in the currently-governing RDODI procedure, re-run and verified, not asserted."@en ;
     backlog:derivesFromMissionClause "gate-verifiable at every RDODI stage" ;
     backlog:hasScopeLayer backlog:Layer_Product ;
-    backlog:deliverableForArea bl:AreaStage4Artifact .
+    backlog:deliverableForArea bl:AreaAllStagesGateCleanliness .
 
 bl:Deliverable_DisclosedLimitsPreserved a backlog:ScopeDeliverable, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -81,7 +97,7 @@ bl:Deliverable_DisclosedLimitsPreserved a backlog:ScopeDeliverable, owl:NamedInd
     backlog:deliverableStatement "The Amplitude citation-verification gap, the GitLab-conflict-of-interest note, and every other disclosed limitation already recorded in Stage 1-3 remain visible and unweakened in whatever Stage 4 artifact this lineage produces."@en ;
     backlog:derivesFromMissionClause "discloses rather than hides its own evidentiary limits" ;
     backlog:hasScopeLayer backlog:Layer_Product ;
-    backlog:deliverableForArea bl:AreaStage4Artifact .
+    backlog:deliverableForArea bl:AreaDisclosedLimits .
 
 bl:Deliverable_Stage4ConformsToCurrentDefault a backlog:ScopeDeliverable, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -122,14 +138,14 @@ bl:Exclusion_Stage1to3Recontent a backlog:ScopeExclusion, owl:NamedIndividual ;
 
 bl:GoalStage4Conformance a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
-    rdfs:label "Bring Stage 4 into conformance with the currently-governing RDODI default"@en ;
-    backlog:hasGoalStatement "Whoever reads this package's Stage 4 artifact experiences the same kind of interactive companion RDODI's own governed standard calls for at the time they read it, not whatever pattern happened to be default when the package was first built." ;
+    rdfs:label "Every declared scope area reaches its finish condition"@en ;
+    backlog:hasGoalStatement "All three scope areas -- all-stages gate cleanliness, disclosed-limits preservation, and Stage 4 conformance to the currently-governing RDODI default -- reach their finish condition, not only the easiest of the three. (Individual IRI retained from this goal's original narrower scope; widened per G29 rather than renamed, since it is the same standing scope-facing obligation, now correctly covering the full scope after the G28 area review.)" ;
     backlog:derivesFromScope bl:CodeAbundanceScope ;
     backlog:contributesToMission bl:CodeAbundanceMission ;
     backlog:decidedBy backlog:Owner ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
     backlog:hasGoalFacing backlog:Facing_Scope ;
-    backlog:goalCoversArea bl:AreaStage4Artifact .
+    backlog:goalCoversArea bl:AreaAllStagesGateCleanliness, bl:AreaDisclosedLimits, bl:AreaStage4Artifact .
 
 # ----------------------------------------------------------------------------
 # Stage 4 of 5 (Objective). Carries a real baseline/target per G4 -- an
@@ -138,6 +154,114 @@ bl:GoalStage4Conformance a backlog:Goal, owl:NamedIndividual ;
 
 bl:MetricGatePassRate a core:Metric, owl:NamedIndividual ;
     rdfs:label "Applicable Stage4/Cross gate pass rate"@en .
+
+bl:MetricOutOfAreaWork a core:Metric, owl:NamedIndividual ;
+    rdfs:label "Work items pursuing something outside a declared Area"@en .
+
+bl:MetricS6ReconciliationDecisions a core:Metric, owl:NamedIndividual ;
+    rdfs:label "S6/corpus-template reconciliation decisions made by this session"@en .
+
+bl:MetricSharedToolingEdits a core:Metric, owl:NamedIndividual ;
+    rdfs:label "Commits by this session touching altunelyusuf/Ontologies/rdodi-ecosystem/"@en .
+
+bl:MetricStage1to3RecontentEdits a core:Metric, owl:NamedIndividual ;
+    rdfs:label "Prose-quality rewrite edits to Stage 1-3 beyond what Stage 4 conformance structurally requires"@en .
+
+bl:GoalContainment a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "No work happens outside the three declared scope areas"@en ;
+    backlog:hasGoalStatement "Every work item in this backlog pursues something that traces to AreaAllStagesGateCleanliness, AreaDisclosedLimits, or AreaStage4Artifact. Without this, the lineage could reach its mission and its scope while spending effort nobody asked for, invisible to any measure that only counts what was required." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Containment ;
+    backlog:goalCoversArea bl:AreaAllStagesGateCleanliness, bl:AreaDisclosedLimits, bl:AreaStage4Artifact .
+
+bl:ObjNoOutOfAreaWork a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Zero work items pursuing something outside a declared Area"@en ;
+    backlog:hasObjectiveStatement "Count of work items in this backlog (Epic, Stories) whose pursuesObjective chain does not trace to a declared ScopeArea via a Deliverable or the Goal. Currently 0 by direct check: all 5 work items pursue ObjRDODIDefaultGatesPassing, which the widened GoalStage4Conformance covers across all 3 areas." ;
+    backlog:hasSuccessMetric bl:MetricOutOfAreaWork ;
+    backlog:hasTargetDirection backlog:Dir_Hold ;
+    backlog:hasBaselineValue "0"^^xsd:decimal ;
+    backlog:hasTargetValue "0"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:EpicAdoptRichDefault ;
+    backlog:contributesToGoal bl:GoalContainment ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+
+bl:GoalGuardS6Reconciliation a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "This lineage never decides the S6/corpus-template reconciliation question"@en ;
+    backlog:hasGoalStatement "An inverse goal, met by absence: no work item in this backlog resolves whether 06-s6-exemplar/ or 08-brsf-corpus-template/ is RDODI's canonical Stage 4 mechanism. That question is named by the ecosystem itself as open and unowned by this session." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Exclusion ;
+    backlog:guardsExclusion bl:Exclusion_S6Reconciliation .
+
+bl:ObjNoS6ReconciliationDecisions a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Zero S6/corpus-template reconciliation decisions made"@en ;
+    backlog:hasObjectiveStatement "Count of decisions this session has recorded resolving the S6-vs-corpus-template question, anywhere in this package's proposals or lineage. Currently 0: the fit-gap analysis and handover both stated the question as open and returned it to the RDODI session, never resolved it." ;
+    backlog:hasSuccessMetric bl:MetricS6ReconciliationDecisions ;
+    backlog:hasTargetDirection backlog:Dir_Hold ;
+    backlog:hasBaselineValue "0"^^xsd:decimal ;
+    backlog:hasTargetValue "0"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:EpicAdoptRichDefault ;
+    backlog:contributesToGoal bl:GoalGuardS6Reconciliation ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+
+bl:GoalGuardSharedToolingEdits a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "This lineage never edits rdodi-ecosystem's own files directly"@en ;
+    backlog:hasGoalStatement "An inverse goal, met by absence: no commit from this session modifies any file under altunelyusuf/Ontologies/rdodi-ecosystem/. Findings there are proposed (00-proposals/), never applied directly (B1)." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Exclusion ;
+    backlog:guardsExclusion bl:Exclusion_SharedToolingEdits .
+
+bl:ObjNoSharedToolingEdits a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Zero commits touching rdodi-ecosystem/ from this session"@en ;
+    backlog:hasObjectiveStatement "Count of commits in altunelyusuf/Ontologies whose diff touches rdodi-ecosystem/ and carries this session's authorship. Checked directly via git log against the actual Ontologies clone: 0." ;
+    backlog:hasSuccessMetric bl:MetricSharedToolingEdits ;
+    backlog:hasTargetDirection backlog:Dir_Hold ;
+    backlog:hasBaselineValue "0"^^xsd:decimal ;
+    backlog:hasTargetValue "0"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:EpicAdoptRichDefault ;
+    backlog:contributesToGoal bl:GoalGuardSharedToolingEdits ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+
+bl:GoalGuardStage1to3Recontent a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "This lineage never re-opens Stage 1-3 content quality"@en ;
+    backlog:hasGoalStatement "An inverse goal, met by absence: no Story or Task in this backlog rewrites or re-scores Stage 1-3 research, domain, or document prose quality, beyond whatever structural sync (section count) Stage 4 conformance requires." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Exclusion ;
+    backlog:guardsExclusion bl:Exclusion_Stage1to3Recontent .
+
+bl:ObjNoStage1to3RecontentEdits a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Zero prose-quality rewrite edits to Stage 1-3 beyond structural sync"@en ;
+    backlog:hasObjectiveStatement "Count of Stories/Tasks in this backlog whose wantsCapability names rewriting or re-scoring Stage 1-3 prose quality. Currently 0 of 4 Stories: STORY-4 (Stage3-to-Stage4 section sync) touches Stage 3's structure count only, not its prose quality, which STORY-4's own soThat clause already scopes to Stage4.E/Cross.B, not content rewrite." ;
+    backlog:hasSuccessMetric bl:MetricStage1to3RecontentEdits ;
+    backlog:hasTargetDirection backlog:Dir_Hold ;
+    backlog:hasBaselineValue "0"^^xsd:decimal ;
+    backlog:hasTargetValue "0"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:EpicAdoptRichDefault ;
+    backlog:contributesToGoal bl:GoalGuardStage1to3Recontent ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
 
 bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -256,24 +380,21 @@ bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 3 (Goal) output"@en ;
     backlog:outputOfStage backlog:Stage_Goal ;
     backlog:consumesOutput bl:StageOutput_Scope ;
-    backlog:hasStateDigest "58630de05c822af7f7f9519fc313faa544244599a59ca0b1d5bff7f4f7d36251" ;
-    backlog:closedAtCommit "782fdf7a1514707af74263c2fddd86597a6dfa42" .
+    backlog:hasStateDigest "8842c6ee64150573d19a38779208f3f9d48ae582bd85b8b1b89635800463c1a1" .
 
 bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 4 (Objective) output"@en ;
     backlog:outputOfStage backlog:Stage_Objective ;
     backlog:consumesOutput bl:StageOutput_Goal ;
-    backlog:hasStateDigest "f7485980c21d9e72295b86eca7bb948b166750537c537742419c82d4d2950d87" ;
-    backlog:closedAtCommit "77ac0388e8fd35414f8cfe3a4296d1a584046a12" .
+    backlog:hasStateDigest "dbef51fb6928992ce5816a85ba66a2a613ef60994c80872ebe069cc349a92ac1" .
 
 bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "dd1f0ead9ea521efb7cb5111a035e98eb3cc05b2aabbb89b87aa328d21e0a3ba" ;
-    backlog:closedAtCommit "2b1d6730e7a04b5fa4e2a4ecafa89e1e019371aa" .
+    backlog:hasStateDigest "a7c7a23a4a0a3a942b70b0c2d2ed73673c60ade8f408c8fe2327ed8b1c05940b" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
