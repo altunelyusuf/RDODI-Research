@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_4_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.4.0"@en ;
+pkg:Decision_v1_5_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.5.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.4.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_3_0 ;
+    owl:versionInfo "1.5.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_4_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
-    pub:manifestVerified 16 ;
-    pub:manifestTotal 16 ;
+    pub:manifestVerified 17 ;
+    pub:manifestTotal 17 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_4_0 ;
-    prov:generatedAtTime "2026-08-27T14:30:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_5_0 ;
+    prov:generatedAtTime "2026-08-27T16:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_4_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.4.0 (MINOR release)"@en ;
-    rdfs:comment "MINOR: re-verified this package's lineage against backlog-roadmap-framework's grown state (Lineage Operating Discipline v5.0.0 -> v7.0.0, TBox v1.54.0 -> v1.62.0, SHACL v1.65.0 -> v1.72.0, adding G19-G32). Re-read the full discipline fresh from GitHub bytes per B5/BP-D2, not from memory of the earlier version. Checked whether the LineageAdaptation construct (Assess/Fit-gap/Ruling/Re-link) applied: it does not -- its own Stage_Assess definition scopes it specifically to converting scope-last lineages to scope-first, and this lineage was already scope-first (independently re-verified by bidirectional traversal). Instead re-ran the actual mechanical checks against the grown vocabulary. Found and fixed: (1) a new Lineage/belongsToLineage requirement (v1.69.0 shape) that every WorkItem, and per the property's own definition every BacklogConcept, must declare -- added one Lineage individual and tagged all 27 applicable individuals in the register, not only the 5 that were mechanically flagged, per the framework's own G20 lesson about partial adoption; the new Lineage individual itself then needed lineageForMission/lineageOrdinal/lineageArchived, found and fixed in a second pass. (2) A genuine G31 violation in this session's own prior work: ObjRDODIDefaultGatesPassing's checkpoint used a fabricated calendar date (2026-09-15) for a metric whose real timing depends on unpredictable engineering work (Story 1 closing), not the calendar -- removed rather than kept as false precision, since it was not required at the declared L2 level; filed as a proposal (00-proposals/Proposal_BRSF_ConditionBasedCheckpoint_v1_0_0.md) since the shipped ObjectiveCheckpoint class has no condition-based form and minting one is not this session's vocabulary to extend (L-110/B1). Also checked G32 (exclusion rationale must cite the mission or a checked current fact, not legacy/unverified authority) against all 3 exclusions: clean, no fix needed. Both real checks re-verified after every fix: backlog_pipeline_verify_v1_0_0.py (order; 5/5 digests reproduce, unaffected throughout since the new content was outside the tracked stage types) and backlog_validate_v1_4_0.py at the declared L2_EvidenceBound level (0 sh:Violation, 86 sh:Warning -- legitimate advisories, not defects)."@en ;
-    pub:transcriptSHA256 "d9136bbd8d2e8408c402dec46cc67b22819c258e99a6e869d47de1c73ebd0b4c"^^xsd:string .
+pkg:Evidence_v1_5_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.5.0 (MINOR release)"@en ;
+    rdfs:comment "MINOR: response to a direct user challenge asking whether the v1.4.0 'compliant' claim was actually comprehensively verified. Audited own tool usage first: only 2 of ~29 tools this framework now ships had ever been run against this register (backlog_pipeline_verify, backlog_validate). Ran a third, backlog_lineage_completeness_v1_1_0.py, for real. It requires backlog:LineageLayer individuals the shared TBox does not carry (they exist only in the framework's own internal register_abox) -- worked around locally by merging the public data rather than fabricating it, then ran the tool for real. Two outcomes: (1) a genuine, previously undetected defect in this register -- Epic/Story linkage only ever asserted the inverse partOf direction, never decomposesInto, which any SPARQL-based (non-OWL-inferencing) tool queries directly; reported 0 decomposition edges; fixed by adding the explicit decomposesInto triples; re-verified 4 edges now present, pipeline and L2 SHACL both re-confirmed clean after the fix. (2) The tool's LAYERS-table tier annotations do not reliably match current shape severities -- spot-checked MetricObservation specifically: the tool reports 'fails at L2', the actual shape (backlog_shacl_v1_72_0.ttl) enforces it at L4; this register's own clean L2 validate() run is consistent with the real shape, not the tool's stale annotation. Both findings filed as a proposal (00-proposals/Proposal_BRSF_LineageLayerGaps_v1_0_0.md) rather than fixed in the framework directly (B1/L-110). Checked and ruled not applicable to this register: backlog_number_origin and backlog_adoption_check only ever parse the framework's own TBox, never a register; backlog_reachability_gate checks class-design health of the vocabulary itself, not adopter content. The remaining 9 layers the completeness tool reports absent (MetricObservation, ExecutionTask, PlanningEvent, Iteration, Milestone, CrossCuttingInvariant, CostEstimate, Evidence, Forecast) are correctly and intentionally absent: this backlog has zero execution history by design (all items Proposed, per the user's own explicit instruction not to jump to implementation), and would become required as work actually begins, not now. Final state re-verified after every fix: pipeline order (5/5 digests reproduce), full SHACL at declared L2_EvidenceBound (0 sh:Violation, 86 sh:Warning)."@en ;
+    pub:transcriptSHA256 "60c59fdb6b4b196102679778c65a27768d54fd9738c2796d76d242333225fbc8"^^xsd:string .

@@ -176,6 +176,7 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
     backlog:hasScoreabilityReason "Freshly decomposed from the Epic in this planning pass; not yet run through the framework's prioritisation method." ;
+    backlog:decomposesInto bl:StoryCorpusContract, bl:StoryQuizAndGlossary, bl:StoryInstantiateAndVerify, bl:StorySyncStage4ToStage3 ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
 bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
