@@ -89,6 +89,7 @@ bl:Deliverable_AllStagesGateClean a backlog:ScopeDeliverable, owl:NamedIndividua
     backlog:deliverableStatement "Research, domain, document, and interactive-page artifacts each pass every gate defined for their stage in the currently-governing RDODI procedure, re-run and verified, not asserted."@en ;
     backlog:derivesFromMissionClause "gate-verifiable at every RDODI stage" ;
     backlog:hasScopeLayer backlog:Layer_Product ;
+    backlog:hasProductScopeKind backlog:Kind_NonFunctional ;
     backlog:deliverableForArea bl:AreaAllStagesGateCleanliness .
 
 bl:Deliverable_DisclosedLimitsPreserved a backlog:ScopeDeliverable, owl:NamedIndividual ;
@@ -97,6 +98,7 @@ bl:Deliverable_DisclosedLimitsPreserved a backlog:ScopeDeliverable, owl:NamedInd
     backlog:deliverableStatement "The Amplitude citation-verification gap, the GitLab-conflict-of-interest note, and every other disclosed limitation already recorded in Stage 1-3 remain visible and unweakened in whatever Stage 4 artifact this lineage produces."@en ;
     backlog:derivesFromMissionClause "discloses rather than hides its own evidentiary limits" ;
     backlog:hasScopeLayer backlog:Layer_Product ;
+    backlog:hasProductScopeKind backlog:Kind_NonFunctional ;
     backlog:deliverableForArea bl:AreaDisclosedLimits .
 
 bl:Deliverable_Stage4ConformsToCurrentDefault a backlog:ScopeDeliverable, owl:NamedIndividual ;
@@ -105,6 +107,7 @@ bl:Deliverable_Stage4ConformsToCurrentDefault a backlog:ScopeDeliverable, owl:Na
     backlog:deliverableStatement "A working HTML page produced via 08-brsf-corpus-template's instantiate_corpus_v1_0_0.py against a real corpus contract for this subject, verified per that mechanism's own five reference checks (renders; old corpus fully gone; 11 agents intact; SHACL >100KB present; zero page errors)."@en ;
     backlog:derivesFromMissionClause "keeps pace with RDODI's own evolving standard for what a Stage 4 deliverable is" ;
     backlog:hasScopeLayer backlog:Layer_Product ;
+    backlog:hasProductScopeKind backlog:Kind_Functional ;
     backlog:deliverableForArea bl:AreaStage4Artifact .
 
 bl:Exclusion_S6Reconciliation a backlog:ScopeExclusion, owl:NamedIndividual ;
