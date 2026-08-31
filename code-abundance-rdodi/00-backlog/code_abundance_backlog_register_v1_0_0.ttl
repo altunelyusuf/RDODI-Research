@@ -261,7 +261,7 @@ bl:GoalContainment a backlog:Goal, owl:NamedIndividual ;
 bl:ObjNoOutOfAreaWork a backlog:Objective, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Zero work items pursuing something outside a declared Area"@en ;
-    backlog:hasObjectiveStatement "Count of work items in this backlog (Epic, Stories) whose pursuesObjective chain does not trace to a declared ScopeArea via a Deliverable or Goal. Currently 0 by direct check: the Epic pursues all 8 objectives it is declared able to move (metricMovableBy), each tracing to a declared Area through its Goal; the 4 Stories each pursue the scope-facing objective specifically, the one most directly tied to their own execution work." ;
+    backlog:hasObjectiveStatement "Count of work items in this backlog (Epic, Stories) whose pursuesObjective chain does not trace to a declared ScopeArea via a Deliverable or Goal. Currently 0 by direct check: the Epic pursues all 8 objectives it is declared able to move (metricMovableBy), each tracing to a declared Area through its Goal; all 5 Stories each pursue the scope-facing objective specifically, the one most directly tied to their own execution work." ;
     backlog:hasSuccessMetric bl:MetricOutOfAreaWork ;
     backlog:hasTargetDirection backlog:Dir_Hold ;
     backlog:hasBaselineValue "0"^^xsd:decimal ;
@@ -382,7 +382,7 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
     backlog:hasScoreabilityReason "Freshly decomposed from the Epic in this planning pass; not yet run through the framework's prioritisation method." ;
-    backlog:decomposesInto bl:StoryCorpusContract, bl:StoryQuizAndGlossary, bl:StoryInstantiateAndVerify, bl:StorySyncStage4ToStage3 ;
+    backlog:decomposesInto bl:StoryCorpusContract, bl:StoryQuizAndGlossary, bl:StoryInstantiateAndVerify, bl:StorySyncStage4ToStage3, bl:StoryAlignReleaseVersions ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing, bl:ObjStagesFullyGateClean,
         bl:ObjDisclosedLimitsVisible, bl:ObjStage4MatchesCurrentDefault, bl:ObjNoOutOfAreaWork,
         bl:ObjNoS6ReconciliationDecisions, bl:ObjNoSharedToolingEdits, bl:ObjNoStage1to3RecontentEdits .
@@ -443,11 +443,27 @@ bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
-    backlog:hasScoreabilityReason "Freshly decomposed from the Epic in this planning pass; not yet run through the framework's prioritisation method." ;
-    rdfs:label "Bring the page's section structure into 1:1 sync with Stage 3's 25 sections"@en ;
+    backlog:hasScoreabilityReason "Freshly rescoped in this domain-engineering pass; not yet run through the framework's prioritisation method." ;
+    rdfs:label "Establish what Cross.A/Cross.C mean for the corpus-instantiated pattern, and verify it"@en ;
     backlog:asRole "the package maintainer" ;
-    backlog:wantsCapability "the new page's sections to match Stage 3 v1.2.0's 25-section structure exactly" ;
-    backlog:soThat "Stage4.E and Cross.B pass, closing the path-independent gap identified in the fit-gap analysis regardless of which Stage 4 pattern was chosen" ;
+    backlog:wantsCapability "a real answer to whether the new artifact's structure (7 CATEGORIES + 18 PRINCIPLES = 25, matching Stage 2's full taxonomy) satisfies Cross.A/C's actual intent -- full traceable concept coverage -- even though it is not a literal 1:1 page-section mapping the old flowing-page pattern used" ;
+    backlog:soThat "Cross.A/C are verified against what this Epic actually produces, not against a gate written for a structurally different artifact; RESCOPED from this Story's original text ('sync 21 sections to 25'), which assumed the old flowing-page's literal per-section structure. Confirmed by direct domain analysis (2026-08-31): the corpus contract's own schema (01-schema/corpus_contract_v1_0_0.json) organizes content as CATEGORIES > PRINCIPLES, a two-level hierarchy, not 25 flat page sections -- the original Story would have been the wrong fix for the artifact this Epic is actually building toward." ;
+    backlog:partOf bl:EpicAdoptRichDefault ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
+bl:StoryAlignReleaseVersions a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-5" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
+    backlog:notYetScoreable true ;
+    backlog:hasScoreabilityReason "Freshly identified in this domain-engineering pass, by direct check against Cross.D; not yet run through the framework's prioritisation method." ;
+    rdfs:label "Align all 4 RDODI stage artifacts to one coherent release version"@en ;
+    backlog:asRole "the package maintainer" ;
+    backlog:wantsCapability "all 4 stage files (research, domain, document, interactive-page) at the same vX_Y_Z once Path B lands" ;
+    backlog:soThat "Cross.D passes -- currently, verified by direct check (2026-08-31): research v1.0.0, domain v1.1.0, document v1.2.0, page v1.1.0, four different versions, no coherent release exists. This gate was previously unowned by any backlog item; found by re-reading the RDODI procedure's own cross-stage gate table directly rather than continuing to work only from the Stage 4 slice." ;
     backlog:partOf bl:EpicAdoptRichDefault ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
@@ -480,8 +496,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "8a9dda0eec0fb56f7214af696e4bbce171a39dde3b8e86a19e78152049eaf26a" ;
-    backlog:closedAtCommit "6f19d5fa6e0976577be9471c1e3ba69a43127ad8" .
+    backlog:hasStateDigest "14e6409ead20ecaeab581f7bfc2b914b2fb0fae5afae714f54e216e62a911fc0" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
