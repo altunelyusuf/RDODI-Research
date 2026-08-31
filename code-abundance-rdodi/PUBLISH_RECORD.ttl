@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_6_1 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.6.1"@en ;
+pkg:Decision_v1_6_2 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.6.2"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.6.1"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_6_0 ;
+    owl:versionInfo "1.6.2"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_6_1 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_6_1 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_6_1 ;
-    prov:generatedAtTime "2026-08-27T19:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_6_2 ;
+    prov:generatedAtTime "2026-08-31T00:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_6_1 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.6.1 (PATCH release)"@en ;
-    rdfs:comment "PATCH: documentation-only. User asked whether BRSF distinguishes functional from non-functional product scope the way it distinguishes product scope from work scope. Checked directly against backlog_tbox_v1_62_0.ttl: ScopeLayer (Layer_Product/Layer_Work, PMBOK-sourced) is a real, closed two-member enumeration; searched the whole TBox for functional/non-functional/FURPS/ISO-25010/quality-attribute vocabulary and found none (only the unrelated OWL reserved term FunctionalProperty). Confirmed this is a real gap, not a preference, using this session's own register as evidence: its 3 Layer_Product-tagged Deliverables are demonstrably heterogeneous when re-read fresh -- 2 are quality/non-functional claims (gate-verification reliability; disclosure transparency) and 1 is a functional capability claim (instantiates a specific pattern) -- all three currently indistinguishable under one tag. Filed 00-proposals/Proposal_BRSF_ProductScopeKind_v1_0_0.md proposing a sibling ProductScopeKind enumeration (Kind_Functional/Kind_NonFunctional) domained to ScopeDeliverable only, citing ISO/IEC 25010 as a starting-point external anchor (alternative IEEE 830/29148 noted, no position taken on which the framework owner should prefer). Not implemented in BRSF's own files -- this session has no authority there and never edited one (verified: 0 commits from this session touch backlog-roadmap-framework/)."@en ;
-    pub:transcriptSHA256 "bc870e66d11d1a1ee00453d9ba6738fbbe62880d0bd16d54cac33e3f2a357009"^^xsd:string .
+pkg:Evidence_v1_6_2 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.6.2 (PATCH release)"@en ;
+    rdfs:comment "PATCH: processed the returned handover (HANDOVER_backlog-roadmap-framework_to_code-abundance-rdodi_v1_0_0.md, uploaded by the user) confirming BRSF adopted Proposal_BRSF_ProductScopeKind_v1_0_0.md in full at v1.143.0 (commit 42585ab). Pulled the framework update (TBox 1.62.0->1.63.0, SHACL 1.72.0 with the new ProductScopeKindShape, register 9.8.0->9.9.0), cross-checked the changelog entry against the handover document -- both agree. Applied hasProductScopeKind to all 3 Deliverables using the exact classification the original proposal specified: Del_AllStagesGateClean and Del_DisclosedLimitsPreserved as Kind_NonFunctional (verification/reliability and transparency claims respectively), Del_Stage4ConformsToCurrentDefault as Kind_Functional (the one actual capability). Re-verified against the new BRSF version: pipeline order unaffected (5/5 digests reproduce, ProductScopeKind touches no pipeline-tracked stage type), full SHACL 0 violations. Confirmed directly that the new ProductScopeKindShape advisory stays silent on this register (genuinely mixed 2/1 split), consistent with BRSF's own test-drive against its own mixed 1/1 case in the same release."@en ;
+    pub:transcriptSHA256 "6eeceb8e3050f851ce94963af99b65f1ba4b8937de093f61b82f6b437dd8487c"^^xsd:string .
