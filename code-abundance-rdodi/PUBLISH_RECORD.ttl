@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_7_1 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.7.1"@en ;
+pkg:Decision_v1_7_2 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.7.2"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.7.1"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_7_0 ;
+    owl:versionInfo "1.7.2"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_7_1 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_7_1 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_7_1 ;
-    prov:generatedAtTime "2026-08-31T04:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_7_2 ;
+    prov:generatedAtTime "2026-08-31T05:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_7_1 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.7.1 (PATCH release)"@en ;
-    rdfs:comment "PATCH: user directly challenged the pattern of every prior 'revisit' turning into a re-run of the same two mechanical checks rather than a genuine content read. Did a full line-by-line read of the register for the first time in several turns and found 3 real problems, none of them SHACL violations: (1) the header comment had said 'discipline v5.0.0' since the very first commit, never updated across the framework's growth to v7.0.0 -- removed, now points at the AdoptionProfile as the single source of truth rather than duplicating it. (2) A real coherence gap: the Epic and all 4 Stories pursuesObjective'd only the original scope-facing objective; the other 7 objectives built across the last two turns (each already correctly metricMovableBy the Epic) were never actually pursued by any work item -- mechanically invisible, but real. Fixed: Epic now pursues all 8. Also corrected ObjNoOutOfAreaWork's own statement text, which described the old, incomplete state as the full picture. (3) AdoptionProfile's decision rationale was stale, citing an L3 measurement ('25 violations') from before the mission-facing goals existed. Re-test-drove L3 fresh: 8 violations (all 8 objectives need checkpoints), corrected the text with the real current number. Independently re-verified two specific factual claims rather than trusting their prose: re-ran all 18 RDODI gates live (still true), re-queried the Stage3/Stage4 section counts directly (still 25 vs 21, still real). Re-verified after every fix: pipeline order unaffected (5/5 digests reproduce), full SHACL 0 violations. STORY-4's obsolescence question from an earlier turn remains open and unresolved, explicitly re-raised rather than left silent."@en ;
-    pub:transcriptSHA256 "c882cbd6b7536a6a7e010849692804e442ce19fd921b26ae20117d310862c339"^^xsd:string .
+pkg:Evidence_v1_7_2 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.7.2 (PATCH release)"@en ;
+    rdfs:comment "PATCH: user pointed out the prior turn's close read covered Mission and jumped to Goal/Objective/Epic content, skipping a genuine re-examination of Scope itself -- correctly noting that isn't the actual BRSF chain order. Re-read CodeAbundanceScope's own hasScopeText fresh and found a real inaccuracy: it said 'keeping Stages 1-3 gate-clean,' but AreaAllStagesGateCleanliness explicitly covers all four stages including Stage 4's own gates -- the prose was never updated when the single-area scope was split into 3 areas two turns earlier. Rewrote it to represent all three areas as co-equal. Checked, rather than assumed, whether scopeRealizesObjective had the same single-objective gap as the Epic's pursuesObjective (fixed the prior turn): read its actual definition ('the objective this scope exists to achieve') and confirmed it is correctly narrow to the scope-facing objective specifically -- not a gap, verified rather than pattern-matched into an unnecessary fix. Re-read all Goal/Objective statement texts fresh against the currently-verified facts: internally consistent, nothing further found. Re-verified: pipeline order unaffected (digests track which individuals exist, not property values), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "2f9cac7a3fd369d746c80700859ea93c0549d8f8b0b3dd5504ad6cf9b3974909"^^xsd:string .
