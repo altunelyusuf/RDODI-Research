@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_7_2 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.7.2"@en ;
+pkg:Decision_v1_7_3 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.7.3"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.7.2"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_7_1 ;
+    owl:versionInfo "1.7.3"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_7_2 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_7_2 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_7_2 ;
-    prov:generatedAtTime "2026-08-31T05:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_7_3 ;
+    prov:generatedAtTime "2026-08-31T06:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_7_2 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.7.2 (PATCH release)"@en ;
-    rdfs:comment "PATCH: user pointed out the prior turn's close read covered Mission and jumped to Goal/Objective/Epic content, skipping a genuine re-examination of Scope itself -- correctly noting that isn't the actual BRSF chain order. Re-read CodeAbundanceScope's own hasScopeText fresh and found a real inaccuracy: it said 'keeping Stages 1-3 gate-clean,' but AreaAllStagesGateCleanliness explicitly covers all four stages including Stage 4's own gates -- the prose was never updated when the single-area scope was split into 3 areas two turns earlier. Rewrote it to represent all three areas as co-equal. Checked, rather than assumed, whether scopeRealizesObjective had the same single-objective gap as the Epic's pursuesObjective (fixed the prior turn): read its actual definition ('the objective this scope exists to achieve') and confirmed it is correctly narrow to the scope-facing objective specifically -- not a gap, verified rather than pattern-matched into an unnecessary fix. Re-read all Goal/Objective statement texts fresh against the currently-verified facts: internally consistent, nothing further found. Re-verified: pipeline order unaffected (digests track which individuals exist, not property values), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "2f9cac7a3fd369d746c80700859ea93c0549d8f8b0b3dd5504ad6cf9b3974909"^^xsd:string .
+pkg:Evidence_v1_7_3 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.7.3 (PATCH release)"@en ;
+    rdfs:comment "PATCH: user instructed reviving the BRSF methodology from BACKLOG_ROADMAP_FRAMEWORK_STANDARD_v1_70_0.md directly rather than continuing to infer the taxonomy piecemeal from TBox/SHACL property definitions. Found a genuine structural error: the standard documents two mutually exclusive Scope<->Objective properties -- fillsScope (Objective->Scope, for a scope-first lineage) and scopeRealizesObjective (Scope->Objective, for the reverse construction order) -- and this register had used scopeRealizesObjective throughout, despite this lineage being built explicitly scope-first (independently confirmed earlier by a G13 bidirectional-traversal test). A real contradiction between the property used and the actual construction order, invisible to SHACL since both directions are independently valid vocabulary for different lineages. Fixed: removed scopeRealizesObjective, added fillsScope in the correct direction. Also checked two advisories the standard names explicitly (StageOrderWitnessShape, ScopeContentLateShape) against this register for the first time -- both fire; verified via git merge-base that the 'later commit' advisory is a known imprecision in the check (tests commit-value inequality, not chronology) and confirmed the actual commit order is correct. Read the standard's own ScopeArea/Layer/ProductScopeKind/GoalFacing sections and confirmed everything built in earlier turns already matches the documented methodology. Re-verified: pipeline order unaffected (5/5 digests reproduce), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "4450da30bad0456220cd5a4b04f9dd33782b39198991f4004b2a7eb7c6e8fdf4"^^xsd:string .
