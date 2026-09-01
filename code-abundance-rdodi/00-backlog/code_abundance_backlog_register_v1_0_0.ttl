@@ -232,6 +232,49 @@ bl:Evidence_StoryQuizAndGlossary a backlog:Evidence, owl:NamedIndividual ;
     backlog:verifiedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
     backlog:hasVerificationMethod "Checked directly, this session: (1) all 18 PRINCIPLES' apply fields rewritten with content specific to that concept's own argument, drawn from the real Stage 3 text; (2) python3 check: 18 total, 18 distinct strings; (3) python3 check: 0 entries still start with the old templated prefix 'When evaluating a similar claim, check what this report checked'; (4) confirmed the real template tab list (Overview, Principle Explorer, Interact, Citations, About) directly from the source HTML, not assumed -- Citations tab is already fed by STORY-1's 15 real citations; Principle Explorer is already fed by the 18 real principles; Overview corresponds to MISSION, already present. Quiz dropped per explicit owner instruction; Glossary role treated as satisfied by the principles' own real short/en_short fields, the mechanism's actual equivalent, not a separate structure with nowhere to render." .
 
+bl:Iteration2 a backlog:Iteration, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Iteration 2"@en ;
+    backlog:hasIdentifier "ITER-2" ;
+    backlog:hasCapacity "3"^^xsd:decimal .
+
+bl:TaskPatchCitationsTable a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Replace the static Citations table with this subject's real 15 citations"@en ;
+    backlog:hasIdentifier "TASK-2" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:hasTaskType backlog:Task_Implementation ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:memberOfContainer bl:Iteration2 .
+
+bl:TaskCleanStaticLCWKBContent a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Remove or replace hardcoded LCWKB-specific content outside the const-replacement mechanism (COMPANY_DATA, UI-chrome placeholder/example text)"@en ;
+    backlog:hasIdentifier "TASK-3" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:hasTaskType backlog:Task_Implementation ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:memberOfContainer bl:Iteration2 .
+
+bl:TaskVerifyNoResidualSubjectContent a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Verify programmatically that no LCWKB-specific term remains, then run the template's own 5 reference checks"@en ;
+    backlog:hasIdentifier "TASK-4" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:hasTaskType backlog:Task_Verification ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:dependsOn bl:TaskPatchCitationsTable, bl:TaskCleanStaticLCWKBContent ;
+    backlog:memberOfContainer bl:Iteration2 .
+
+bl:PlanEvent_Story3 a backlog:PlanningEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Planning event: commit STORY-3 to Iteration 2"@en ;
+    backlog:plansItem bl:StoryInstantiateAndVerify ;
+    backlog:plannedInto bl:Iteration2 ;
+    backlog:plannedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
+    backlog:plannedBy backlog:Owner ;
+    backlog:producesTask bl:TaskPatchCitationsTable, bl:TaskCleanStaticLCWKBContent, bl:TaskVerifyNoResidualSubjectContent .
+
 bl:Roadmap1 a backlog:Roadmap, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "code-abundance-rdodi Path B roadmap"@en ;
@@ -536,7 +579,7 @@ bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-3" ;
     backlog:hasState backlog:Proposed ;
-    backlog:scheduledInHorizon backlog:Later ;
+    backlog:scheduledInHorizon backlog:Now ;
     backlog:rankedOnRoadmap bl:Roadmap1 ;
     backlog:hasRoadmapRank "3"^^xsd:integer ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
@@ -546,10 +589,10 @@ bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
     backlog:hasScoreabilityReason "Freshly decomposed from the Epic in this planning pass; not yet run through the framework's prioritisation method." ;
-    rdfs:label "Instantiate the corpus and verify per the template's own reference checks"@en ;
+    rdfs:label "Instantiate the corpus, then clean the template of the prior subject's content and verify per the template's own reference checks"@en ;
     backlog:asRole "the package maintainer" ;
-    backlog:wantsCapability "to run instantiate_corpus_v1_0_0.py against a real source page and this subject's corpus contract, then verify the result" ;
-    backlog:soThat "the claim 'this page works' is checked the same way the template's own build instructions require, not asserted" ;
+    backlog:wantsCapability "to run instantiate_corpus_v1_0_0.py against a real source page and this subject's corpus contract, THEN remove every remaining trace of the source page's own prior subject (LCWKB) from sections the const-replacement mechanism does not reach, before verifying the result -- rescoped after finding, during the real instantiation attempt, that the const-replacement mechanism only reaches 5 of the schema's 6 required fields and none of its optional ones, leaving real prior-subject content (a static Citations table, hardcoded UI-chrome example text, an entire untouched COMPANY_DATA comparison) sitting in the output" ;
+    backlog:soThat "the claim 'this page works' is checked the same way the template's own build instructions require, AND the page genuinely represents this subject rather than silently carrying the prior one -- direct user finding: 'You write the definitions of done without considering the actual effect on the real artifacts.' The DoD as originally written checked the 5 reference criteria the template's build instructions name, but never asked whether sections outside the const-replacement mechanism's reach were clean; found real, disclosed content that fails exactly that unchecked question." ;
     backlog:partOf bl:EpicAdoptRichDefault ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
@@ -557,7 +600,7 @@ bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-4" ;
     backlog:hasState backlog:Proposed ;
-    backlog:scheduledInHorizon backlog:Later ;
+    backlog:scheduledInHorizon backlog:Next ;
     backlog:rankedOnRoadmap bl:Roadmap1 ;
     backlog:hasRoadmapRank "4"^^xsd:integer ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
@@ -624,8 +667,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "8f6ad0268a982f786c034414bf94cb696bc93fc8323502f8dd29ac179f6cd241" ;
-    backlog:closedAtCommit "fe1f9ff572bec16f3314aebba79cf305522b76f3" .
+    backlog:hasStateDigest "e150cc6b37cd6f0102427a2122736005b5a0243e4467081fb6ed0622c8b04c70" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
