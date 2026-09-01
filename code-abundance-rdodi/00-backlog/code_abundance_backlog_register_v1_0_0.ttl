@@ -157,6 +157,67 @@ bl:GoalStage4Conformance a backlog:Goal, owl:NamedIndividual ;
 bl:MetricGatePassRate a core:Metric, owl:NamedIndividual ;
     rdfs:label "Applicable Stage4/Cross gate pass rate"@en .
 
+bl:Estimate_Story1 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-1 (corpus contract)"@en ;
+    backlog:hasEffortEstimate "5"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: 18 PRINCIPLES + 7 CATEGORIES + 15 CITATIONS (now including the 2 disclosed limitations) + RELATIONS, each a real structured-authoring task against a fixed schema, no prior comparable item in this backlog to measure or draw an analogy from." ;
+    backlog:hasEstimateConfidence "Medium"^^xsd:string ;
+    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+
+bl:Estimate_Story2 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-2 (quiz and glossary)"@en ;
+    backlog:hasEffortEstimate "5"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: real content authoring genuinely grounded in Stage 1-3 research, not templated filler -- comparable in kind and scale to STORY-1's own authoring load." ;
+    backlog:hasEstimateConfidence "Medium"^^xsd:string ;
+    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+
+bl:Estimate_Story3 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-3 (instantiate and verify)"@en ;
+    backlog:hasEffortEstimate "3"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: mechanical -- run instantiate_corpus_v1_0_0.py, then check the template's own 5 reference checks -- lower authoring load than STORY-1/2, but real debugging risk against a script this session has not yet run." ;
+    backlog:hasEstimateConfidence "Low"^^xsd:string ;
+    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+
+bl:Estimate_Story4 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-4 (Cross.A/C for the new pattern)"@en ;
+    backlog:hasEffortEstimate "2"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: the analysis half is largely already done (this session's own domain-engineering pass); the verify half is a direct check against STORY-3's real output, not new authoring." ;
+    backlog:hasEstimateConfidence "Medium"^^xsd:string ;
+    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+
+bl:Estimate_Story5 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-5 (version alignment)"@en ;
+    backlog:hasEffortEstimate "1"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: mechanical version-bump and manifest-regeneration work, the same release ceremony this package has already executed 9 times this session." ;
+    backlog:hasEstimateConfidence "High"^^xsd:string ;
+    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+
+bl:Iteration1 a backlog:Iteration, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Iteration 1"@en ;
+    backlog:hasIdentifier "ITER-1" ;
+    backlog:hasCapacity "5"^^xsd:decimal ;
+    backlog:iterationStart "2026-08-31T00:00:00Z"^^xsd:dateTime ;
+    backlog:iterationEnd "2026-09-14T00:00:00Z"^^xsd:dateTime .
+
+bl:TaskAuthorCorpusJSON a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Write the corpus_contract JSON file matching 01-schema/corpus_contract_v1_0_0.json"@en ;
+    backlog:hasIdentifier "TASK-1" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:hasTaskType backlog:Task_Implementation ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:memberOfContainer bl:Iteration1 .
+
+bl:PlanEvent_Story1 a backlog:PlanningEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Planning event: commit STORY-1 to Iteration 1"@en ;
+    backlog:plansItem bl:StoryCorpusContract ;
+    backlog:plannedInto bl:Iteration1 ;
+    backlog:plannedAt "2026-08-31T00:00:00Z"^^xsd:dateTime ;
+    backlog:plannedBy backlog:Owner ;
+    backlog:producesTask bl:TaskAuthorCorpusJSON .
+
 bl:MetricStagesFullyGateClean a core:Metric, owl:NamedIndividual ;
     rdfs:label "RDODI stages (of 4) whose own defined gates all currently pass"@en .
 
@@ -391,8 +452,9 @@ bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-1" ;
     backlog:hasState backlog:Proposed ;
-    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog, bl:Iteration1 ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story1 ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
     backlog:hasScoreabilityReason "Freshly decomposed from the Epic in this planning pass; not yet run through the framework's prioritisation method." ;
@@ -409,6 +471,7 @@ bl:StoryQuizAndGlossary a backlog:Story, owl:NamedIndividual ;
     backlog:hasState backlog:Proposed ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story2 ;
     backlog:dependsOn bl:StoryCorpusContract ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
@@ -426,6 +489,7 @@ bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
     backlog:hasState backlog:Proposed ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story3 ;
     backlog:dependsOn bl:StoryCorpusContract, bl:StoryQuizAndGlossary ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
@@ -443,6 +507,7 @@ bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:hasState backlog:Proposed ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story4 ;
     backlog:dependsOn bl:StoryInstantiateAndVerify ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
@@ -460,6 +525,7 @@ bl:StoryAlignReleaseVersions a backlog:Story, owl:NamedIndividual ;
     backlog:hasState backlog:Proposed ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story5 ;
     backlog:dependsOn bl:StoryInstantiateAndVerify, bl:StorySyncStage4ToStage3 ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
@@ -500,8 +566,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "14e6409ead20ecaeab581f7bfc2b914b2fb0fae5afae714f54e216e62a911fc0" ;
-    backlog:closedAtCommit "15849c5c41da0c7387429edb55716801d285b52e" .
+    backlog:hasStateDigest "8f6ad0268a982f786c034414bf94cb696bc93fc8323502f8dd29ac179f6cd241" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
