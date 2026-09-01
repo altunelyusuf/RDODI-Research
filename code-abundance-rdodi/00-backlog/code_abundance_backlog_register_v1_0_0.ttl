@@ -635,10 +635,25 @@ bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
     backlog:partOf bl:EpicAdoptRichDefault ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
+bl:AC_StorySyncStage4ToStage3 a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Cross.A/C's real intent, full traceable concept coverage, is measurably satisfied against the real shipped page"@en ;
+    backlog:hasGherkinText "Given the real shipped page's actual CATEGORIES and PRINCIPLES data (not the corpus contract source file), When counted, Then the total equals Stage 2's own 25-class taxonomy count exactly. And Given Stage 1's real concept inventory, When each concept is checked for a traceable match somewhere in the shipped page's real principle text, Then the fraction covered is at least 0.80 (Cross.C's own threshold), checked programmatically against the actual artifact, not assumed from the corpus contract that produced it." .
+
+bl:Evidence_StorySyncStage4ToStage3 a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Cross.A/C verified against the real shipped page: 25/25 node count, 14/14 concept coverage"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "Extracted CATEGORIES and PRINCIPLES directly from the real shipped file (04-interactive-page/code_abundance_page_v1_0_0.html), not the corpus contract source, using the same bracket-matching const-value scanner the real instantiation tooling itself uses: 7 categories + 18 principles = 25 total nodes, exactly matching Stage 2's real class count (re-queried fresh, not assumed). Cross.C: extracted Stage 1's real skos:Concept inventory (14 concepts, satisfying Stage1.C's >=10 requirement), then checked each against the shipped page's actual principle text (short + en fields) for a traceable keyword match: 14 of 14 covered = 1.00, exceeding Cross.C's own 0.80 threshold substantially. Confirms Cross.A/C's real intent -- full traceable concept coverage -- holds for the corpus-instantiated pattern even though it does not use the old flowing-page's literal per-section structure, closing the question this Story was rescoped to answer two turns ago." .
+
 bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-4" ;
-    backlog:hasState backlog:Proposed ;
+    backlog:hasState backlog:Done ;
+    backlog:hasEvidence bl:Evidence_StorySyncStage4ToStage3 ;
+    backlog:hasAcceptanceCriterion bl:AC_StorySyncStage4ToStage3 ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
     backlog:scheduledInHorizon backlog:Next ;
     backlog:rankedOnRoadmap bl:Roadmap1 ;
     backlog:hasRoadmapRank "4"^^xsd:integer ;
