@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_15_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.15.0"@en ;
+pkg:Decision_v1_16_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.16.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.15.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_14_0 ;
+    owl:versionInfo "1.16.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_15_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_15_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 22 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_15_0 ;
-    prov:generatedAtTime "2026-09-01T11:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_16_0 ;
+    prov:generatedAtTime "2026-09-01T12:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_15_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.15.0 (STORY-3 closed -- first real Path B interactive-page artifact shipped)"@en ;
-    rdfs:comment "MINOR: continuation of last turn's real execution. Copied the cleaned, verified page to its real package location (04-interactive-page/code_abundance_page_v1_0_0.html, 976187 bytes). Closed the backlog with real, per-item Evidence: TASK-2 (Citations table patched, programmatically confirmed old citations absent and new ones present); TASK-3 (systematic cleaning -- COMPANY_DATA, SKOS_TTL, and LINEAGE_TTL, the last explicitly documented as regenerated-not-hand-edited and found still carrying 236KB of the prior subject's own lineage history, all emptied; COACH_AGENT honestly replaced rather than fabricated; a genuine functional bug in an intent-detection regex keyed to the prior subject's own framework names fixed); TASK-4 (real headless Playwright verification, including catching and fixing a genuine bug this session's own earlier fix had introduced -- a hardcoded 5-company key list crashing against the newly-emptied COMPANY_DATA, found via a real JS stack trace, fixed by deriving the key list from actual data, then re-verified: 0 console/page errors across load and real tab interaction). STORY-3 itself closed with its own Evidence and a real, observable-behaviour AcceptanceCriterion. Filed a second proposal to the corpus-template's owner: optional fields are left with the prior subject's data when a new corpus omits them rather than being emptied, demonstrated with the real bug this caused. Not applied upstream (B1). Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "0bd1fc1bdc1eda665b0ef75b3fd3b70864fb4f218591c7b785e07ec6a51fbbc7"^^xsd:string .
+pkg:Evidence_v1_16_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.16.0 (STORY-4 closed -- Cross.A/C verified against the real shipped page)"@en ;
+    rdfs:comment "MINOR: with a real Path B artifact now shipped (STORY-3), ran the verification STORY-4 was rescoped for two turns ago. Extracted CATEGORIES + PRINCIPLES directly from the real shipped file (not the corpus contract source) using the same bracket-matching scanner the real instantiation tooling uses: 7 + 18 = 25 nodes, exactly matching Stage 2's real class count, re-queried fresh. Extracted Stage 1's real skos:Concept inventory (14 concepts, independently confirming Stage1.C's own >=10 requirement) and checked each against the shipped page's actual principle text: 14 of 14 covered = 1.00, well above Cross.C's 0.80 threshold. Confirms precisely what the earlier domain-engineering finding predicted: Cross.A's literal wording does not apply to this pattern, but its real intent (full traceable concept coverage) holds, verified against the real artifact rather than assumed from its source data. Closed with real Evidence and an observable-behaviour AcceptanceCriterion. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "fc1e6b0c97341a698417b6a2f133b841cb4f9d6af3f911f67983500df18a3a43"^^xsd:string .
