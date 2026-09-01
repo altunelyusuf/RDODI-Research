@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_10_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.10.0"@en ;
+pkg:Decision_v1_11_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.11.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.10.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_9_0 ;
+    owl:versionInfo "1.11.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_10_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_10_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_10_0 ;
-    prov:generatedAtTime "2026-08-31T10:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_11_0 ;
+    prov:generatedAtTime "2026-09-01T00:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_10_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.10.0 (MINOR release)"@en ;
-    rdfs:comment "MINOR: user gave the go-ahead to run planning and asked precisely whether this package has real deployment packages. Answered by checking BRSF's own Package class fresh: 'a deployable business function, released as a unit' with hasPackageVersion -- exactly what this package's own git-tag-per-release history already is (9 real releases shipped this session alone). None exists yet for this Epic's own work specifically, since nothing has shipped -- correctly not fabricated. Ran the actual planning ceremony: CostEstimate (Basis_Judged, honest for a first-ever iteration with no historical velocity) on all 5 Stories; opened Iteration 1 (capacity 5, 2 real weeks, dated to today); given the dependency chain is linear, only STORY-1 is unblocked and its own estimate (5) exactly fills the declared capacity -- committed via a real PlanningEvent. Real SHACL violations surfaced and fixed as found, not pre-empted: the Iteration needed hasIdentifier and a real member; the PlanningEvent needed producesTask (a real ExecutionTask, Task_Implementation per ISO/IEC/IEEE 12207); the new Task then needed its own identifier, state, and DoD. Learned by testing rather than assumed: ExecutionTask is a pipeline-tracked Backlog-stage type (unlike Iteration/PlanningEvent/CostEstimate), so adding one genuinely changed the Stage_Backlog digest -- recomputed and re-closed correctly. Re-verified after every fix: pipeline order (31 subjects, reproduces), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "290cddce2bef4cae24f720c402109e63d63fcd215868c5bb322410b403bb3f81"^^xsd:string .
+pkg:Evidence_v1_11_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.11.0 (MINOR release, kick-off recorded)"@en ;
+    rdfs:comment "MINOR: user correctly caught that Iteration1's iterationStart/iterationEnd were fabricated -- an invented 2-week window with no basis, the same G31 mistake already caught once this session, just relocated. Checked first whether those dates were ever required: read the SHACL clauses directly, both conditional (fire only if present and inconsistent), so nothing required them -- removed. Read the standard's real answer for dependency/priority planning without calendar fabrication: Roadmap + RoadmapHorizon (Now/Next/Later, closed 3-member enum), quoting the standard's own reasoning -- 'chosen over date-pinned columns because horizon bands carry honest uncertainty, whereas dates on unstarted work carry false precision.' Built one Roadmap and assigned all 5 Stories a horizon and rank purely from the dependency graph: STORY-1 Now/1, STORY-2 Next/2, STORY-3/4/5 Later/3-5 -- no dates anywhere in this structure. Also corrected a stale-date accuracy issue found in passing: plannedAt and all 5 CostEstimate estimatedAt fields had carried over 2026-08-31 from earlier in the session; corrected to the actual current date, 2026-09-01. Recorded KickOff per the user's explicit direction once the roadmap was ready: KickOff_Declared, decidedBy Owner, kickedOffAt the real current moment -- genuinely when planning concluded and the first item went live, not backfilled. Re-verified: pipeline order unaffected (Roadmap/RoadmapHorizon/KickOff are not pipeline-tracked types), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "1c20241f87fdd4e2e334338908cb03059c208b07525ee50581dfbb000cf86f2d"^^xsd:string .
