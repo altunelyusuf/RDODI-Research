@@ -1,0 +1,391 @@
+@prefix ca: <http://example.org/rdodi/code-abundance/domain#> .
+@prefix cai: <http://example.org/rdodi/code-abundance/page#> .
+@prefix cad: <http://example.org/rdodi/code-abundance/document#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ds: <http://example.org/rdodi/discourse-selection#> .
+@prefix ipo: <http://example.org/rdodi/interactive-page-ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix wp: <http://example.org/widget-primitives#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# ============================================================================
+# RDODI Stage 4 -- Interactive Page ABox (Path B: corpus-instantiated pattern)
+# Subject: code-abundance-rdodi
+# Renders code_abundance_page_v1_3_0.html. 18 sections, one per real Stage 2
+#   leaf concept (not 25 -- CATEGORIES group but are not individually navigable
+#   sections; the 18 PRINCIPLES are the real, addressable units, confirmed via
+#   selectPrinciple(id) navigation, live-tested).
+# Widget primitive: ca:PrincipleDetailNavigator, a genuinely different primitive
+#   from the old pattern's CitationDisclosureToggle -- confirmed live via
+#   Playwright: clicking a principle renders its real framework citations and
+#   typed relation chips, each independently clickable/navigable, not a single
+#   reveal-toggle. Declared here, not in rdodi-ecosystem (B1).
+# ============================================================================
+
+<http://example.org/rdodi/code-abundance/page> a owl:Ontology ;
+    rdfs:label "Code Abundance Interactive Page ABox v1.3.0"@en ;
+    dcterms:created "2026-09-01"^^xsd:date ;
+    dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
+    dcterms:description "RDODI Stage 4 page ABox for code-abundance-rdodi Path B: 18 sections (1:1 with the 18 real Stage 2 leaf concepts) and 18 real, Playwright-tested per-concept detail-navigation widgets, each grounding its concept in real framework citations and typed relation chips."@en ;
+    dcterms:identifier "code_abundance_page_abox_v1_3_0" ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    dcterms:modified "2026-09-01"^^xsd:date ;
+    dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
+    dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
+    dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
+    owl:versionIRI <http://example.org/rdodi/code-abundance/page/1.3.0> ;
+    owl:versionInfo "1.3.0" ;
+    prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
+    rdfs:comment "First ABox for the Path B corpus-instantiated pattern. The old pattern's v1.1.0 ABox (99-retired/) used per-section click-to-reveal citation widgets; this pattern's real interactivity is structurally different (chat console, relation graph, principle browsing), so the widget-intention mapping was rebuilt from what the real page actually does, not force-fit onto the old shape -- confirmed live via Playwright before any triple was written."@en .
+
+cai:CodeAbundancePage a ipo:Page, owl:NamedIndividual ;
+    rdfs:label "When Code Is Abundant: A Research Companion (interactive page, Path B)"@en ;
+    skos:definition "This interactive page renders the code-abundance-rdodi research companion as a corpus-instantiated artifact: a hierarchical principle explorer, a grounded chat console, and a citations tab, with eighteen per-concept detail-navigation widgets."@en ;
+    dcterms:source <code_abundance_page_v1_3_0.html> .
+
+# ----------------------------------------------------------------------------
+# Widget primitive
+# ----------------------------------------------------------------------------
+
+ca:PrincipleDetailNavigator a wp:WidgetPrimitive, owl:NamedIndividual ;
+    rdfs:label "Principle Detail Navigator"@en ;
+    skos:definition "A per-concept detail-rendering primitive: selecting a concept renders its category, its real cited frameworks as independently clickable citation links, and its real typed relations as independently clickable navigation chips to the related concept. Distinct from the old pattern's CitationDisclosureToggle (a single reveal/hide toggle): this primitive is multi-element and multi-hop -- verified live via Playwright, not assumed from the corpus contract."@en ;
+    dcterms:source "Authored for code-abundance-rdodi Stage 4 Path B, v1.3.0; a package-scoped widget primitive, not part of RDODI's shipped widget-primitives ABox."@en .
+
+# ----------------------------------------------------------------------------
+# 18 sections, 1:1 with the 18 real Stage 2 leaf concepts (Cross.B chain)
+# ----------------------------------------------------------------------------
+
+cai:Region_AgentPlatformPillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "The agent platform pillar is the capability to create, custo"@en ;
+    skos:definition "This section renders and provides navigable access to the AgentPlatformPillar concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-agentplatformpillar"@en ;
+    prov:wasDerivedFrom cad:Sec_AgentPlatformPillar .
+cai:Region_ContextPillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "The context pillar is a persistent, queryable picture of req"@en ;
+    skos:definition "This section renders and provides navigable access to the ContextPillar concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-contextpillar"@en ;
+    prov:wasDerivedFrom cad:Sec_ContextPillar .
+cai:Region_ExecutionPillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "The execution pillar covers next-generation source control, "@en ;
+    skos:definition "This section renders and provides navigable access to the ExecutionPillar concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-executionpillar"@en ;
+    prov:wasDerivedFrom cad:Sec_ExecutionPillar .
+cai:Region_GovernancePillar a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "The governance pillar enforces boundaries around security, c"@en ;
+    skos:definition "This section renders and provides navigable access to the GovernancePillar concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-governancepillar"@en ;
+    prov:wasDerivedFrom cad:Sec_GovernancePillar .
+cai:Region_DeveloperDemandCritique a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Staples (2026) draws an explicit historical analogy to justi"@en ;
+    skos:definition "This section renders and provides navigable access to the DeveloperDemandCritique concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-developerdemandcritique"@en ;
+    prov:wasDerivedFrom cad:Sec_DeveloperDemandCritique .
+cai:Region_MetricValidityAndSelectionBiasCritique a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Two separate methodological weaknesses limit how much the ar"@en ;
+    skos:definition "This section renders and provides navigable access to the MetricValidityAndSelectionBiasCritique concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-metricvalidityandselectionbiascritique"@en ;
+    prov:wasDerivedFrom cad:Sec_MetricValidityAndSelectionBiasCritique .
+cai:Region_SynthesisAndImplications a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Weighed against the evidence this research corpus was able t"@en ;
+    skos:definition "This section renders and provides navigable access to the SynthesisAndImplications concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-synthesisandimplications"@en ;
+    prov:wasDerivedFrom cad:Sec_SynthesisAndImplications .
+cai:Region_AgenticallyAcceleratedMode a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Mode 2 keeps humans in control of the decision while agents "@en ;
+    skos:definition "This section renders and provides navigable access to the AgenticallyAcceleratedMode concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-agenticallyacceleratedmode"@en ;
+    prov:wasDerivedFrom cad:Sec_AgenticallyAcceleratedMode .
+cai:Region_AutonomousMode a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Mode 3 has agents operating the implementation loop directly"@en ;
+    skos:definition "This section renders and provides navigable access to the AutonomousMode concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-autonomousmode"@en ;
+    prov:wasDerivedFrom cad:Sec_AutonomousMode .
+cai:Region_HumanControlledLegacyMode a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Mode 1 covers systems whose dependencies are undocumented an"@en ;
+    skos:definition "This section renders and provides navigable access to the HumanControlledLegacyMode concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-humancontrolledlegacymode"@en ;
+    prov:wasDerivedFrom cad:Sec_HumanControlledLegacyMode .
+cai:Region_CodeIsPreciousConstraint a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "For sixty years, Staples (2026) writes, software engineering"@en ;
+    skos:definition "This section renders and provides navigable access to the CodeIsPreciousConstraint concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-codeispreciousconstraint"@en ;
+    prov:wasDerivedFrom cad:Sec_CodeIsPreciousConstraint .
+cai:Region_CostPerAcceptedChange a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Staples (2026) proposes replacing cost-per-line-of-code with"@en ;
+    skos:definition "This section renders and provides navigable access to the CostPerAcceptedChange concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-costperacceptedchange"@en ;
+    prov:wasDerivedFrom cad:Sec_CostPerAcceptedChange .
+cai:Region_AgentsMdFormat a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "AGENTS.md is an open, vendor-neutral format for providing pr"@en ;
+    skos:definition "This section renders and provides navigable access to the AgentsMdFormat concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-agentsmdformat"@en ;
+    prov:wasDerivedFrom cad:Sec_AgentsMdFormat .
+cai:Region_GitLabDuoAgentPlatform a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "GitLab Duo Agent Platform is GitLab's own platform for creat"@en ;
+    skos:definition "This section renders and provides navigable access to the GitLabDuoAgentPlatform concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-gitlabduoagentplatform"@en ;
+    prov:wasDerivedFrom cad:Sec_GitLabDuoAgentPlatform .
+cai:Region_HonkAgent a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Honk is Spotify's background coding agent for continuous, la"@en ;
+    skos:definition "This section renders and provides navigable access to the HonkAgent concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-honkagent"@en ;
+    prov:wasDerivedFrom cad:Sec_HonkAgent .
+cai:Region_MinionsAgent a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Minions are Stripe's homegrown, unattended coding agents, an"@en ;
+    skos:definition "This section renders and provides navigable access to the MinionsAgent concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-minionsagent"@en ;
+    prov:wasDerivedFrom cad:Sec_MinionsAgent .
+cai:Region_ProductDevelopmentLifecycle a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Staples (2026) proposes the Product Development Lifecycle, o"@en ;
+    skos:definition "This section renders and provides navigable access to the ProductDevelopmentLifecycle concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-productdevelopmentlifecycle"@en ;
+    prov:wasDerivedFrom cad:Sec_ProductDevelopmentLifecycle .
+cai:Region_BuilderRole a ipo:ChapterSection, owl:NamedIndividual ;
+    rdfs:label "Staples (2026) proposes Builder as a role covering anyone, e"@en ;
+    skos:definition "This section renders and provides navigable access to the BuilderRole concept via the corpus-instantiated principle explorer."@en ;
+    dcterms:source "principle-builderrole"@en ;
+    prov:wasDerivedFrom cad:Sec_BuilderRole .
+
+# ----------------------------------------------------------------------------
+# 18 widgets, one per leaf concept -- designTestPassed true recorded because
+# the Playwright test in this Story's Evidence was ACTUALLY RUN against
+# code_abundance_page_v1_3_0.html and passed, not asserted (B3).
+# ----------------------------------------------------------------------------
+
+cai:Widget_AgentPlatformPillar a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "The agent platform pillar is the capability to create, custo detail navigator"@en ;
+    skos:definition "An interactive control that renders AgentPlatformPillar's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:AgentPlatformPillar ;
+    ipo:demonstratesSubject ca:AgentPlatformPillar ;
+    dcterms:source cai:Region_AgentPlatformPillar ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandArchitecturalPillar ;
+    dcterms:identifier "principle-detail-agentplatformpillar" .
+cai:Widget_ContextPillar a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "The context pillar is a persistent, queryable picture of req detail navigator"@en ;
+    skos:definition "An interactive control that renders ContextPillar's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:ContextPillar ;
+    ipo:demonstratesSubject ca:ContextPillar ;
+    dcterms:source cai:Region_ContextPillar ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandArchitecturalPillar ;
+    dcterms:identifier "principle-detail-contextpillar" .
+cai:Widget_ExecutionPillar a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "The execution pillar covers next-generation source control,  detail navigator"@en ;
+    skos:definition "An interactive control that renders ExecutionPillar's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:ExecutionPillar ;
+    ipo:demonstratesSubject ca:ExecutionPillar ;
+    dcterms:source cai:Region_ExecutionPillar ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandArchitecturalPillar ;
+    dcterms:identifier "principle-detail-executionpillar" .
+cai:Widget_GovernancePillar a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "The governance pillar enforces boundaries around security, c detail navigator"@en ;
+    skos:definition "An interactive control that renders GovernancePillar's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:GovernancePillar ;
+    ipo:demonstratesSubject ca:GovernancePillar ;
+    dcterms:source cai:Region_GovernancePillar ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandArchitecturalPillar ;
+    dcterms:identifier "principle-detail-governancepillar" .
+cai:Widget_DeveloperDemandCritique a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Staples (2026) draws an explicit historical analogy to justi detail navigator"@en ;
+    skos:definition "An interactive control that renders DeveloperDemandCritique's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries a named framework citation in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:DeveloperDemandCritique ;
+    ipo:demonstratesSubject ca:DeveloperDemandCritique ;
+    dcterms:source cai:Region_DeveloperDemandCritique ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandCriticalAnalysisAndConclusion ;
+    dcterms:identifier "principle-detail-developerdemandcritique" .
+cai:Widget_MetricValidityAndSelectionBiasCritique a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Two separate methodological weaknesses limit how much the ar detail navigator"@en ;
+    skos:definition "An interactive control that renders MetricValidityAndSelectionBiasCritique's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:MetricValidityAndSelectionBiasCritique ;
+    ipo:demonstratesSubject ca:MetricValidityAndSelectionBiasCritique ;
+    dcterms:source cai:Region_MetricValidityAndSelectionBiasCritique ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandCriticalAnalysisAndConclusion ;
+    dcterms:identifier "principle-detail-metricvalidityandselectionbiascritique" .
+cai:Widget_SynthesisAndImplications a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Weighed against the evidence this research corpus was able t detail navigator"@en ;
+    skos:definition "An interactive control that renders SynthesisAndImplications's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:SynthesisAndImplications ;
+    ipo:demonstratesSubject ca:SynthesisAndImplications ;
+    dcterms:source cai:Region_SynthesisAndImplications ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandCriticalAnalysisAndConclusion ;
+    dcterms:identifier "principle-detail-synthesisandimplications" .
+cai:Widget_AgenticallyAcceleratedMode a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Mode 2 keeps humans in control of the decision while agents  detail navigator"@en ;
+    skos:definition "An interactive control that renders AgenticallyAcceleratedMode's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:AgenticallyAcceleratedMode ;
+    ipo:demonstratesSubject ca:AgenticallyAcceleratedMode ;
+    dcterms:source cai:Region_AgenticallyAcceleratedMode ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandDevelopmentMode ;
+    dcterms:identifier "principle-detail-agenticallyacceleratedmode" .
+cai:Widget_AutonomousMode a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Mode 3 has agents operating the implementation loop directly detail navigator"@en ;
+    skos:definition "An interactive control that renders AutonomousMode's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:AutonomousMode ;
+    ipo:demonstratesSubject ca:AutonomousMode ;
+    dcterms:source cai:Region_AutonomousMode ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandDevelopmentMode ;
+    dcterms:identifier "principle-detail-autonomousmode" .
+cai:Widget_HumanControlledLegacyMode a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Mode 1 covers systems whose dependencies are undocumented an detail navigator"@en ;
+    skos:definition "An interactive control that renders HumanControlledLegacyMode's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:HumanControlledLegacyMode ;
+    ipo:demonstratesSubject ca:HumanControlledLegacyMode ;
+    dcterms:source cai:Region_HumanControlledLegacyMode ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandDevelopmentMode ;
+    dcterms:identifier "principle-detail-humancontrolledlegacymode" .
+cai:Widget_CodeIsPreciousConstraint a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "For sixty years, Staples (2026) writes, software engineering detail navigator"@en ;
+    skos:definition "An interactive control that renders CodeIsPreciousConstraint's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:CodeIsPreciousConstraint ;
+    ipo:demonstratesSubject ca:CodeIsPreciousConstraint ;
+    dcterms:source cai:Region_CodeIsPreciousConstraint ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandEconomicReframing ;
+    dcterms:identifier "principle-detail-codeispreciousconstraint" .
+cai:Widget_CostPerAcceptedChange a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Staples (2026) proposes replacing cost-per-line-of-code with detail navigator"@en ;
+    skos:definition "An interactive control that renders CostPerAcceptedChange's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries a named framework citation in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:CostPerAcceptedChange ;
+    ipo:demonstratesSubject ca:CostPerAcceptedChange ;
+    dcterms:source cai:Region_CostPerAcceptedChange ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandEconomicReframing ;
+    dcterms:identifier "principle-detail-costperacceptedchange" .
+cai:Widget_AgentsMdFormat a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "AGENTS.md is an open, vendor-neutral format for providing pr detail navigator"@en ;
+    skos:definition "An interactive control that renders AgentsMdFormat's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:AgentsMdFormat ;
+    ipo:demonstratesSubject ca:AgentsMdFormat ;
+    dcterms:source cai:Region_AgentsMdFormat ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandIndustryImplementation ;
+    dcterms:identifier "principle-detail-agentsmdformat" .
+cai:Widget_GitLabDuoAgentPlatform a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "GitLab Duo Agent Platform is GitLab's own platform for creat detail navigator"@en ;
+    skos:definition "An interactive control that renders GitLabDuoAgentPlatform's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:GitLabDuoAgentPlatform ;
+    ipo:demonstratesSubject ca:GitLabDuoAgentPlatform ;
+    dcterms:source cai:Region_GitLabDuoAgentPlatform ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandIndustryImplementation ;
+    dcterms:identifier "principle-detail-gitlabduoagentplatform" .
+cai:Widget_HonkAgent a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Honk is Spotify's background coding agent for continuous, la detail navigator"@en ;
+    skos:definition "An interactive control that renders HonkAgent's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:HonkAgent ;
+    ipo:demonstratesSubject ca:HonkAgent ;
+    dcterms:source cai:Region_HonkAgent ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandIndustryImplementation ;
+    dcterms:identifier "principle-detail-honkagent" .
+cai:Widget_MinionsAgent a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Minions are Stripe's homegrown, unattended coding agents, an detail navigator"@en ;
+    skos:definition "An interactive control that renders MinionsAgent's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:MinionsAgent ;
+    ipo:demonstratesSubject ca:MinionsAgent ;
+    dcterms:source cai:Region_MinionsAgent ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandIndustryImplementation ;
+    dcterms:identifier "principle-detail-minionsagent" .
+cai:Widget_ProductDevelopmentLifecycle a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Staples (2026) proposes the Product Development Lifecycle, o detail navigator"@en ;
+    skos:definition "An interactive control that renders ProductDevelopmentLifecycle's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:ProductDevelopmentLifecycle ;
+    ipo:demonstratesSubject ca:ProductDevelopmentLifecycle ;
+    dcterms:source cai:Region_ProductDevelopmentLifecycle ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandLifecycleModel ;
+    dcterms:identifier "principle-detail-productdevelopmentlifecycle" .
+cai:Widget_BuilderRole a ipo:InstructionalWidget, owl:NamedIndividual ;
+    rdfs:label "Staples (2026) proposes Builder as a role covering anyone, e detail navigator"@en ;
+    skos:definition "An interactive control that renders BuilderRole's category, cited frameworks, and typed relations as navigable elements."@en ;
+    wp:instantiatesPrimitive ca:PrincipleDetailNavigator ;
+    ds:selectionWarrant "Concept carries typed relation edges in the source text -- warrants a dedicated detail view over an inline mention."@en ;
+    wp:demonstratesConcept ca:BuilderRole ;
+    ipo:demonstratesSubject ca:BuilderRole ;
+    dcterms:source cai:Region_BuilderRole ;
+    wp:designTestPassed true ;
+    ipo:coversLearningObjective cai:LO_UnderstandOrganizationalRole ;
+    dcterms:identifier "principle-detail-builderrole" .
+
+# ----------------------------------------------------------------------------
+# Learning objectives (one per real category, Stage4.K intention set)
+# ----------------------------------------------------------------------------
+
+cai:LO_UnderstandArchitecturalPillar a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state the real concepts and evidence this report groups under Architectural Pillar."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Understand Architectural Pillar"@en .
+cai:LO_UnderstandCriticalAnalysisAndConclusion a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state the real concepts and evidence this report groups under Critical Analysis and Conclusion."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Understand Critical Analysis and Conclusion"@en .
+cai:LO_UnderstandDevelopmentMode a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state the real concepts and evidence this report groups under Development Mode."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Understand Development Mode"@en .
+cai:LO_UnderstandEconomicReframing a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state the real concepts and evidence this report groups under Economic Reframing."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Understand Economic Reframing"@en .
+cai:LO_UnderstandIndustryImplementation a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state the real concepts and evidence this report groups under Industry Implementation."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Understand Industry Implementation"@en .
+cai:LO_UnderstandLifecycleModel a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state the real concepts and evidence this report groups under Lifecycle Model."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Understand Lifecycle Model"@en .
+cai:LO_UnderstandOrganizationalRole a ipo:LearningObjective, owl:NamedIndividual ;
+    skos:definition "A reader achieving this objective can state the real concepts and evidence this report groups under Organizational Role."@en ;
+    dcterms:source cai:CodeAbundancePage ;
+    rdfs:label "Understand Organizational Role"@en .
+
+cai:CodeAbundancePage ipo:hasLearningObjective cai:LO_UnderstandArchitecturalPillar, cai:LO_UnderstandCriticalAnalysisAndConclusion, cai:LO_UnderstandDevelopmentMode, cai:LO_UnderstandEconomicReframing, cai:LO_UnderstandIndustryImplementation, cai:LO_UnderstandLifecycleModel, cai:LO_UnderstandOrganizationalRole .
