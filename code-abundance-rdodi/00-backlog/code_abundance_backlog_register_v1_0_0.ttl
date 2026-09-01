@@ -671,10 +671,25 @@ bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:partOf bl:EpicAdoptRichDefault ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
+bl:AC_StoryAlignReleaseVersions a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "All 4 stage artifacts carry the same version token, cross-references consistent, gates still pass"@en ;
+    backlog:hasGherkinText "Given the 4 real RDODI stage files (research, domain tbox/abox/shacl, document, interactive-page), When their filenames' version tokens are listed, Then exactly one distinct version appears across all of them. And Given every internal cross-file reference (dcterms:description, dcterms:source), When checked, Then none point at a superseded filename. And Given the real RDODI gates, When re-run against the renamed files, Then all still pass, and the real page still renders with 0 console errors." .
+
+bl:Evidence_StoryAlignReleaseVersions a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Cross.D closed: all 4 stages at v1.3.0, cross-references fixed (including a real pre-existing staleness bug found), gates re-verified"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "Retired the superseded old-pattern page files (code_abundance_page_v1_1_0.html + its abox) to 99-retired/, per the standing no-multi-version-clutter rule -- Path B is now the sole shipped Stage 4 artifact. Renamed all 4 real stage files to v1_3_0 (research, domain tbox/abox/shacl, document, interactive-page), updating each file's own owl:versionInfo to match. Searched for cross-file filename references before assuming the rename was complete, and found real stale references -- including a genuinely pre-existing bug unrelated to this rename: domain_abox and domain_shacl's own dcterms:description text referenced 'code_abundance_domain_tbox_v1_0_0.ttl', a version domain_tbox had not carried since long before this session began. Fixed all 6 found references (both the ones this rename would have created and the pre-existing one) to point at the new v1_3_0 filenames. Re-verified, not assumed: re-ran all 9 real RDODI Stage1-3 gates fresh against the renamed files, all 9 PASS; re-ran real headless Playwright against the renamed page, confirmed correct title and 0 console/page errors. Direct check confirms Cross.D: exactly one version (v1_3_0) across all 4 stage files." .
+
 bl:StoryAlignReleaseVersions a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-5" ;
-    backlog:hasState backlog:Proposed ;
+    backlog:hasState backlog:Done ;
+    backlog:hasEvidence bl:Evidence_StoryAlignReleaseVersions ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryAlignReleaseVersions ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
     backlog:scheduledInHorizon backlog:Later ;
     backlog:rankedOnRoadmap bl:Roadmap1 ;
     backlog:hasRoadmapRank "5"^^xsd:integer ;
