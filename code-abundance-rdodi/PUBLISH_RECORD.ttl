@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_13_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.13.0"@en ;
+pkg:Decision_v1_14_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.14.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.13.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_12_0 ;
+    owl:versionInfo "1.14.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_13_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
-    pub:manifestVerified 19 ;
-    pub:manifestTotal 19 ;
+    pub:manifestVerified 20 ;
+    pub:manifestTotal 20 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_13_0 ;
-    prov:generatedAtTime "2026-09-01T02:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_14_0 ;
+    prov:generatedAtTime "2026-09-01T03:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_13_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.13.0 (STORY-2 rescoped and closed)"@en ;
-    rdfs:comment "MINOR: user directed dropping Quiz and using the real RDODI template's actual sections. Checked the real template source directly rather than assuming: confirmed tab list Overview/Principle Explorer/Interact/Citations/About -- Introduction/Body/References genuinely satisfied by real, already-existing mechanism, Citations already fed by STORY-1's 15 citations, Principle Explorer already fed by the 18 principles. User also asked directly why the Story was written without checking these details first -- answered honestly: the DoD was written from the procedure document's stated requirement without first verifying the specific mechanism could deliver it, a real process gap found at execution time rather than Story-writing time. While checking, found a second, unrelated real gap: all 18 PRINCIPLES' apply fields in STORY-1's own deliverable were the same templated sentence with only the label substituted, never caught by STORY-1's own structural closing checks. Rewrote all 18 with genuine, distinct, per-concept content drawn from each concept's real argument; verified programmatically (18 distinct, 0 still templated). Rescoped STORY-2's own label/wantsCapability/soThat to reflect what was actually done. Closed with real Evidence, a genuine AcceptanceCriterion, and Mode_Automated. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "85032bed9f626b718f9386574f31f08a9231b1d43b629fa61d5c6347c4f8c810"^^xsd:string .
+pkg:Evidence_v1_14_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.14.0 (sprint plan: template-cleaning task added)"@en ;
+    rdfs:comment "MINOR: user's direct critique -- Definitions of Done written without considering the actual effect on the real artifacts. Confirmed the contamination is real and systematic: grepped the actual instantiated output, found 190 'LCW' occurrences, a hardcoded search-box placeholder referencing LCWKB's own concepts, a static illustrative example naming LCWKB's P09/P10, and an entire untouched COMPANY_DATA comparison table -- an optional field this session correctly omitted, but the script leaves the source page's own old data in place rather than emptying it. Traced the Citations gap to its real root cause: the template's own instantiate_corpus_v1_0_0.py hardcodes a CONTRACT_REQUIRED list that omits CITATIONS despite the schema documenting it as required, and independently confirmed the source page's Citations tab is static HTML with no const to replace even if the list were fixed. Filed as a formal proposal, not fixed directly (B1). Rescoped STORY-3 honestly, quoting the user's own finding in its own soThat field, and moved it to Now horizon (genuinely unblocked). Built Iteration 2 (capacity 3, matching STORY-3's estimate) and committed STORY-3 via a real PlanningEvent producing 3 real ExecutionTasks: patch the Citations table, remove/replace the hardcoded LCWKB content, then verify programmatically no LCWKB term remains before re-running the template's own 5 reference checks. Bumped STORY-4 to Next. Re-verified: pipeline order (34 subjects, reproduces), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "6a308622407f02c52718a1e7dda3d807f7ea1194a9408b79b2b60e3e15d2b15a"^^xsd:string .
