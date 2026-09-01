@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_14_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.14.0"@en ;
+pkg:Decision_v1_15_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.15.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.14.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_13_0 ;
+    owl:versionInfo "1.15.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_14_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
-    pub:manifestVerified 20 ;
-    pub:manifestTotal 20 ;
+    pub:manifestVerified 22 ;
+    pub:manifestTotal 22 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_14_0 ;
-    prov:generatedAtTime "2026-09-01T03:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_15_0 ;
+    prov:generatedAtTime "2026-09-01T11:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_14_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.14.0 (sprint plan: template-cleaning task added)"@en ;
-    rdfs:comment "MINOR: user's direct critique -- Definitions of Done written without considering the actual effect on the real artifacts. Confirmed the contamination is real and systematic: grepped the actual instantiated output, found 190 'LCW' occurrences, a hardcoded search-box placeholder referencing LCWKB's own concepts, a static illustrative example naming LCWKB's P09/P10, and an entire untouched COMPANY_DATA comparison table -- an optional field this session correctly omitted, but the script leaves the source page's own old data in place rather than emptying it. Traced the Citations gap to its real root cause: the template's own instantiate_corpus_v1_0_0.py hardcodes a CONTRACT_REQUIRED list that omits CITATIONS despite the schema documenting it as required, and independently confirmed the source page's Citations tab is static HTML with no const to replace even if the list were fixed. Filed as a formal proposal, not fixed directly (B1). Rescoped STORY-3 honestly, quoting the user's own finding in its own soThat field, and moved it to Now horizon (genuinely unblocked). Built Iteration 2 (capacity 3, matching STORY-3's estimate) and committed STORY-3 via a real PlanningEvent producing 3 real ExecutionTasks: patch the Citations table, remove/replace the hardcoded LCWKB content, then verify programmatically no LCWKB term remains before re-running the template's own 5 reference checks. Bumped STORY-4 to Next. Re-verified: pipeline order (34 subjects, reproduces), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "6a308622407f02c52718a1e7dda3d807f7ea1194a9408b79b2b60e3e15d2b15a"^^xsd:string .
+pkg:Evidence_v1_15_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.15.0 (STORY-3 closed -- first real Path B interactive-page artifact shipped)"@en ;
+    rdfs:comment "MINOR: continuation of last turn's real execution. Copied the cleaned, verified page to its real package location (04-interactive-page/code_abundance_page_v1_0_0.html, 976187 bytes). Closed the backlog with real, per-item Evidence: TASK-2 (Citations table patched, programmatically confirmed old citations absent and new ones present); TASK-3 (systematic cleaning -- COMPANY_DATA, SKOS_TTL, and LINEAGE_TTL, the last explicitly documented as regenerated-not-hand-edited and found still carrying 236KB of the prior subject's own lineage history, all emptied; COACH_AGENT honestly replaced rather than fabricated; a genuine functional bug in an intent-detection regex keyed to the prior subject's own framework names fixed); TASK-4 (real headless Playwright verification, including catching and fixing a genuine bug this session's own earlier fix had introduced -- a hardcoded 5-company key list crashing against the newly-emptied COMPANY_DATA, found via a real JS stack trace, fixed by deriving the key list from actual data, then re-verified: 0 console/page errors across load and real tab interaction). STORY-3 itself closed with its own Evidence and a real, observable-behaviour AcceptanceCriterion. Filed a second proposal to the corpus-template's owner: optional fields are left with the prior subject's data when a new corpus omits them rather than being emptied, demonstrated with the real bug this caused. Not applied upstream (B1). Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "0bd1fc1bdc1eda665b0ef75b3fd3b70864fb4f218591c7b785e07ec6a51fbbc7"^^xsd:string .
