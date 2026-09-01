@@ -398,10 +398,10 @@ bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:hasScoreabilityReason "Freshly decomposed from the Epic in this planning pass; not yet run through the framework's prioritisation method." ;
     rdfs:label "Author the corpus contract"@en ;
     backlog:asRole "a reader of the interactive companion" ;
-    backlog:wantsCapability "the subject's 18 concepts, 7 categories, 15 citations and their relations expressed as a corpus contract matching 01-schema/corpus_contract_v1_0_0.json" ;
-    backlog:soThat "the corpus-instantiation script can build a working page from real, structured data rather than placeholders" ;
-    backlog:partOf bl:EpicAdoptRichDefault ;
-    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+    backlog:wantsCapability "the subject's 18 concepts, 7 categories, 15 citations and their relations expressed as a corpus contract matching 01-schema/corpus_contract_v1_0_0.json, explicitly including the 2 disclosed evidentiary limitations (the Amplitude PR-cycle-time/bug-count figures flagged unavailable, and GitLab's own commercial stake in the Agent Platform pillar) as real CITATIONS entries, not left to be carried forward implicitly" ;
+    backlog:soThat "the corpus-instantiation script can build a working page from real, structured data rather than placeholders, and Deliverable_DisclosedLimitsPreserved has real Story-level ownership -- found by fit-gap analysis (2026-08-31) to have none: the disclosure obligation was named at Mission/Scope/Goal/Objective level throughout, but no Story anywhere planned how the 2 disclosures actually get carried into the new artifact" ;
+    backlog:pursuesObjective bl:ObjDisclosedLimitsVisible, bl:ObjRDODIDefaultGatesPassing ;
+    backlog:partOf bl:EpicAdoptRichDefault .
 
 bl:StoryQuizAndGlossary a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
