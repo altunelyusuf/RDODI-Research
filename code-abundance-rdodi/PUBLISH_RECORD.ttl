@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_18_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.18.0"@en ;
+pkg:Decision_v1_19_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.19.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.18.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_17_0 ;
+    owl:versionInfo "1.19.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_18_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_18_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_18_0 ;
-    prov:generatedAtTime "2026-09-01T14:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_19_0 ;
+    prov:generatedAtTime "2026-09-01T15:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_18_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.18.0 (STORY-6 closed -- real page ABox built)"@en ;
-    rdfs:comment "MINOR: resolved the widget-intention design question via direct investigation of the real page's own JS rather than the old click-to-reveal pattern -- found a genuine per-concept interaction (framework citations + typed relation chips, independently clickable), confirmed live via Playwright before writing any triple. A technical judgment resolvable through investigation, proceeded without needing further user input. Built code_abundance_page_abox_v1_3_0.ttl: 18 ChapterSections (one per real Stage 2 leaf concept), 18 InstructionalWidgets instantiating a new, honestly-distinct primitive, 7 real LearningObjectives. Re-ran every applicable real gate fresh: Stage4.A/B PASS, Cross.B PASS (18/18 chains), Stage4.H/I/J PASS, Stage4.K intention coverage PASS -- 18/18 covered, 0 disclosed-scope, genuinely stronger than the old ABox's own result (declared LOs, zero widgets ever linked). Deliberately did not close the Epic in the same pass -- that deserves its own careful check, the exact discipline that caught a premature closure two turns ago. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "53f9a6a6390b3b69e812f554bfcaa135c12569fdbc268481a335ae2d5ca75c21"^^xsd:string .
+pkg:Evidence_v1_19_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.19.0 (EPIC-1 closed)"@en ;
+    rdfs:comment "MINOR (BP-D7: no removal/rename, a register-state closure consistent with every prior Story closure this session -- corrected from an initial MAJOR bump that overstated the change). Closed the Epic properly this time, doing what the check that caught a premature closure two turns ago demanded: re-verified every genuinely applicable gate fresh before touching any state. Full honest accounting: Stage4.A/B/C/D-structural/F/G/H/I/J/K = 10/10 PASS; Cross.B/C/D = 3/3 PASS; Stage4.E and Cross.A's literal per-section-count wording is a genuine category mismatch for this pattern, disclosed per the procedure's own established language for exactly this case, not force-fit; Cross.E does not apply (single-tier sourcing). 13 of 13 genuinely applicable gates pass. Updated all 8 objectives with real, re-verified current values, including a direct git-status check confirming zero edits touched rdodi-ecosystem/ this session. Derived scopeCompletionState (Done) and scopeOutcome (Ach_Met) on the Scope before touching the Epic's own state, in that order. EPIC-1 closed with real Evidence and an observable-behaviour AcceptanceCriterion. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "8fcf2ab61712cc7b2a69c3bdc6ec516eaa8a13f3ad8a62471d0c8422548ec7d8"^^xsd:string .
