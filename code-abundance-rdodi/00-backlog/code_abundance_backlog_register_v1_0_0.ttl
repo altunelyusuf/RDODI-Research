@@ -162,43 +162,41 @@ bl:Estimate_Story1 a backlog:CostEstimate, owl:NamedIndividual ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
     backlog:hasCostBasis "Judged: 18 PRINCIPLES + 7 CATEGORIES + 15 CITATIONS (now including the 2 disclosed limitations) + RELATIONS, each a real structured-authoring task against a fixed schema, no prior comparable item in this backlog to measure or draw an analogy from." ;
     backlog:hasEstimateConfidence "Medium"^^xsd:string ;
-    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+    backlog:estimatedAt "2026-09-01T00:00:00Z"^^xsd:dateTime .
 
 bl:Estimate_Story2 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-2 (quiz and glossary)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
     backlog:hasCostBasis "Judged: real content authoring genuinely grounded in Stage 1-3 research, not templated filler -- comparable in kind and scale to STORY-1's own authoring load." ;
     backlog:hasEstimateConfidence "Medium"^^xsd:string ;
-    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+    backlog:estimatedAt "2026-09-01T00:00:00Z"^^xsd:dateTime .
 
 bl:Estimate_Story3 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-3 (instantiate and verify)"@en ;
     backlog:hasEffortEstimate "3"^^xsd:decimal ;
     backlog:hasCostBasis "Judged: mechanical -- run instantiate_corpus_v1_0_0.py, then check the template's own 5 reference checks -- lower authoring load than STORY-1/2, but real debugging risk against a script this session has not yet run." ;
     backlog:hasEstimateConfidence "Low"^^xsd:string ;
-    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+    backlog:estimatedAt "2026-09-01T00:00:00Z"^^xsd:dateTime .
 
 bl:Estimate_Story4 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-4 (Cross.A/C for the new pattern)"@en ;
     backlog:hasEffortEstimate "2"^^xsd:decimal ;
     backlog:hasCostBasis "Judged: the analysis half is largely already done (this session's own domain-engineering pass); the verify half is a direct check against STORY-3's real output, not new authoring." ;
     backlog:hasEstimateConfidence "Medium"^^xsd:string ;
-    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+    backlog:estimatedAt "2026-09-01T00:00:00Z"^^xsd:dateTime .
 
 bl:Estimate_Story5 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-5 (version alignment)"@en ;
     backlog:hasEffortEstimate "1"^^xsd:decimal ;
     backlog:hasCostBasis "Judged: mechanical version-bump and manifest-regeneration work, the same release ceremony this package has already executed 9 times this session." ;
     backlog:hasEstimateConfidence "High"^^xsd:string ;
-    backlog:estimatedAt "2026-08-31T00:00:00Z"^^xsd:dateTime .
+    backlog:estimatedAt "2026-09-01T00:00:00Z"^^xsd:dateTime .
 
 bl:Iteration1 a backlog:Iteration, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Iteration 1"@en ;
     backlog:hasIdentifier "ITER-1" ;
-    backlog:hasCapacity "5"^^xsd:decimal ;
-    backlog:iterationStart "2026-08-31T00:00:00Z"^^xsd:dateTime ;
-    backlog:iterationEnd "2026-09-14T00:00:00Z"^^xsd:dateTime .
+    backlog:hasCapacity "5"^^xsd:decimal .
 
 bl:TaskAuthorCorpusJSON a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -209,12 +207,26 @@ bl:TaskAuthorCorpusJSON a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:memberOfContainer bl:Iteration1 .
 
+bl:Roadmap1 a backlog:Roadmap, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "code-abundance-rdodi Path B roadmap"@en ;
+    backlog:roadmapOf bl:CodeAbundanceBacklog ;
+    backlog:roadmapRealises bl:ObjRDODIDefaultGatesPassing .
+
+bl:KickOff1 a backlog:KickOff, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "code-abundance-rdodi Path B kick-off"@en ;
+    backlog:kickOffFor bl:CodeAbundanceBacklog ;
+    backlog:kickedOffAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasKickOffMode backlog:KickOff_Declared ;
+    backlog:decidedBy backlog:Owner .
+
 bl:PlanEvent_Story1 a backlog:PlanningEvent, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Planning event: commit STORY-1 to Iteration 1"@en ;
     backlog:plansItem bl:StoryCorpusContract ;
     backlog:plannedInto bl:Iteration1 ;
-    backlog:plannedAt "2026-08-31T00:00:00Z"^^xsd:dateTime ;
+    backlog:plannedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
     backlog:plannedBy backlog:Owner ;
     backlog:producesTask bl:TaskAuthorCorpusJSON .
 
@@ -452,6 +464,9 @@ bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-1" ;
     backlog:hasState backlog:Proposed ;
+    backlog:scheduledInHorizon backlog:Now ;
+    backlog:rankedOnRoadmap bl:Roadmap1 ;
+    backlog:hasRoadmapRank "1"^^xsd:integer ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog, bl:Iteration1 ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasCostEstimate bl:Estimate_Story1 ;
@@ -469,6 +484,9 @@ bl:StoryQuizAndGlossary a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-2" ;
     backlog:hasState backlog:Proposed ;
+    backlog:scheduledInHorizon backlog:Next ;
+    backlog:rankedOnRoadmap bl:Roadmap1 ;
+    backlog:hasRoadmapRank "2"^^xsd:integer ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasCostEstimate bl:Estimate_Story2 ;
@@ -487,6 +505,9 @@ bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-3" ;
     backlog:hasState backlog:Proposed ;
+    backlog:scheduledInHorizon backlog:Later ;
+    backlog:rankedOnRoadmap bl:Roadmap1 ;
+    backlog:hasRoadmapRank "3"^^xsd:integer ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasCostEstimate bl:Estimate_Story3 ;
@@ -505,6 +526,9 @@ bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-4" ;
     backlog:hasState backlog:Proposed ;
+    backlog:scheduledInHorizon backlog:Later ;
+    backlog:rankedOnRoadmap bl:Roadmap1 ;
+    backlog:hasRoadmapRank "4"^^xsd:integer ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasCostEstimate bl:Estimate_Story4 ;
@@ -523,6 +547,9 @@ bl:StoryAlignReleaseVersions a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-5" ;
     backlog:hasState backlog:Proposed ;
+    backlog:scheduledInHorizon backlog:Later ;
+    backlog:rankedOnRoadmap bl:Roadmap1 ;
+    backlog:hasRoadmapRank "5"^^xsd:integer ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasCostEstimate bl:Estimate_Story5 ;
