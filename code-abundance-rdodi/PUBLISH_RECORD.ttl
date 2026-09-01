@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_11_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.11.0"@en ;
+pkg:Decision_v1_12_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.12.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.11.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_10_0 ;
+    owl:versionInfo "1.12.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_11_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
-    pub:manifestVerified 18 ;
-    pub:manifestTotal 18 ;
+    pub:manifestVerified 19 ;
+    pub:manifestTotal 19 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_11_0 ;
-    prov:generatedAtTime "2026-09-01T00:30:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_12_0 ;
+    prov:generatedAtTime "2026-09-01T01:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_11_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.11.0 (MINOR release, kick-off recorded)"@en ;
-    rdfs:comment "MINOR: user correctly caught that Iteration1's iterationStart/iterationEnd were fabricated -- an invented 2-week window with no basis, the same G31 mistake already caught once this session, just relocated. Checked first whether those dates were ever required: read the SHACL clauses directly, both conditional (fire only if present and inconsistent), so nothing required them -- removed. Read the standard's real answer for dependency/priority planning without calendar fabrication: Roadmap + RoadmapHorizon (Now/Next/Later, closed 3-member enum), quoting the standard's own reasoning -- 'chosen over date-pinned columns because horizon bands carry honest uncertainty, whereas dates on unstarted work carry false precision.' Built one Roadmap and assigned all 5 Stories a horizon and rank purely from the dependency graph: STORY-1 Now/1, STORY-2 Next/2, STORY-3/4/5 Later/3-5 -- no dates anywhere in this structure. Also corrected a stale-date accuracy issue found in passing: plannedAt and all 5 CostEstimate estimatedAt fields had carried over 2026-08-31 from earlier in the session; corrected to the actual current date, 2026-09-01. Recorded KickOff per the user's explicit direction once the roadmap was ready: KickOff_Declared, decidedBy Owner, kickedOffAt the real current moment -- genuinely when planning concluded and the first item went live, not backfilled. Re-verified: pipeline order unaffected (Roadmap/RoadmapHorizon/KickOff are not pipeline-tracked types), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "1c20241f87fdd4e2e334338908cb03059c208b07525ee50581dfbb000cf86f2d"^^xsd:string .
+pkg:Evidence_v1_12_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.12.0 (MINOR release -- first real Path B deliverable)"@en ;
+    rdfs:comment "MINOR: executed STORY-1 (Now-ranked, Iteration 1's committed work) for real. Built 04-interactive-page/01-corpus-contract/corpus_contract_v1_0_0.json against the template's real schema, from real extracted content: 7 CATEGORIES and 18 PRINCIPLES from Stage 2's actual taxonomy (each PRINCIPLE carrying its full real Stage 3 prose), 15 CITATIONS from Stage 1's actual Publications, 2 FRAMEWORKS the report's own text actually invokes (Theory of Constraints, Jevons Paradox), 7 RELATIONS built from genuine cross-references found by searching the document text itself, not invented. One real error found and fixed during the build (a broken 'reinforces' reference to a non-existent id), caught by a structural validation pass run before marking anything complete. Confirmed directly, not assumed, that the 2 disclosed evidentiary limitations STORY-1 was rescoped to own (Amplitude figures, GitLab COI) are present verbatim in the actual PRINCIPLES prose, across 5 sections. Marked TASK-1 and STORY-1 Done with every L2 requirement satisfied as SHACL found it missing, not pre-empted: real Evidence (evidenceVerified true, honest verification-method description), a genuine observable-behaviour AcceptanceCriterion in Gherkin form, and hasExecutionModality checked precisely against the vocabulary's own distinction -- Mode_Automated, since Mode_Hybrid specifically requires a person to have materially changed the agent's output, which did not happen. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "2027f19ae15e302a679f21aa67f7357f7a1b91ee2ddd385b993cc83c36207e94"^^xsd:string .
