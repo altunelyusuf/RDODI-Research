@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_17_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.17.0"@en ;
+pkg:Decision_v1_18_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.18.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.17.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_16_0 ;
+    owl:versionInfo "1.18.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_17_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
-    pub:manifestVerified 22 ;
-    pub:manifestTotal 22 ;
+    pub:manifestVerified 23 ;
+    pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_17_0 ;
-    prov:generatedAtTime "2026-09-01T13:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_18_0 ;
+    prov:generatedAtTime "2026-09-01T14:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_17_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.17.0 (STORY-6 built)"@en ;
-    rdfs:comment "MINOR: built STORY-6 (real page ABox work) backed by the prior turn's test-driven investigation -- confirmed via direct read that the RDODI default deliverable's own procedure text (steps 4-6) explicitly requires a page ABox, and confirmed via direct inspection that zero ABox-generation tooling exists in the corpus-instantiation template. Assigned a real, honestly-disclosed cost estimate (5, Low confidence) reflecting the genuine unsolved design question -- how Stage4.H-K's widget-intention model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity. Added to the Epic's decomposesInto and the 3 objectives it actually advances; dependsOn STORY-3 and STORY-5 (both already Done), Now horizon. One real editing error caught and fixed immediately during the build (a str_replace that dropped the Roadmap1 individual's own declaration), caught by re-parsing before proceeding. Re-verified: pipeline order (Stage_Backlog digest recomputed to 35 subjects, reproduces), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "07deb68b3c7a5df8b30416f00921f057b4f52f882ca9ee14a9bc5f78fcda0801"^^xsd:string .
+pkg:Evidence_v1_18_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.18.0 (STORY-6 closed -- real page ABox built)"@en ;
+    rdfs:comment "MINOR: resolved the widget-intention design question via direct investigation of the real page's own JS rather than the old click-to-reveal pattern -- found a genuine per-concept interaction (framework citations + typed relation chips, independently clickable), confirmed live via Playwright before writing any triple. A technical judgment resolvable through investigation, proceeded without needing further user input. Built code_abundance_page_abox_v1_3_0.ttl: 18 ChapterSections (one per real Stage 2 leaf concept), 18 InstructionalWidgets instantiating a new, honestly-distinct primitive, 7 real LearningObjectives. Re-ran every applicable real gate fresh: Stage4.A/B PASS, Cross.B PASS (18/18 chains), Stage4.H/I/J PASS, Stage4.K intention coverage PASS -- 18/18 covered, 0 disclosed-scope, genuinely stronger than the old ABox's own result (declared LOs, zero widgets ever linked). Deliberately did not close the Epic in the same pass -- that deserves its own careful check, the exact discipline that caught a premature closure two turns ago. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "53f9a6a6390b3b69e812f554bfcaa135c12569fdbc268481a335ae2d5ca75c21"^^xsd:string .
