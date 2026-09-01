@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_8_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.8.0"@en ;
+pkg:Decision_v1_8_1 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.8.1"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.8.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_7_3 ;
+    owl:versionInfo "1.8.1"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_8_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_8_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_8_0 ;
-    prov:generatedAtTime "2026-08-31T07:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_8_1 ;
+    prov:generatedAtTime "2026-08-31T08:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_8_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.8.0 (MINOR release)"@en ;
-    rdfs:comment "MINOR: user challenged whether a single Epic could genuinely match the richness of all 4 RDODI stages' own gate requirements, and asked for real domain engineering rather than defended structure. Re-read the RDODI procedure's actual gate tables for all 4 stages and the 5 cross-stage gates directly, then checked concrete current state rather than assumed. Two real, previously-unowned findings: (1) Cross.D (all 4 stage files at one coherent release version) genuinely fails right now -- checked directly: v1.0.0/v1.1.0/v1.2.0/v1.1.0, four different versions, no backlog item addressed this. Added STORY-5. (2) Cross.A (Stage2=Stage3=Stage4 section count, 1:1:1) genuinely fails (25=25, page=21) -- but the deeper finding, confirmed by reading the corpus-instantiation template's own schema directly, is that STORY-4 as originally scoped ('sync 21 sections to 25') was the wrong fix for the artifact this Epic is building: the template organizes content as CATEGORIES(7) x PRINCIPLES(18) = 25, matching Stage 2's taxonomy exactly, but as a two-level hierarchy, not 25 flat page sections. Cross.A's literal wording does not transfer to that structure; its actual intent (full traceable coverage) does. Rescoped STORY-4 accordingly, resolving the obsolescence question left open for 3 turns. Checked before adding: whether ExecutionTask should exist yet -- its own definition names it as produced by planning a PBI into an iteration; with zero PlanningEvent/Iteration in this backlog, creating one now would repeat the checkpoint-fabrication error already caught once. Correctly stays absent. Backlog now 1 Epic, 5 Stories (was 4). Re-verified: pipeline order (Stage_Backlog digest recomputed to 30 subjects, reproduces; earlier stages unaffected), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "f9a1d4ef0c6428acc1fa67e851dd5bce6facc95be7ce43a0a43be21f6c2bd551"^^xsd:string .
+pkg:Evidence_v1_8_1 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.8.1 (PATCH release)"@en ;
+    rdfs:comment "PATCH: user asked for an explicit fit-gap comparing the Epic against the Scope. Ran it bidirectionally rather than re-asserting existing links: Scope->Epic (built a table mapping every Deliverable to whichever Stories actually address it) and Epic->Scope (re-read every Story's wantsCapability/soThat against real Scope content, and checked all 3 Exclusions against every Story's text). Found one real, previously-undetected gap: Deliverable_DisclosedLimitsPreserved had zero Story-level coverage -- the disclosure obligation (Amplitude figures, GitLab COI note) was named extensively at Mission/Scope/Goal/Objective level throughout, but no Story anywhere planned how the 2 disclosures actually get carried into the new corpus-instantiated artifact, a genuine risk since that artifact is built from scratch. Fixed: widened STORY-1's scope (the natural home, since disclosures are CITATIONS-schema content, the field STORY-1 already targets) to explicitly require them as real corpus entries, and added pursuesObjective on ObjDisclosedLimitsVisible. satisfiesDeliverable correctly checked and found empty (0/3, honest since nothing is Done). One real editing error caught mid-fix (a str_replace initially dropped STORY-1's partOf link and mangled STORY-2's opening declaration) -- caught immediately by re-parsing before proceeding, not assumed to have worked. Re-verified: pipeline order unaffected (property edits, no new tracked-type subjects), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "ff6171a8d14f114012b3b6c05284ab4da527dc5f932d28c9a9f640f55bc99cf2"^^xsd:string .
