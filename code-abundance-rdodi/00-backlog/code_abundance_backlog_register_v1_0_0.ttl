@@ -299,6 +299,34 @@ bl:PlanEvent_Story3 a backlog:PlanningEvent, owl:NamedIndividual ;
     backlog:plannedBy backlog:Owner ;
     backlog:producesTask bl:TaskPatchCitationsTable, bl:TaskCleanStaticLCWKBContent, bl:TaskVerifyNoResidualSubjectContent .
 
+bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
+    backlog:hasEffortEstimate "5"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: comparable in scale to STORY-1 (real structured authoring against a fixed shape), but with a genuinely harder design question first -- Stage4.H-K's widget-intention model was built for per-section click-reveal widgets; this pattern's real interactivity (chat console, relation map, principle browsing) has no established mapping onto that model yet, and that mapping has to be decided honestly before any triples are written, not worked around." ;
+    backlog:hasEstimateConfidence "Low"^^xsd:string ;
+    backlog:estimatedAt "2026-09-01T00:00:00Z"^^xsd:dateTime .
+
+bl:StoryBuildPageABox a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-6" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:scheduledInHorizon backlog:Now ;
+    backlog:rankedOnRoadmap bl:Roadmap1 ;
+    backlog:hasRoadmapRank "6"^^xsd:integer ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story6 ;
+    backlog:dependsOn bl:StoryInstantiateAndVerify, bl:StoryAlignReleaseVersions ;
+    backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
+    backlog:notYetScoreable true ;
+    backlog:hasScoreabilityReason "Freshly identified by direct investigation of the RDODI procedure's own literal text; not yet run through the framework's prioritisation method." ;
+    rdfs:label "Build the real page ABox the RDODI default deliverable's own procedure requires (Stage4.A/B/G, steps 4-6)"@en ;
+    backlog:asRole "the package maintainer" ;
+    backlog:wantsCapability "a genuine code_abundance_page_abox_v1_3_0.ttl satisfying Stage4.A (parses), Stage4.B (SHACL-clean against interactive_page_ontology_shacl), Stage4.G (every individual dcterms:source-linked to its Stage 3 Section), and Stage4.H-K's real widget-intention model -- reached by first deciding honestly how that model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity (chat console, relation map, principle browsing), not by force-fitting the old shape" ;
+    backlog:soThat "the Epic's own Definition of Done (RDODI gates passing) is genuinely, not partially, satisfied -- found by direct investigation (2026-09-01): the procedure's own numbered steps 4-6 for the DEFAULT deliverable explicitly require a page ABox, unlike Cross.A's finding two turns ago (a cross-stage assumption that didn't transfer), this is the procedure's own literal text for the pattern this Epic adopted. Confirmed via test-drive: zero ABox-generation tooling exists anywhere in the corpus-instantiation template (08-brsf-corpus-template/02-tooling/ contains exactly one script, and it never touches an ABox) -- this is a genuine, currently-unaddressed gap, not a doesn't-apply situation." ;
+    backlog:partOf bl:EpicAdoptRichDefault ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing, bl:ObjStagesFullyGateClean, bl:ObjStage4MatchesCurrentDefault .
+
 bl:Roadmap1 a backlog:Roadmap, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "code-abundance-rdodi Path B roadmap"@en ;
@@ -547,7 +575,7 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
     backlog:notYetScoreable true ;
     backlog:hasScoreabilityReason "Freshly decomposed from the Epic in this planning pass; not yet run through the framework's prioritisation method." ;
-    backlog:decomposesInto bl:StoryCorpusContract, bl:StoryQuizAndGlossary, bl:StoryInstantiateAndVerify, bl:StorySyncStage4ToStage3, bl:StoryAlignReleaseVersions ;
+    backlog:decomposesInto bl:StoryCorpusContract, bl:StoryQuizAndGlossary, bl:StoryInstantiateAndVerify, bl:StorySyncStage4ToStage3, bl:StoryAlignReleaseVersions, bl:StoryBuildPageABox ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing, bl:ObjStagesFullyGateClean,
         bl:ObjDisclosedLimitsVisible, bl:ObjStage4MatchesCurrentDefault, bl:ObjNoOutOfAreaWork,
         bl:ObjNoS6ReconciliationDecisions, bl:ObjNoSharedToolingEdits, bl:ObjNoStage1to3RecontentEdits .
@@ -736,7 +764,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "e150cc6b37cd6f0102427a2122736005b5a0243e4467081fb6ed0622c8b04c70" .
+    backlog:hasStateDigest "51be833c4be3471de28d445356c7a879948c40b7fa00ae8183e9b13d5480271f" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
