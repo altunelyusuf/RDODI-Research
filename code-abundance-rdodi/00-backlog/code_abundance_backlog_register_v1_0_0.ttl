@@ -202,10 +202,23 @@ bl:TaskAuthorCorpusJSON a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Write the corpus_contract JSON file matching 01-schema/corpus_contract_v1_0_0.json"@en ;
     backlog:hasIdentifier "TASK-1" ;
-    backlog:hasState backlog:Proposed ;
+    backlog:hasState backlog:Done ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasEvidence bl:Evidence_TaskAuthorCorpusJSON ;
     backlog:memberOfContainer bl:Iteration1 .
+
+bl:AC_StoryCorpusContract a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "corpus_contract_v1_0_0.json is loadable, cross-reference-clean, and disclosure-preserving"@en ;
+    backlog:hasGherkinText "Given corpus_contract_v1_0_0.json, When a developer or the instantiation script loads it, Then all 6 required top-level keys (MISSION, CATEGORIES, PRINCIPLES, FRAMEWORKS, RELATIONS, CITATIONS) are present and every cross-reference among them (a PRINCIPLE's cat, fw and reinforces entries; a RELATION's source and target) resolves to a real id rather than failing silently. And When a reader searches the PRINCIPLES text for the two previously-disclosed evidentiary limitations (the Amplitude figures, the GitLab conflict-of-interest note), Then both are found verbatim in the running prose, not only referenced by citation number." .
+
+bl:Evidence_TaskAuthorCorpusJSON a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "corpus_contract_v1_0_0.json exists, parses, and satisfies the schema and STORY-1's disclosure requirement"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "Checked directly, this session: (1) file exists at code-abundance-rdodi/04-interactive-page/01-corpus-contract/corpus_contract_v1_0_0.json, 46524 bytes; (2) python3 json.load succeeds; (3) all 6 required top-level keys present (MISSION, CATEGORIES, PRINCIPLES, FRAMEWORKS, RELATIONS, CITATIONS) matching 01-schema/corpus_contract_v1_0_0.json; (4) 18 PRINCIPLES (matching Stage 2's 18 leaf classes exactly), 7 CATEGORIES (matching Stage 2's 7 top-level classes), 15 CITATIONS (matching Stage 1's 15 Publications); (5) every reinforces/cat/fw/RELATIONS source-target reference resolves to a real id -- one broken reference (a non-existent 'CursorAmplitude' id) found and fixed during this check, not before it; (6) the 2 disclosed evidentiary limitations (Amplitude figures, GitLab COI) confirmed present verbatim in the PRINCIPLES text itself (ExecutionPillar, DeveloperDemandCritique, MetricValidityAndSelectionBiasCritique, CodeIsPreciousConstraint, GitLabDuoAgentPlatform), not just referenced in the citation list -- satisfying STORY-1's own rescoped requirement." .
 
 bl:Roadmap1 a backlog:Roadmap, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -463,7 +476,10 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
 bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-1" ;
-    backlog:hasState backlog:Proposed ;
+    backlog:hasState backlog:Done ;
+    backlog:hasEvidence bl:Evidence_TaskAuthorCorpusJSON ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryCorpusContract ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
     backlog:scheduledInHorizon backlog:Now ;
     backlog:rankedOnRoadmap bl:Roadmap1 ;
     backlog:hasRoadmapRank "1"^^xsd:integer ;
