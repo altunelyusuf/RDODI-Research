@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_16_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.16.0"@en ;
+pkg:Decision_v1_17_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.17.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.16.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_15_0 ;
+    owl:versionInfo "1.17.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_16_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_16_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 22 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_16_0 ;
-    prov:generatedAtTime "2026-09-01T12:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_17_0 ;
+    prov:generatedAtTime "2026-09-01T13:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_16_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.16.0 (STORY-4 closed -- Cross.A/C verified against the real shipped page)"@en ;
-    rdfs:comment "MINOR: with a real Path B artifact now shipped (STORY-3), ran the verification STORY-4 was rescoped for two turns ago. Extracted CATEGORIES + PRINCIPLES directly from the real shipped file (not the corpus contract source) using the same bracket-matching scanner the real instantiation tooling uses: 7 + 18 = 25 nodes, exactly matching Stage 2's real class count, re-queried fresh. Extracted Stage 1's real skos:Concept inventory (14 concepts, independently confirming Stage1.C's own >=10 requirement) and checked each against the shipped page's actual principle text: 14 of 14 covered = 1.00, well above Cross.C's 0.80 threshold. Confirms precisely what the earlier domain-engineering finding predicted: Cross.A's literal wording does not apply to this pattern, but its real intent (full traceable concept coverage) holds, verified against the real artifact rather than assumed from its source data. Closed with real Evidence and an observable-behaviour AcceptanceCriterion. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "fc1e6b0c97341a698417b6a2f133b841cb4f9d6af3f911f67983500df18a3a43"^^xsd:string .
+pkg:Evidence_v1_17_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.17.0 (STORY-6 built)"@en ;
+    rdfs:comment "MINOR: built STORY-6 (real page ABox work) backed by the prior turn's test-driven investigation -- confirmed via direct read that the RDODI default deliverable's own procedure text (steps 4-6) explicitly requires a page ABox, and confirmed via direct inspection that zero ABox-generation tooling exists in the corpus-instantiation template. Assigned a real, honestly-disclosed cost estimate (5, Low confidence) reflecting the genuine unsolved design question -- how Stage4.H-K's widget-intention model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity. Added to the Epic's decomposesInto and the 3 objectives it actually advances; dependsOn STORY-3 and STORY-5 (both already Done), Now horizon. One real editing error caught and fixed immediately during the build (a str_replace that dropped the Roadmap1 individual's own declaration), caught by re-parsing before proceeding. Re-verified: pipeline order (Stage_Backlog digest recomputed to 35 subjects, reproduces), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "07deb68b3c7a5df8b30416f00921f057b4f52f882ca9ee14a9bc5f78fcda0801"^^xsd:string .
