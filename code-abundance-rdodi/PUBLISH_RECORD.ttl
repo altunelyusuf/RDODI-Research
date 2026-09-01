@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_8_1 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.8.1"@en ;
+pkg:Decision_v1_9_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.9.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.8.1"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_8_0 ;
+    owl:versionInfo "1.9.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_8_1 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_8_1 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 18 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_8_1 ;
-    prov:generatedAtTime "2026-08-31T08:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_9_0 ;
+    prov:generatedAtTime "2026-08-31T09:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_8_1 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.8.1 (PATCH release)"@en ;
-    rdfs:comment "PATCH: user asked for an explicit fit-gap comparing the Epic against the Scope. Ran it bidirectionally rather than re-asserting existing links: Scope->Epic (built a table mapping every Deliverable to whichever Stories actually address it) and Epic->Scope (re-read every Story's wantsCapability/soThat against real Scope content, and checked all 3 Exclusions against every Story's text). Found one real, previously-undetected gap: Deliverable_DisclosedLimitsPreserved had zero Story-level coverage -- the disclosure obligation (Amplitude figures, GitLab COI note) was named extensively at Mission/Scope/Goal/Objective level throughout, but no Story anywhere planned how the 2 disclosures actually get carried into the new corpus-instantiated artifact, a genuine risk since that artifact is built from scratch. Fixed: widened STORY-1's scope (the natural home, since disclosures are CITATIONS-schema content, the field STORY-1 already targets) to explicitly require them as real corpus entries, and added pursuesObjective on ObjDisclosedLimitsVisible. satisfiesDeliverable correctly checked and found empty (0/3, honest since nothing is Done). One real editing error caught mid-fix (a str_replace initially dropped STORY-1's partOf link and mangled STORY-2's opening declaration) -- caught immediately by re-parsing before proceeding, not assumed to have worked. Re-verified: pipeline order unaffected (property edits, no new tracked-type subjects), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "ff6171a8d14f114012b3b6c05284ab4da527dc5f932d28c9a9f640f55bc99cf2"^^xsd:string .
+pkg:Evidence_v1_9_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.9.0 (MINOR release)"@en ;
+    rdfs:comment "MINOR: comprehensive status pass ahead of a kick-off readiness assessment. Found and closed one real gap first -- dependsOn was discussed 2 turns ago (dependency-based, not date-based planning) but never actually built before the session pivoted; built it now across all 5 Stories (STORY-2->1, STORY-3->{1,2}, STORY-4->3, STORY-5->{3,4}), transitive property, no cycle. Re-verified: pipeline order unaffected, full SHACL 0 violations, no dependency-cycle violation fired. Full lineage status confirmed live, not from memory: Mission Out_InFlight (8/8 mission shapes satisfied); Scope 3 Areas/3 Deliverables/3 Exclusions, correct fillsScope direction, ProductScopeKind-tagged; Goals 8/8 per G29's own closure test; Objectives 8, each with real baseline/target, zero with checkpoints (correctly deferred, no real planning basis exists yet to ground one); Backlog 1 Epic/5 Stories, all Proposed, all notYetScoreable, dependency graph now real. Current gate reality re-checked live: 18/18 mechanical RDODI gates pass; Cross.A and Cross.D both genuinely fail today, both now owned (STORY-4, STORY-5 respectively); Epic/Scope fit-gap closed as of v1.8.1. What remains before a legitimate kick-off, stated plainly rather than fabricated ahead of time: prioritise the 5 Stories; size a real Iteration by capacity; commit dependency-resolved, capacity-fitting work via a PlanningEvent; only then declare KickOff, dated to the real moment, never backfilled."@en ;
+    pub:transcriptSHA256 "da0d15ca2d0158b6adba59f9cb7eef35342a8a497054e468b74d6aab18f1ad2d"^^xsd:string .
