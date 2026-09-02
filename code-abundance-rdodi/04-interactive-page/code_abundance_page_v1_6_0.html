@@ -42,6 +42,11 @@ aside#explorer .exp-title{font-size:11px;text-transform:uppercase;letter-spacing
 .tree-caret.open{transform:rotate(90deg);}
 .tree-dot{width:9px;height:9px;border-radius:50%;flex:none;}
 .tree-children{margin-left:18px;display:none;} .tree-children.open{display:block;}
+.tree-folder-icon{font-size:13px;flex:none;}
+.tree-file-icon{font-size:12px;flex:none;opacity:.75;}
+.mini-file-icon{font-size:13px;flex:none;margin-right:2px;}
+.mini-filter-banner{display:flex;align-items:center;gap:8px;padding:6px 8px;margin-bottom:6px;background:#eef1f6;border-radius:5px;font-size:12px;color:var(--sub);}
+.mini-filter-banner button{font-size:11px;padding:2px 8px;}
 .tree-count{margin-left:auto;font-size:11px;color:var(--sub);background:#eef1f6;border-radius:8px;padding:0 6px;}
 main#main{overflow-y:auto;padding:18px 22px 60px;}
 .view{display:none;} .view.active{display:block;}
@@ -292,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.5.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.6.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -423,17 +428,17 @@ function renderExplorer(){
   Object.entries(CATEGORIES).forEach(([key,cat])=>{
     const items = PRINCIPLES.filter(p=>p.cat===key);
     html += `<div class="tree-node">
-      <div class="tree-row" data-toggle="${key}">
+      <div class="tree-row" data-toggle="${key}" data-filter-cat="${key}">
         <span class="tree-caret open" id="caret-${key}">&#9654;</span>
-        <span class="tree-dot" style="background:var(--cat-${cat.css})"></span>
+        <span class="tree-folder-icon" aria-hidden="true">&#128193;</span>
         <span>${cat.label}</span><span class="tree-count">${items.length}</span>
       </div>
       <div class="tree-children open" id="children-${key}">
         ${items.map(p=>`<div class="tree-row" data-select="${p.id}" tabindex="0" role="treeitem"
-            aria-label="${p.id}: ${p.short}" oncontextmenu="return openCtx(event,'${p.id}')"
+            aria-label="${p.short}" title="${p.short}" oncontextmenu="return openCtx(event,'${p.id}')"
             onkeydown="if(event.key==='Enter'){selectPrinciple('${p.id}');}">
             <span class="tree-caret"></span>
-            <span class="mono" style="color:var(--sub);font-size:11px;">${p.id}</span><span>${p.short}</span>
+            <span class="tree-file-icon" aria-hidden="true">&#128196;</span><span>${p.short}</span>
           </div>`).join('')}
       </div></div>`;
   });
@@ -469,6 +474,13 @@ function renderExplorer(){
         const kids = document.getElementById('children-'+key);
         if(caret) caret.classList.toggle('open');
         if(kids) kids.classList.toggle('open');
+        // Real folder-click behaviour: filter the middle list to this
+        // category's own contents, rather than leaving it a second,
+        // always-everything duplicate of the tree.
+        if(toggleRow.dataset.filterCat){
+          EXPLORER_LIST_FILTER = toggleRow.dataset.filterCat;
+          renderExplorerList();
+        }
         return;
       }
       if(fwRow){ switchTop('overview'); switchSub('overview','frameworks'); highlightFramework(fwRow.dataset.fw); return; }
@@ -5205,6 +5217,23 @@ const AGENT_REGISTRY = [
 // the orchestrator as each delegation returns, so a face can never show "done"
 // for an agent that did not run - the display reads state, it does not invent it.
 const AGENT_RUN = {};   // id -> {status, note, detail, at}
+let EXPLORER_LIST_FILTER = null;  // null = show all; a category key = show only that category's items (real folder-click behaviour, not a second static duplicate of the tree)
+function renderExplorerList(){
+  const list = document.getElementById('explorer-list');
+  if(!list) return;
+  const items = PRINCIPLES.filter(p=>!EXPLORER_LIST_FILTER || p.cat===EXPLORER_LIST_FILTER);
+  const filterBanner = EXPLORER_LIST_FILTER
+    ? '<div class="mini-filter-banner">Showing ' + CATEGORIES[EXPLORER_LIST_FILTER].label + ' (' + items.length + ') <button onclick="EXPLORER_LIST_FILTER=null;renderExplorerList();">Show all ' + PRINCIPLES.length + '</button></div>'
+    : '';
+  list.innerHTML = filterBanner + items.map(function(p){
+    return '<div class="mini-card" data-id="' + p.id + '" tabindex="0" role="button" ' +
+      'aria-label="View detail for ' + p.short + '" title="' + p.short + '" ' +
+      'onclick="selectPrinciple(\'' + p.id + '\')" oncontextmenu="return openCtx(event,\'' + p.id + '\')" ' +
+      'onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();selectPrinciple(\'' + p.id + '\');}">' +
+      '<span class="mini-file-icon" aria-hidden="true">&#128196;</span>' +
+      '<span class="mini-title">' + p.short + '</span></div>';
+  }).join('');
+}
 function agentSetState(id, status, note, detail){
   AGENT_RUN[id] = {status, note, detail: detail||'', at:new Date().toISOString()};
   renderAgentTeam();
@@ -5565,11 +5594,11 @@ function buildMain(){
   <section id="view-explorer" class="view">
     <div class="explorer-split">
       <div id="explorer-list">
-        ${PRINCIPLES.map(p=>`<div class="mini-card" data-id="${p.id}" tabindex="0" role="button"
-            aria-label="View detail for ${p.id}: ${p.short}"
+        ${PRINCIPLES.filter(p=>!EXPLORER_LIST_FILTER || p.cat===EXPLORER_LIST_FILTER).map(p=>`<div class="mini-card" data-id="${p.id}" tabindex="0" role="button"
+            aria-label="View detail for ${p.short}" title="${p.short}"
             onclick="selectPrinciple('${p.id}')" oncontextmenu="return openCtx(event,'${p.id}')"
             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();selectPrinciple('${p.id}');}">
-            <span class="badge ${CATEGORIES[p.cat].css}" style="font-size:9px;padding:1px 6px;">${p.id}</span>
+            <span class="mini-file-icon" aria-hidden="true">&#128196;</span>
             <span class="mini-title">${p.short}</span></div>`).join('')}
       </div>
       <div id="explorer-detail" role="region" aria-label="Principle detail">
@@ -5585,7 +5614,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_5_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_6_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>
