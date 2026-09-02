@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_20_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.20.0"@en ;
+pkg:Decision_v1_21_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.21.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.20.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_19_0 ;
+    owl:versionInfo "1.21.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_20_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_20_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_20_0 ;
-    prov:generatedAtTime "2026-09-02T00:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_21_0 ;
+    prov:generatedAtTime "2026-09-02T01:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_20_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.20.0 (STORY-7 closed -- real content-quality fixes)"@en ;
-    rdfs:comment "MINOR: user's direct finding -- 'the page is shameful' -- exposed a real gap in this session's own verification discipline: 0 console errors had been repeatedly treated as sufficient evidence of correctness. Took real screenshots for the first time and found genuine, glaring, user-visible defects: the visible header still named the source template's own subject; 'undefined' rendered literally for absent fields; a relation-type table showing all zeros against a real '7 relations' stat directly above it; a footer carrying the source template's own dev debug commentary; a coverage paragraph describing the wrong subject's file-processing history; the source subject's real company name hardcoded into two chat system prompts (the most dangerous finding); three more 'LCW policy' label references. Fixed all of these and re-verified via real Playwright after each fix: 0 errors maintained, confirmed via fresh screenshots. Disclosed honestly rather than silently narrowed: ~39/10 references remain in deep RAG/retrieval logic and test fixtures tied to the source subject's own P01-P20 ID scheme -- not blind-replaced given real breakage risk without dedicated testing; filed as STORY-8, genuinely Proposed, not started. STORY-7 closed with real Evidence scoped precisely to what was actually fixed. Re-verified against the concurrently-updated BRSF (tbox v1.64.0, shacl v1.74.0): pipeline order (37 subjects, reproduces), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "2caa8ed882cd8de39fdf11e1ae060c94059a7c12f25eb3ce92107f952b62e5a4"^^xsd:string .
+pkg:Evidence_v1_21_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.21.0 (STORY-9 closed, STORY-10 filed)"@en ;
+    rdfs:comment "MINOR: user pasted the actual rendered sidebar/menu content, showing full paragraphs used as menu items. Investigated the real rendering code rather than assuming a template bug -- confirmed renderExplorer() correctly renders only the short field; root cause was in this session's own STORY-1 data, where short had been built as a 22-word truncated sentence fragment rather than a genuine title. Rewrote all 18 short fields as real short titles and patched them into the live HTML via targeted replacement (preserving all prior cleanup work), confirmed exactly 18 replacements applied, re-verified via real Playwright and a fresh screenshot. User also asked whether the page's own agents work in parallel with proper failure-communication. Investigated the real orchestration code directly: confirmed the 11-agent pipeline is genuinely sequential, with at least some sequencing reflecting a real, disclosed data dependency (Grooming and Lineage Compose both consume Intent's own repaired output); separately confirmed a real failure-reason-then-retry pattern already exists (withOneAutoFix) but only for 2 of 11 stages. Filed as STORY-10, genuinely not started -- the real first task is dependency mapping across all 11 stages, not a naive parallelization that risks breaking real data flow. Re-verified: pipeline order (39 subjects, reproduces), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "364e494f957280e6d018dba4058ee80aeb30ba780fd63fde7c0b1b8ed382645c"^^xsd:string .
