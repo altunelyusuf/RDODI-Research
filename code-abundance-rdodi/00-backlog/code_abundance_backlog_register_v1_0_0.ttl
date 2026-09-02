@@ -1599,6 +1599,9 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:hasWorkItemTitle "Adopt RDODI v1.3.0 default interactive-page pattern for code-abundance-rdodi" ;
     backlog:hasIdentifier "EPIC-1" ;
     backlog:hasState backlog:Done ;
+    backlog:finishedAt "2026-09-01T12:11:30+00:00"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-01T12:11:30+00:00"^^xsd:dateTime ;
+    backlog:lastAuditedAt "2026-09-01T12:11:30+00:00"^^xsd:dateTime ;
     backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Architecture, backlog:Concern_Interaction ;
     backlog:hasEvidence bl:Evidence_EpicAdoptRichDefault ;
     backlog:hasAcceptanceCriterion bl:AC_EpicAdoptRichDefault ;
@@ -1830,7 +1833,8 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "c934f3c8702fb74e7736c9dbbb4849afa287c7c4de53bee37a71164b62c64bd5" .
+    backlog:hasStateDigest "c934f3c8702fb74e7736c9dbbb4849afa287c7c4de53bee37a71164b62c64bd5" ;
+    backlog:closedAtCommit "0daa32a67b6bfb76df71e3aea8ebe6a73bdf4467" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
