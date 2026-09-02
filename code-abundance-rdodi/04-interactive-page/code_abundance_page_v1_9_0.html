@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.8.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.9.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -4330,10 +4330,29 @@ async function ensurePyodide(){
     await pyodide.globals.set('FRAMEWORKS_JSON', JSON.stringify(FRAMEWORKS));
     await pyodide.globals.set('RELATIONS_JSON', JSON.stringify(RELATIONS));
     await pyodide.globals.set('COMPANY_JSON', JSON.stringify(COMPANY_DATA));
+    // Package installation enabled for real, matching the pattern already
+    // proven working by the separate SHACL-checking Pyodide worker (which
+    // has installed pyshacl this way every run). Loading micropip once here
+    // makes ensureSafePackagesInstalled() below able to install any of
+    // PYODIDE_SAFE_PACKAGES on demand, the first time code actually needs one.
+    await pyodide.loadPackage('micropip');
     pyodideReady = true;
     document.getElementById('pyostatus').textContent = 'ready';
   })();
   await pyodideLoadPromise;
+}
+// Shared with extractAndCheckCode()'s own safety scan, so the standalone
+// Code Lab and the pipeline's Build/Test stages install from one real,
+// single list rather than two that could quietly drift apart.
+const PYODIDE_SAFE_PACKAGES = new Set(['numpy','pandas','networkx']);
+const INSTALLED_PACKAGES = new Set();
+async function ensureSafePackagesInstalled(names){
+  const toInstall = (names||[]).filter(n => !INSTALLED_PACKAGES.has(n));
+  if(!toInstall.length) return;
+  await ensurePyodide();
+  const micropip = pyodide.pyimport('micropip');
+  await micropip.install(toInstall);
+  toInstall.forEach(n => INSTALLED_PACKAGES.add(n));
 }
 
 // v0.63.0: real, requested change - genuine SHACL gate enforcement in the
@@ -4509,6 +4528,8 @@ async function runCode(){
   const code = document.getElementById('codearea').value;
   try{
     await ensurePyodide();
+    const codeImports = [...code.matchAll(/^\s*(?:import|from)\s+([a-zA-Z_][a-zA-Z0-9_]*)/gm)].map(m=>m[1]);
+    await ensureSafePackagesInstalled(codeImports.filter(m => PYODIDE_SAFE_PACKAGES.has(m)));
     let captured = '';
     pyodide.setStdout({ batched: (s)=>{ captured += s + '\n'; } });
     await pyodide.runPythonAsync(code);
@@ -4728,10 +4749,19 @@ async function extractAndCheckCode(raw){
     }
   }
   if(!code) return {code: '', docs: raw, flagged: [{label:'no code block found in response'}], syntaxOk: null, syntaxErr: ''};
+  // Each check carries its own remedy: the exact, actionable instruction a
+  // retry needs, stated once at the point that knows what actually went
+  // wrong -- not guessed afterwards from the label text by whatever
+  // consumes flagged[]. This is what makes correction generic: a receiving
+  // agent (withOneAutoFix) just uses flagged[].remedy directly, unchanged
+  // regardless of which check fired or how many more are added later.
   const suspiciousPatterns = [
-    {re:/\b(import\s+(requests|urllib|http\.client|socket)|from\s+urllib)/i, label:'a network/HTTP import'},
-    {re:/\b(requests\.(get|post)|urlopen|Request\(|http:\/\/|https:\/\/(?!en\.wikipedia))/i, label:'a network call or external URL'},
-    {re:/\bopen\(['"]\//i, label:'a filesystem path outside the sandbox'},
+    {re:/\b(import\s+(requests|urllib|http\.client|socket)|from\s+urllib)/i, label:'a network/HTTP import',
+     remedy:'There is no network access in this sandbox. Remove the network/HTTP import entirely and rewrite using only the local data already loaded as Python variables (see the data shape above) plus the standard library.'},
+    {re:/\b(requests\.(get|post)|urlopen|Request\(|http:\/\/|https:\/\/(?!en\.wikipedia))/i, label:'a network call or external URL',
+     remedy:'There is no network access in this sandbox and no external URL can be fetched. Remove the network call and any external URL, and rewrite using only the local data already loaded as Python variables plus the standard library.'},
+    {re:/\bopen\(['"]\//i, label:'a filesystem path outside the sandbox',
+     remedy:'There is no filesystem access outside this sandbox. Remove the file path and rewrite using only the local data already loaded as Python variables plus the standard library -- there is nothing on disk to open.'},
   ];
   const flagged = suspiciousPatterns.filter(p => p.re.test(code));
   // DEF-27: owner-reported and confirmed from the uploaded codelab log -
@@ -4752,9 +4782,25 @@ async function extractAndCheckCode(raw){
     'pathlib','hashlib','base64','uuid','logging','pickle','numbers','cmath','calendar','zlib','codecs',
     'platform','stat','glob','shutil','tempfile','queue','secrets','hmac','shlex','string','html','xml',
     'email','mimetypes','configparser','argparse']);
+  // Package installation IS real and enabled (micropip is loaded into this
+  // same Pyodide instance in ensurePyodide(), matching the pattern already
+  // proven working by the separate SHACL-checking Pyodide worker, which has
+  // installed pyshacl this way every run). What stays refused is NETWORK
+  // ACCESS -- an arbitrary HTTP request or scrape can reach anywhere and
+  // exfiltrate or fetch anything; installing one of a small, named, curated
+  // set of well-known packages from PyPI is a bounded, auditable action, not
+  // the same risk. PYODIDE_SAFE_PACKAGES (declared once, globally, shared
+  // with runCode() and ensureSafePackagesInstalled()) is that curated set --
+  // real packages genuinely useful for analysing this project's own local
+  // data (arrays/stats, dataframes, graphs), no network/scraping libraries.
   const importMatches = [...code.matchAll(/^\s*(?:import|from)\s+([a-zA-Z_][a-zA-Z0-9_]*)/gm)];
   const nonStdlib = [...new Set(importMatches.map(m => m[1]).filter(mod => !PYTHON_STDLIB.has(mod)))];
-  if(nonStdlib.length) flagged.push({label: `a package not available here (${nonStdlib.join(', ')}) - only Python's standard library is loaded in this sandbox, no pip installs`});
+  const installable = nonStdlib.filter(mod => PYODIDE_SAFE_PACKAGES.has(mod));
+  const notInstallable = nonStdlib.filter(mod => !PYODIDE_SAFE_PACKAGES.has(mod));
+  if(notInstallable.length) flagged.push({
+    label: `a package not available here (${notInstallable.join(', ')})`,
+    remedy: `The only third-party packages installable in this sandbox are: ${[...PYODIDE_SAFE_PACKAGES].join(', ')} -- import only from that set or the standard library, and remove ${notInstallable.join(', ')} entirely. There is still no network access and no way to install anything else.`
+  });
   let syntaxOk = true, syntaxErr = '';
   try {
     await ensurePyodide();
@@ -4763,7 +4809,7 @@ async function extractAndCheckCode(raw){
     syntaxOk = pyodide.globals.get('_SYNTAX_OK');
     syntaxErr = pyodide.globals.get('_SYNTAX_ERR');
   } catch(e){ /* Pyodide itself unavailable - don't block on a check we can't run */ }
-  return {code, docs, flagged, syntaxOk, syntaxErr};
+  return {code, docs, flagged, syntaxOk, syntaxErr, installable};
 }
 
 async function processGeneratedCode(out, task, raw, cardLabel){
@@ -5110,7 +5156,9 @@ async function runRequestIntakeAgent(){
     s = begin('runCode','Execution');
     let ran=false, ok=false, output='';
     if(codeSafe && testSafe){
-      try{ await ensurePyodide(); let cap='';
+      try{ await ensurePyodide();
+        await ensureSafePackagesInstalled([...(codeRes.installable||[]), ...(testRes.installable||[])]);
+        let cap='';
         pyodide.setStdout({batched:(x)=>{cap+=x+'\n';}});
         await pyodide.runPythonAsync(codeRes.code + '\n\n' + testRes.code);
         ran=true; ok=true; output=cap||'(no output; no AssertionError raised)';
@@ -5515,18 +5563,17 @@ async function withOneAutoFix(task, agentFn){
   const first = await agentFn(task);
   const firstUnsafe = !first.code || !first.syntaxOk || first.flagged.length;
   if(!firstUnsafe) return {...first, autoFixed:false, autoFixWorked:null};
+  // Generic by design, not case-by-case: each check in extractAndCheckCode's
+  // own suspiciousPatterns (and the non-stdlib-package check) carries its
+  // own remedy field -- the exact, actionable instruction stated once, at
+  // the point that actually knows what went wrong. This function never
+  // inspects label text or guesses a failure category; it just uses
+  // whatever remedy the failing check attached, generically, so a new check
+  // added later works correctly here with no change to this function.
+  const remedies = first.flagged.map(f=>f.remedy).filter(Boolean);
   const reasonText = first.flagged.map(f=>f.label).join('; ') || first.syntaxErr || 'no usable code was found in the response';
-  // Network/package violations get a stronger, more specific correction than
-  // a generic 'fix it' -- observed real failure (user-reported, session log
-  // attached): the system prompt already forbids requests/urllib/pip/network
-  // once, and the model still used them anyway on the first attempt. A
-  // one-line generic reminder in the task text did not reliably out-weigh
-  // that. Restating the exact constraint plainly, in the same place the
-  // violation was found, gives the retry a better chance without changing
-  // the underlying model.
-  const isNetworkOrPackageIssue = /network|http|package|pip|import/i.test(reasonText);
-  const fixedTask = isNetworkOrPackageIssue
-    ? task + '\n\nThe previous attempt used something not available here (' + reasonText + '). There is no network access and no pip in this sandbox, and this is not fixable by trying a different package -- only Python\'s standard library plus the principles/categories/frameworks/relations/company data already loaded as local variables are available. Rewrite the code using ONLY that local data and the standard library; do not import requests, urllib, http.client, socket, or any third-party package.'
+  const fixedTask = remedies.length
+    ? task + '\n\nThe previous attempt failed a real check when actually run: ' + reasonText + '. ' + remedies.join(' ')
     : task + '\n\nThe previous attempt failed with this real error when actually checked - fix it: ' + reasonText;
   const second = await agentFn(fixedTask);
   const secondSafe = second.code && second.syntaxOk && !second.flagged.length;
@@ -5539,7 +5586,7 @@ RELATIONS: list of {source, target, type, subtype, evidence}. COMPANY_DATA.compa
   const systemPrompt = `You are a code generation agent for a real project. Its actual mission statement, verbatim from the project's own BRSF lineage: "${MISSION}"
 Write real, runnable Python 3 that accomplishes the user's task. This data shape is available (see below for how to load it):
 ${dataShape}
-The code runs inside Pyodide in a browser via direct execution (like exec()), not as a script - never write "if __name__ == '__main__':" or call a main() function, and never define a main() you don't call either; just write the plain top-level code that runs immediately when executed. No file I/O, no pip installs, no network calls, no imports of requests/urllib/http - there is no network access and no external API for this data. Only Python's standard library is available (json, re, collections, itertools, statistics, math, string, datetime, and similar) - no third-party packages like nltk, numpy, pandas, or requests exist in this sandbox at all, do not import them. If the task is about principles, categories, frameworks, relations, or companies, you MUST use the real project data below, never invent a URL, an API, or placeholder data - this project's real data already contains everything about itself:
+The code runs inside Pyodide in a browser via direct execution (like exec()), not as a script - never write "if __name__ == '__main__':" or call a main() function, and never define a main() you don't call either; just write the plain top-level code that runs immediately when executed. No file I/O, no network calls, no imports of requests/urllib/http/socket - there is no network access and no external API for this data, and that is never fixable by trying a different package. Python's full standard library is available (json, re, collections, itertools, statistics, math, string, datetime, pathlib, and more). In addition, exactly three real third-party packages are genuinely installed and importable when you use them: numpy, pandas, networkx - no others exist in this sandbox, so do not import anything outside the standard library and this named list (nltk, requests, and similar are not available). If the task is about principles, categories, frameworks, relations, or companies, you MUST use the real project data below, never invent a URL, an API, or placeholder data - this project's real data already contains everything about itself:
 principles = json.loads(LCW_JSON)   # list, shape above
 categories = json.loads(CATEGORIES_JSON)   # dict, shape above
 frameworks = json.loads(FRAMEWORKS_JSON)   # dict, shape above
@@ -5623,7 +5670,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_8_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_9_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>
