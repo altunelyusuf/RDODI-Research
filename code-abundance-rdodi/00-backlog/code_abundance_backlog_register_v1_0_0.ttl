@@ -311,7 +311,7 @@ bl:Estimate_Story7 a backlog:CostEstimate, owl:NamedIndividual ;
 bl:AC_StoryVisualContentAudit a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Every user-visible, glaring content-quality defect found by real screenshots is fixed and re-verified"@en ;
-    backlog:hasGherkinText "Given code_abundance_page_v1_7_0.html opened in a real browser, When a reader looks at the header, the overview stats, the footer, and a principle's detail view, Then no LCWKB-subject text, no 'undefined' field, and no internally-inconsistent statistic (a table's real breakdown contradicting the summary number above it) appears anywhere in the visible UI. And When 0-error Playwright verification is re-run after the fix, Then it still holds." .
+    backlog:hasGherkinText "Given code_abundance_page_v1_8_0.html opened in a real browser, When a reader looks at the header, the overview stats, the footer, and a principle's detail view, Then no LCWKB-subject text, no 'undefined' field, and no internally-inconsistent statistic (a table's real breakdown contradicting the summary number above it) appears anywhere in the visible UI. And When 0-error Playwright verification is re-run after the fix, Then it still holds." .
 
 bl:Evidence_StoryVisualContentAudit a backlog:Evidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -479,6 +479,43 @@ bl:StoryMsExplorerRedesign a backlog:Story, owl:NamedIndividual ;
     backlog:soThat "direct user finding, with the actual rendered content attached as evidence: raw ontology IDs stacked with every label made the menu unreadable, and the middle list was a genuine, previously-unrecognized second duplicate of the tree, distinct from the 'All Sections' block already removed. User explicitly asked for MS-Explorer style: iconized, short, readable." ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
+bl:Estimate_Story13 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-13 (package-installation analysis, retry-message strengthening)"@en ;
+    backlog:hasEffortEstimate "2"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: user's uploaded session log gave an exact, real failure to investigate rather than a vague report -- root cause (a system prompt already correctly forbidding network imports, ignored by the model on a first attempt) was findable by reading the real code directly; the fix itself (a stronger, targeted retry message) is small and safe." ;
+    backlog:hasEstimateConfidence "Medium"^^xsd:string ;
+    backlog:estimatedAt "2026-09-02T00:00:00Z"^^xsd:dateTime .
+
+bl:AC_StoryPackageInstallAnalysis a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The Conformance fix is confirmed working in a real user session, and network/package-import refusals get a stronger, targeted retry"@en ;
+    backlog:hasGherkinText "Given the user's own uploaded session log recording a real pipeline run, When the Conformance stage's real result is read, Then it shows 'done, 0 Violation-severity results', confirming the earlier LINEAGE_TTL fix genuinely holds outside this session's own testing. And Given Code Gen or Test Gen refuses code for a network or package-related reason, When the automatic retry runs, Then the correction message restates the exact constraint (no network, no pip, use only the local data and standard library) rather than a generic 'fix it' note." .
+
+bl:Evidence_StoryPackageInstallAnalysis a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real analysis of the package-installation question, grounded in the actual code and a real user session log; retry message strengthened"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-02T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "User uploaded a real session log showing a genuine pipeline run's Conformance stage now reporting 'done, 0 Violation-severity results' -- direct, independent confirmation the earlier LINEAGE_TTL fix (STORY-11) genuinely holds in real use, not only in this session's own reproduction. The same log's real Code Gen failure ('a network/HTTP import; a package not available here (requests, bs4)... no pip installs') was investigated by reading the actual code, not assumed: found the code-gen system prompt already explicitly forbids network imports and pip installs and explicitly instructs the model to use the real local data (principles/categories/frameworks/relations/company data, already loaded as Python variables) -- the model ignored this instruction on its first attempt regardless, and the automatic one-shot retry used only a generic 'fix it: <reason>' correction rather than restating the specific constraint, so the retry failed the same way. Separately confirmed, by reading the actual SHACL worker's own working code, that package installation via micropip IS technically functional in this browser environment for at least one real case (pyshacl) -- the refusal here is a deliberate safety design choice (a hardcoded regex blocking requests/urllib/http.client/socket imports specifically), not a platform-level impossibility, and the main Pyodide instance used by Code Gen/Execution never calls micropip.install for anything, unlike the separate SHACL worker instance. Fixed the one safe, bounded improvement available without changing the underlying model or safety policy: network/package-flagged retries now receive a specific, forceful restatement of the real constraint (no network, no pip, local data and stdlib only) instead of a generic note. Re-verified via real Playwright, including a direct logic test of the new branch: 0 console/page errors, correct behaviour confirmed." .
+
+bl:StoryPackageInstallAnalysis a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-13" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasEvidence bl:Evidence_StoryPackageInstallAnalysis ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryPackageInstallAnalysis ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story13 ;
+    backlog:dependsOn bl:StoryConformanceFixAndMenuCleanup ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    rdfs:label "Confirm the Conformance fix in real use, and analyze the package-installation question with a real, targeted improvement"@en ;
+    backlog:asRole "a reader running the pipeline, and the package maintainer"@en ;
+    backlog:wantsCapability "confirmation that the earlier Conformance fix genuinely works outside this session, and a grounded, evidence-based answer to whether package installation is possible at all here, whether a different language would help, and what a safe next step looks like" ;
+    backlog:soThat "user's uploaded session log confirmed the Conformance fix in real use, and asked directly: is package installation possible at all, should a different language be used instead of Python, or are there other ways to install or reuse packages. Answered by reading the real code rather than guessing: package installation IS technically functional here (proven by the SHACL worker's own working micropip call), the refusal is a deliberate safety choice not a platform limit, and the specific observed failure was an LLM instruction-compliance issue -- the system prompt already correctly forbade network access -- not a missing capability." ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -489,14 +526,14 @@ bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
 bl:AC_StoryBuildPageABox a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The real page ABox passes every gate the RDODI default deliverable's own procedure names for it"@en ;
-    backlog:hasGherkinText "Given code_abundance_page_abox_v1_7_0.ttl, When Stage4.A (parse), Stage4.B (SHACL), Cross.B (provenance chain), and the widget gates Stage4.H-K (warrant, grounding, design-test, intention-coverage) are run, Then all PASS, checked by actually re-executing each gate's real tooling against the real file, not asserted." .
+    backlog:hasGherkinText "Given code_abundance_page_abox_v1_8_0.ttl, When Stage4.A (parse), Stage4.B (SHACL), Cross.B (provenance chain), and the widget gates Stage4.H-K (warrant, grounding, design-test, intention-coverage) are run, Then all PASS, checked by actually re-executing each gate's real tooling against the real file, not asserted." .
 
 bl:Evidence_StoryBuildPageABox a backlog:Evidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real page ABox built and verified: every applicable gate PASS, including 18/18 intention coverage"@en ;
     backlog:evidenceVerified true ;
     backlog:verifiedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
-    backlog:hasVerificationMethod "Resolved the design question by direct investigation of the real page's own JS, not by force-fitting the old pattern: found principleDetailHTML(p), a genuine per-concept interaction rendering real framework citations and typed relation chips, each independently clickable -- confirmed live via Playwright (57 real clickable navigation chips rendered on a real click) before writing any triple. Built code_abundance_page_abox_v1_7_0.ttl: 18 ChapterSections (one per real Stage 2 leaf concept, not the old pattern's 21 flat sections -- Cross.B chain confirmed 18/18 unbroken), 18 InstructionalWidgets each instantiating a new, honestly-named primitive (ca:PrincipleDetailNavigator, genuinely distinct from the old CitationDisclosureToggle), and 7 real LearningObjectives (one per actual category, not invented). Re-ran every applicable real gate fresh: Stage4.A parse PASS (391 triples); Stage4.B SHACL PASS (0 violations); Cross.B PASS (18/18 provenance chains unbroken); Stage4.H (widget warrant) PASS; Stage4.I (widget grounding) PASS; Stage4.J (widget design-test) PASS; Stage4.K (intention coverage) PASS -- 18/18 covered, 0 disclosed-scope, 0 decoration widgets, genuinely stronger than the old pattern's own ABox, which declared 6 learning objectives but linked zero widgets to any of them (all disclosed-uncovered)." .
+    backlog:hasVerificationMethod "Resolved the design question by direct investigation of the real page's own JS, not by force-fitting the old pattern: found principleDetailHTML(p), a genuine per-concept interaction rendering real framework citations and typed relation chips, each independently clickable -- confirmed live via Playwright (57 real clickable navigation chips rendered on a real click) before writing any triple. Built code_abundance_page_abox_v1_8_0.ttl: 18 ChapterSections (one per real Stage 2 leaf concept, not the old pattern's 21 flat sections -- Cross.B chain confirmed 18/18 unbroken), 18 InstructionalWidgets each instantiating a new, honestly-named primitive (ca:PrincipleDetailNavigator, genuinely distinct from the old CitationDisclosureToggle), and 7 real LearningObjectives (one per actual category, not invented). Re-ran every applicable real gate fresh: Stage4.A parse PASS (391 triples); Stage4.B SHACL PASS (0 violations); Cross.B PASS (18/18 provenance chains unbroken); Stage4.H (widget warrant) PASS; Stage4.I (widget grounding) PASS; Stage4.J (widget design-test) PASS; Stage4.K (intention coverage) PASS -- 18/18 covered, 0 disclosed-scope, 0 decoration widgets, genuinely stronger than the old pattern's own ABox, which declared 6 learning objectives but linked zero widgets to any of them (all disclosed-uncovered)." .
 
 bl:StoryBuildPageABox a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -517,7 +554,7 @@ bl:StoryBuildPageABox a backlog:Story, owl:NamedIndividual ;
     backlog:hasScoreabilityReason "Freshly identified by direct investigation of the RDODI procedure's own literal text; not yet run through the framework's prioritisation method." ;
     rdfs:label "Build the real page ABox the RDODI default deliverable's own procedure requires (Stage4.A/B/G, steps 4-6)"@en ;
     backlog:asRole "the package maintainer" ;
-    backlog:wantsCapability "a genuine code_abundance_page_abox_v1_7_0.ttl satisfying Stage4.A (parses), Stage4.B (SHACL-clean against interactive_page_ontology_shacl), Stage4.G (every individual dcterms:source-linked to its Stage 3 Section), and Stage4.H-K's real widget-intention model -- reached by first deciding honestly how that model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity (chat console, relation map, principle browsing), not by force-fitting the old shape" ;
+    backlog:wantsCapability "a genuine code_abundance_page_abox_v1_8_0.ttl satisfying Stage4.A (parses), Stage4.B (SHACL-clean against interactive_page_ontology_shacl), Stage4.G (every individual dcterms:source-linked to its Stage 3 Section), and Stage4.H-K's real widget-intention model -- reached by first deciding honestly how that model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity (chat console, relation map, principle browsing), not by force-fitting the old shape" ;
     backlog:soThat "the Epic's own Definition of Done (RDODI gates passing) is genuinely, not partially, satisfied -- found by direct investigation (2026-09-01): the procedure's own numbered steps 4-6 for the DEFAULT deliverable explicitly require a page ABox, unlike Cross.A's finding two turns ago (a cross-stage assumption that didn't transfer), this is the procedure's own literal text for the pattern this Epic adopted. Confirmed via test-drive: zero ABox-generation tooling exists anywhere in the corpus-instantiation template (08-brsf-corpus-template/02-tooling/ contains exactly one script, and it never touches an ABox) -- this is a genuine, currently-unaddressed gap, not a doesn't-apply situation." ;
     backlog:partOf bl:EpicAdoptRichDefault ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing, bl:ObjStagesFullyGateClean, bl:ObjStage4MatchesCurrentDefault .
@@ -613,7 +650,7 @@ bl:GoalMissionKeepsPace a backlog:Goal, owl:NamedIndividual ;
 bl:ObjStage4MatchesCurrentDefault a backlog:Objective, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The current Stage 4 artifact matches the currently-governing RDODI default"@en ;
-    backlog:hasObjectiveStatement "Binary check, counted: does the artifact at code-abundance-rdodi/04-interactive-page/ match the pattern RDODI procedure v1.3.0 names as its default. As of this pass (2026-09-01): yes -- code_abundance_page_v1_7_0.html is the corpus-instantiated rich pattern, shipped and Playwright-verified; the old single-flowing-page artifact (built under procedure v1.2.2) has been retired to 99-retired/. 1 of 1, target reached." ;
+    backlog:hasObjectiveStatement "Binary check, counted: does the artifact at code-abundance-rdodi/04-interactive-page/ match the pattern RDODI procedure v1.3.0 names as its default. As of this pass (2026-09-01): yes -- code_abundance_page_v1_8_0.html is the corpus-instantiated rich pattern, shipped and Playwright-verified; the old single-flowing-page artifact (built under procedure v1.2.2) has been retired to 99-retired/. 1 of 1, target reached." ;
     backlog:hasSuccessMetric bl:MetricStage4MatchesCurrentDefault ;
     backlog:hasTargetDirection backlog:Dir_Increase ;
     backlog:hasBaselineValue "0"^^xsd:decimal ;
@@ -974,7 +1011,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "cd7260d9e422db2fc7b0700110ac83aa04289d00079045727ecc7661a2a48f05" .
+    backlog:hasStateDigest "066b25eefad80dee524d5ad0b345501848cb5eb3e8307fce345614bd47165d87" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must

@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.7.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.8.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -5516,7 +5516,18 @@ async function withOneAutoFix(task, agentFn){
   const firstUnsafe = !first.code || !first.syntaxOk || first.flagged.length;
   if(!firstUnsafe) return {...first, autoFixed:false, autoFixWorked:null};
   const reasonText = first.flagged.map(f=>f.label).join('; ') || first.syntaxErr || 'no usable code was found in the response';
-  const fixedTask = task + '\n\nThe previous attempt failed with this real error when actually checked - fix it: ' + reasonText;
+  // Network/package violations get a stronger, more specific correction than
+  // a generic 'fix it' -- observed real failure (user-reported, session log
+  // attached): the system prompt already forbids requests/urllib/pip/network
+  // once, and the model still used them anyway on the first attempt. A
+  // one-line generic reminder in the task text did not reliably out-weigh
+  // that. Restating the exact constraint plainly, in the same place the
+  // violation was found, gives the retry a better chance without changing
+  // the underlying model.
+  const isNetworkOrPackageIssue = /network|http|package|pip|import/i.test(reasonText);
+  const fixedTask = isNetworkOrPackageIssue
+    ? task + '\n\nThe previous attempt used something not available here (' + reasonText + '). There is no network access and no pip in this sandbox, and this is not fixable by trying a different package -- only Python\'s standard library plus the principles/categories/frameworks/relations/company data already loaded as local variables are available. Rewrite the code using ONLY that local data and the standard library; do not import requests, urllib, http.client, socket, or any third-party package.'
+    : task + '\n\nThe previous attempt failed with this real error when actually checked - fix it: ' + reasonText;
   const second = await agentFn(fixedTask);
   const secondSafe = second.code && second.syntaxOk && !second.flagged.length;
   return {...second, autoFixed:true, autoFixWorked:secondSafe, firstAttemptReason:reasonText};
@@ -5612,7 +5623,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_7_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_8_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>

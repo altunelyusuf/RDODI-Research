@@ -11,15 +11,15 @@
     rdfs:label "Code Abundance Domain Ontology ABox v1.0.0"@en ;
     dcterms:created "2026-08-27"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
-    dcterms:description "RDODI Stage 2 exemplar individuals, one per leaf class in code_abundance_domain_tbox_v1_7_0.ttl, each carrying dcterms:source citing the Stage 1 research artifact per Stage2.E."@en ;
-    dcterms:identifier "code_abundance_domain_abox_v1_7_0" ;
+    dcterms:description "RDODI Stage 2 exemplar individuals, one per leaf class in code_abundance_domain_tbox_v1_8_0.ttl, each carrying dcterms:source citing the Stage 1 research artifact per Stage2.E."@en ;
+    dcterms:identifier "code_abundance_domain_abox_v1_8_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-08-27"^^xsd:date ;
     dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
     dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
     owl:versionIRI <http://example.org/rdodi/code-abundance/domain/abox/1.1.0> ;
-    owl:versionInfo "1.7.0" ;
+    owl:versionInfo "1.8.0" ;
     owl:priorVersion <http://example.org/rdodi/code-abundance/domain/abox/1.0.0> ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
     prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> .
@@ -27,89 +27,89 @@
 cai:TheCostPerAcceptedChangeUnit a ca:CostPerAcceptedChange, owl:NamedIndividual ;
     rdfs:label "The cost-per-accepted-change unit as defined by Staples (2026)"@en ;
     skos:definition "Bundles generation, environment setup, context, verification, review, remediation and governance into one measurable unit; the article's proposed replacement for cost-per-line-of-code."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:TheSixtyYearCodeConstraint a ca:CodeIsPreciousConstraint, owl:NamedIndividual ;
     rdfs:label "The sixty-year 'code is precious' constraint"@en ;
     skos:definition "The historical organizing constraint of software engineering that the article argues AI is now breaking."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:GitLabDuoAgentPlatformPillarInstance a ca:AgentPlatformPillar, owl:NamedIndividual ;
     rdfs:label "GitLab Duo Agent Platform as the Agent Platform pillar"@en ;
     skos:definition "GitLab's concrete instantiation of the Agent Platform pillar: create, customize and operate owned agents on chosen models and infrastructure."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:NextGenSourceControlPillarInstance a ca:ExecutionPillar, owl:NamedIndividual ;
     rdfs:label "GitLab's next-generation source control as the Execution pillar"@en ;
     skos:definition "Server-side access patterns letting an agent retrieve only what a task requires; reported up to 50x faster task execution in internal testing."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:GitLabOrbitPillarInstance a ca:ContextPillar, owl:NamedIndividual ;
     rdfs:label "GitLab Orbit as the Context pillar"@en ;
     skos:definition "A context graph connecting code, work items, pipelines, deployments and production signals across the software lifecycle, queryable by both GitLab's and third-party agents."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:GovernanceForAgentsPillarInstance a ca:GovernancePillar, owl:NamedIndividual ;
     rdfs:label "GitLab's Governance for Agents as the Governance pillar"@en ;
     skos:definition "Applies identity, policy, approval and audit controls around agent actions so organizations can increase autonomy without giving up evidence or accountability."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:UndocumentedLegacySystemsInstance a ca:HumanControlledLegacyMode, owl:NamedIndividual ;
     rdfs:label "Systems with undocumented dependencies and operational knowledge residing in people"@en ;
     skos:definition "The article's example of Mode 1: legacy systems remaining largely human-controlled until retired or rewritten."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:MostEnterpriseDevelopmentTodayInstance a ca:AgenticallyAcceleratedMode, owl:NamedIndividual ;
     rdfs:label "Most enterprise development today, per the article"@en ;
     skos:definition "The article's claim that Mode 2 is where most enterprise development currently sits, and where it expects most near-term economic value."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:StripeMinionsAsAutonomousInstance a ca:AutonomousMode, owl:NamedIndividual ;
     rdfs:label "Stripe's minions as a Mode 3 example"@en ;
     skos:definition "Agents that write pull requests end-to-end with humans reviewing rather than authoring, exemplifying agents operating the implementation loop while humans provide oversight."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:StripeMinionsPart1_2026"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:StripeMinionsPart1_2026"@en .
 
 cai:AmplitudeNonEngineersAsBuildersInstance a ca:BuilderRole, owl:NamedIndividual ;
     rdfs:label "Amplitude's non-engineer PR authors as Builders"@en ;
     skos:definition "Designers, product managers and marketers at Amplitude who began producing code changes themselves, going from roughly zero to about five percent of pull requests."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:CursorAmplitudeCaseStudy2026"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:CursorAmplitudeCaseStudy2026"@en .
 
 cai:GitLabPDLCProposalInstance a ca:ProductDevelopmentLifecycle, owl:NamedIndividual ;
     rdfs:label "GitLab's proposed Product Development Lifecycle"@en ;
     skos:definition "The article's proposed successor to the SDLC, blurring the distinction between developing software and developing the product itself."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:AgentsMdOpenFormatInstance a ca:AgentsMdFormat, owl:NamedIndividual ;
     rdfs:label "AGENTS.md as supported by GitLab"@en ;
     skos:definition "An open format for project instructions and context to coding agents; the article cites GitLab's support for it as an example of keeping organizational knowledge portable across models, agents and vendors."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:StripeMinionsSystemInstance a ca:MinionsAgent, owl:NamedIndividual ;
     rdfs:label "Stripe's Minions system"@en ;
     skos:definition "More than a thousand (later ~1,300) human-reviewed, agent-written pull requests merged weekly, combining deterministic blueprint nodes with agent loops in isolated devboxes."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:StripeMinionsPart1_2026"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:StripeMinionsPart1_2026"@en .
 
 cai:SpotifyHonkSystemInstance a ca:HonkAgent, owl:NamedIndividual ;
     rdfs:label "Spotify's Honk system"@en ;
     skos:definition "Spotify's background coding agent, documented at more than 1,500 AI-generated pull requests merged into production, and reported at QCon London 2026 as achieving 1,000 merged PRs per 10 days."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:InfoQSpotifyHonk2026"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:InfoQSpotifyHonk2026"@en .
 
 cai:GitLabDuoAgentPlatformSystemInstance a ca:GitLabDuoAgentPlatform, owl:NamedIndividual ;
     rdfs:label "GitLab Duo Agent Platform (the product)"@en ;
     skos:definition "GitLab's platform for creating, customizing and operating agents around an organization's own workflows and expertise, letting customers choose underlying models and infrastructure."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:HistoricalAbstractionPatternInstance a ca:DeveloperDemandCritique, owl:NamedIndividual ;
     rdfs:label "The assembly-to-compiler-to-high-level-language pattern as counter-evidence"@en ;
     skos:definition "Each prior abstraction (assembly, compilers, high-level languages) cut the skill needed for the eliminated task, yet total programmer employment rose for decades afterward because cheaper software raised the ceiling on what got attempted."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:StripeSpotifyAmplitudeSelectionInstance a ca:MetricValidityAndSelectionBiasCritique, owl:NamedIndividual ;
     rdfs:label "Staples' own hedge that his three cases are atypically well-resourced"@en ;
     skos:definition "Staples writes that Stripe, Spotify and Amplitude are unusually capable engineering organizations whose experience should not be treated as proof every enterprise will work the same way, then generalizes architectural prescriptions from exactly those three cases regardless."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
 
 cai:CostPerAcceptedChangeSynthesisInstance a ca:SynthesisAndImplications, owl:NamedIndividual ;
     rdfs:label "Cost-per-accepted-change survives scrutiny; the demand and metric claims do not without qualification"@en ;
     skos:definition "The reframing from cost-per-line-of-code to cost-per-accepted-change is well-supported by the Theory of Constraints and by all three cited organizations' own infrastructure investment. The claim that engineering judgment simply relocates upward, rather than that aggregate developer demand rises, is not independently established by the evidence this research corpus could verify."@en ;
-    dcterms:source "code_abundance_research_v1_7_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
+    dcterms:source "code_abundance_research_v1_8_0.ttl#ca:Staples2026WhenCodeAbundant"@en .
