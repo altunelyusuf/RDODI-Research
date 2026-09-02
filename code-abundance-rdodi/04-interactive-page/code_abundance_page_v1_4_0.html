@@ -441,16 +441,11 @@ function renderExplorer(){
   html += Object.entries(FRAMEWORKS).map(([k,f])=>
     `<div class="tree-row" data-fw="${k}"><span class="tree-caret"></span><span>${f.name}</span></div>`).join('');
 
-  // Global "jump to section" tree - the sidebar now matches the WHOLE app, not
-  // just the principle explorer, so any of the ~11 views is 1 click away from
-  // anywhere, satisfying a 3-click-maximum budget for every piece of content.
-  html += `<div class="exp-title" style="margin-top:12px;">All Sections</div><div class="jump-tree">`;
-  const sectionMap = [
-    ["overview","Overview"], ["explorer","Principle Explorer"], ["search","Interact"],
-    ["about:semtech","Semantic Tech"], ["research","Citations"], ["about","About"]
-  ];
-  html += sectionMap.map(([id,label])=>`<div class="tree-row" data-jump="${id}"><span class="tree-caret"></span><span>${label}</span></div>`).join('');
-  html += `</div>`;
+  // "All Sections" jump-tree removed (user-reported, confirmed real): it
+  // duplicated the always-visible top nav bar (Overview/Principle Explorer/
+  // Interact/Semantic Tech/Citations/About) with no added navigational value,
+  // since those destinations are already one click away from the persistent
+  // top nav regardless of which sidebar view is showing.
   root.innerHTML = html;
   // EVENT DELEGATION (v0.5.0 reliability fix): a single listener bound to the
   // stable #explorer container, resolved by closest([data-*]) at click time,
@@ -3270,7 +3265,7 @@ const PROV_TTL = "@prefix : <https://altunelyusuf.github.io/ontologies/lcw-princ
 // this page was built - the browser cannot write back to the governed
 // file, and shouldn't be able to; that write path staying gated behind
 // real review is what "governed" means, not a missing feature.
-const LINEAGE_TTL = "";
+const LINEAGE_TTL = "@prefix ex: <http://example.org/lcw-principles-kb#> .\n@prefix backlog: <http://example.org/backlog#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\nex:Backlog a backlog:Backlog ;\n    rdfs:label \"code-abundance-rdodi intake pipeline backlog\"@en .";
 // v0.63.0: real, requested change - the actual SHACL shapes and rules
 // this whole project's own lineage has been validated against all session
 // are now embedded too, so real gate enforcement (not an invented shortcut

@@ -405,6 +405,43 @@ bl:StoryAgentOrchestrationRedesign a backlog:Story, owl:NamedIndividual ;
     backlog:wantsCapability "the 11-agent pipeline (Intent, Story, Grooming, Product Owner, Lineage Compose, Conformance, Execution, Sprint Planning, DevOps, Code Gen, Test Gen) to run stages with no real data dependency between them concurrently rather than always sequentially, coordinated by one or more explicit coordinator functions (one per dependency tier, matching the real graph -- not one monolithic coordinator forcing every stage through a single choke point) that dispatch each tier's independent stages together and gate the next tier on their real completion, and every stage, not only Code Gen/Test Gen, to report a real failure reason back to its own coordinator and get one corrective retry" ;
     backlog:soThat "direct user finding, checked against the real code before agreeing or disagreeing: 'agents should work in parallel not sequential.' Confirmed by reading runRequestIntakeAgent directly: the pipeline is genuinely sequential today (each stage awaited before the next begins), and at least some of that sequencing is real, not arbitrary -- a disclosed code comment (DEF-25) shows Grooming and Lineage Compose both consume Intent's own already-repaired acceptance criterion as real input, a genuine data dependency, not just convention. Separately confirmed: withOneAutoFix already implements a real failure-reason-then-retry pattern (the exact shape the user asked for), but only for 2 of the 11 stages (Code Gen, Test Gen) -- the other 9 have no such mechanism. This Story's real first task is mapping which of the 11 stages' inputs/outputs actually depend on each other (only genuine independence can be safely parallelized) before touching any execution code -- not assumed achievable by a quick Promise.all wrap, which would risk breaking real data flow between stages. COMPLETE DEPENDENCY MAP, built by reading every call site (2026-09-02): Tier 0 (root): Intent, input = raw request only. Tier 1 (all depend on Intent ONLY, confirmed genuinely parallelizable with each other): Story Author (intent.title, intent.ac), Product Owner (intent.title only), Code Gen (intent.ac only), Test Gen (intent.ac only, independent of Code Gen's own output too). Tier 2: Grooming (needs Story Author's asRole/wantsCapability/soThat), Lineage Compose (needs Story Author's authored object), Execution (needs Code Gen's codeRes AND Test Gen's testRes together). Tier 3: Conformance (needs Lineage Compose's draftTurtle), Sprint Planner (needs Grooming's groom.ready AND Lineage Compose's slug). Tier 4: DevOps (needs Execution's ran/ok AND Code Gen's codeRes AND Test Gen's testSafe). NOT implemented this pass: the function is tightly coupled to progressive UI rendering (begin/finish/paint, an accordion whose visual order depends on call order) and cannot be behaviourally tested in this environment -- running the real pipeline requires WEBLLM_STATE==='ready', a live LLM connection unavailable here. Shipping an unverifiable rewrite of live async orchestration was judged worse than leaving it correct and sequential; implementation needs an environment where the rewrite can actually be exercised end-to-end before shipping." .
 
+bl:Estimate_Story11 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-11 (Conformance fix, duplicate-menu removal)"@en ;
+    backlog:hasEffortEstimate "2"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: root cause found by reproducing the exact reported failure with real pyshacl outside the browser, matching the SHACL worker's own merge logic exactly -- once reproduced, the fix itself was small (one missing type declaration, one redundant UI block removed)." ;
+    backlog:hasEstimateConfidence "High"^^xsd:string ;
+    backlog:estimatedAt "2026-09-02T00:00:00Z"^^xsd:dateTime .
+
+bl:AC_StoryConformanceFixAndMenuCleanup a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The pipeline's Conformance stage passes on a real run, and the Explorer sidebar shows no duplicate navigation"@en ;
+    backlog:hasGherkinText "Given the same pipeline request the user's own uploaded session log recorded ('Find the sentences where a word or text exist within the corpus'), When the Lineage Compose and Conformance stages run, Then Conformance no longer reports 'A team must name the register or project it delivers from' -- checked by reproducing the exact SHACL merge the browser worker performs, not assumed. And Given the Principle Explorer's sidebar, When a reader looks at it, Then no block duplicates the always-visible top navigation bar." .
+
+bl:Evidence_StoryConformanceFixAndMenuCleanup a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Conformance bug root-caused and fixed via real pyshacl reproduction; duplicate menu block removed"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-02T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "User uploaded a real session log (lcwkb_session_log_2026-09-02T08-35-24-966Z.zip) recording an actual pipeline run whose Conformance stage failed with a precise, quoted SHACL message: 'http://example.org/lcw-principles-kb#CodeAbundance_Team: A team must name the register or project it delivers from.' Traced to its exact cause, not guessed: found the generated draft Turtle's ex:CodeAbundance_Team individual correctly asserts backlog:teamFor ex:Backlog, but ex:Backlog itself is never given a type anywhere in the merged validation graph -- because LINEAGE_TTL, one of the 5 graphs merged for validation, had been emptied to an empty string during this session's own earlier STORY-3 cleanup (correctly removing the prior subject's stale lineage history) without providing a minimal valid replacement for this subject. Reproduced the exact failure with real pyshacl outside the browser, matching the SHACL worker's own merge logic exactly (read directly from shaclWorkerSource(): TBOX+ABOX+LINEAGE+DRAFT merged into one data graph, SHAPES+RULES into the shapes graph) -- confirmed byte-for-byte reproduction of the reported message. Fixed by adding a minimal, real declaration (ex:Backlog a backlog:Backlog) to LINEAGE_TTL; re-ran the identical pyshacl reproduction against the live, patched file and confirmed the violation is gone. Separately, user reported: 'Principle explorer's second left menu is not adding value, it repeats the left most menu' -- confirmed real: an 'All Sections' jump-tree inside the Explorer sidebar duplicated the same 6 destinations already reachable from the always-visible top nav bar. Removed it; confirmed its click-handler was already null-guarded (if(jumpRow){...}), so removal introduces no error. Re-verified via real Playwright after both fixes: 0 console/page errors, confirmed via fresh screenshot that the sidebar no longer shows the duplicate block." .
+
+bl:StoryConformanceFixAndMenuCleanup a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-11" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasEvidence bl:Evidence_StoryConformanceFixAndMenuCleanup ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryConformanceFixAndMenuCleanup ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story11 ;
+    backlog:dependsOn bl:StoryVisualContentAudit ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    rdfs:label "Fix the always-failing Conformance stage (real pyshacl root-cause found from an uploaded session log) and remove a redundant sidebar menu"@en ;
+    backlog:asRole "a reader running the pipeline, and a reader navigating the Principle Explorer" ;
+    backlog:wantsCapability "the Conformance stage to genuinely pass when the generated lineage is actually conformant, and the Explorer's own sidebar not to repeat the top navigation bar" ;
+    backlog:soThat "direct user finding, backed by an uploaded real session log: 'Confromance agent always fails' -- traced to a real regression this session's own earlier cleanup introduced (LINEAGE_TTL emptied without a minimal valid replacement), not a pre-existing template defect. And: 'Principle explorer's second left menu is not adding value, it repeats the left most menu' -- confirmed and removed." ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -900,7 +937,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "f954f72a2ca42c1853e57db33d2f07354ca6a777b52a4fa8b7c2d5f1969b04c2" .
+    backlog:hasStateDigest "61fd2b13b269d1a93a54fbd3710ef070bf2214661e67b69ae6686ca37edaf91a" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
