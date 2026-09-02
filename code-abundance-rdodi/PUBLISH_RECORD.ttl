@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_33_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.33.0"@en ;
+pkg:Decision_v1_34_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.34.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.33.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_32_0 ;
+    owl:versionInfo "1.34.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_33_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_33_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_33_0 ;
-    prov:generatedAtTime "2026-09-02T13:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_34_0 ;
+    prov:generatedAtTime "2026-09-02T14:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_33_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.33.0 (STORY-16 progress: 133 -> 127 net)"@en ;
-    rdfs:comment "MINOR: resolved the PlanningEvent open question honestly -- built a real Iteration3 and 11 real PlanningEvents, each dated at the actual commit that closed the work, honest given this session's real continuous-turn workflow. Each PlanningEvent's required producesTask needed a real ExecutionTask, which correctly cascaded into needing the same completeness bar as the parent story -- resolved by linking each to the same real Evidence the story already carries. Tackled the resulting largest single category: built attestsCriterion and a real TestHarness for all 14 items with an already-matched Evidence/AC pair, justified because each Evidence was written specifically to verify its own criterion. One real check performed before proceeding: the Epic's Done state didn't match immediate memory of a prior revert -- verified via git history rather than assumed, confirmed genuine (a second, properly-verified closure had legitimately superseded the reverted first attempt in an earlier turn). Re-verified: pipeline order unaffected (digest recomputed to 56 subjects, reproduces), 127 violations, a real net reduction from 133 at the start of this turn."@en ;
-    pub:transcriptSHA256 "7336b44f48057f7cdff8da95915dd19faa9d89dd55b38e0deb396c19fc6b0a83"^^xsd:string .
+pkg:Evidence_v1_34_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.34.0 (real conformance-Goal architecture, fillsScope)"@en ;
+    rdfs:comment "MINOR: read a directly relevant pending handover before continuing, which exposed a genuine modeling gap -- STORY-16 (this lineage's own real BRSF-conformance work) had been pointed at a product-facing objective, exactly the dishonest fit the handover's own finding names. Built the honest fix: a real Goal and Objective whose metric is the actual SHACL violation count against the current standard, re-verified fresh each time. Building this required recomputing Stage_Goal/Stage_Objective's digests for the first time this session, which caught a real formula error in this session's own prior digest work (non-cumulative rather than the tool's real cumulative formula) -- never surfaced before since neither stage had needed recomputing since first closing. Got the tool's own authoritative digest directly and corrected all 3 affected StageOutputs. Applied fillsScope to all 8 eligible objectives, honest given this lineage's real scope-first construction order. Re-verified: pipeline order PASS, 127 -> 121 violations, a real reduction."@en ;
+    pub:transcriptSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c"^^xsd:string .
