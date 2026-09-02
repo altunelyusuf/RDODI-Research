@@ -210,6 +210,7 @@ bl:TaskAuthorCorpusJSON a backlog:ExecutionTask, owl:NamedIndividual ;
     rdfs:label "Write the corpus_contract JSON file matching 01-schema/corpus_contract_v1_0_0.json"@en ;
     backlog:hasIdentifier "TASK-1" ;
     backlog:hasState backlog:Done ;
+    backlog:startedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:hasTaskType backlog:Task_Implementation ;
@@ -222,7 +223,9 @@ bl:AC_StoryCorpusContract a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     rdfs:label "corpus_contract_v1_0_0.json is loadable, cross-reference-clean, and disclosure-preserving"@en ;
     backlog:hasGherkinText "Given corpus_contract_v1_0_0.json, When a developer or the instantiation script loads it, Then all 6 required top-level keys (MISSION, CATEGORIES, PRINCIPLES, FRAMEWORKS, RELATIONS, CITATIONS) are present and every cross-reference among them (a PRINCIPLE's cat, fw and reinforces entries; a RELATION's source and target) resolves to a real id rather than failing silently. And When a reader searches the PRINCIPLES text for the two previously-disclosed evidentiary limitations (the Amplitude figures, the GitLab conflict-of-interest note), Then both are found verbatim in the running prose, not only referenced by citation number." .
 
-bl:Evidence_TaskAuthorCorpusJSON a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_TaskAuthorCorpusJSON a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "corpus_contract_v1_0_0.json exists, parses, and satisfies the schema and STORY-1's disclosure requirement"@en ;
     backlog:evidenceVerified true ;
@@ -236,7 +239,9 @@ bl:AC_StoryQuizAndGlossary a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     rdfs:label "Every PRINCIPLE's apply field is genuinely distinct, non-templated content"@en ;
     backlog:hasGherkinText "Given corpus_contract_v1_0_0.json's 18 PRINCIPLES, When a reader compares any two entries' apply fields, Then they read as genuinely different practical guidance specific to that concept, not the same sentence with the label substituted. And When counted programmatically, Then the number of distinct apply strings equals the number of principles (18 of 18), and none starts with a shared templated prefix." .
 
-bl:Evidence_StoryQuizAndGlossary a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryQuizAndGlossary a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "corpus_contract_v1_0_0.json's 18 apply fields are genuinely distinct, checked programmatically"@en ;
     backlog:evidenceVerified true ;
@@ -251,7 +256,9 @@ bl:Iteration2 a backlog:Iteration, owl:NamedIndividual ;
     backlog:hasIdentifier "ITER-2" ;
     backlog:hasCapacity "3"^^xsd:decimal .
 
-bl:Evidence_TaskPatchCitationsTable a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_TaskPatchCitationsTable a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Citations table replaced with this subject's real 15 citations, checked programmatically"@en ;
     backlog:evidenceVerified true ;
@@ -259,7 +266,9 @@ bl:Evidence_TaskPatchCitationsTable a backlog:Evidence, owl:NamedIndividual ;
     backlog:hasVerificationMethod "Located the source page's static Citations table via its real id=\"view-research\" block, built a replacement using the actual 15 CITATIONS entries from corpus_contract_v1_0_0.json, applied it, then asserted programmatically: 'Doerr' (an old citation) absent, 'Staples' (a real new citation) present. Both confirmed." ;
     backlog:verifiedByTool "direct source inspection (manual code/data reading, no automated tool)" .
 
-bl:Evidence_TaskCleanStaticLCWKBContent a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_TaskCleanStaticLCWKBContent a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Hardcoded LCWKB-specific content found and removed across 3 optional consts, UI-chrome text, page title, and a real functional bug"@en ;
     backlog:evidenceVerified true ;
@@ -267,7 +276,9 @@ bl:Evidence_TaskCleanStaticLCWKBContent a backlog:Evidence, owl:NamedIndividual 
     backlog:hasVerificationMethod "Grepped the actual instantiated output for LCWKB-specific terms and found real, systematic contamination beyond Citations: (1) COMPANY_DATA (optional field, correctly omitted from this corpus) still held the source page's own 7365-byte company-comparison dataset -- emptied to {themes:[], companies:{}}, both keys required (the first attempt, {themes:[]} alone, was checked live via Playwright and found to crash real page code -- see TASK-4's evidence); (2) SKOS_TTL (optional, 6615 bytes of the source subject's own SKOS concept scheme) -- emptied; (3) LINEAGE_TTL (documented as regenerated-from-governance, never hand-edited -- 236063 bytes of the source subject's own embedded lineage history) -- emptied rather than left wrong, since wrong lineage data is worse than none; (4) COACH_AGENT, a spec sourced from an internal document specific to the source subject with no counterpart here -- replaced with an honest 'no equivalent exists' note, not fabricated; (5) hardcoded UI-chrome: search-box placeholder text, an intent-detection regex keyed to the source subject's own framework names (a genuine functional bug -- would have failed to recognize queries about this subject's real frameworks), static prose referencing the source subject's company comparison, and the page <title> tag -- all found and replaced with content accurate to this subject. One residual 'LCWKB' occurrence remains, confirmed benign: a non-user-facing code comment." ;
     backlog:verifiedByTool "Playwright (headless Chromium)" .
 
-bl:Evidence_TaskVerifyNoResidualSubjectContent a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_TaskVerifyNoResidualSubjectContent a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Verified via real headless Playwright execution, including catching and fixing a genuine bug introduced by this session's own earlier fix"@en ;
     backlog:evidenceVerified true ;
@@ -280,6 +291,7 @@ bl:TaskPatchCitationsTable a backlog:ExecutionTask, owl:NamedIndividual ;
     rdfs:label "Replace the static Citations table with this subject's real 15 citations"@en ;
     backlog:hasIdentifier "TASK-2" ;
     backlog:hasState backlog:Done ;
+    backlog:startedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:hasTaskType backlog:Task_Implementation ;
@@ -292,6 +304,7 @@ bl:TaskCleanStaticLCWKBContent a backlog:ExecutionTask, owl:NamedIndividual ;
     rdfs:label "Remove or replace hardcoded LCWKB-specific content outside the const-replacement mechanism (COMPANY_DATA, UI-chrome placeholder/example text)"@en ;
     backlog:hasIdentifier "TASK-3" ;
     backlog:hasState backlog:Done ;
+    backlog:startedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:hasTaskType backlog:Task_Implementation ;
@@ -304,6 +317,7 @@ bl:TaskVerifyNoResidualSubjectContent a backlog:ExecutionTask, owl:NamedIndividu
     rdfs:label "Verify programmatically that no LCWKB-specific term remains, then run the template's own 5 reference checks"@en ;
     backlog:hasIdentifier "TASK-4" ;
     backlog:hasState backlog:Done ;
+    backlog:startedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:hasTaskType backlog:Task_Verification ;
@@ -334,7 +348,9 @@ bl:AC_StoryVisualContentAudit a backlog:AcceptanceCriterion, owl:NamedIndividual
     rdfs:label "Every user-visible, glaring content-quality defect found by real screenshots is fixed and re-verified"@en ;
     backlog:hasGherkinText "Given code_abundance_page_v1_10_0.html opened in a real browser, When a reader looks at the header, the overview stats, the footer, and a principle's detail view, Then no LCWKB-subject text, no 'undefined' field, and no internally-inconsistent statistic (a table's real breakdown contradicting the summary number above it) appears anywhere in the visible UI. And When 0-error Playwright verification is re-run after the fix, Then it still holds." .
 
-bl:Evidence_StoryVisualContentAudit a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryVisualContentAudit a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real screenshots found what grep-based checks missed; fixed and re-verified, with honest scope limits disclosed"@en ;
     backlog:evidenceVerified true ;
@@ -348,6 +364,7 @@ bl:StoryVisualContentAudit a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-7" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Interaction ;
+    backlog:startedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryVisualContentAudit ;
@@ -393,7 +410,9 @@ bl:AC_StoryShortFieldRewrite a backlog:AcceptanceCriterion, owl:NamedIndividual 
     rdfs:label "Sidebar and menu items show short titles, not paragraph fragments"@en ;
     backlog:hasGherkinText "Given the Principle Explorer's sidebar tree and any list rendering PRINCIPLES.short, When a reader looks at any menu item, Then it reads as a short title (a few words), not a truncated sentence fragment. And When each of the 18 short values is checked programmatically, Then none exceeds 6 words." .
 
-bl:Evidence_StoryShortFieldRewrite a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryShortFieldRewrite a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Root cause found and fixed: short was authored as a 22-word sentence fragment, not a title"@en ;
     backlog:evidenceVerified true ;
@@ -407,6 +426,7 @@ bl:StoryShortFieldRewrite a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-9" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Interaction ;
+    backlog:startedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryShortFieldRewrite ;
@@ -452,7 +472,9 @@ bl:AC_StoryConformanceFixAndMenuCleanup a backlog:AcceptanceCriterion, owl:Named
     rdfs:label "The pipeline's Conformance stage passes on a real run, and the Explorer sidebar shows no duplicate navigation"@en ;
     backlog:hasGherkinText "Given the same pipeline request the user's own uploaded session log recorded ('Find the sentences where a word or text exist within the corpus'), When the Lineage Compose and Conformance stages run, Then Conformance no longer reports 'A team must name the register or project it delivers from' -- checked by reproducing the exact SHACL merge the browser worker performs, not assumed. And Given the Principle Explorer's sidebar, When a reader looks at it, Then no block duplicates the always-visible top navigation bar." .
 
-bl:Evidence_StoryConformanceFixAndMenuCleanup a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryConformanceFixAndMenuCleanup a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Conformance bug root-caused and fixed via real pyshacl reproduction; duplicate menu block removed"@en ;
     backlog:evidenceVerified true ;
@@ -466,6 +488,7 @@ bl:StoryConformanceFixAndMenuCleanup a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-11" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Interaction ;
+    backlog:startedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryConformanceFixAndMenuCleanup ;
@@ -495,7 +518,9 @@ bl:AC_StoryMsExplorerRedesign a backlog:AcceptanceCriterion, owl:NamedIndividual
     rdfs:label "The sidebar shows short labels only, with icons, and clicking a category filters the middle list to its own contents"@en ;
     backlog:hasGherkinText "Given the Principle Explorer's left tree and middle list, When a reader looks at any row, Then it shows only a short label with an icon (folder for categories, document for principles), never the raw ontology identifier. And Given a reader clicks a category in the left tree, When the middle panel updates, Then it shows only that category's own items with a count and a 'Show all' control to reset -- real folder-click behaviour, not a second, always-everything duplicate of the tree." .
 
-bl:Evidence_StoryMsExplorerRedesign a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryMsExplorerRedesign a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Sidebar redesigned to MS-Explorer style: raw IDs removed, icons added, real folder-click filtering wired up and verified"@en ;
     backlog:evidenceVerified true ;
@@ -509,6 +534,7 @@ bl:StoryMsExplorerRedesign a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-12" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Interaction, backlog:Concern_Architecture ;
+    backlog:startedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryMsExplorerRedesign ;
@@ -538,7 +564,9 @@ bl:AC_StoryPackageInstallAnalysis a backlog:AcceptanceCriterion, owl:NamedIndivi
     rdfs:label "The Conformance fix is confirmed working in a real user session, and network/package-import refusals get a stronger, targeted retry"@en ;
     backlog:hasGherkinText "Given the user's own uploaded session log recording a real pipeline run, When the Conformance stage's real result is read, Then it shows 'done, 0 Violation-severity results', confirming the earlier LINEAGE_TTL fix genuinely holds outside this session's own testing. And Given Code Gen or Test Gen refuses code for a network or package-related reason, When the automatic retry runs, Then the correction message restates the exact constraint (no network, no pip, use only the local data and standard library) rather than a generic 'fix it' note." .
 
-bl:Evidence_StoryPackageInstallAnalysis a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryPackageInstallAnalysis a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real analysis of the package-installation question, grounded in the actual code and a real user session log; retry message strengthened"@en ;
     backlog:evidenceVerified true ;
@@ -552,6 +580,7 @@ bl:StoryPackageInstallAnalysis a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-13" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Interaction ;
+    backlog:startedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryPackageInstallAnalysis ;
@@ -581,7 +610,9 @@ bl:AC_StoryRealPackageInstall a backlog:AcceptanceCriterion, owl:NamedIndividual
     rdfs:label "A curated set of real packages actually installs and runs, and failure objects carry their own remedy consumed generically"@en ;
     backlog:hasGherkinText "Given Python code importing numpy, pandas, or networkx, When it runs in either the pipeline's Execution stage or the standalone Code Lab, Then the package is actually installed via a real micropip call before the code runs, and the code's own real output is produced -- not a ModuleNotFoundError. And Given any safety check in extractAndCheckCode flags a violation, When withOneAutoFix builds its retry, Then it uses that check's own remedy field directly, with no code in withOneAutoFix inspecting the violation's label text or guessing its category." .
 
-bl:Evidence_StoryRealPackageInstall a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryRealPackageInstall a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real package installation enabled and end-to-end verified; failure-communication made genuinely generic"@en ;
     backlog:evidenceVerified true ;
@@ -595,6 +626,7 @@ bl:StoryRealPackageInstall a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-14" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Architecture, backlog:Concern_Security, backlog:Concern_Interface ;
+    backlog:startedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryRealPackageInstall ;
@@ -624,7 +656,9 @@ bl:AC_StoryGenericRetryStrategy a backlog:AcceptanceCriterion, owl:NamedIndividu
     rdfs:label "A near-miss package name gets a 'did you mean' hint, and a truncated retry gets a genuinely larger output budget, both generically"@en ;
     backlog:hasGherkinText "Given code importing a package within edit-distance 2 of a real installable package, When the safety check flags it, Then the remedy names the likely intended package by real edit-distance comparison against the actual allowed set, not a hardcoded pairing. And Given a generation reply with finish_reason=length, When withOneAutoFix builds its retry, Then the retry call uses a genuinely larger max_tokens, read generically from the flagged entry's own retryGenConfig, with no code in withOneAutoFix specific to truncation." .
 
-bl:Evidence_StoryGenericRetryStrategy a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryGenericRetryStrategy a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Both real failures from the uploaded log root-caused and fixed generically; end-to-end verified including exact reproduction of the logged typo"@en ;
     backlog:evidenceVerified true ;
@@ -638,6 +672,7 @@ bl:StoryGenericRetryStrategy a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-15" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Architecture, backlog:Concern_Interaction ;
+    backlog:startedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryGenericRetryStrategy ;
@@ -783,6 +818,7 @@ bl:Task20 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Verification ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryAlignReleaseVersions ;
+    backlog:startedAt "2026-09-01T10:25:51+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T10:25:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:25:51+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -804,6 +840,7 @@ bl:Task21 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryBuildPageABox ;
+    backlog:startedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -825,6 +862,7 @@ bl:Task22 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryConformanceFixAndMenuCleanup ;
+    backlog:startedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -846,6 +884,7 @@ bl:Task23 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryGenericRetryStrategy ;
+    backlog:startedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -867,6 +906,7 @@ bl:Task24 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryMsExplorerRedesign ;
+    backlog:startedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -888,6 +928,7 @@ bl:Task25 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Verification ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryPackageInstallAnalysis ;
+    backlog:startedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -909,6 +950,7 @@ bl:Task26 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryQuizAndGlossary ;
+    backlog:startedAt "2026-09-01T08:38:47+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T08:38:47+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T08:38:47+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -930,6 +972,7 @@ bl:Task27 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryRealPackageInstall ;
+    backlog:startedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -951,6 +994,7 @@ bl:Task28 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryShortFieldRewrite ;
+    backlog:startedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -972,6 +1016,7 @@ bl:Task29 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Verification ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StorySyncStage4ToStage3 ;
+    backlog:startedAt "2026-09-01T10:13:08+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T10:13:08+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:13:08+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -993,6 +1038,7 @@ bl:Task30 a backlog:ExecutionTask, owl:NamedIndividual ;
     backlog:hasTaskType backlog:Task_Implementation ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:hasEvidence bl:Evidence_StoryVisualContentAudit ;
+    backlog:startedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
     backlog:memberOfContainer bl:Iteration3 .
@@ -1104,6 +1150,111 @@ bl:Harness_StoryAlignReleaseVersions a backlog:TestHarness, owl:NamedIndividual 
     backlog:hasHarnessEvidence bl:Evidence_StoryAlignReleaseVersions ;
     backlog:harnessComplete true .
 
+bl:Harness_TaskAuthorCorpusJSON a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for TaskAuthorCorpusJSON"@en ;
+    backlog:harnessFor bl:TaskAuthorCorpusJSON ;
+    backlog:hasHarnessEvidence bl:Evidence_TaskAuthorCorpusJSON ;
+    backlog:harnessComplete true .
+
+bl:Harness_TaskPatchCitationsTable a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for TaskPatchCitationsTable"@en ;
+    backlog:harnessFor bl:TaskPatchCitationsTable ;
+    backlog:hasHarnessEvidence bl:Evidence_TaskPatchCitationsTable ;
+    backlog:harnessComplete true .
+
+bl:Harness_TaskCleanStaticLCWKBContent a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for TaskCleanStaticLCWKBContent"@en ;
+    backlog:harnessFor bl:TaskCleanStaticLCWKBContent ;
+    backlog:hasHarnessEvidence bl:Evidence_TaskCleanStaticLCWKBContent ;
+    backlog:harnessComplete true .
+
+bl:Harness_TaskVerifyNoResidualSubjectContent a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for TaskVerifyNoResidualSubjectContent"@en ;
+    backlog:harnessFor bl:TaskVerifyNoResidualSubjectContent ;
+    backlog:hasHarnessEvidence bl:Evidence_TaskVerifyNoResidualSubjectContent ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task20 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task20"@en ;
+    backlog:harnessFor bl:Task20 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryAlignReleaseVersions ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task21 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task21"@en ;
+    backlog:harnessFor bl:Task21 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryBuildPageABox ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task22 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task22"@en ;
+    backlog:harnessFor bl:Task22 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryConformanceFixAndMenuCleanup ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task23 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task23"@en ;
+    backlog:harnessFor bl:Task23 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryGenericRetryStrategy ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task24 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task24"@en ;
+    backlog:harnessFor bl:Task24 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryMsExplorerRedesign ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task25 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task25"@en ;
+    backlog:harnessFor bl:Task25 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryPackageInstallAnalysis ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task26 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task26"@en ;
+    backlog:harnessFor bl:Task26 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryQuizAndGlossary ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task27 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task27"@en ;
+    backlog:harnessFor bl:Task27 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryRealPackageInstall ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task28 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task28"@en ;
+    backlog:harnessFor bl:Task28 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryShortFieldRewrite ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task29 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task29"@en ;
+    backlog:harnessFor bl:Task29 ;
+    backlog:hasHarnessEvidence bl:Evidence_StorySyncStage4ToStage3 ;
+    backlog:harnessComplete true .
+
+bl:Harness_Task30 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for Task30"@en ;
+    backlog:harnessFor bl:Task30 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryVisualContentAudit ;
+    backlog:harnessComplete true .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -1117,7 +1268,9 @@ bl:AC_StoryBuildPageABox a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     rdfs:label "The real page ABox passes every gate the RDODI default deliverable's own procedure names for it"@en ;
     backlog:hasGherkinText "Given code_abundance_page_abox_v1_10_0.ttl, When Stage4.A (parse), Stage4.B (SHACL), Cross.B (provenance chain), and the widget gates Stage4.H-K (warrant, grounding, design-test, intention-coverage) are run, Then all PASS, checked by actually re-executing each gate's real tooling against the real file, not asserted." .
 
-bl:Evidence_StoryBuildPageABox a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryBuildPageABox a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real page ABox built and verified: every applicable gate PASS, including 18/18 intention coverage"@en ;
     backlog:evidenceVerified true ;
@@ -1131,6 +1284,7 @@ bl:StoryBuildPageABox a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-6" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Architecture ;
+    backlog:startedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryBuildPageABox ;
@@ -1428,7 +1582,9 @@ bl:AC_EpicAdoptRichDefault a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     rdfs:label "Path B is genuinely shipped: real corpus, real page, real ABox, 0 errors, every applicable gate passes"@en ;
     backlog:hasGherkinText "Given code-abundance-rdodi's Stage 4 artifact, When the currently-governing RDODI procedure's default pattern is checked against what actually ships, Then it matches (corpus-instantiated, real page + real ABox, not the retired single-flowing-page). And Given the real shipped page opened in a real browser, When loaded and interacted with, Then 0 console/page errors occur. And Given all genuinely-applicable Stage4/Cross gates, When re-run against the real artifacts, Then all 13 pass; the 2 gates whose literal wording assumes a structure this pattern does not have, and the 1 gate this content's single-tier sourcing does not trigger, are disclosed as such, not silently passed or force-fit." .
 
-bl:Evidence_EpicAdoptRichDefault a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_EpicAdoptRichDefault a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "All 6 Stories Done, all 8 objectives met, scope outcome genuinely derived as Met -- not asserted, checked"@en ;
     backlog:evidenceVerified true ;
@@ -1463,6 +1619,7 @@ bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-1" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Data ;
+    backlog:startedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_TaskAuthorCorpusJSON ;
@@ -1489,6 +1646,7 @@ bl:StoryQuizAndGlossary a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-2" ;
     backlog:hasState backlog:Done ;
     backlog:hasNoApplicableConcern "Content-quality rewrite of already-existing apply-field text only -- no new data shape, interface, interaction pattern, architecture, or security surface." ;
+    backlog:startedAt "2026-09-01T08:38:47+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T08:38:47+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T08:38:47+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryQuizAndGlossary ;
@@ -1516,7 +1674,9 @@ bl:AC_StoryInstantiateAndVerify a backlog:AcceptanceCriterion, owl:NamedIndividu
     rdfs:label "The instantiated page renders with 0 real errors and carries no residual prior-subject content"@en ;
     backlog:hasGherkinText "Given code_abundance_page_v1_0_0.html opened in a real headless browser, When the page loads and a reader clicks through the Overview, Principle Explorer, Citations, and Interact tabs, Then 0 console or page errors occur. And Given the page's full text, When searched for the prior subject's distinctive terms (LCWKB, its own citation authors, its own concept-scheme entries), Then none are found in any user-facing or functional location -- only non-user-facing code comments may remain, and only if confirmed harmless." .
 
-bl:Evidence_StoryInstantiateAndVerify a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryInstantiateAndVerify a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "STORY-3 complete: real instantiation, real cleaning, real Playwright verification, 0 errors"@en ;
     backlog:evidenceVerified true ;
@@ -1530,6 +1690,7 @@ bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-3" ;
     backlog:hasState backlog:Done ;
     backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Interaction ;
+    backlog:startedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryInstantiateAndVerify ;
@@ -1557,7 +1718,9 @@ bl:AC_StorySyncStage4ToStage3 a backlog:AcceptanceCriterion, owl:NamedIndividual
     rdfs:label "Cross.A/C's real intent, full traceable concept coverage, is measurably satisfied against the real shipped page"@en ;
     backlog:hasGherkinText "Given the real shipped page's actual CATEGORIES and PRINCIPLES data (not the corpus contract source file), When counted, Then the total equals Stage 2's own 25-class taxonomy count exactly. And Given Stage 1's real concept inventory, When each concept is checked for a traceable match somewhere in the shipped page's real principle text, Then the fraction covered is at least 0.80 (Cross.C's own threshold), checked programmatically against the actual artifact, not assumed from the corpus contract that produced it." .
 
-bl:Evidence_StorySyncStage4ToStage3 a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StorySyncStage4ToStage3 a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Cross.A/C verified against the real shipped page: 25/25 node count, 14/14 concept coverage"@en ;
     backlog:evidenceVerified true ;
@@ -1571,6 +1734,7 @@ bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-4" ;
     backlog:hasState backlog:Done ;
     backlog:hasNoApplicableConcern "Pure verification/measurement against already-shipped artifacts -- nothing built, changed, or exposed; the story's own output is a finding, not a new surface." ;
+    backlog:startedAt "2026-09-01T10:13:08+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T10:13:08+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:13:08+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StorySyncStage4ToStage3 ;
@@ -1598,7 +1762,9 @@ bl:AC_StoryAlignReleaseVersions a backlog:AcceptanceCriterion, owl:NamedIndividu
     rdfs:label "All 4 stage artifacts carry the same version token, cross-references consistent, gates still pass"@en ;
     backlog:hasGherkinText "Given the 4 real RDODI stage files (research, domain tbox/abox/shacl, document, interactive-page), When their filenames' version tokens are listed, Then exactly one distinct version appears across all of them. And Given every internal cross-file reference (dcterms:description, dcterms:source), When checked, Then none point at a superseded filename. And Given the real RDODI gates, When re-run against the renamed files, Then all still pass, and the real page still renders with 0 console errors." .
 
-bl:Evidence_StoryAlignReleaseVersions a backlog:Evidence, owl:NamedIndividual ;
+bl:Evidence_StoryAlignReleaseVersions a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:hasReleaseVersion "1.34.0" ;
+    backlog:hasPackageSHA256 "fe52ea84d7af06451a7d9c1b4a5f6ec74f6bf378c4f4549c7f648d47540d092c" ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Cross.D closed: all 4 stages at v1.3.0, cross-references fixed (including a real pre-existing staleness bug found), gates re-verified"@en ;
     backlog:evidenceVerified true ;
@@ -1612,6 +1778,7 @@ bl:StoryAlignReleaseVersions a backlog:Story, owl:NamedIndividual ;
     backlog:hasIdentifier "STORY-5" ;
     backlog:hasState backlog:Done ;
     backlog:hasNoApplicableConcern "Pure filename/version-label alignment across the 4 stage files -- no content, interface, interaction, architecture, or security change; Cross.D coherence only." ;
+    backlog:startedAt "2026-09-01T10:25:51+00:00"^^xsd:dateTime ;
     backlog:finishedAt "2026-09-01T10:25:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:25:51+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryAlignReleaseVersions ;
