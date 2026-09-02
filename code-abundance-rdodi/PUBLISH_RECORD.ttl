@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_27_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.27.0"@en ;
+pkg:Decision_v1_28_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.28.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.27.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_26_0 ;
+    owl:versionInfo "1.28.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_27_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_27_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_27_0 ;
-    prov:generatedAtTime "2026-09-02T07:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_28_0 ;
+    prov:generatedAtTime "2026-09-02T08:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_27_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.27.0 (comprehensive raw-ID sweep)"@en ;
-    rdfs:comment "MINOR: continued verifying the MS-Explorer sidebar fix beyond the two panels the user's screenshot showed, and found the same defect class in 8 further places -- the detail-pane heading in two rendering functions, the reinforces chip generator, a Quick jump widget, two chat-answer templates, and the Copy-as-AI-prompt feature, the last also found to still say 'LC Waikiki' verbatim, a genuine miss from an earlier cleanup pass. All fixed; one further instance confirmed to be dead code (gated on an empty array) and correctly left untouched. Re-verified comprehensively via real Playwright across all tabs plus the actual filter/reset/select interaction: 0 remaining raw-id matches except one legitimate SVG tooltip. Version bumped correctly before committing, applying the version-drift lesson proactively: all 4 stages moved to v1_7_0, Cross.D verified. Re-verified: all Stage1-3 gates PASS fresh, pipeline order unaffected, full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "ea9495f18d32835efae3f7f7b6d6bf2ddc1622671a87f6aa1594ba6d77d55aa9"^^xsd:string .
+pkg:Evidence_v1_28_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.28.0 (STORY-13 closed -- package-install analysis)"@en ;
+    rdfs:comment "MINOR: user uploaded a real session log confirming the earlier Conformance fix (STORY-11) genuinely holds in real use. Investigated the log's real Code Gen failure by reading the actual code: found the system prompt already correctly forbids network imports and instructs the model to use local data, but the model ignored this on its first attempt and the retry used only a generic correction. Separately confirmed package installation via micropip IS technically functional in this environment (proven by the SHACL worker's own working code) -- the refusal is a deliberate safety choice, not a platform limit. Fixed the one safe, bounded improvement: network/package-flagged retries now get a specific, forceful restatement of the real constraint. Version bumped correctly before committing: all 4 stages moved to v1_8_0, Cross.D verified. Re-verified: all gates PASS fresh, real Playwright 0 errors, pipeline order (42 subjects, reproduces), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "6f68a4def37afd7fd97e54d3f5208c85abb23513944f319f6ca1410f7f3769c0"^^xsd:string .
