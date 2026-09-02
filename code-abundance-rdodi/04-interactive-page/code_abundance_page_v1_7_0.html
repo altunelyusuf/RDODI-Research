@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.6.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.7.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -546,7 +546,6 @@ function abbrTip(term){ const def = ABBR[term]; if(!def) return term;
 function principleCardHTML(p){
   const cat = CATEGORIES[p.cat];
   return `<div class="card principle-card" style="border-left-color:var(--cat-${cat.css})" oncontextmenu="return openCtx(event,'${p.id}')">
-    <div class="pnum">${p.id}</div>
     <h4>${p.short}</h4>
     <div>${p.en}</div>
     <div class="apply-box"><span class="lbl">Suggested application</span><br>${p.apply}</div>
@@ -561,10 +560,9 @@ function principleDetailHTML(p){
   const cat = CATEGORIES[p.cat];
   const reinforces = (p.reinforces||[]).map(id=>{
     const q = PRINCIPLES.find(x=>x.id===id);
-    return `<span class="chip" onclick="selectPrinciple('${id}')">${id} - ${q?q.short:''}</span>`;
+    return `<span class="chip" onclick="selectPrinciple('${id}')">${q?q.short:id}</span>`;
   }).join(' ');
   return `<div class="card" style="border-left:5px solid var(--cat-${cat.css})">
-    <div class="pnum">${p.id}</div>
     <h3>${p.short}</h3>
         <p>${p.en}</p>
     <span class="badge ${cat.css}">${cat.label}</span>
@@ -593,7 +591,7 @@ function copyPrincipleAsPrompt(id){
   // the honest working alternative is to generate a ready, grounded prompt
   // the user copies into their own ChatGPT/Claude/etc. tab.
   const p = PRINCIPLES.find(x=>x.id===id);
-  const prompt = `I'm working with LC Waikiki's corporate principle "${p.id} - ${p.short}" (${p.en}). `+
+  const prompt = `I'm working with this research corpus's concept "${p.short}" (${p.en}). `+
     `Category: ${CATEGORIES[p.cat].label}. `+
     (p.fw.length ? `It's grounded in: ${p.fw.map(f=>FRAMEWORKS[f].name).join(', ')}. ` : '') +
     `A suggested application is: "${p.apply}" `+
@@ -650,7 +648,7 @@ function buildOverview(){
         <div class="small">principles</div></div>`).join('')}
   </div>
   <div class="card"><h3>Quick jump</h3>
-    <div class="chips">${PRINCIPLES.map(p=>`<span class="chip" onclick="selectPrinciple('${p.id}')">${p.id}</span>`).join('')}</div>
+    <div class="chips">${PRINCIPLES.map(p=>`<span class="chip" onclick="selectPrinciple('${p.id}')">${p.short}</span>`).join('')}</div>
   </div>`;
 }
 
@@ -2028,7 +2026,7 @@ function renderQuestionAccordion(){
     if(!members.length) return;
     html += `<details class="qa-section"><summary class="small" style="cursor:pointer;font-weight:700;">${cat.label} (${members.length}) ▾</summary>
       <div class="qa-chips">
-        ${members.map(p => askChip(`how do I apply ${p.id}`, `${p.id} - ${p.en_short}`)).join('')}
+        ${members.map(p => askChip(`how do I apply ${p.short}`, `${p.en_short}`)).join('')}
       </div></details>`;
   });
   el.innerHTML = html;
@@ -2310,7 +2308,7 @@ async function runNaturalLanguageQuery(query, turnEl){
       // had this covered. Same intent cue, now checked here too.
       const p = PRINCIPLES.find(x => x.id === r.top.uri.split(/[#/]/).pop());
       if(p && /apply|realiz|how do i|how to|next step/i.test(query)){
-        answer = `<b>${p.id} - ${p.en_short}</b> - suggested application: ${p.apply}`;
+        answer = `<b>${p.en_short}</b> - suggested application: ${p.apply}`;
       } else {
         answer = describeRelationsInProse(r.top.uri.split(/[#/]/).pop(), 2);
       }
@@ -2584,7 +2582,7 @@ function principleContextLine(p){
   const rolesText = (p.roles && p.roles.length) ? ` Roles: ${p.roles.join('; ')}.` : '';
   const reinforcesText = (p.reinforces && p.reinforces.length) ? ` Reinforces: ${p.reinforces.join(', ')}.` : '';
   const catText = CATEGORIES[p.cat] ? ` Category: ${CATEGORIES[p.cat].label}.` : '';
-  return `${p.id} - ${p.en_short}:${catText} ${p.en} Application: ${p.apply}${rolesText}${reinforcesText}${relText}`;
+  return `${p.en_short}:${catText} ${p.en} Application: ${p.apply}${rolesText}${reinforcesText}${relText}`;
 }
 function buildFullCorpusContext(){
   return PRINCIPLES.map(principleContextLine).join('\n');
@@ -2908,15 +2906,15 @@ async function runAgents(query){
       } else if(hits.length===1){
         const p = hits[0];
         if(intent==='apply'){
-          answer = `<b>${p.id} - ${p.en_short}</b> - suggested application: ${p.apply}`;
+          answer = `<b>${p.en_short}</b> - suggested application: ${p.apply}`;
           setTimeout(()=>agentLine('Application note','who-apply','This is a suggestion synthesized for this corpus, grounded in the source text - adapt it to your actual role.'),140);
         } else {
-          answer = `<b>${p.id} - ${p.en_short}</b>: ${p.en}` +
+          answer = `<b>${p.en_short}</b>: ${p.en}` +
             (p.fw.length ? ` References: ${p.fw.map(f=>FRAMEWORKS[f].name).join(', ')}.` : '') +
             (p.reinforces && p.reinforces.length ? `<div style="margin-top:6px;"><b>Reinforces:</b> ${p.reinforces.map(id=>principleChip(id)).join(' ')}</div>` : '');
         }
       } else {
-        answer = `Found ${hits.length} principles: ` + hits.map(h=>`<span class="suggestchip" onclick="selectPrinciple('${h.id}')">${h.id} - ${h.en_short}</span>`).join(', ');
+        answer = `Found ${hits.length} principles: ` + hits.map(h=>`<span class="suggestchip" onclick="selectPrinciple('${h.id}')">${h.en_short}</span>`).join(', ');
       }
       agentLine('Synthesis Agent','who-synth', answer);
       pstate.synthesis = {status:'done', detail:'Answer composed from retrieved fields only'};
@@ -5614,7 +5612,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_6_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_7_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>
