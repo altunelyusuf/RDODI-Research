@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_19_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.19.0"@en ;
+pkg:Decision_v1_20_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.20.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.19.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_18_0 ;
+    owl:versionInfo "1.20.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_19_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_19_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_19_0 ;
-    prov:generatedAtTime "2026-09-01T15:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_20_0 ;
+    prov:generatedAtTime "2026-09-02T00:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_19_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.19.0 (EPIC-1 closed)"@en ;
-    rdfs:comment "MINOR (BP-D7: no removal/rename, a register-state closure consistent with every prior Story closure this session -- corrected from an initial MAJOR bump that overstated the change). Closed the Epic properly this time, doing what the check that caught a premature closure two turns ago demanded: re-verified every genuinely applicable gate fresh before touching any state. Full honest accounting: Stage4.A/B/C/D-structural/F/G/H/I/J/K = 10/10 PASS; Cross.B/C/D = 3/3 PASS; Stage4.E and Cross.A's literal per-section-count wording is a genuine category mismatch for this pattern, disclosed per the procedure's own established language for exactly this case, not force-fit; Cross.E does not apply (single-tier sourcing). 13 of 13 genuinely applicable gates pass. Updated all 8 objectives with real, re-verified current values, including a direct git-status check confirming zero edits touched rdodi-ecosystem/ this session. Derived scopeCompletionState (Done) and scopeOutcome (Ach_Met) on the Scope before touching the Epic's own state, in that order. EPIC-1 closed with real Evidence and an observable-behaviour AcceptanceCriterion. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "8fcf2ab61712cc7b2a69c3bdc6ec516eaa8a13f3ad8a62471d0c8422548ec7d8"^^xsd:string .
+pkg:Evidence_v1_20_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.20.0 (STORY-7 closed -- real content-quality fixes)"@en ;
+    rdfs:comment "MINOR: user's direct finding -- 'the page is shameful' -- exposed a real gap in this session's own verification discipline: 0 console errors had been repeatedly treated as sufficient evidence of correctness. Took real screenshots for the first time and found genuine, glaring, user-visible defects: the visible header still named the source template's own subject; 'undefined' rendered literally for absent fields; a relation-type table showing all zeros against a real '7 relations' stat directly above it; a footer carrying the source template's own dev debug commentary; a coverage paragraph describing the wrong subject's file-processing history; the source subject's real company name hardcoded into two chat system prompts (the most dangerous finding); three more 'LCW policy' label references. Fixed all of these and re-verified via real Playwright after each fix: 0 errors maintained, confirmed via fresh screenshots. Disclosed honestly rather than silently narrowed: ~39/10 references remain in deep RAG/retrieval logic and test fixtures tied to the source subject's own P01-P20 ID scheme -- not blind-replaced given real breakage risk without dedicated testing; filed as STORY-8, genuinely Proposed, not started. STORY-7 closed with real Evidence scoped precisely to what was actually fixed. Re-verified against the concurrently-updated BRSF (tbox v1.64.0, shacl v1.74.0): pipeline order (37 subjects, reproduces), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "2caa8ed882cd8de39fdf11e1ae060c94059a7c12f25eb3ce92107f952b62e5a4"^^xsd:string .
