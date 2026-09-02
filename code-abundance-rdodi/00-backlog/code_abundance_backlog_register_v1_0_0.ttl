@@ -301,6 +301,58 @@ bl:PlanEvent_Story3 a backlog:PlanningEvent, owl:NamedIndividual ;
     backlog:plannedBy backlog:Owner ;
     backlog:producesTask bl:TaskPatchCitationsTable, bl:TaskCleanStaticLCWKBContent, bl:TaskVerifyNoResidualSubjectContent .
 
+bl:Estimate_Story7 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-7 (visual/content quality audit)"@en ;
+    backlog:hasEffortEstimate "3"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: found by actually taking screenshots and looking, not by grepping strings -- real, bounded scope once found: header, denominators, undefined-field rendering, footer, coverage stats, relation-type table, and the highest-impact chat system-prompt/UI-label text." ;
+    backlog:hasEstimateConfidence "Medium"^^xsd:string ;
+    backlog:estimatedAt "2026-09-02T00:00:00Z"^^xsd:dateTime .
+
+bl:AC_StoryVisualContentAudit a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Every user-visible, glaring content-quality defect found by real screenshots is fixed and re-verified"@en ;
+    backlog:hasGherkinText "Given code_abundance_page_v1_3_0.html opened in a real browser, When a reader looks at the header, the overview stats, the footer, and a principle's detail view, Then no LCWKB-subject text, no 'undefined' field, and no internally-inconsistent statistic (a table's real breakdown contradicting the summary number above it) appears anywhere in the visible UI. And When 0-error Playwright verification is re-run after the fix, Then it still holds." .
+
+bl:Evidence_StoryVisualContentAudit a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real screenshots found what grep-based checks missed; fixed and re-verified, with honest scope limits disclosed"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-02T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "Direct user finding: 'the page is shameful.' Took real Playwright screenshots of the actual rendered page for the first time this session (prior verification had only checked for absence of console errors, never actually looked at the rendered content) and compared against the template's own reference page. Found real, glaring, user-visible defects no prior string-search pass had caught: the visible H1 header still read the source page's own subject name (a separate element from the <title> tag fixed earlier); 'Principle undefined of 20' and a standalone 'undefined' line from unrendered-when-absent fields; a relation-type breakdown table showing all zeros, directly contradicting the real '7 relations' stat immediately above it (traced to a real logic mismatch: the table's 5 hardcoded category keys did not match this corpus's real relation-type strings); a footer carrying the source page's own development debug commentary ('tell me that specifically... not a logic bug'); an entire coverage-stats paragraph describing the source subject's own file-processing history; the source subject's real company name hardcoded directly into two chat system prompts (the most dangerous finding -- a real user question could trigger a response about a completely unrelated company); and three more UI-label references to 'LCW policy'. Fixed all of these, then re-verified via real Playwright: 0 console/page errors, confirmed via fresh screenshots that the header, stats, relation table, and detail view now show correct, internally-consistent, subject-accurate content. Scope disclosed honestly, not silently narrowed: approximately 39 'LCW' and 10 'LC Waikiki' references remain in the file, all in the deep RAG/embedding/chat-retrieval logic and test fixtures expecting the source subject's own P01-P20 identifier scheme -- not blind-replaced, since that logic risks silent breakage without dedicated testing this pass did not have room for. Tracked as its own, separate, not-yet-started item (STORY-8) rather than claimed complete." .
+
+bl:StoryVisualContentAudit a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-7" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasEvidence bl:Evidence_StoryVisualContentAudit ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryVisualContentAudit ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story7 ;
+    backlog:dependsOn bl:StoryBuildPageABox ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    rdfs:label "Fix user-visible content-quality defects found by actually looking at the rendered page, not just grepping strings"@en ;
+    backlog:asRole "a reader of the interactive companion" ;
+    backlog:wantsCapability "the rendered page's visible header, stats, tables, and detail view to show content accurate to this subject, not the source template's own subject, and to be internally consistent (no summary stat contradicting its own detail breakdown)" ;
+    backlog:soThat "the shipped artifact does not embarrass the package it represents -- direct user finding, quoted in this Story's own Evidence: 'the page is shameful.' A real, humbling gap in this session's own prior verification discipline: 0 console errors was repeatedly treated as sufficient evidence of correctness, when it only proves the JS didn't crash, not that the content it renders is right." ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
+bl:StoryDeepRAGSubjectCleanup a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-8" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:dependsOn bl:StoryVisualContentAudit ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    backlog:notYetScoreable true ;
+    backlog:hasScoreabilityReason "Freshly identified by direct investigation (2026-09-02); not yet run through the framework's prioritisation method." ;
+    rdfs:label "Rebuild the chat/RAG layer's deep subject-specific assumptions (source subject's own name, P01-P20 ID scheme, 20-item count) for this corpus"@en ;
+    backlog:asRole "the package maintainer" ;
+    backlog:wantsCapability "the chat console's retrieval, embedding, chunking, and fact-checking logic, and its test fixtures, to reference this corpus's own real id scheme and item count rather than the source template's" ;
+    backlog:soThat "the chat feature actually works correctly for this subject, not just avoids crashing -- disclosed honestly during STORY-7 rather than blind-replaced: approximately 39 'LCW' and 10 'LC Waikiki' references remain in retrieval/embedding logic, fact-checking regexes, and test fixtures whose own expected values (e.g. IDs 'P01'..'P20') are specific to the source subject and would need real rework, not string substitution, to genuinely fit this corpus -- real risk of silent breakage without dedicated testing." .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -796,7 +848,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "51be833c4be3471de28d445356c7a879948c40b7fa00ae8183e9b13d5480271f" .
+    backlog:hasStateDigest "2e86c5792968085c1a8c23e256a1338cdeaf09802614b0fb8f845ad7ad043c62" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must

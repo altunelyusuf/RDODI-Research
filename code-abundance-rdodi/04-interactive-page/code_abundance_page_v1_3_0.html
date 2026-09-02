@@ -279,7 +279,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
 <body>
 <div id="app">
   <header class="topbar">
-    <h1>LCW Principles Knowledge Base</h1>
+    <h1>Code Abundance Research Companion</h1>
     <span class="tag">RDODI · BRSF-governed · Agentic layer</span>
     <div class="spacer"></div>
     <button class="toolbtn" onclick="downloadJSONLD()">⬇ Linked Data (.jsonld)</button>
@@ -292,9 +292,8 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>lcw-principles-kb - Interactive v0.92.0 - 20/20 principles + application steps loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.3.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
-    <span>Explorer clicks received: <span id="clickdiag" class="mono">0</span> <span class="small">(if this stays at 0 while you click the left menu, tell me that specifically - it means clicks aren't reaching the page at all, not a logic bug)</span></span>
   </footer>
 </div>
 <div id="ctxmenu"></div>
@@ -540,9 +539,8 @@ function abbrTip(term){ const def = ABBR[term]; if(!def) return term;
 function principleCardHTML(p){
   const cat = CATEGORIES[p.cat];
   return `<div class="card principle-card" style="border-left-color:var(--cat-${cat.css})" oncontextmenu="return openCtx(event,'${p.id}')">
-    <div class="pnum">${p.id} - #${p.n}</div>
+    <div class="pnum">${p.id}</div>
     <h4>${p.short}</h4>
-    <div class="tr">${p.tr}</div>
     <div>${p.en}</div>
     <div class="apply-box"><span class="lbl">Suggested application</span><br>${p.apply}</div>
     <div class="chips">
@@ -559,12 +557,11 @@ function principleDetailHTML(p){
     return `<span class="chip" onclick="selectPrinciple('${id}')">${id} - ${q?q.short:''}</span>`;
   }).join(' ');
   return `<div class="card" style="border-left:5px solid var(--cat-${cat.css})">
-    <div class="pnum">${p.id} - Principle ${p.n} of 20</div>
+    <div class="pnum">${p.id}</div>
     <h3>${p.short}</h3>
-    <p style="color:var(--sub);font-style:italic;">${p.tr}</p>
-    <p>${p.en}</p>
+        <p>${p.en}</p>
     <span class="badge ${cat.css}">${cat.label}</span>
-    <div class="apply-box"><span class="lbl">Suggested application (this build's synthesis, not verbatim LCW policy)</span><br>${p.apply}</div>
+    <div class="apply-box"><span class="lbl">Suggested application (this build's synthesis, grounded in the source text)</span><br>${p.apply}</div>
     <hr class="sep">
     <div class="grid2">
       <div><b>External frameworks referenced</b>
@@ -614,35 +611,29 @@ function buildOverview(){
   <p>This knowledge base is governed under ${abbrTip('OE')} discipline with a ${abbrTip('BRSF')} Mission-Goals-Objectives-Scope-Backlog-Roadmap lineage
   (see <b>Mission &amp; Backlog</b> tab - SHACL-validated, 0 violations), built via the ${abbrTip('RDODI')} pipeline, and
   answered by a 4-agent pipeline described using real agentic-systems vocabulary (see <b>Agentic Architecture</b>).</p>
-  <p>Every principle below carries its bilingual text, category, cited external framework, and one concrete
-  "how to apply this" suggestion - the suggestion is this build's own synthesis, not verbatim LCW guidance, and is
-  labelled as such everywhere it appears.</p></div>
+  <p>Every principle below carries its full text, category, cited external framework (where the source names one),
+  and one concrete "how to apply this" suggestion - the suggestion is this build's own synthesis, grounded in
+  the source text, not invented.</p></div>
 
   <div class="card"><h3>Corpus &amp; relation-discovery coverage</h3>
   <p class="small">Concrete, computed proof of what has been processed this build - not an assertion. See
   <b>Provenance</b> for the honest scope note on what has and hasn't attached to this session.</p>
   <div class="covgrid">
-    <div class="covcell"><div class="n">${PRINCIPLES.length}/20</div><div class="l">Principles processed</div></div>
+    <div class="covcell"><div class="n">${PRINCIPLES.length}</div><div class="l">Principles processed</div></div>
     <div class="covcell"><div class="n">${RELATIONS.length}</div><div class="l">Relations discovered</div></div>
-    <div class="covcell"><div class="n">5</div><div class="l">Relation types applied</div></div>
+    <div class="covcell"><div class="n">${Object.keys(coverageStats()).length}</div><div class="l">Relation types applied</div></div>
     <div class="covcell"><div class="n">${COMPANY_DATA.themes.length}</div><div class="l">Cross-company themes</div></div>
     <div class="covcell"><div class="n">0</div><div class="l">External companies compared</div></div>
   </div>
-  <p class="small">Corpus packages processed this turn: <span class="mono">LCWPrinciples.zip</span> (6 docx, EK-1..EK-6,
-  fully text-extracted and structured into the Company Comparison tab) and <span class="mono">semtech_landscape_v6_9_0.zip</span>
-  (472/472 SHA-manifest-verified, inventoried; deep code reuse queued as a backlog epic - see Provenance).
-  <span class="mono">FirstPrinciple.zip</span>: the source page's own optional agent-spec slot has no equivalent source for this subject (see Agentic Architecture);
-  its 5 PDF book/checklist summaries are inventoried but not yet text-mined - tracked in the backlog.</p>
+  <p class="small">This corpus was built from Staples (2026) "When Code Is Abundant" and 14 secondary sources
+  (see Citations), structured into 18 principles across 7 categories per the domain ontology's real taxonomy.
+  Company-comparison data is intentionally empty: this subject has no comparative-company dataset.</p>
   <table class="cite"><thead><tr><th>Relation type</th><th>Count</th><th>What it captures</th></tr></thead>
   <tbody>
-    <tr><td>Structural</td><td>${byType.structural||0}</td><td>Generalization (category is-a principle), composition (principle-framework), aggregation (principle-tool)</td></tr>
-    <tr><td>Syntactic</td><td>${byType.syntactic||0}</td><td>Shared surface lexical terms between two principles' short labels</td></tr>
-    <tr><td>Semantic</td><td>${byType.semantic||0}</td><td>Shared category, shared cited framework, or shared named bias</td></tr>
-    <tr><td>Behavioral</td><td>${byType.behavioral||0}</td><td>Explicit reinforcement/procedural-dependency sequence between principles</td></tr>
-    <tr><td>Business</td><td>${byType.business||0}</td><td>Shared mandated ceremony or shared stakeholder role</td></tr>
+  ${Object.keys(byType).map(t=>`<tr><td>${t}</td><td>${byType[t]}</td><td>${RELATIONS.find(r=>r.type===t).evidence}</td></tr>`).join('')}
   </tbody></table>
   <p class="small" style="margin-top:8px;">Full evidence string per relation is queryable in <b>Relations &amp; Frameworks &rarr; Relation map</b>
-  (hover any edge) and in <span class="mono">lcw_kb_relations_v1_0_0.ttl</span>.</p>
+  (hover any edge) and in <span class="mono">corpus_contract_v1_0_0.json</span>.</p>
   </div>
 
   <div class="grid3">
@@ -2726,7 +2717,7 @@ async function askUnified(query){
   // narrow single-lookup question does not need.
   const genCfg = (used >= 10) ? WEBLLM_ENUM_CONFIG : WEBLLM_GEN_CONFIG;
   const messages = [
-    {role:'system', content:`You are an assistant for a dataset of LC Waikiki's internal corporate principles. Real, true fact about scope, state before answering anything about "LC Waikiki" as a company: this dataset is ${JSON.stringify(MISSION)} - it contains 20 internal principles LC Waikiki uses, NOT LC Waikiki's corporate history, founding, ownership, or general company facts. If asked about LC Waikiki as a company (history, founding, ownership, industry) rather than about its principles, say plainly that this dataset only covers the 20 principles themselves and does not contain company-history facts - never invent a founding story, date, or affiliation. CRITICAL RULE: this dataset has EXACTLY 20 principles, IDs P01 through P20 - never invent a 21st, and never invent a principle with no P-number at all. GROUNDING RULE: build your answer from the CONTEXT below and explicitly name which principle id(s) (P01-P20) each part of your answer draws from - a claim with no principle id behind it should be flagged as your own general knowledge, not presented as if it came from this dataset. If the CONTEXT below does not actually cover what was asked, do not improvise a plausible-sounding answer - say plainly "the corpus does not cover this" and only THEN, separately, offer general knowledge if useful, clearly labeled as not from this dataset. Fabricating a confident-sounding but ungrounded answer is worse than saying you do not know.\n\nCONTEXT:\n` + contextText},
+    {role:'system', content:`You are an assistant for a research corpus on AI-driven code abundance. Real, true fact about scope: this dataset is ${JSON.stringify(MISSION)} - it contains ${PRINCIPLES.length} concepts drawn from Staples (2026) and cited secondary sources, NOT general facts about any company mentioned within it (e.g. GitLab, Stripe, Spotify) beyond what the corpus itself states. CRITICAL RULE: this dataset has EXACTLY ${PRINCIPLES.length} concepts - never invent one with no matching id. GROUNDING RULE: build your answer from the CONTEXT below and explicitly name which concept id(s) each part of your answer draws from - a claim with no principle id behind it should be flagged as your own general knowledge, not presented as if it came from this dataset. If the CONTEXT below does not actually cover what was asked, do not improvise a plausible-sounding answer - say plainly "the corpus does not cover this" and only THEN, separately, offer general knowledge if useful, clearly labeled as not from this dataset. Fabricating a confident-sounding but ungrounded answer is worse than saying you do not know.\n\nCONTEXT:\n` + contextText},
     {role:'user', content: query}
   ];
   const t0 = performance.now();
@@ -2911,7 +2902,7 @@ async function runAgents(query){
         const p = hits[0];
         if(intent==='apply'){
           answer = `<b>${p.id} - ${p.en_short}</b> - suggested application: ${p.apply}`;
-          setTimeout(()=>agentLine('Application note','who-apply','This is a suggestion synthesized for this KB, not verbatim LCW policy - adapt it to your actual role.'),140);
+          setTimeout(()=>agentLine('Application note','who-apply','This is a suggestion synthesized for this corpus, grounded in the source text - adapt it to your actual role.'),140);
         } else {
           answer = `<b>${p.id} - ${p.en_short}</b>: ${p.en}` +
             (p.fw.length ? ` References: ${p.fw.map(f=>FRAMEWORKS[f].name).join(', ')}.` : '') +
@@ -4083,7 +4074,7 @@ async function askWebLLM(query){
   const hits = (await (EMBED_STATE==='ready' ? embeddingSearch(query) : Promise.resolve(runSearch(query)))).slice(0,3);
   const context = hits.map(h=>`${h.p.id} (${h.p.short}): ${h.p.en} Application: ${h.p.apply}`).join('\n');
   const messages = [
-    {role:'system', content:'You are a concise assistant answering questions about LC Waikiki corporate principles using ONLY the context provided. If the context does not answer the question, say so plainly.'},
+    {role:'system', content:'You are a concise assistant answering questions about this research corpus using ONLY the context provided. If the context does not answer the question, say so plainly.'},
     {role:'user', content:`Context:\n${context}\n\nQuestion: ${query}`}
   ];
   const reply = await WEBLLM_ENGINE.chat.completions.create({messages, ...WEBLLM_GEN_CONFIG});
@@ -5643,7 +5634,7 @@ function buildMain(){
       <li>The 20-principle ontology (<span class="mono">lcw_principles_domain_v1_0_0.ttl</span>) and application steps
       (<span class="mono">lcw_principles_application_v1_0_0.ttl</span>) are this build's own work, grounded against the
       source LCW memo and independently verified external citations.</li>
-      <li>Application steps are this build's synthesis - concrete suggestions, not verbatim LCW policy - flagged as such
+      <li>Application steps are this build's synthesis - concrete suggestions grounded in the source text - flagged as such
       everywhere they appear.</li>
       <li><b>90 typed relations</b> (<span class="mono">lcw_kb_relations_v1_0_0.ttl</span>) were programmatically mined
       from the 20-principle dataset by <span class="mono">discover_relations.py</span> and classified into 5 types
