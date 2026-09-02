@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_21_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.21.0"@en ;
+pkg:Decision_v1_22_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.22.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.21.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_20_0 ;
+    owl:versionInfo "1.22.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_21_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_21_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_21_0 ;
-    prov:generatedAtTime "2026-09-02T01:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_22_0 ;
+    prov:generatedAtTime "2026-09-02T02:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_21_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.21.0 (STORY-9 closed, STORY-10 filed)"@en ;
-    rdfs:comment "MINOR: user pasted the actual rendered sidebar/menu content, showing full paragraphs used as menu items. Investigated the real rendering code rather than assuming a template bug -- confirmed renderExplorer() correctly renders only the short field; root cause was in this session's own STORY-1 data, where short had been built as a 22-word truncated sentence fragment rather than a genuine title. Rewrote all 18 short fields as real short titles and patched them into the live HTML via targeted replacement (preserving all prior cleanup work), confirmed exactly 18 replacements applied, re-verified via real Playwright and a fresh screenshot. User also asked whether the page's own agents work in parallel with proper failure-communication. Investigated the real orchestration code directly: confirmed the 11-agent pipeline is genuinely sequential, with at least some sequencing reflecting a real, disclosed data dependency (Grooming and Lineage Compose both consume Intent's own repaired output); separately confirmed a real failure-reason-then-retry pattern already exists (withOneAutoFix) but only for 2 of 11 stages. Filed as STORY-10, genuinely not started -- the real first task is dependency mapping across all 11 stages, not a naive parallelization that risks breaking real data flow. Re-verified: pipeline order (39 subjects, reproduces), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "364e494f957280e6d018dba4058ee80aeb30ba780fd63fde7c0b1b8ed382645c"^^xsd:string .
+pkg:Evidence_v1_22_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.22.0 (version-drift fix)"@en ;
+    rdfs:comment "MINOR: user's direct, correct finding -- STORY-7 and STORY-9 both made real content changes to the interactive page while repeatedly re-committing to the same filename, the exact discipline this package enforced on Cross.D in STORY-5 but failed to keep applying to its own subsequent edits. Bumped all 4 real stage files to v1_4_0, re-establishing Cross.D; fixed a genuinely stale internal version string in the page's own footer. Updated the register's 3 live, re-runnable AcceptanceCriterion references to the new filenames, since these describe reproducible checks and would otherwise reference a file that no longer exists -- left historical Evidence text and references to the unrelated RDODI procedure's own version (still genuinely 1.3.0) untouched, since not every '1.3.0' string in the register means the same thing. Re-verified: all Stage1-3 gates re-run fresh and PASS, real Playwright confirms 0 errors, pipeline order unaffected, full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "3b3bc58bbd50d6903d7165fcf4b459ebcf0082f5aacad56d66e1b01f67554772"^^xsd:string .
