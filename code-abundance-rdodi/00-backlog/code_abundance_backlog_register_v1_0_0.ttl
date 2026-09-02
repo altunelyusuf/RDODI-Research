@@ -344,6 +344,7 @@ bl:StoryVisualContentAudit a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-7" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Interaction ;
     backlog:finishedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryVisualContentAudit ;
@@ -401,6 +402,7 @@ bl:StoryShortFieldRewrite a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-9" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Interaction ;
     backlog:finishedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryShortFieldRewrite ;
@@ -458,6 +460,7 @@ bl:StoryConformanceFixAndMenuCleanup a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-11" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Interaction ;
     backlog:finishedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryConformanceFixAndMenuCleanup ;
@@ -499,6 +502,7 @@ bl:StoryMsExplorerRedesign a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-12" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Interaction, backlog:Concern_Architecture ;
     backlog:finishedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryMsExplorerRedesign ;
@@ -540,6 +544,7 @@ bl:StoryPackageInstallAnalysis a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-13" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Interaction ;
     backlog:finishedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryPackageInstallAnalysis ;
@@ -581,6 +586,7 @@ bl:StoryRealPackageInstall a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-14" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Architecture, backlog:Concern_Security, backlog:Concern_Interface ;
     backlog:finishedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryRealPackageInstall ;
@@ -622,6 +628,7 @@ bl:StoryGenericRetryStrategy a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-15" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Architecture, backlog:Concern_Interaction ;
     backlog:finishedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryGenericRetryStrategy ;
@@ -654,6 +661,105 @@ bl:StoryBRSFv168GovernanceUpgrade a backlog:Story, owl:NamedIndividual ;
     backlog:wantsCapability "the register to genuinely satisfy the current, unconditional governance standard, not the old level-suppressed one this lineage was built against -- achieved by real, verified additions (test infrastructure, planning records, measurements), never by adding fields just to silence a checker" ;
     backlog:soThat "backlog_tbox_v1_68_0 removed conformance-level suppression entirely: all four facets (Core, Evidence, Invariant, Audit) are now unconditionally required for every lineage, with no partial-credit path. Re-running the also-updated validator against this otherwise-unchanged register surfaced 198 real violations under the new standard -- not caused by any edit in this session, a genuine gap against the current framework version. 52 resolved immediately with real, zero-fabrication-risk data already on hand: finishedAt/lastAuditedAt for 17 Done items (from this repository's own real commit timestamps -- the moment each was actually closed IS the moment it was actually last checked, since closing was the audit), verifiedByTool for 17 Evidence records (naming the real tool actually used, read from each record's own existing text: Playwright, pyshacl, or the real RDODI gate scripts), hasBasisKind Basis_Judged for 13 estimates (honest, since none were ever measured -- Basis_Judged is what they genuinely are, not a stronger claim), closedAtCommit for the one StageOutput lacking it (the real commit that last touched it), and pursuesObjective for 2 stories that had been left genuinely unlinked. REMAINING 146, disclosed by real category rather than rushed: (a) 18+18 -- a real TestHarness whose completeness is DERIVED from real TestCase results, and Done items anchored by verified test/release evidence rather than review evidence alone -- genuine new test infrastructure, not a field to add; (b) 14+14+14 -- design-concern declarations per story (a real per-story judgement call, not yet made), AcceptanceCriteria naming the real artefact whose existence makes them true, and criteria attested by bridge-verified TestCase evidence rather than prose Evidence records; (c) 13 -- actual effort per completed item, which was never tracked and cannot be honestly retrofitted, only measured going forward; (d) 11 -- real PlanningEvents placing each story into an iteration, which for already-Done retroactive work raises a real question this Story's own first task is to resolve honestly (a genuine retroactive record of when work was actually chosen, if that is knowable, versus disclosing the gap as unfixable after the fact if it is not -- not a fabricated back-dated commitment either way); (e) 8+8+7 -- real MetricObservations, checkpoints, and fillsScope links per objective, which need an actual measurement mechanism this package has never built; (f) 1 -- Epic-level TestCase coverage, the same real infrastructure as (a) but at the epic's own acceptance criteria. Each category's real engineering scope, not a checklist of fields, is this Story's actual first task: decide, category by category, what can be honestly measured from real artifacts already in this session's own history, and what must be disclosed as a standing limitation rather than fabricated to pass a check." .
 
+bl:Refinement_EpicAdoptRichDefault a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for EpicAdoptRichDefault"@en ;
+    backlog:refines bl:EpicAdoptRichDefault ;
+    backlog:refinedAt "2026-09-02T09:46:47+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Confirmed the shipped artifact's own real data shape (corpus contract JSON), architecture (corpus-instantiated pattern replacing the old flowing-page one), and rendered interaction (Explorer/Citations/chat) against the Epic's own closing evidence before marking it Done." ;
+    backlog:addressesConcern backlog:Concern_Data, backlog:Concern_Architecture, backlog:Concern_Interaction .
+
+bl:Refinement_StoryBuildPageABox a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryBuildPageABox"@en ;
+    backlog:refines bl:StoryBuildPageABox ;
+    backlog:refinedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Determined the real ABox data shape (18 ChapterSections, 18 InstructionalWidgets, 7 LearningObjectives) by investigating the actual page's own interaction code (principleDetailHTML) before writing any triple, and designed a new widget primitive (ca:PrincipleDetailNavigator) rather than reusing the old pattern's architecture." ;
+    backlog:addressesConcern backlog:Concern_Data, backlog:Concern_Architecture .
+
+bl:Refinement_StoryConformanceFixAndMenuCleanup a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryConformanceFixAndMenuCleanup"@en ;
+    backlog:refines bl:StoryConformanceFixAndMenuCleanup ;
+    backlog:refinedAt "2026-09-02T08:42:11+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Root-caused the missing ex:Backlog type declaration by reproducing the real SHACL merge outside the browser before deciding what data to add; the menu fix required tracing the actual jump-tree markup to confirm it duplicated the persistent top nav before removing it." ;
+    backlog:addressesConcern backlog:Concern_Data, backlog:Concern_Interaction .
+
+bl:Refinement_StoryCorpusContract a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryCorpusContract"@en ;
+    backlog:refines bl:StoryCorpusContract ;
+    backlog:refinedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Extracted the real data shape (7 categories, 18 principles, 15 citations, 7 relations, 2 frameworks) directly from Stage 1-3's own governed content before authoring the contract, rather than inventing a schema." ;
+    backlog:addressesConcern backlog:Concern_Data .
+
+bl:Refinement_StoryGenericRetryStrategy a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryGenericRetryStrategy"@en ;
+    backlog:refines bl:StoryGenericRetryStrategy ;
+    backlog:refinedAt "2026-09-02T14:53:00+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Designed the remedy/retryGenConfig structure by first mapping which failures needed different WORDING versus a different GENERATION-CONFIG entirely (truncation), then generalised withOneAutoFix to read both generically rather than special-casing either." ;
+    backlog:addressesConcern backlog:Concern_Architecture, backlog:Concern_Interaction .
+
+bl:Refinement_StoryInstantiateAndVerify a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryInstantiateAndVerify"@en ;
+    backlog:refines bl:StoryInstantiateAndVerify ;
+    backlog:refinedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Ran the real instantiation tool against real source data, then investigated its actual plan output (5 of 6 schema fields replaced) before concluding Citations was a genuine gap rather than assuming full replacement." ;
+    backlog:addressesConcern backlog:Concern_Data, backlog:Concern_Interaction .
+
+bl:Refinement_StoryMsExplorerRedesign a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryMsExplorerRedesign"@en ;
+    backlog:refines bl:StoryMsExplorerRedesign ;
+    backlog:refinedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Investigated the real click-handling code for the category tree before deciding the middle list should filter by real selection state rather than remain a static duplicate, and confirmed the interaction end-to-end via actual Playwright clicks." ;
+    backlog:addressesConcern backlog:Concern_Interaction, backlog:Concern_Architecture .
+
+bl:Refinement_StoryPackageInstallAnalysis a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryPackageInstallAnalysis"@en ;
+    backlog:refines bl:StoryPackageInstallAnalysis ;
+    backlog:refinedAt "2026-09-02T12:26:45+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Read the real SHACL worker's own working micropip call before concluding package installation was technically possible, rather than assuming the refusal was a platform limit." ;
+    backlog:addressesConcern backlog:Concern_Interaction .
+
+bl:Refinement_StoryRealPackageInstall a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryRealPackageInstall"@en ;
+    backlog:refines bl:StoryRealPackageInstall ;
+    backlog:refinedAt "2026-09-02T12:43:34+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Curated the safe-package allowlist (numpy, pandas, networkx) as a deliberate security boundary distinct from network access, then verified the real install-and-run path end-to-end in a real browser before enabling it, rather than assuming micropip.install would behave the same as the SHACL worker's own use of it." ;
+    backlog:addressesConcern backlog:Concern_Architecture, backlog:Concern_Security, backlog:Concern_Interface .
+
+bl:Refinement_StoryShortFieldRewrite a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryShortFieldRewrite"@en ;
+    backlog:refines bl:StoryShortFieldRewrite ;
+    backlog:refinedAt "2026-09-02T07:01:36+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Measured the actual short field's real word count (22 words) against what a menu label needs before rewriting, rather than guessing the field was already appropriate." ;
+    backlog:addressesConcern backlog:Concern_Data, backlog:Concern_Interaction .
+
+bl:Refinement_StoryVisualContentAudit a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Design-concern analysis for StoryVisualContentAudit"@en ;
+    backlog:refines bl:StoryVisualContentAudit ;
+    backlog:refinedAt "2026-09-02T06:37:45+00:00"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Took real screenshots of the rendered page for the first time this session and compared them directly against the template's own reference screenshots before deciding what content was genuinely wrong versus assumed correct." ;
+    backlog:addressesConcern backlog:Concern_Interaction .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -679,6 +785,7 @@ bl:StoryBuildPageABox a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-6" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Architecture ;
     backlog:finishedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T12:04:51+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryBuildPageABox ;
@@ -956,6 +1063,7 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:hasWorkItemTitle "Adopt RDODI v1.3.0 default interactive-page pattern for code-abundance-rdodi" ;
     backlog:hasIdentifier "EPIC-1" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Architecture, backlog:Concern_Interaction ;
     backlog:hasEvidence bl:Evidence_EpicAdoptRichDefault ;
     backlog:hasAcceptanceCriterion bl:AC_EpicAdoptRichDefault ;
     backlog:hasExecutionModality backlog:Mode_Automated ;
@@ -974,6 +1082,7 @@ bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-1" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Data ;
     backlog:finishedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_TaskAuthorCorpusJSON ;
@@ -999,6 +1108,7 @@ bl:StoryQuizAndGlossary a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-2" ;
     backlog:hasState backlog:Done ;
+    backlog:hasNoApplicableConcern "Content-quality rewrite of already-existing apply-field text only -- no new data shape, interface, interaction pattern, architecture, or security surface." ;
     backlog:finishedAt "2026-09-01T08:38:47+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T08:38:47+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryQuizAndGlossary ;
@@ -1038,6 +1148,7 @@ bl:StoryInstantiateAndVerify a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-3" ;
     backlog:hasState backlog:Done ;
+    backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Interaction ;
     backlog:finishedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:06:51+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryInstantiateAndVerify ;
@@ -1077,6 +1188,7 @@ bl:StorySyncStage4ToStage3 a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-4" ;
     backlog:hasState backlog:Done ;
+    backlog:hasNoApplicableConcern "Pure verification/measurement against already-shipped artifacts -- nothing built, changed, or exposed; the story's own output is a finding, not a new surface." ;
     backlog:finishedAt "2026-09-01T10:13:08+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:13:08+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StorySyncStage4ToStage3 ;
@@ -1116,6 +1228,7 @@ bl:StoryAlignReleaseVersions a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-5" ;
     backlog:hasState backlog:Done ;
+    backlog:hasNoApplicableConcern "Pure filename/version-label alignment across the 4 stage files -- no content, interface, interaction, architecture, or security change; Cross.D coherence only." ;
     backlog:finishedAt "2026-09-01T10:25:51+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T10:25:51+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_StoryAlignReleaseVersions ;
