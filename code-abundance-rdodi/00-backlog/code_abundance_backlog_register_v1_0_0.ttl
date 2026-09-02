@@ -664,7 +664,7 @@ bl:StoryBRSFv168GovernanceUpgrade a backlog:Story, owl:NamedIndividual ;
     backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
     backlog:notYetScoreable true ;
     backlog:hasScoreabilityReason "Freshly disclosed after a real framework upgrade (2026-09-02); not yet run through the framework's prioritisation method." ;
-    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing ;
+    backlog:pursuesObjective bl:ObjBRSFConformanceAchieved ;
     rdfs:label "Bring the lineage into real conformance with BRSF v1.68.0's unconditional four-facet model"@en ;
     backlog:asRole "the package maintainer" ;
     backlog:wantsCapability "the register to genuinely satisfy the current, unconditional governance standard, not the old level-suppressed one this lineage was built against -- achieved by real, verified additions (test infrastructure, planning records, measurements), never by adding fields just to silence a checker" ;
@@ -1206,7 +1206,8 @@ bl:ObjStagesFullyGateClean a backlog:Objective, owl:NamedIndividual ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalMissionGateVerifiable ;
-    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope .
 
 bl:GoalMissionDisclosureHolds a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1229,7 +1230,35 @@ bl:ObjDisclosedLimitsVisible a backlog:Objective, owl:NamedIndividual ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalMissionDisclosureHolds ;
-    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope .
+
+bl:GoalLineageBRSFConformance a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "This register is itself honestly conformant to the BRSF governing it"@en ;
+    backlog:hasGoalStatement "Every claim this lineage's own Mission, Goals, and Objectives make depends on the register carrying those claims being itself honestly conformant to the current BRSF standard -- a claim recorded in a non-conformant register is not more true for being written down. Built following a real, disclosed handover (vaf-lineage, 2026-09-02, conformance-goal-pattern): a lineage's own real conformance-remediation work has no honest home among product-facing Objectives, since forcing it onto one (as this lineage initially did, pointing STORY-16 at ObjRDODIDefaultGatesPassing) is exactly the dishonest fit BRSF's own checks exist to catch elsewhere." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Mission .
+
+bl:MetricSHACLViolationCount a core:Metric, owl:NamedIndividual ;
+    rdfs:label "Real SHACL violation count against the current BRSF standard"@en .
+
+bl:ObjBRSFConformanceAchieved a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The register's real SHACL violation count against the current BRSF standard"@en ;
+    backlog:hasObjectiveStatement "Counted, not asserted: the real number of sh:Violation-severity results backlog_validate reports against this register, re-run fresh each time this claim is checked, against whatever the current, highest-versioned BRSF tbox/shacl actually is -- not a fixed prior count. As of this pass (2026-09-02): 127, re-verified via backlog_validate_v1_5_0.py against backlog_shacl_v1_79_0.ttl. Disclosed honestly: the framework itself has changed twice since this lineage began (v1.68.0 removed level-suppression entirely; v1.69.0 followed), so 127 measures conformance to a moving target, not a fixed one -- each re-check re-establishes the real current gap, it does not merely confirm a prior reading still holds." ;
+    backlog:hasSuccessMetric bl:MetricSHACLViolationCount ;
+    backlog:hasTargetDirection backlog:Dir_Decrease ;
+    backlog:hasBaselineValue "198"^^xsd:decimal ;
+    backlog:hasTargetValue "0"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:contributesToGoal bl:GoalLineageBRSFConformance ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope .
 
 bl:GoalMissionKeepsPace a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1252,7 +1281,8 @@ bl:ObjStage4MatchesCurrentDefault a backlog:Objective, owl:NamedIndividual ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalMissionKeepsPace ;
-    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope .
 
 bl:MetricOutOfAreaWork a core:Metric, owl:NamedIndividual ;
     rdfs:label "Work items pursuing something outside a declared Area"@en .
@@ -1288,7 +1318,8 @@ bl:ObjNoOutOfAreaWork a backlog:Objective, owl:NamedIndividual ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalContainment ;
-    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope .
 
 bl:GoalGuardS6Reconciliation a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1312,7 +1343,8 @@ bl:ObjNoS6ReconciliationDecisions a backlog:Objective, owl:NamedIndividual ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalGuardS6Reconciliation ;
-    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope .
 
 bl:GoalGuardSharedToolingEdits a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1336,7 +1368,8 @@ bl:ObjNoSharedToolingEdits a backlog:Objective, owl:NamedIndividual ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalGuardSharedToolingEdits ;
-    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope .
 
 bl:GoalGuardStage1to3Recontent a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1360,7 +1393,8 @@ bl:ObjNoStage1to3RecontentEdits a backlog:Objective, owl:NamedIndividual ;
     backlog:hasMeasurementKind backlog:Meas_Counted ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalGuardStage1to3Recontent ;
-    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope .
 
 bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1613,7 +1647,7 @@ bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 3 (Goal) output"@en ;
     backlog:outputOfStage backlog:Stage_Goal ;
     backlog:consumesOutput bl:StageOutput_Scope ;
-    backlog:hasStateDigest "600d8d9dd92487ec08392c46b4847fb794aa67faa9c8c6682a9c5667eae36d52" ;
+    backlog:hasStateDigest "5acd6640aab906beba87a2812babd949354a8d74102b64e6ffe74099f143a34e" ;
     backlog:closedAtCommit "6f19d5fa6e0976577be9471c1e3ba69a43127ad8" .
 
 bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
@@ -1621,7 +1655,7 @@ bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 4 (Objective) output"@en ;
     backlog:outputOfStage backlog:Stage_Objective ;
     backlog:consumesOutput bl:StageOutput_Goal ;
-    backlog:hasStateDigest "6a0766e8192d355a438148529c04d3fd7d3c53a6b06a5120ab89c8a21e0c5274" ;
+    backlog:hasStateDigest "08bc5f33a1e631c05161dee7e20b97dda948804695dcc452fbbb9be2d80444be" ;
     backlog:closedAtCommit "6f19d5fa6e0976577be9471c1e3ba69a43127ad8" .
 
 bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
@@ -1629,7 +1663,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "cf02a8c7251e0a923c7fb8a91e02ecb72665ffc1b454494ceda21356215f474b" .
+    backlog:hasStateDigest "c934f3c8702fb74e7736c9dbbb4849afa287c7c4de53bee37a71164b62c64bd5" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
