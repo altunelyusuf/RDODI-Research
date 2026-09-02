@@ -353,6 +353,58 @@ bl:StoryDeepRAGSubjectCleanup a backlog:Story, owl:NamedIndividual ;
     backlog:wantsCapability "the chat console's retrieval, embedding, chunking, and fact-checking logic, and its test fixtures, to reference this corpus's own real id scheme and item count rather than the source template's" ;
     backlog:soThat "the chat feature actually works correctly for this subject, not just avoids crashing -- disclosed honestly during STORY-7 rather than blind-replaced: approximately 39 'LCW' and 10 'LC Waikiki' references remain in retrieval/embedding logic, fact-checking regexes, and test fixtures whose own expected values (e.g. IDs 'P01'..'P20') are specific to the source subject and would need real rework, not string substitution, to genuinely fit this corpus -- real risk of silent breakage without dedicated testing." .
 
+bl:Estimate_Story9 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-9 (short-field rewrite)"@en ;
+    backlog:hasEffortEstimate "1"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: root cause was a single, well-understood authoring mistake (short built as a 22-word truncated sentence instead of a genuine title) -- mechanical fix once found." ;
+    backlog:hasEstimateConfidence "High"^^xsd:string ;
+    backlog:estimatedAt "2026-09-02T00:00:00Z"^^xsd:dateTime .
+
+bl:AC_StoryShortFieldRewrite a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Sidebar and menu items show short titles, not paragraph fragments"@en ;
+    backlog:hasGherkinText "Given the Principle Explorer's sidebar tree and any list rendering PRINCIPLES.short, When a reader looks at any menu item, Then it reads as a short title (a few words), not a truncated sentence fragment. And When each of the 18 short values is checked programmatically, Then none exceeds 6 words." .
+
+bl:Evidence_StoryShortFieldRewrite a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Root cause found and fixed: short was authored as a 22-word sentence fragment, not a title"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-02T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "Direct user finding, with pasted menu-item text as evidence: sidebar/menu items were rendering as full paragraphs. Investigated the actual rendering code (renderExplorer) directly rather than assuming a template bug -- confirmed the code correctly renders only p.short, not the full p.en text. Root cause found in this session's own STORY-1 data: the short field had been built by a short_from() helper taking the first 22 words of each principle's full text, producing a run-on sentence fragment rather than a genuine short label -- confirmed programmatically (22 words per entry). This was this session's own authoring defect, not the template's. Rewrote all 18 short fields as genuine short titles (2-6 words, e.g. 'Agent Platform Pillar', 'Cost Per Accepted Change') in corpus_contract_v1_0_0.json, then patched the same 18 values directly into the live, already-cleaned HTML (rather than re-running full instantiation, which would have discarded STORY-3/6/7's cleanup work) -- confirmed exactly 18 replacements applied, matching the 18 principles exactly. Re-verified via real Playwright: 0 console/page errors, confirmed via fresh screenshot that the sidebar now shows genuinely short, scannable titles." .
+
+bl:StoryShortFieldRewrite a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-9" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasEvidence bl:Evidence_StoryShortFieldRewrite ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryShortFieldRewrite ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story9 ;
+    backlog:dependsOn bl:StoryVisualContentAudit ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    rdfs:label "Rewrite the short field as genuine short titles, not 22-word sentence fragments used as menu items"@en ;
+    backlog:asRole "a reader navigating the interactive companion" ;
+    backlog:wantsCapability "sidebar and menu items to read as short, scannable titles" ;
+    backlog:soThat "the navigation is actually usable -- direct user finding: 'how can the paragraphs be used as if menu items?', with the actual rendered menu pasted as evidence. Root cause was this session's own STORY-1 data-authoring choice, not the template." ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
+bl:StoryAgentOrchestrationRedesign a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-10" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:dependsOn bl:StoryShortFieldRewrite ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    backlog:notYetScoreable true ;
+    backlog:hasScoreabilityReason "Freshly identified by direct investigation of the real orchestration code (2026-09-02); not yet run through the framework's prioritisation method." ;
+    rdfs:label "Map the real dependency graph among the 11 pipeline agents; parallelize what genuinely has no dependency; extend failure-reason-and-retry to all 11 stages"@en ;
+    backlog:asRole "the package maintainer" ;
+    backlog:wantsCapability "the 11-agent pipeline (Intent, Story, Grooming, Product Owner, Lineage Compose, Conformance, Execution, Sprint Planning, DevOps, Code Gen, Test Gen) to run stages with no real data dependency between them concurrently rather than always sequentially, and every stage, not only Code Gen/Test Gen, to report a real failure reason back to its caller and get one corrective retry" ;
+    backlog:soThat "direct user finding, checked against the real code before agreeing or disagreeing: 'agents should work in parallel not sequential.' Confirmed by reading runRequestIntakeAgent directly: the pipeline is genuinely sequential today (each stage awaited before the next begins), and at least some of that sequencing is real, not arbitrary -- a disclosed code comment (DEF-25) shows Grooming and Lineage Compose both consume Intent's own already-repaired acceptance criterion as real input, a genuine data dependency, not just convention. Separately confirmed: withOneAutoFix already implements a real failure-reason-then-retry pattern (the exact shape the user asked for), but only for 2 of the 11 stages (Code Gen, Test Gen) -- the other 9 have no such mechanism. This Story's real first task is mapping which of the 11 stages' inputs/outputs actually depend on each other (only genuine independence can be safely parallelized) before touching any execution code -- not assumed achievable by a quick Promise.all wrap, which would risk breaking real data flow between stages." .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -848,7 +900,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "2e86c5792968085c1a8c23e256a1338cdeaf09802614b0fb8f845ad7ad043c62" .
+    backlog:hasStateDigest "f954f72a2ca42c1853e57db33d2f07354ca6a777b52a4fa8b7c2d5f1969b04c2" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
