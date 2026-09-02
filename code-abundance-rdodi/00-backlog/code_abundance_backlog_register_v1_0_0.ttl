@@ -311,7 +311,7 @@ bl:Estimate_Story7 a backlog:CostEstimate, owl:NamedIndividual ;
 bl:AC_StoryVisualContentAudit a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Every user-visible, glaring content-quality defect found by real screenshots is fixed and re-verified"@en ;
-    backlog:hasGherkinText "Given code_abundance_page_v1_9_0.html opened in a real browser, When a reader looks at the header, the overview stats, the footer, and a principle's detail view, Then no LCWKB-subject text, no 'undefined' field, and no internally-inconsistent statistic (a table's real breakdown contradicting the summary number above it) appears anywhere in the visible UI. And When 0-error Playwright verification is re-run after the fix, Then it still holds." .
+    backlog:hasGherkinText "Given code_abundance_page_v1_10_0.html opened in a real browser, When a reader looks at the header, the overview stats, the footer, and a principle's detail view, Then no LCWKB-subject text, no 'undefined' field, and no internally-inconsistent statistic (a table's real breakdown contradicting the summary number above it) appears anywhere in the visible UI. And When 0-error Playwright verification is re-run after the fix, Then it still holds." .
 
 bl:Evidence_StoryVisualContentAudit a backlog:Evidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -553,6 +553,43 @@ bl:StoryRealPackageInstall a backlog:Story, owl:NamedIndividual ;
     backlog:soThat "user asked directly: enable the package installation, and make agent-return information generic enough for receiving agents to act on without case-by-case correction like the specific fix made last turn. Both delivered: real, end-to-end-verified micropip installation for a curated safe set (network/scraping libraries still refused, on purpose, as a different and still-necessary safety boundary), and a remedy field on every check that withOneAutoFix consumes generically -- removing the exact case-by-case regex this Story's own request was pointing at." ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
+bl:Estimate_Story15 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-15 (near-miss package hints, token-budget-aware retry)"@en ;
+    backlog:hasEffortEstimate "3"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: user's uploaded session log gave two exact, real failures -- a package-name typo, and a genuine output-truncation the automatic retry made no better. Both root-caused from the real code; the token-budget fix required a small but real architectural change (threading a generation-config override through both code-gen functions), not just new text." ;
+    backlog:hasEstimateConfidence "Medium"^^xsd:string ;
+    backlog:estimatedAt "2026-09-02T00:00:00Z"^^xsd:dateTime .
+
+bl:AC_StoryGenericRetryStrategy a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "A near-miss package name gets a 'did you mean' hint, and a truncated retry gets a genuinely larger output budget, both generically"@en ;
+    backlog:hasGherkinText "Given code importing a package within edit-distance 2 of a real installable package, When the safety check flags it, Then the remedy names the likely intended package by real edit-distance comparison against the actual allowed set, not a hardcoded pairing. And Given a generation reply with finish_reason=length, When withOneAutoFix builds its retry, Then the retry call uses a genuinely larger max_tokens, read generically from the flagged entry's own retryGenConfig, with no code in withOneAutoFix specific to truncation." .
+
+bl:Evidence_StoryGenericRetryStrategy a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Both real failures from the uploaded log root-caused and fixed generically; end-to-end verified including exact reproduction of the logged typo"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-02T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "User uploaded a real session log with two distinct real failures. (1) Build stage: 'a package not available here (networks)' -- the model wrote networks (not a real package) instead of networkx (genuinely installable, per STORY-14). Confirmed the existing remedy already named networkx correctly as part of the allowed set, and the model still repeated the same mistake on its one automatic retry -- a real LLM reliability limit text alone did not overcome. Added a generic near-miss hint: real Levenshtein edit-distance between each refused import and every name in the actual PYODIDE_SAFE_PACKAGES set (not a hardcoded networks-means-networkx pairing), surfaced in the remedy when distance <= 2. Verified by reproducing the exact logged code (import networks) through the real extractAndCheckCode function: remedy text now reads exactly \"'networks' is not a real package -- did you mean 'networkx'?\", generically derived. (2) Test stage: 'the model hit its output budget...finish_reason=length', still unsafe after 1 automatic retry. Root cause found by reading the real retry code: the prior remedy for this case had no dedicated remedy at all, so the retry used the old generic 'fix it: <reason>' text -- which, for a token-budget failure specifically, makes the retry's own prompt LONGER, needing MORE output room, not less, working against itself. Fixed generically: truncationFlag() now carries a deliberately short remedy (asking for conciseness, not added explanation) plus a structured retryGenConfig (a genuinely larger max_tokens); agentCodeGen and agentTestGen both accept an optional genConfigOverride threaded into their real WEBLLM_ENGINE call; withOneAutoFix generically merges every flagged entry's own retryGenConfig (Object.assign across all present) and passes it to the retry call, with no special-case code for truncation specifically -- a future check needing a different generation-config change works here unmodified. Verified via real Playwright direct logic tests (Levenshtein distance, truncationFlag's remedy/retryGenConfig shape, the generic merge producing the correct boosted max_tokens) and a full real reproduction of the exact logged typo through the actual extractAndCheckCode pipeline, confirmed byte-for-byte. 0 console/page errors. Re-ran all Stage1-3 gates fresh: all PASS." .
+
+bl:StoryGenericRetryStrategy a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-15" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasEvidence bl:Evidence_StoryGenericRetryStrategy ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryGenericRetryStrategy ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story15 ;
+    backlog:dependsOn bl:StoryRealPackageInstall ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    rdfs:label "Handle a not-available package and a token-budget failure with generic, structured retry information, not case-specific text"@en ;
+    backlog:asRole "the package maintainer"@en ;
+    backlog:wantsCapability "a package-name typo to get a real, evidence-based correction hint, and a token-budget failure to get a genuinely bigger retry budget rather than a longer prompt that makes the same problem worse -- both delivered through the same generic remedy/retryGenConfig mechanism, no new case-specific branches in the retry logic itself" ;
+    backlog:soThat "user's uploaded session log showed both failures for real: a package typo the existing remedy already named correctly but the model still missed, and a truncated test-gen reply whose one automatic retry failed the same way because appending more explanation only asked for more room, not less. Both root-caused from the real code and fixed through the same generic mechanism STORY-14 established -- remedy and retryGenConfig read directly off each flagged entry, with zero per-case logic added to withOneAutoFix itself." ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -563,14 +600,14 @@ bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
 bl:AC_StoryBuildPageABox a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The real page ABox passes every gate the RDODI default deliverable's own procedure names for it"@en ;
-    backlog:hasGherkinText "Given code_abundance_page_abox_v1_9_0.ttl, When Stage4.A (parse), Stage4.B (SHACL), Cross.B (provenance chain), and the widget gates Stage4.H-K (warrant, grounding, design-test, intention-coverage) are run, Then all PASS, checked by actually re-executing each gate's real tooling against the real file, not asserted." .
+    backlog:hasGherkinText "Given code_abundance_page_abox_v1_10_0.ttl, When Stage4.A (parse), Stage4.B (SHACL), Cross.B (provenance chain), and the widget gates Stage4.H-K (warrant, grounding, design-test, intention-coverage) are run, Then all PASS, checked by actually re-executing each gate's real tooling against the real file, not asserted." .
 
 bl:Evidence_StoryBuildPageABox a backlog:Evidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real page ABox built and verified: every applicable gate PASS, including 18/18 intention coverage"@en ;
     backlog:evidenceVerified true ;
     backlog:verifiedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
-    backlog:hasVerificationMethod "Resolved the design question by direct investigation of the real page's own JS, not by force-fitting the old pattern: found principleDetailHTML(p), a genuine per-concept interaction rendering real framework citations and typed relation chips, each independently clickable -- confirmed live via Playwright (57 real clickable navigation chips rendered on a real click) before writing any triple. Built code_abundance_page_abox_v1_9_0.ttl: 18 ChapterSections (one per real Stage 2 leaf concept, not the old pattern's 21 flat sections -- Cross.B chain confirmed 18/18 unbroken), 18 InstructionalWidgets each instantiating a new, honestly-named primitive (ca:PrincipleDetailNavigator, genuinely distinct from the old CitationDisclosureToggle), and 7 real LearningObjectives (one per actual category, not invented). Re-ran every applicable real gate fresh: Stage4.A parse PASS (391 triples); Stage4.B SHACL PASS (0 violations); Cross.B PASS (18/18 provenance chains unbroken); Stage4.H (widget warrant) PASS; Stage4.I (widget grounding) PASS; Stage4.J (widget design-test) PASS; Stage4.K (intention coverage) PASS -- 18/18 covered, 0 disclosed-scope, 0 decoration widgets, genuinely stronger than the old pattern's own ABox, which declared 6 learning objectives but linked zero widgets to any of them (all disclosed-uncovered)." .
+    backlog:hasVerificationMethod "Resolved the design question by direct investigation of the real page's own JS, not by force-fitting the old pattern: found principleDetailHTML(p), a genuine per-concept interaction rendering real framework citations and typed relation chips, each independently clickable -- confirmed live via Playwright (57 real clickable navigation chips rendered on a real click) before writing any triple. Built code_abundance_page_abox_v1_10_0.ttl: 18 ChapterSections (one per real Stage 2 leaf concept, not the old pattern's 21 flat sections -- Cross.B chain confirmed 18/18 unbroken), 18 InstructionalWidgets each instantiating a new, honestly-named primitive (ca:PrincipleDetailNavigator, genuinely distinct from the old CitationDisclosureToggle), and 7 real LearningObjectives (one per actual category, not invented). Re-ran every applicable real gate fresh: Stage4.A parse PASS (391 triples); Stage4.B SHACL PASS (0 violations); Cross.B PASS (18/18 provenance chains unbroken); Stage4.H (widget warrant) PASS; Stage4.I (widget grounding) PASS; Stage4.J (widget design-test) PASS; Stage4.K (intention coverage) PASS -- 18/18 covered, 0 disclosed-scope, 0 decoration widgets, genuinely stronger than the old pattern's own ABox, which declared 6 learning objectives but linked zero widgets to any of them (all disclosed-uncovered)." .
 
 bl:StoryBuildPageABox a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -591,7 +628,7 @@ bl:StoryBuildPageABox a backlog:Story, owl:NamedIndividual ;
     backlog:hasScoreabilityReason "Freshly identified by direct investigation of the RDODI procedure's own literal text; not yet run through the framework's prioritisation method." ;
     rdfs:label "Build the real page ABox the RDODI default deliverable's own procedure requires (Stage4.A/B/G, steps 4-6)"@en ;
     backlog:asRole "the package maintainer" ;
-    backlog:wantsCapability "a genuine code_abundance_page_abox_v1_9_0.ttl satisfying Stage4.A (parses), Stage4.B (SHACL-clean against interactive_page_ontology_shacl), Stage4.G (every individual dcterms:source-linked to its Stage 3 Section), and Stage4.H-K's real widget-intention model -- reached by first deciding honestly how that model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity (chat console, relation map, principle browsing), not by force-fitting the old shape" ;
+    backlog:wantsCapability "a genuine code_abundance_page_abox_v1_10_0.ttl satisfying Stage4.A (parses), Stage4.B (SHACL-clean against interactive_page_ontology_shacl), Stage4.G (every individual dcterms:source-linked to its Stage 3 Section), and Stage4.H-K's real widget-intention model -- reached by first deciding honestly how that model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity (chat console, relation map, principle browsing), not by force-fitting the old shape" ;
     backlog:soThat "the Epic's own Definition of Done (RDODI gates passing) is genuinely, not partially, satisfied -- found by direct investigation (2026-09-01): the procedure's own numbered steps 4-6 for the DEFAULT deliverable explicitly require a page ABox, unlike Cross.A's finding two turns ago (a cross-stage assumption that didn't transfer), this is the procedure's own literal text for the pattern this Epic adopted. Confirmed via test-drive: zero ABox-generation tooling exists anywhere in the corpus-instantiation template (08-brsf-corpus-template/02-tooling/ contains exactly one script, and it never touches an ABox) -- this is a genuine, currently-unaddressed gap, not a doesn't-apply situation." ;
     backlog:partOf bl:EpicAdoptRichDefault ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing, bl:ObjStagesFullyGateClean, bl:ObjStage4MatchesCurrentDefault .
@@ -687,7 +724,7 @@ bl:GoalMissionKeepsPace a backlog:Goal, owl:NamedIndividual ;
 bl:ObjStage4MatchesCurrentDefault a backlog:Objective, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The current Stage 4 artifact matches the currently-governing RDODI default"@en ;
-    backlog:hasObjectiveStatement "Binary check, counted: does the artifact at code-abundance-rdodi/04-interactive-page/ match the pattern RDODI procedure v1.3.0 names as its default. As of this pass (2026-09-01): yes -- code_abundance_page_v1_9_0.html is the corpus-instantiated rich pattern, shipped and Playwright-verified; the old single-flowing-page artifact (built under procedure v1.2.2) has been retired to 99-retired/. 1 of 1, target reached." ;
+    backlog:hasObjectiveStatement "Binary check, counted: does the artifact at code-abundance-rdodi/04-interactive-page/ match the pattern RDODI procedure v1.3.0 names as its default. As of this pass (2026-09-01): yes -- code_abundance_page_v1_10_0.html is the corpus-instantiated rich pattern, shipped and Playwright-verified; the old single-flowing-page artifact (built under procedure v1.2.2) has been retired to 99-retired/. 1 of 1, target reached." ;
     backlog:hasSuccessMetric bl:MetricStage4MatchesCurrentDefault ;
     backlog:hasTargetDirection backlog:Dir_Increase ;
     backlog:hasBaselineValue "0"^^xsd:decimal ;
@@ -1048,7 +1085,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "c6dc7162f1daa8a1e7cc1d9b316f912b35908a587eee48113c62acd540d23bdc" .
+    backlog:hasStateDigest "efb4f0f3dbc84ce9b6bb6f5e2377328b91736ac14de39580fa6f2367cf5d03a9" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must

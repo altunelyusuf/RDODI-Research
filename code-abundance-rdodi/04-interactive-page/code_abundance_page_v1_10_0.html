@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.9.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.10.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -3412,7 +3412,18 @@ const WEBLLM_CODE_CONFIG = {temperature: 0.3, max_tokens: 900, repetition_penalt
 function truncationFlag(reply){
   const fr = reply && reply.choices && reply.choices[0] && reply.choices[0].finish_reason;
   return fr === 'length'
-    ? {label:`the model hit its output budget and was cut off mid-answer (finish_reason=length). This is a limit set in this page, not a model failure - regenerate, or shorten the request.`}
+    ? {label:`the model hit its output budget and was cut off mid-answer (finish_reason=length)`,
+       // Deliberately short: this is the one failure kind where a longer
+       // correction would work against its own remedy -- appending more
+       // explanation to the retry's own task text makes the next attempt
+       // need MORE room, not less, worsening the exact problem being fixed.
+       remedy: `This is a limit set in this page, not a model mistake -- do not add explanation, just answer more concisely so the complete answer fits.`,
+       // Read generically by withOneAutoFix, not special-cased there: a
+       // structured hint that this retry needs a bigger output budget, not
+       // just different wording -- the one case a text-only remedy cannot
+       // fix by itself, since the constraint being violated is a token
+       // count, not a misunderstanding.
+       retryGenConfig: {max_tokens: Math.round((WEBLLM_CODE_CONFIG.max_tokens||900) * 1.6)}}
     : null;
 }
 async function askWebLLMGeneral(query){
@@ -4345,6 +4356,14 @@ async function ensurePyodide(){
 // Code Lab and the pipeline's Build/Test stages install from one real,
 // single list rather than two that could quietly drift apart.
 const PYODIDE_SAFE_PACKAGES = new Set(['numpy','pandas','networkx']);
+function levenshteinDistance(a, b){
+  const m = a.length, n = b.length;
+  const d = Array.from({length: m+1}, (_, i) => [i, ...Array(n).fill(0)]);
+  for(let j=0;j<=n;j++) d[0][j] = j;
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++)
+    d[i][j] = a[i-1]===b[j-1] ? d[i-1][j-1] : 1+Math.min(d[i-1][j], d[i][j-1], d[i-1][j-1]);
+  return d[m][n];
+}
 const INSTALLED_PACKAGES = new Set();
 async function ensureSafePackagesInstalled(names){
   const toInstall = (names||[]).filter(n => !INSTALLED_PACKAGES.has(n));
@@ -4797,10 +4816,23 @@ async function extractAndCheckCode(raw){
   const nonStdlib = [...new Set(importMatches.map(m => m[1]).filter(mod => !PYTHON_STDLIB.has(mod)))];
   const installable = nonStdlib.filter(mod => PYODIDE_SAFE_PACKAGES.has(mod));
   const notInstallable = nonStdlib.filter(mod => !PYODIDE_SAFE_PACKAGES.has(mod));
-  if(notInstallable.length) flagged.push({
-    label: `a package not available here (${notInstallable.join(', ')})`,
-    remedy: `The only third-party packages installable in this sandbox are: ${[...PYODIDE_SAFE_PACKAGES].join(', ')} -- import only from that set or the standard library, and remove ${notInstallable.join(', ')} entirely. There is still no network access and no way to install anything else.`
-  });
+  if(notInstallable.length){
+    // Generic near-miss detection, not a hardcoded 'networks means networkx':
+    // real edit-distance against the real allowed set, so any future addition
+    // to PYODIDE_SAFE_PACKAGES gets the same near-miss help for free.
+    const nearMiss = notInstallable.map(bad => {
+      let best = null, bestDist = Infinity;
+      for(const good of PYODIDE_SAFE_PACKAGES){
+        const d = levenshteinDistance(bad, good);
+        if(d < bestDist){ bestDist = d; best = good; }
+      }
+      return (best && bestDist <= 2) ? `'${bad}' is not a real package -- did you mean '${best}'?` : null;
+    }).filter(Boolean);
+    flagged.push({
+      label: `a package not available here (${notInstallable.join(', ')})`,
+      remedy: `The only third-party packages installable in this sandbox are: ${[...PYODIDE_SAFE_PACKAGES].join(', ')} -- import only from that set or the standard library, and remove ${notInstallable.join(', ')} entirely. There is still no network access and no way to install anything else.` + (nearMiss.length ? ' ' + nearMiss.join(' ') : '')
+    });
+  }
   let syntaxOk = true, syntaxErr = '';
   try {
     await ensurePyodide();
@@ -5564,22 +5596,29 @@ async function withOneAutoFix(task, agentFn){
   const firstUnsafe = !first.code || !first.syntaxOk || first.flagged.length;
   if(!firstUnsafe) return {...first, autoFixed:false, autoFixWorked:null};
   // Generic by design, not case-by-case: each check in extractAndCheckCode's
-  // own suspiciousPatterns (and the non-stdlib-package check) carries its
-  // own remedy field -- the exact, actionable instruction stated once, at
-  // the point that actually knows what went wrong. This function never
-  // inspects label text or guesses a failure category; it just uses
-  // whatever remedy the failing check attached, generically, so a new check
-  // added later works correctly here with no change to this function.
+  // own suspiciousPatterns (and the non-stdlib-package check, and
+  // truncationFlag) carries its own remedy -- and, where the fix isn't just
+  // different wording, its own retryGenConfig -- stated once, at the point
+  // that actually knows what went wrong. This function never inspects label
+  // text or guesses a failure category; it just uses whatever remedy and
+  // generation-config hint the failing check attached, generically, so a
+  // new check added later works correctly here with no change to this
+  // function -- including the one failure kind a text-only remedy cannot
+  // fix by itself: truncation's own remedy is deliberately short (to avoid
+  // making the retry's own prompt longer, which would need MORE tokens, not
+  // fewer), and instead carries a retryGenConfig raising the output budget
+  // for that one retry.
   const remedies = first.flagged.map(f=>f.remedy).filter(Boolean);
+  const retryGenConfig = Object.assign({}, ...first.flagged.map(f=>f.retryGenConfig).filter(Boolean));
   const reasonText = first.flagged.map(f=>f.label).join('; ') || first.syntaxErr || 'no usable code was found in the response';
   const fixedTask = remedies.length
     ? task + '\n\nThe previous attempt failed a real check when actually run: ' + reasonText + '. ' + remedies.join(' ')
     : task + '\n\nThe previous attempt failed with this real error when actually checked - fix it: ' + reasonText;
-  const second = await agentFn(fixedTask);
+  const second = await agentFn(fixedTask, Object.keys(retryGenConfig).length ? retryGenConfig : undefined);
   const secondSafe = second.code && second.syntaxOk && !second.flagged.length;
   return {...second, autoFixed:true, autoFixWorked:secondSafe, firstAttemptReason:reasonText};
 }
-async function agentCodeGen(task){
+async function agentCodeGen(task, genConfigOverride){
   const dataShape = `PRINCIPLES: list of 20 dicts, each with id (e.g. "P01"), cat (category key), short, en, en_short, apply, fw (list), reinforces (list), roles (list).
 CATEGORIES: dict of {key: {label}}. FRAMEWORKS: dict of {key: {name, url, note}}.
 RELATIONS: list of {source, target, type, subtype, evidence}. COMPANY_DATA.companies: dict of company records.`;
@@ -5593,7 +5632,7 @@ frameworks = json.loads(FRAMEWORKS_JSON)   # dict, shape above
 relations = json.loads(RELATIONS_JSON)   # list, shape above
 company_data = json.loads(COMPANY_JSON)   # dict with a "companies" key, shape above
 Only load the ones you actually use. Respond with ONE python code block (triple backticks) followed by a short plain-language explanation of what the code does and why. Do not refuse - writing code is exactly what you are for.`;
-  const reply = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:systemPrompt},{role:'user',content:task}], ...WEBLLM_CODE_CONFIG});
+  const reply = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:systemPrompt},{role:'user',content:task}], ...WEBLLM_CODE_CONFIG, ...(genConfigOverride||{})});
   const raw = reply.choices[0].message.content;
   const res = await extractAndCheckCode(raw);
   const trunc = truncationFlag(reply);
@@ -5603,10 +5642,10 @@ Only load the ones you actually use. Respond with ONE python code block (triple 
 }
 
 // Core: test generation. Extracted from runTestGenAgent, same single-implementation rule.
-async function agentTestGen(gherkin){
+async function agentTestGen(gherkin, genConfigOverride){
   const systemPrompt = `You are a test generation agent for a real project. Its actual mission statement: "${MISSION}"
 Given a Gherkin-style acceptance criterion (Given/When/Then), write a real, runnable Python 3 test that checks whether the Then condition genuinely holds, structured as three clear sections matching Given (real setup), When (the action), Then (real assert statements with a clear failure message). Prefer real assert statements over just printing - a test should fail loudly if the criterion isn't met, not silently pass. Do NOT import pytest, unittest, cucumber, behave, or any other testing framework - none of them are available here; write plain assert statements directly in top-level code, no test framework, no fixtures, no decorators. The code runs inside Pyodide via direct execution (like exec()) - never write "if __name__ == '__main__':" or a main() function. No file I/O, no pip installs, no network calls. Only Python's standard library is available - no third-party packages exist in this sandbox, do not import them. If the criterion references this project's own data, it is available as: principles = json.loads(LCW_JSON) (list of 20 dicts with id/cat/short/en/en_short/apply/fw/reinforces/roles), categories = json.loads(CATEGORIES_JSON), frameworks = json.loads(FRAMEWORKS_JSON), relations = json.loads(RELATIONS_JSON), company_data = json.loads(COMPANY_JSON). Respond with ONE python code block followed by a short explanation of what the test checks and why.`;
-  const reply = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:systemPrompt},{role:'user',content:gherkin}], ...WEBLLM_CODE_CONFIG});
+  const reply = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:systemPrompt},{role:'user',content:gherkin}], ...WEBLLM_CODE_CONFIG, ...(genConfigOverride||{})});
   const raw = reply.choices[0].message.content;
   const res = await extractAndCheckCode(raw);
   const trunc = truncationFlag(reply);
@@ -5670,7 +5709,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_9_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_10_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>

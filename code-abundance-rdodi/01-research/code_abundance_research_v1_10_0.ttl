@@ -24,14 +24,14 @@
     dcterms:created "2026-08-27"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
     dcterms:description "RDODI Stage 1 Research artifact for the code-abundance-rdodi subject run: the economics and governance of AI-native software development, as argued in Staples (2026) and its cited industry cases."@en ;
-    dcterms:identifier "code_abundance_research_v1_9_0" ;
+    dcterms:identifier "code_abundance_research_v1_10_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-08-27"^^xsd:date ;
     dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
     rdfs:comment "ORIGINATION lineage: first RDODI subject run on this topic. Conforms to res:ResearchProject / res:Publication per the corrected Stage 1 procedure (v1.2.1) and validates against research_ontology_shacl_v1_1_0.ttl."@en ;
     owl:versionIRI <http://example.org/rdodi/code-abundance/research/1.0.0> ;
-    owl:versionInfo "1.9.0" ;
+    owl:versionInfo "1.10.0" ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> .
 
 # ----------------------------------------------------------------------------

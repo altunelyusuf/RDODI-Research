@@ -14,7 +14,7 @@
 # ============================================================================
 # RDODI Stage 4 -- Interactive Page ABox (Path B: corpus-instantiated pattern)
 # Subject: code-abundance-rdodi
-# Renders code_abundance_page_v1_9_0.html. 18 sections, one per real Stage 2
+# Renders code_abundance_page_v1_10_0.html. 18 sections, one per real Stage 2
 #   leaf concept (not 25 -- CATEGORIES group but are not individually navigable
 #   sections; the 18 PRINCIPLES are the real, addressable units, confirmed via
 #   selectPrinciple(id) navigation, live-tested).
@@ -30,21 +30,21 @@
     dcterms:created "2026-09-01"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
     dcterms:description "RDODI Stage 4 page ABox for code-abundance-rdodi Path B: 18 sections (1:1 with the 18 real Stage 2 leaf concepts) and 18 real, Playwright-tested per-concept detail-navigation widgets, each grounding its concept in real framework citations and typed relation chips."@en ;
-    dcterms:identifier "code_abundance_page_abox_v1_9_0" ;
+    dcterms:identifier "code_abundance_page_abox_v1_10_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-09-01"^^xsd:date ;
     dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
     dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
     owl:versionIRI <http://example.org/rdodi/code-abundance/page/1.3.0> ;
-    owl:versionInfo "1.9.0" ;
+    owl:versionInfo "1.10.0" ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
     rdfs:comment "First ABox for the Path B corpus-instantiated pattern. The old pattern's v1.1.0 ABox (99-retired/) used per-section click-to-reveal citation widgets; this pattern's real interactivity is structurally different (chat console, relation graph, principle browsing), so the widget-intention mapping was rebuilt from what the real page actually does, not force-fit onto the old shape -- confirmed live via Playwright before any triple was written."@en .
 
 cai:CodeAbundancePage a ipo:Page, owl:NamedIndividual ;
     rdfs:label "When Code Is Abundant: A Research Companion (interactive page, Path B)"@en ;
     skos:definition "This interactive page renders the code-abundance-rdodi research companion as a corpus-instantiated artifact: a hierarchical principle explorer, a grounded chat console, and a citations tab, with eighteen per-concept detail-navigation widgets."@en ;
-    dcterms:source <code_abundance_page_v1_9_0.html> .
+    dcterms:source <code_abundance_page_v1_10_0.html> .
 
 # ----------------------------------------------------------------------------
 # Widget primitive
@@ -153,7 +153,7 @@ cai:Region_BuilderRole a ipo:ChapterSection, owl:NamedIndividual ;
 # ----------------------------------------------------------------------------
 # 18 widgets, one per leaf concept -- designTestPassed true recorded because
 # the Playwright test in this Story's Evidence was ACTUALLY RUN against
-# code_abundance_page_v1_9_0.html and passed, not asserted (B3).
+# code_abundance_page_v1_10_0.html and passed, not asserted (B3).
 # ----------------------------------------------------------------------------
 
 cai:Widget_AgentPlatformPillar a ipo:InstructionalWidget, owl:NamedIndividual ;
