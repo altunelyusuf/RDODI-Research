@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_23_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.23.0"@en ;
+pkg:Decision_v1_24_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.24.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.23.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_22_0 ;
+    owl:versionInfo "1.24.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_23_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_23_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_23_0 ;
-    prov:generatedAtTime "2026-09-02T03:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_24_0 ;
+    prov:generatedAtTime "2026-09-02T04:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_23_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.23.0 (STORY-10 grounded with real dependency map)"@en ;
-    rdfs:comment "MINOR: read every one of the 11 pipeline agents' real call sites to build a genuine dependency graph, not guessed -- Tier 0 (Intent, root), Tier 1 (Story Author, Product Owner, Code Gen, Test Gen, all depending on Intent only, genuinely parallelizable with each other), Tier 2 (Grooming and Lineage Compose, both needing Story Author; Execution, needing Code Gen and Test Gen), Tier 3 (Conformance needing Lineage Compose; Sprint Planner needing Grooming and Lineage Compose), Tier 4 (DevOps needing Execution/Code Gen/Test Gen). Four of eleven stages can genuinely run concurrently right after Intent. Updated the Story's wantsCapability to reflect the coordinator-pattern design explicitly asked for: one coordinator per dependency tier, matching the real graph, not one monolithic coordinator. Deliberately did not implement the coordinator this pass -- the function is tightly coupled to progressive UI rendering and the real pipeline cannot be behaviourally exercised in this environment (requires a live LLM connection unavailable here); shipping an unverifiable rewrite of live async orchestration was judged worse than leaving it correct and sequential. Re-verified: pipeline order unaffected, full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "c9e50d4d140377fa3721b5f6e8f4769193ac0242f5624d0da0dc0627149a85e5"^^xsd:string .
+pkg:Evidence_v1_24_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.24.0 (STORY-11 closed -- Conformance regression fixed)"@en ;
+    rdfs:comment "MINOR: user uploaded a real session log recording an actual pipeline run's Conformance failure, quoted precisely. Traced to its exact cause by reading the code: LINEAGE_TTL, one of 5 graphs the real SHACL worker merges, had been emptied during this session's own earlier cleanup without a minimal valid replacement for this subject -- a real regression this session introduced, not a pre-existing defect. Reproduced the exact failure with real pyshacl outside the browser, matching the SHACL worker's own merge logic exactly, confirmed byte-for-byte before touching anything. Fixed with a minimal, real declaration; re-ran the identical reproduction against the live patched file and confirmed the violation is gone. Separately confirmed and fixed: a redundant 'All Sections' jump-tree inside the Explorer sidebar duplicated the always-visible top nav bar with no added value -- removed, click-handler confirmed already null-guarded. Re-verified via real Playwright: 0 console/page errors. Re-verified: pipeline order (40 subjects, reproduces), full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "55b1f03bf97a66a096edb764f0037784a8221ccb6e70cf695cc2d9e8846536ea"^^xsd:string .
