@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_26_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.26.0"@en ;
+pkg:Decision_v1_27_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.27.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.26.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_25_0 ;
+    owl:versionInfo "1.27.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_26_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_26_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_26_0 ;
-    prov:generatedAtTime "2026-09-02T06:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_27_0 ;
+    prov:generatedAtTime "2026-09-02T07:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_26_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.26.0 (STORY-12 closed -- MS-Explorer redesign)"@en ;
-    rdfs:comment "MINOR: user attached the actual rendered sidebar text, showing raw ontology identifiers stacked with every label, and a genuine second flat duplicate of the tree in the middle panel, distinct from the 'All Sections' block already removed. Fixed: removed visible raw IDs (kept in aria-label/title only), added folder/document icons, and implemented real folder-click filtering -- clicking a category now genuinely filters the middle list to its own contents with a count and reset control, replacing what had been an always-everything static duplicate. One real authoring bug (invalid backslash-escaped template syntax) caught by re-reading the written file directly, not assumed correct, and fixed. Re-verified via real Playwright exercising the actual new interaction: 0 errors. Version bumped correctly this turn, before committing -- applying the lesson from the prior two drift corrections proactively: all 4 stages moved to v1_6_0, Cross.D verified as a single version before any commit. Re-verified: all Stage1-3 gates PASS fresh, pipeline order (41 subjects, reproduces), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "ab6dd70e04b59e6e518e38746d708ce55d1cc1a4586a390f5cd84ec8c5191dc7"^^xsd:string .
+pkg:Evidence_v1_27_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.27.0 (comprehensive raw-ID sweep)"@en ;
+    rdfs:comment "MINOR: continued verifying the MS-Explorer sidebar fix beyond the two panels the user's screenshot showed, and found the same defect class in 8 further places -- the detail-pane heading in two rendering functions, the reinforces chip generator, a Quick jump widget, two chat-answer templates, and the Copy-as-AI-prompt feature, the last also found to still say 'LC Waikiki' verbatim, a genuine miss from an earlier cleanup pass. All fixed; one further instance confirmed to be dead code (gated on an empty array) and correctly left untouched. Re-verified comprehensively via real Playwright across all tabs plus the actual filter/reset/select interaction: 0 remaining raw-id matches except one legitimate SVG tooltip. Version bumped correctly before committing, applying the version-drift lesson proactively: all 4 stages moved to v1_7_0, Cross.D verified. Re-verified: all Stage1-3 gates PASS fresh, pipeline order unaffected, full SHACL 0 violations."@en ;
+    pub:transcriptSHA256 "ea9495f18d32835efae3f7f7b6d6bf2ddc1622671a87f6aa1594ba6d77d55aa9"^^xsd:string .
