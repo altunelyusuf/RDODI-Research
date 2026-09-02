@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_24_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.24.0"@en ;
+pkg:Decision_v1_25_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.25.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.24.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_23_0 ;
+    owl:versionInfo "1.25.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_24_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_24_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_24_0 ;
-    prov:generatedAtTime "2026-09-02T04:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_25_0 ;
+    prov:generatedAtTime "2026-09-02T05:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_24_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.24.0 (STORY-11 closed -- Conformance regression fixed)"@en ;
-    rdfs:comment "MINOR: user uploaded a real session log recording an actual pipeline run's Conformance failure, quoted precisely. Traced to its exact cause by reading the code: LINEAGE_TTL, one of 5 graphs the real SHACL worker merges, had been emptied during this session's own earlier cleanup without a minimal valid replacement for this subject -- a real regression this session introduced, not a pre-existing defect. Reproduced the exact failure with real pyshacl outside the browser, matching the SHACL worker's own merge logic exactly, confirmed byte-for-byte before touching anything. Fixed with a minimal, real declaration; re-ran the identical reproduction against the live patched file and confirmed the violation is gone. Separately confirmed and fixed: a redundant 'All Sections' jump-tree inside the Explorer sidebar duplicated the always-visible top nav bar with no added value -- removed, click-handler confirmed already null-guarded. Re-verified via real Playwright: 0 console/page errors. Re-verified: pipeline order (40 subjects, reproduces), full SHACL 0 violations."@en ;
-    pub:transcriptSHA256 "55b1f03bf97a66a096edb764f0037784a8221ccb6e70cf695cc2d9e8846536ea"^^xsd:string .
+pkg:Evidence_v1_25_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.25.0 (repeated version drift fixed)"@en ;
+    rdfs:comment "MINOR: user's correct, direct finding -- 'You gave me the exact 1.4.0 file not a new one.' Same drift class as two turns ago, caught a second time: STORY-11's two real content changes were both committed to the same filename without a version bump. While fixing, read a directly relevant handover that landed in the Ontologies repo this session (VAF_HANDOVER_drift-retrospective_v1_0_0.md, another lineage's own real drift analysis) -- its diagnosis applies here word for word: technical verification (Playwright, pyshacl) ran with full rigor every time, but the procedural version-bump check did not run with the same automatic regularity. Bumped all 4 real stage files to v1_5_0, re-establishing Cross.D; confirmed both of STORY-11's real fixes survived the rename intact, not assumed. Updated the register's 3 live AcceptanceCriterion filename references. Re-verified: all Stage1-3 gates PASS fresh, real Playwright 0 errors, pipeline order unaffected, full SHACL 0 violations. Adopting a standing practice going forward: a mechanical Cross.D check (do all 4 stage files share one version token) after every edit that touches page/domain/research/document content, not only when explicitly asked."@en ;
+    pub:transcriptSHA256 "1c7f3bfb8924e5640a8e304dc19888172e05ec4663d2e1914a7d2590100ca62e"^^xsd:string .
