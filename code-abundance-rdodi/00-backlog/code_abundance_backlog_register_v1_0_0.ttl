@@ -385,16 +385,43 @@ bl:StoryVisualContentAudit a backlog:Story, owl:NamedIndividual ;
     backlog:soThat "the shipped artifact does not embarrass the package it represents -- direct user finding, quoted in this Story's own Evidence: 'the page is shameful.' A real, humbling gap in this session's own prior verification discipline: 0 console errors was repeatedly treated as sufficient evidence of correctness, when it only proves the JS didn't crash, not that the content it renders is right." ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
+bl:WSJF_Story8 a backlog:WSJFScore, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "WSJF score for StoryDeepRAGSubjectCleanup"@en ;
+    backlog:scoredByMethod backlog:Method_WSJF ;
+    backlog:hasScoreValue "2.5"^^xsd:decimal ;
+    backlog:scoredAt "2026-09-02T19:00:00Z"^^xsd:dateTime ;
+    backlog:hasUserBusinessValue "6.0"^^xsd:decimal ;
+    backlog:hasTimeCriticality "3.0"^^xsd:decimal ;
+    backlog:hasRiskReductionValue "6.0"^^xsd:decimal ;
+    backlog:hasJobSize "6.0"^^xsd:decimal ;
+    rdfs:comment "Business value: a real correctness issue (chat can surface a different company's identity/ID scheme as if it were this corpus's own), but not a currently-reported failure -- the chat still functions, the risk is latent, not active. Time criticality: no external deadline or trigger. Risk reduction: real -- removes latent wrong-company references before they surface to a user; some opportunity value in a cleaner foundation for future chat work. Job size: substantial (~49 references across retrieval/embedding/fact-checking/test-fixture logic, disclosed as needing dedicated testing) but bounded and fully achievable within this environment -- no external blocker."@en .
+
+bl:AC_StoryDeepRAGSubjectCleanup a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The chat/RAG layer's retrieval, fact-checking, and test fixtures reference this corpus's own real scheme, and the chat still works"@en ;
+    backlog:hasGherkinText "Given the chat console's retrieval, embedding, chunking, and fact-checking logic and its test fixtures, When searched for the source subject's own identity markers (the literal strings 'LCW' and 'LC Waikiki', and the 'P01'-'P20' ID pattern), Then none remain -- every reference has been genuinely reworked to this corpus's own real 18-item scheme and identifiers, not blind string-substituted. And Given the reworked chat console, When a real search/fact-check query is run through it via Playwright, Then it returns a correct, real answer grounded in this corpus's own data, with 0 console/page errors." .
+
+bl:Refinement_StoryDeepRAGSubjectCleanup a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Grooming STORY-8 into Ready: WSJF-scored, dependency confirmed Done, real Gherkin AC written"@en ;
+    backlog:refines bl:StoryDeepRAGSubjectCleanup ;
+    backlog:refinedAt "2026-09-02T19:00:00Z"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Compared against STORY-10 using the framework's own real WSJF method rather than an ad-hoc pick: STORY-8 scored 2.5 against STORY-10's 1.0, driven by a real, disclosed difference -- STORY-10's own record states it cannot be behaviourally tested in this environment at all (no live LLM connection), which raises its effective job size past what its business value justifies working on now. Confirmed STORY-8's one dependency (StoryVisualContentAudit) is genuinely Done before proceeding, then wrote a real, testable Gherkin AcceptanceCriterion and assessed which design concerns genuinely apply (Data: the retrieval/embedding data structures are being reworked; Interaction: the chat's own real answers are what a user reads) before transitioning to Ready." ;
+    backlog:addressesConcern backlog:Concern_Data, backlog:Concern_Interaction .
+
 bl:StoryDeepRAGSubjectCleanup a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-8" ;
-    backlog:hasState backlog:Proposed ;
+    backlog:hasState backlog:Ready ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:dependsOn bl:StoryVisualContentAudit ;
     backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
-    backlog:notYetScoreable true ;
-    backlog:hasScoreabilityReason "Freshly identified by direct investigation (2026-09-02); not yet run through the framework's prioritisation method." ;
+    backlog:hasPriorityScore bl:WSJF_Story8 ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryDeepRAGSubjectCleanup ;
+    backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Interaction ;
     rdfs:label "Rebuild the chat/RAG layer's deep subject-specific assumptions (source subject's own name, P01-P20 ID scheme, 20-item count) for this corpus"@en ;
     backlog:asRole "the package maintainer" ;
     backlog:wantsCapability "the chat console's retrieval, embedding, chunking, and fact-checking logic, and its test fixtures, to reference this corpus's own real id scheme and item count rather than the source template's" ;
@@ -449,6 +476,18 @@ bl:StoryShortFieldRewrite a backlog:Story, owl:NamedIndividual ;
     backlog:soThat "the navigation is actually usable -- direct user finding: 'how can the paragraphs be used as if menu items?', with the actual rendered menu pasted as evidence. Root cause was this session's own STORY-1 data-authoring choice, not the template." ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing .
 
+bl:WSJF_Story10 a backlog:WSJFScore, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "WSJF score for StoryAgentOrchestrationRedesign"@en ;
+    backlog:scoredByMethod backlog:Method_WSJF ;
+    backlog:hasScoreValue "1.0"^^xsd:decimal ;
+    backlog:scoredAt "2026-09-02T19:00:00Z"^^xsd:dateTime ;
+    backlog:hasUserBusinessValue "4.0"^^xsd:decimal ;
+    backlog:hasTimeCriticality "2.0"^^xsd:decimal ;
+    backlog:hasRiskReductionValue "3.0"^^xsd:decimal ;
+    backlog:hasJobSize "9.0"^^xsd:decimal ;
+    rdfs:comment "Business value: a real but secondary improvement (faster pipeline execution) -- the pipeline already produces correct results today, only sequentially; nothing is currently broken. Time criticality: none. Risk reduction: low -- there is no active risk this resolves; the opportunity value is faster responses, not correctness. Job size: large on its own merits (coordinator implementation across 4 real dependency tiers, tightly coupled to progressive UI rendering) AND structurally blocked -- the story's own record states plainly it cannot be behaviourally tested in this environment (requires WEBLLM_STATE==='ready', a live LLM connection this sandbox does not have), which raises the real, effective size further: any implementation attempt here ships unverified, the exact risk that deferred it last time."@en .
+
 bl:StoryAgentOrchestrationRedesign a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-10" ;
@@ -457,8 +496,7 @@ bl:StoryAgentOrchestrationRedesign a backlog:Story, owl:NamedIndividual ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:dependsOn bl:StoryShortFieldRewrite ;
     backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
-    backlog:notYetScoreable true ;
-    backlog:hasScoreabilityReason "Freshly identified by direct investigation of the real orchestration code (2026-09-02); not yet run through the framework's prioritisation method." ;
+    backlog:hasPriorityScore bl:WSJF_Story10 ;
     rdfs:label "Map the real dependency graph among the 11 pipeline agents; parallelize what genuinely has no dependency; extend failure-reason-and-retry to all 11 stages"@en ;
     backlog:asRole "the package maintainer" ;
     backlog:wantsCapability "the 11-agent pipeline (Intent, Story, Grooming, Product Owner, Lineage Compose, Conformance, Execution, Sprint Planning, DevOps, Code Gen, Test Gen) to run stages with no real data dependency between them concurrently rather than always sequentially, coordinated by one or more explicit coordinator functions (one per dependency tier, matching the real graph -- not one monolithic coordinator forcing every stage through a single choke point) that dispatch each tier's independent stages together and gate the next tier on their real completion, and every stage, not only Code Gen/Test Gen, to report a real failure reason back to its own coordinator and get one corrective retry" ;
