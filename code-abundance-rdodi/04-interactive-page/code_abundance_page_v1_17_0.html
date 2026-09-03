@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.16.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.17.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -5203,14 +5203,16 @@ async function runRequestIntakeAgent(){
        <p class="small"><b>Acceptance criterion:</b> ${escapeHtmlText(intent.ac)}</p>
        ${gherkinFix.repaired?'<p class="small" style="color:#2f6b3a;">✔ The model\'s acceptance criterion was not structured as Given/When/Then, so it was deterministically rebuilt into that structure from its own title/reason - preventing a Grooming/Conformance refusal for this reason downstream.</p>':''}
        ${intent.reason?`<p class="small"><b>Reason:</b> ${escapeHtmlText(intent.reason)}</p>`:''}
+       ${intent.retried?`<p class="small" style="color:#667;">⚙ First attempt did not follow the required format - automatically retried once with that format named explicitly. ${intent.retryWorked?'The retry followed it.':'The retry still did not; falling back to the request text itself for title/AC.'}</p>`:''}
        ${intent.truncated?'<p class="small" style="color:#a03a3a;">⚠ cut off at the output budget.</p>':''}`,
       intent.ac);
 
     s = begin('agentStoryAuthor','User story');
     let authored=null;
     try{ authored = await agentStoryAuthor(intent.title, intent.ac);
-      finish(s,'done','role / capability / benefit',
-        `<p class="small"><b>As</b> ${escapeHtmlText(authored.asRole)}<br><b>I want</b> ${escapeHtmlText(authored.wantsCapability)}<br><b>So that</b> ${escapeHtmlText(authored.soThat)}</p>`,
+      finish(s,'done',authored.retried?(authored.retryWorked?'role / capability / benefit (fixed automatically after 1 retry)':'role / capability / benefit (fallback text used - retry also did not follow the format)'):'role / capability / benefit',
+        `<p class="small"><b>As</b> ${escapeHtmlText(authored.asRole)}<br><b>I want</b> ${escapeHtmlText(authored.wantsCapability)}<br><b>So that</b> ${escapeHtmlText(authored.soThat)}</p>
+         ${authored.retried?`<p class="small" style="color:#667;">⚙ First attempt did not follow the required ROLE:/CAPABILITY:/BENEFIT: format - automatically retried once with that format named explicitly. ${authored.retryWorked?'The retry followed it.':'The retry still did not; the fallback text above was used.'}</p>`:''}`,
         `As ${authored.asRole}\nI want ${authored.wantsCapability}\nSo that ${authored.soThat}`);
     }catch(e){ finish(s,'refused','authoring failed; neutral template used','<p class="small">The story author did not return a usable story; the composer falls back to a neutral template.</p>',String(e)); }
 
@@ -5482,13 +5484,24 @@ async function agentStoryAuthor(title, ac){
 ROLE: <who benefits>
 CAPABILITY: <what they can do>
 BENEFIT: <why it matters to them>`;
-  const r = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:p},{role:'user',content:`Title: ${title}\nAcceptance criterion: ${ac}`}], ...WEBLLM_GEN_CONFIG});
-  const raw = r.choices[0].message.content;
-  const g=(re,fb)=>{const m=raw.match(re); return m?m[1].trim():fb;};
-  return {raw, truncated: !!truncationFlag(r),
-    asRole: g(/ROLE:\s*(.+)/i, 'a member of the register'),
-    wantsCapability: g(/CAPABILITY:\s*(.+)/i, title),
-    soThat: g(/BENEFIT:\s*(.+)/i, 'the request is satisfied in a way that can be measured and refused')};
+  const parseOnce = async (userContent) => {
+    const r = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:p},{role:'user',content:userContent}], ...WEBLLM_GEN_CONFIG});
+    const raw = r.choices[0].message.content;
+    const g=(re,fb)=>{const m=raw.match(re); return m?[m[1].trim(),true]:[fb,false];};
+    const [asRole, roleOk] = g(/ROLE:\s*(.+)/i, 'a member of the register');
+    const [wantsCapability, capOk] = g(/CAPABILITY:\s*(.+)/i, title);
+    const [soThat, benOk] = g(/BENEFIT:\s*(.+)/i, 'the request is satisfied in a way that can be measured and refused');
+    // Real signal, not assumed: NONE of the three tags matched at all means
+    // the model ignored the format entirely, worth a real retry. Any ONE
+    // tag matching means it followed the format and just chose not to name
+    // every field distinctly -- a content choice, not a format failure.
+    return {raw, truncated: !!truncationFlag(r), asRole, wantsCapability, soThat, malformed: !roleOk && !capOk && !benOk};
+  };
+  const first = await parseOnce(`Title: ${title}\nAcceptance criterion: ${ac}`);
+  if(!first.malformed) return {...first, retried:false, retryWorked:null};
+  const retryPrompt = `Title: ${title}\nAcceptance criterion: ${ac}\n\n(Your previous reply did not follow the required format -- it must contain lines starting with exactly "ROLE:", "CAPABILITY:", and "BENEFIT:". Do not add any other text.)`;
+  const second = await parseOnce(retryPrompt);
+  return {...second, retried:true, retryWorked:!second.malformed};
 }
 
 // Product Owner - DETERMINISTIC. Ranks with a stated reason per item and
@@ -5663,15 +5676,34 @@ IN SCOPE: yes or no
 REASON: one sentence
 TITLE: short title
 AC: Given ... When ... Then ...`;
-  const r = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:p},{role:'user',content:request}], ...WEBLLM_GEN_CONFIG});
-  const raw = r.choices[0].message.content;
-  const truncated = !!truncationFlag(r);
-  const m = (re)=>{const x=raw.match(re); return x?x[1].trim():null;};
-  return {raw, truncated,
-    ac: m(/AC:\s*([\s\S]*?)(?:\n\n|$)/i) || request,
-    title: m(/TITLE:\s*(.+)/i) || request.slice(0,60),
-    reason: m(/REASON:\s*(.+)/i),
-    inScope: (()=>{const s=m(/IN SCOPE:\s*(yes|no)/i); return s?s.toLowerCase()==='yes':null;})()};
+  const parseOnce = async (userContent) => {
+    const r = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:p},{role:'user',content:userContent}], ...WEBLLM_GEN_CONFIG});
+    const raw = r.choices[0].message.content;
+    const truncated = !!truncationFlag(r);
+    const m = (re)=>{const x=raw.match(re); return x?x[1].trim():null;};
+    const inScopeRaw = m(/IN SCOPE:\s*(yes|no)/i);
+    return {raw, truncated,
+      ac: m(/AC:\s*([\s\S]*?)(?:\n\n|$)/i) || request,
+      title: m(/TITLE:\s*(.+)/i) || request.slice(0,60),
+      reason: m(/REASON:\s*(.+)/i),
+      inScope: inScopeRaw ? inScopeRaw.toLowerCase()==='yes' : null,
+      // STORY-10 (partial, real): of this pipeline's 11 stages, only 4 (this
+      // one, Story Author, Build, Test) genuinely call the LLM -- confirmed
+      // by reading every one of the other 7 agent functions directly, none
+      // are async or call WEBLLM_ENGINE. "Extend retry to all 11 stages" as
+      // originally scoped was based on an unverified assumption; the real,
+      // achievable scope is these 4, of which Build/Test already had it.
+      // A malformed response here is genuinely detectable: unlike the
+      // title/ac fallbacks (harmless, request text is a real fallback), no
+      // IN SCOPE/REASON match at all means the model did not follow the
+      // format, not that the request had nothing to say.
+      malformed: inScopeRaw === null && m(/REASON:\s*(.+)/i) === null};
+  };
+  const first = await parseOnce(request);
+  if(!first.malformed) return {...first, retried:false, retryWorked:null};
+  const retryPrompt = request + `\n\n(Your previous reply did not follow the required format -- it must start with exactly "IN SCOPE: yes" or "IN SCOPE: no" on its own line, then REASON:, TITLE:, AC: each on their own line. Do not add any other text.)`;
+  const second = await parseOnce(retryPrompt);
+  return {...second, retried:true, retryWorked:!second.malformed};
 }
 
 // Core: code generation. Extracted from runCodeGenAgent so the UI and the
@@ -5807,7 +5839,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_16_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_17_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>
