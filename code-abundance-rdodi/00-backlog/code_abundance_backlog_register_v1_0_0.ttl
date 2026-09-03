@@ -605,6 +605,8 @@ bl:StoryMsExplorerRedesign a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-12" ;
     backlog:hasState backlog:Done ;
+    backlog:coversEntity bl:DomainEntity_Principle ;
+    backlog:coversStage backlog:Stage_ActiveUse ;
     backlog:hasActualEffort "5"^^xsd:decimal ;
     backlog:hasApplicableConcern backlog:Concern_Interaction, backlog:Concern_Architecture ;
     backlog:startedAt "2026-09-02T10:23:40+00:00"^^xsd:dateTime ;
@@ -1334,6 +1336,29 @@ bl:Harness_Task30 a backlog:TestHarness, owl:NamedIndividual ;
     backlog:hasHarnessEvidence bl:Evidence_StoryVisualContentAudit ;
     backlog:harnessComplete true .
 
+bl:BlueprintCodeAbundance a backlog:Blueprint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Domain model for code-abundance-rdodi: what this product is about, not what it is for"@en ;
+    backlog:blueprintFor bl:CodeAbundanceBacklog .
+
+bl:DomainEntity_Principle a backlog:DomainEntity, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Principle -- the first-class thing this product is about: one of the 18 real, named research-corpus entries"@en .
+
+bl:Gap_Principle_Suspension a backlog:BlueprintGap, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "No suspension/exception mechanism for a Principle"@en ;
+    backlog:gapForEntity bl:DomainEntity_Principle ;
+    backlog:gapForStage backlog:Stage_SuspensionException ;
+    backlog:hasGapReason "Genuinely absent, not merely untracked: nothing in this product lets a principle be temporarily flagged, hidden, or marked disputed while remaining in the corpus -- a principle is either present and fully shown, or not present at all. Disclosed rather than invented a false coverage claim; would be real, separate future work if this product ever needed to mark a principle as under-review without removing it." .
+
+bl:Gap_Principle_Termination a backlog:BlueprintGap, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "No retirement mechanism for a Principle"@en ;
+    backlog:gapForEntity bl:DomainEntity_Principle ;
+    backlog:gapForStage backlog:Stage_Termination ;
+    backlog:hasGapReason "Genuinely absent: this product has no operation that removes a principle from the corpus once shipped -- corpus_contract.json is edited by re-authoring the whole file (STORY-1's own real process), not through any per-principle retirement path a user or process can invoke. Disclosed rather than invented a false coverage claim." .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -1841,6 +1866,7 @@ bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:hasWorkItemTitle "Adopt RDODI v1.3.0 default interactive-page pattern for code-abundance-rdodi" ;
     backlog:hasIdentifier "EPIC-1" ;
     backlog:hasState backlog:Done ;
+    backlog:coversEntity bl:DomainEntity_Principle ;
     backlog:finishedAt "2026-09-01T12:11:30+00:00"^^xsd:dateTime ;
     backlog:startedAt "2026-09-01T12:11:30+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T12:11:30+00:00"^^xsd:dateTime ;
@@ -1869,6 +1895,8 @@ bl:StoryCorpusContract a backlog:Story, owl:NamedIndividual ;
     backlog:finishedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:lastAuditedAt "2026-09-01T08:22:38+00:00"^^xsd:dateTime ;
     backlog:hasEvidence bl:Evidence_TaskAuthorCorpusJSON ;
+    backlog:coversEntity bl:DomainEntity_Principle ;
+    backlog:coversStage backlog:Stage_Creation ;
     backlog:hasAcceptanceCriterion bl:AC_StoryCorpusContract ;
     backlog:hasExecutionModality backlog:Mode_Automated ;
     backlog:scheduledInHorizon backlog:Now ;
@@ -2083,7 +2111,8 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "ba3d01d1fd3d1f8bb0a5667a4325c97145246590c6a99dd37e2c458f2c88a771" .
+    backlog:hasStateDigest "ba3d01d1fd3d1f8bb0a5667a4325c97145246590c6a99dd37e2c458f2c88a771" ;
+    backlog:closedAtCommit "0fcf009c072dbe238973eee948f04cec9b6116a3" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
