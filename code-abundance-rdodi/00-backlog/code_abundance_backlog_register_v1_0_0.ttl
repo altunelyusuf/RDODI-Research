@@ -1390,6 +1390,7 @@ bl:ObjDisclosedLimitsVisible a backlog:Objective, owl:NamedIndividual ;
 bl:GoalLineageBRSFConformance a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "This register is itself honestly conformant to the BRSF governing it"@en ;
+    backlog:isConformanceGoal true ;
     backlog:hasGoalStatement "Every claim this lineage's own Mission, Goals, and Objectives make depends on the register carrying those claims being itself honestly conformant to the current BRSF standard -- a claim recorded in a non-conformant register is not more true for being written down. Built following a real, disclosed handover (vaf-lineage, 2026-09-02, conformance-goal-pattern): a lineage's own real conformance-remediation work has no honest home among product-facing Objectives, since forcing it onto one (as this lineage initially did, pointing STORY-16 at ObjRDODIDefaultGatesPassing) is exactly the dishonest fit BRSF's own checks exist to catch elsewhere." ;
     backlog:derivesFromScope bl:CodeAbundanceScope ;
     backlog:contributesToMission bl:CodeAbundanceMission ;
@@ -1412,7 +1413,22 @@ bl:ObjBRSFConformanceAchieved a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:StoryBRSFv168GovernanceUpgrade ;
     backlog:contributesToGoal bl:GoalLineageBRSFConformance ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:fillsScope bl:CodeAbundanceScope .
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_BRSFConformance .
+
+bl:Checkpoint_BRSFConformance a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "STORY-16's own Done state is what this checkpoint waits on"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "0"^^xsd:decimal .
+
+bl:Observation_BRSFConformance_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real SHACL violation count reading, 2026-09-02"@en ;
+    backlog:observesMetric bl:MetricSHACLViolationCount ;
+    backlog:hasObservedValue "48"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:00:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "backlog_validate_v1_5_0.py against backlog_shacl_v1_82_0.ttl, counted directly from its own results line" .
 
 bl:GoalMissionKeepsPace a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
