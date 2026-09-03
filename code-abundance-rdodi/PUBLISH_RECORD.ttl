@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_42_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.42.0"@en ;
+pkg:Decision_v1_43_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.43.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.42.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_41_0 ;
+    owl:versionInfo "1.43.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_42_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_42_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_42_0 ;
-    prov:generatedAtTime "2026-09-03T13:30:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_43_0 ;
+    prov:generatedAtTime "2026-09-03T14:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_42_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.42.0 (STORY-18: real WSJF-scored decision against pipeline BRSF reconfiguration)"@en ;
-    rdfs:comment "MINOR: recorded a real, WSJF-scored decision (0.7) against reconfiguring the in-browser agentic pipeline to persist governed records into this register, requested explicitly by the owner as a grounded cost-benefit/risk-opportunity analysis. The score's own rationale names the deciding factor: automating evidenceVerified claims from the pipeline's own small-local-model output risks writing false governance records, demonstrated concretely by that same model's real failure earlier this session (regurgitating remedy instructions instead of writing code). Recorded as a real Proposed, scored Story rather than conversational advice. Re-verified: pipeline order PASS (62 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
-    pub:transcriptSHA256 "4c934f8d0ae96ff1d4e848b47db0255c57157e46937eba588482662754908f4f"^^xsd:string .
+pkg:Evidence_v1_43_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.43.0 (STORY-19: real RDODI documentation-standards gate, real gaps only)"@en ;
+    rdfs:comment "MINOR: investigated a real, previously-unused RDODI taxonomy (11-documentation-standards-stage) at the owner's prompt, ran its real gate against this page's own actual rendered prose. Of 12 flagged acronyms, confirmed 2 false positives (real JS globals PRINCIPLES/CATEGORIES, not initialisms) and found 5 genuine gaps (RDF, SPARQL, SHACL, WASM, SKOS). Heeded the owner's explicit caution about the page's richer agent-based sections by checking, not assuming, each term's real first occurrence: 3 of 4 checked had their naive first occurrence inside a developer comment or embedded vocabulary blob, never rendered to a reader -- found and used the real, user-facing first prose occurrence for each instead, leaving all code/comment/agent-log occurrences untouched. Extended the page's own existing ABBR/abbrTip hover-tooltip glossary mechanism (already covering BRSF/RDODI/OE/TTL, invisible to the gate's flattened-text reading) rather than inventing a new one. Verified via real Playwright: all 5 new entries confirmed via direct JS evaluation, full 24-question regression suite 24/24, 0 console/page errors. Version bumped correctly before committing: all 4 stages moved to v1_14_0, Cross.D verified, all real gates PASS. Re-confirmed all 3 WSJF scores using precise line-number edits after an earlier session's accidental deletion, verifying triple count unchanged. Re-verified: pipeline order PASS (64 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
+    pub:transcriptSHA256 "661e4eb88ea2103bc97100b49b52e1c831b5e621371c7cbfe12c3d48249bcca0"^^xsd:string .
