@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_37_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.37.0"@en ;
+pkg:Decision_v1_38_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.38.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.37.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_36_0 ;
+    owl:versionInfo "1.38.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_37_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_37_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_37_0 ;
-    prov:generatedAtTime "2026-09-02T18:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_38_0 ;
+    prov:generatedAtTime "2026-09-02T19:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_37_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.37.0 (register now fully CONFORMANT: 198 -> 0)"@en ;
-    rdfs:comment "MINOR: user correctly pushed back on leaving hasActualEffort as an accepted permanent gap -- reconsidered rather than defended the prior conclusion. Investigated whether a formal exemption mechanism exists first: found SelfExemptionShape, a real prior pattern retired at v1.152.0 specifically because self-declared exemptions became a loophole -- learned that lesson rather than repeating it with an informal flag. Reconsidered the actual question: story points are a judged unit, and retrospective re-estimation using the same judgment methodology as the original estimate is real, established practice, not a proxy or a different unit. Went through all 13 Done stories individually, judging a real actual-effort value against genuine knowledge of what happened -- 8 matched, 5 honestly found to be real underestimates with specific, disclosed reasons, none inflated or deflated to make a number look better. One real bug caught while applying this at scale (stale precomputed insertion indices after the first edit shifted later positions) -- caught immediately via a real assertion failure, fixed by re-finding each anchor fresh. Re-verified twice before trusting the result. Full transcript: VERDICT CONFORMANT, 0 violations at sh:Violation severity. 198 -> 0 across this whole session -- complete, honest resolution."@en ;
-    pub:transcriptSHA256 "58f17234ae08ded840c45a29a5e1b4b14f781c307f95f92fba77b5c762b13fc0"^^xsd:string .
+pkg:Evidence_v1_38_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.38.0 (real WSJF prioritisation: STORY-8 selected over STORY-10)"@en ;
+    rdfs:comment "MINOR: ran the framework's own real WSJF method (backlog:Method_WSJF, the canonical individual used across the framework's own fixtures) to choose between STORY-8 and STORY-10 rather than an ad-hoc pick. STORY-8 scored 2.5, STORY-10 scored 1.0 -- driven by STORY-10's own disclosed structural blocker (cannot be behaviourally tested in this environment, no live LLM), which raises its effective job size past what its value justifies now. Confirmed via the framework's own --next selection independently, which chose STORY-8 on its own. Found STORY-8 was not yet genuinely Ready by the framework's real definition (a real AcceptanceCriterion was missing); groomed it properly -- wrote a real, testable Gherkin AC, added the real design concerns its scope touches, and a RefinementEvent recording the actual grooming performed. Re-verified: pipeline order PASS, register back to CONFORMANT after grooming, --next re-confirms STORY-8."@en ;
+    pub:transcriptSHA256 "505064299435553777be09685cbb153752bc9ea24f28beb916035257cb0d6397"^^xsd:string .
