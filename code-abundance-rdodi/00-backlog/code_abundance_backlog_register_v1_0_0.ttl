@@ -1361,7 +1361,24 @@ bl:ObjStagesFullyGateClean a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalMissionGateVerifiable ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:fillsScope bl:CodeAbundanceScope .
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjStagesFullyGateClean .
+
+bl:Checkpoint_ObjStagesFullyGateClean a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjStagesFullyGateClean, conditional on this session's own closing work"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "1"^^xsd:decimal .
+
+bl:Observation_ObjStagesFullyGateClean_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: 1 = all applicable Stage1-3 gates PASS"@en ;
+    backlog:observesMetric bl:MetricStagesFullyGateClean ;
+    backlog:observationFor bl:ObjStagesFullyGateClean ;
+    backlog:hasObservedValue "1"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "rdodi_pipeline_validator_v1_5_0.py, re-run fresh: Stage1.A/B, Stage2.A/C, Stage3.A/B all PASS, 0 violations each" .
+
 
 bl:GoalMissionDisclosureHolds a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1385,7 +1402,24 @@ bl:ObjDisclosedLimitsVisible a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalMissionDisclosureHolds ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:fillsScope bl:CodeAbundanceScope .
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjDisclosedLimitsVisible .
+
+bl:Checkpoint_ObjDisclosedLimitsVisible a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjDisclosedLimitsVisible, conditional on this session's own closing work"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "1"^^xsd:decimal .
+
+bl:Observation_ObjDisclosedLimitsVisible_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: 1 = every known limitation has a real, findable disclosure"@en ;
+    backlog:observesMetric bl:MetricDisclosedLimitsVisible ;
+    backlog:observationFor bl:ObjDisclosedLimitsVisible ;
+    backlog:hasObservedValue "1"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "Direct check: STORY-8 (deep RAG contamination), STORY-10 (agent orchestration), STORY-16 (BRSF gap remediation) each carry a real Story with a real soThat/Evidence naming the limitation, not silently absorbed" .
+
 
 bl:GoalLineageBRSFConformance a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1426,6 +1460,7 @@ bl:Observation_BRSFConformance_20260902 a backlog:MetricObservation, owl:NamedIn
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real SHACL violation count reading, 2026-09-02"@en ;
     backlog:observesMetric bl:MetricSHACLViolationCount ;
+    backlog:observationFor bl:ObjBRSFConformanceAchieved ;
     backlog:hasObservedValue "48"^^xsd:decimal ;
     backlog:observedAt "2026-09-02T16:00:00Z"^^xsd:dateTime ;
     backlog:hasObservationMethod "backlog_validate_v1_5_0.py against backlog_shacl_v1_82_0.ttl, counted directly from its own results line" .
@@ -1452,7 +1487,24 @@ bl:ObjStage4MatchesCurrentDefault a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalMissionKeepsPace ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:fillsScope bl:CodeAbundanceScope .
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjStage4MatchesCurrentDefault .
+
+bl:Checkpoint_ObjStage4MatchesCurrentDefault a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjStage4MatchesCurrentDefault, conditional on this session's own closing work"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "1"^^xsd:decimal .
+
+bl:Observation_ObjStage4MatchesCurrentDefault_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: 1 = the shipped Stage4 pattern matches RDODI's own current default"@en ;
+    backlog:observesMetric bl:MetricStage4MatchesCurrentDefault ;
+    backlog:observationFor bl:ObjStage4MatchesCurrentDefault ;
+    backlog:hasObservedValue "1"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "Direct comparison against the currently-governing RDODI procedure's own named default pattern, last confirmed during STORY-3/STORY-6's own real investigation of the template" .
+
 
 bl:MetricOutOfAreaWork a core:Metric, owl:NamedIndividual ;
     rdfs:label "Work items pursuing something outside a declared Area"@en .
@@ -1489,7 +1541,24 @@ bl:ObjNoOutOfAreaWork a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalContainment ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:fillsScope bl:CodeAbundanceScope .
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjNoOutOfAreaWork .
+
+bl:Checkpoint_ObjNoOutOfAreaWork a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjNoOutOfAreaWork, conditional on this session's own closing work"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "0"^^xsd:decimal .
+
+bl:Observation_ObjNoOutOfAreaWork_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: count of files touched outside code-abundance-rdodi/ by this session"@en ;
+    backlog:observesMetric bl:MetricOutOfAreaWork ;
+    backlog:observationFor bl:ObjNoOutOfAreaWork ;
+    backlog:hasObservedValue "0"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "git log --name-only against this session's own commits, checked directly: the only files outside code-abundance-rdodi/ in this repo's full history predate this session or were made directly by the human owner, not by this session's own work" .
+
 
 bl:GoalGuardS6Reconciliation a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1514,7 +1583,24 @@ bl:ObjNoS6ReconciliationDecisions a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalGuardS6Reconciliation ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:fillsScope bl:CodeAbundanceScope .
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjNoS6ReconciliationDecisions .
+
+bl:Checkpoint_ObjNoS6ReconciliationDecisions a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjNoS6ReconciliationDecisions, conditional on this session's own closing work"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "0"^^xsd:decimal .
+
+bl:Observation_ObjNoS6ReconciliationDecisions_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: count of S6-stage reconciliation decisions made"@en ;
+    backlog:observesMetric bl:MetricS6ReconciliationDecisions ;
+    backlog:observationFor bl:ObjNoS6ReconciliationDecisions ;
+    backlog:hasObservedValue "0"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "Direct review of this session's own commits: no Stage 6 (widget/reconciliation) work was ever in this package's own real scope, so none were made" .
+
 
 bl:GoalGuardSharedToolingEdits a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1539,7 +1625,24 @@ bl:ObjNoSharedToolingEdits a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalGuardSharedToolingEdits ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:fillsScope bl:CodeAbundanceScope .
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjNoSharedToolingEdits .
+
+bl:Checkpoint_ObjNoSharedToolingEdits a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjNoSharedToolingEdits, conditional on this session's own closing work"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "0"^^xsd:decimal .
+
+bl:Observation_ObjNoSharedToolingEdits_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: count of commits by this session to the shared Ontologies repo"@en ;
+    backlog:observesMetric bl:MetricSharedToolingEdits ;
+    backlog:observationFor bl:ObjNoSharedToolingEdits ;
+    backlog:hasObservedValue "0"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "git log in the local Ontologies clone: 0 commits authored by this session; a stray, never-committed local directory from before this session was found and removed as housekeeping, not a real edit" .
+
 
 bl:GoalGuardStage1to3Recontent a backlog:Goal, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1564,7 +1667,24 @@ bl:ObjNoStage1to3RecontentEdits a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalGuardStage1to3Recontent ;
     backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
-    backlog:fillsScope bl:CodeAbundanceScope .
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjNoStage1to3RecontentEdits .
+
+bl:Checkpoint_ObjNoStage1to3RecontentEdits a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjNoStage1to3RecontentEdits, conditional on this session's own closing work"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "0"^^xsd:decimal .
+
+bl:Observation_ObjNoStage1to3RecontentEdits_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: count of content (non-version-label) changes to Stage1-3 files by this session"@en ;
+    backlog:observesMetric bl:MetricStage1to3RecontentEdits ;
+    backlog:observationFor bl:ObjNoStage1to3RecontentEdits ;
+    backlog:hasObservedValue "0"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "Direct re-run of Stage1-3 gates: triple counts (197/150/198) are unchanged from this session's earliest checks, confirming only filenames/version labels were ever touched for Cross.D, never real content" .
+
 
 bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1578,7 +1698,24 @@ bl:ObjRDODIDefaultGatesPassing a backlog:Objective, owl:NamedIndividual ;
     backlog:metricMovableBy bl:EpicAdoptRichDefault ;
     backlog:contributesToGoal bl:GoalStage4Conformance ;
     backlog:fillsScope bl:CodeAbundanceScope ;
-    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted .
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjRDODIDefaultGatesPassing .
+
+bl:Checkpoint_ObjRDODIDefaultGatesPassing a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjRDODIDefaultGatesPassing, conditional on this session's own closing work"@en ;
+    backlog:checkpointCondition bl:StoryBRSFv168GovernanceUpgrade ;
+    backlog:expectedValue "1"^^xsd:decimal .
+
+bl:Observation_ObjRDODIDefaultGatesPassing_20260902 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: 1 = all applicable Stage4/Cross gates pass"@en ;
+    backlog:observesMetric bl:MetricGatePassRate ;
+    backlog:observationFor bl:ObjRDODIDefaultGatesPassing ;
+    backlog:hasObservedValue "1"^^xsd:decimal ;
+    backlog:observedAt "2026-09-02T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "rdodi_pipeline_validator_v1_5_0.py and the page's own real Playwright/pyshacl checks, re-run fresh this session: all PASS" .
+
     # No hasCheckpoint (G31, discipline v7.0.0): this objective's real timing
     # depends on unpredictable engineering work (when Story 1 closes), not a
     # calendar date. The shipped ObjectiveCheckpoint class supports only
