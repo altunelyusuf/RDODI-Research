@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.12.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.13.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -4769,7 +4769,8 @@ async function extractAndCheckCode(raw){
       docs = (lines.slice(0, codeStart).join('\n') + '\n' + lines.slice(codeEnd).join('\n')).trim();
     }
   }
-  if(!code) return {code: '', docs: raw, flagged: [{label:'no code block found in response'}], syntaxOk: null, syntaxErr: ''};
+  if(!code) return {code: '', docs: raw, flagged: [{label:'no code block found in response',
+    remedy:'Your reply must contain exactly one Python code block, opened with three backticks and the word python, and closed with three backticks -- for example:\n```python\nprint(1)\n```\nDo not explain your plan, do not repeat these instructions back, and do not describe the steps in prose -- write the real, complete, runnable code itself inside that one fenced block.'}], syntaxOk: null, syntaxErr: ''};
   // Each check carries its own remedy: the exact, actionable instruction a
   // retry needs, stated once at the point that knows what actually went
   // wrong -- not guessed afterwards from the label text by whatever
@@ -5711,7 +5712,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_12_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_13_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>

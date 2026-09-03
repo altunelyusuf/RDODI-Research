@@ -390,7 +390,7 @@ bl:WSJF_Story8 a backlog:WSJFScore, owl:NamedIndividual ;
     rdfs:label "WSJF score for StoryDeepRAGSubjectCleanup"@en ;
     backlog:scoredByMethod backlog:Method_WSJF ;
     backlog:hasScoreValue "2.5"^^xsd:decimal ;
-    backlog:scoredAt "2026-09-02T19:00:00Z"^^xsd:dateTime ;
+    backlog:scoredAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
     backlog:hasUserBusinessValue "6.0"^^xsd:decimal ;
     backlog:hasTimeCriticality "3.0"^^xsd:decimal ;
     backlog:hasRiskReductionValue "6.0"^^xsd:decimal ;
@@ -506,7 +506,7 @@ bl:WSJF_Story10 a backlog:WSJFScore, owl:NamedIndividual ;
     rdfs:label "WSJF score for StoryAgentOrchestrationRedesign"@en ;
     backlog:scoredByMethod backlog:Method_WSJF ;
     backlog:hasScoreValue "1.0"^^xsd:decimal ;
-    backlog:scoredAt "2026-09-02T19:00:00Z"^^xsd:dateTime ;
+    backlog:scoredAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
     backlog:hasUserBusinessValue "4.0"^^xsd:decimal ;
     backlog:hasTimeCriticality "2.0"^^xsd:decimal ;
     backlog:hasRiskReductionValue "3.0"^^xsd:decimal ;
@@ -1359,6 +1359,106 @@ bl:Gap_Principle_Termination a backlog:BlueprintGap, owl:NamedIndividual ;
     backlog:gapForStage backlog:Stage_Termination ;
     backlog:hasGapReason "Genuinely absent: this product has no operation that removes a principle from the corpus once shipped -- corpus_contract.json is edited by re-authoring the whole file (STORY-1's own real process), not through any per-principle retirement path a user or process can invoke. Disclosed rather than invented a false coverage claim." .
 
+bl:StoryBuildNoCodeBlockRemedy a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-17" ;
+    backlog:hasState backlog:Done ;
+    backlog:finishedAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
+    backlog:lastAuditedAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
+    backlog:hasActualEffort "1"^^xsd:decimal ;
+    backlog:hasApplicableConcern backlog:Concern_Interaction ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryBuildNoCodeBlockRemedy ;
+    backlog:hasEvidence bl:Evidence_StoryBuildNoCodeBlockRemedy ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story17 ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing ;
+    rdfs:label "Give the 'no code block found in response' failure a real, specific remedy"@en ;
+    backlog:asRole "the pipeline's own Build/Test stage" ;
+    backlog:wantsCapability "a specific, actionable remedy when a generation reply contains no fenced code block, instead of the generic fallback text" ;
+    backlog:soThat "an owner-uploaded real session log showed both agentCodeGen and agentTestGen refusing twice with exactly this failure, and the raw captured model output (codelab_log.json) showed the retry attempt was not writing corrected code but paraphrasing the combined remedy text back as rambling prose -- a real, diagnosable failure this generic fallback message did nothing to correct. Root-caused directly in extractAndCheckCode: the no-code-block branch was the one flagged-result path in the whole file with no remedy field at all." .
+
+bl:Estimate_Story17 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-17 (specific no-code-block remedy)"@en ;
+    backlog:hasEffortEstimate "1"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: a single, well-isolated code-path fix, root cause already known from the log." ;
+    backlog:hasBasisKind backlog:Basis_Judged ;
+    backlog:hasEstimateConfidence "High"^^xsd:string ;
+    backlog:estimatedAt "2026-09-03T12:30:00Z"^^xsd:dateTime .
+
+bl:AC_StoryBuildNoCodeBlockRemedy a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The no-code-block flag carries a specific, actionable remedy"@en ;
+    backlog:hasGherkinText "Given a generation reply containing no fenced Python code block, When extractAndCheckCode processes it, Then the resulting flagged entry carries a real remedy telling the model exactly the required fence format and explicitly forbidding prose/paraphrase in its place. And Given the fix, When the real 24-question regression suite is re-run, Then all 24 still pass." ;
+    backlog:satisfiedByArtifact "no code block found in response (JS string literal in code_abundance_page_v1_13_0.html's extractAndCheckCode function)" .
+
+bl:Evidence_StoryBuildNoCodeBlockRemedy a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real fix verified via Playwright and the full regression suite"@en ;
+    backlog:evidenceVerified true ;
+    backlog:verifiedAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
+    backlog:hasVerificationMethod "Diagnosed directly from an owner-uploaded real session log (session_log_readable.txt: both Build and Test refused 'still unsafe after 1 automatic retry: no code block found in response') and its raw captured model output (codelab_log.json: 4 real entries showing the retry attempt paraphrasing the combined remedy text as prose rather than writing code). Traced to extractAndCheckCode's own no-code-block branch, confirmed via grep to be the one flagged-result path with no remedy field. Added a specific, actionable remedy. Verified via real Playwright: extractAndCheckCode('no code here...') now returns a flagged entry with a real remedy; re-ran the full REGRESSION_QUESTIONS suite after the change, 24/24 still passing, 0 console/page errors." ;
+    backlog:verifiedByTool "Playwright (headless Chromium)" ;
+    backlog:attestsCriterion bl:AC_StoryBuildNoCodeBlockRemedy ;
+    backlog:hasReleaseVersion "1.40.0" ;
+    backlog:hasPackageSHA256 "6b663667ccbe244ba236c298ec8a6770eccfb393fe10fff4cc76fd42f0a63011" .
+
+bl:Harness_StoryBuildNoCodeBlockRemedy a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for STORY-17"@en ;
+    backlog:harnessFor bl:StoryBuildNoCodeBlockRemedy ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryBuildNoCodeBlockRemedy ;
+    backlog:harnessComplete true .
+
+bl:Refinement_StoryBuildNoCodeBlockRemedy a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Grooming and closing STORY-17 in one pass"@en ;
+    backlog:refines bl:StoryBuildNoCodeBlockRemedy ;
+    backlog:refinedAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Root cause was clear from the real log evidence alone -- a single missing remedy field on one specific flagged-result branch -- so grooming and the fix happened in the same real investigation." ;
+    backlog:addressesConcern backlog:Concern_Interaction .
+
+bl:Task32 a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Add the specific no-code-block remedy and verify"@en ;
+    backlog:hasIdentifier "TASK-32" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasTaskType backlog:Task_Implementation ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasEvidence bl:Evidence_StoryBuildNoCodeBlockRemedy ;
+    backlog:finishedAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-03T12:30:00Z"^^xsd:dateTime ;
+    backlog:memberOfContainer bl:Iteration3 .
+
+bl:Plan_StoryBuildNoCodeBlockRemedy a backlog:PlanningEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Planning event: STORY-17 chosen directly from real, owner-supplied failure evidence"@en ;
+    backlog:plansItem bl:StoryBuildNoCodeBlockRemedy ;
+    backlog:plannedInto bl:Iteration3 ;
+    backlog:plannedAt "2026-09-03T12:00:00Z"^^xsd:dateTime ;
+    backlog:plannedBy backlog:Owner ;
+    backlog:producesTask bl:Task32 .
+
+bl:Harness_Task32 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for TASK-32"@en ;
+    backlog:harnessFor bl:Task32 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryBuildNoCodeBlockRemedy ;
+    backlog:harnessComplete true .
+
+bl:Session_20260903_BuildFailureInvestigation a backlog:RegisterSession, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Session: investigate a real Build-stage failure from an owner-uploaded log, fix the root cause, address a new RegisterSession requirement"@en ;
+    backlog:sessionFor bl:CodeAbundanceBacklog ;
+    backlog:sessionStartedAt "2026-09-03T12:00:00Z"^^xsd:dateTime ;
+    backlog:stateVerifiedAtStart true ;
+    backlog:hasSessionScopeNote "Set out to: investigate a real owner-uploaded session log showing agentCodeGen/agentTestGen both refusing with 'no code block found in response'; find and fix the real root cause if one exists; build a real cost-benefit/risk-opportunity analysis for reconfiguring the agentic pipeline toward BRSF compliance, per the owner's explicit request. Deliberately left alone: the second, distinct failure mode found in the same log (the model writing forbidden requests/bs4 code) -- already correctly caught and remedied by the existing suspiciousPatterns checks; not a new defect, disclosed rather than re-worked in the same pass." ;
+    backlog:changedItem bl:StoryBuildNoCodeBlockRemedy .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -2111,8 +2211,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "ba3d01d1fd3d1f8bb0a5667a4325c97145246590c6a99dd37e2c458f2c88a771" ;
-    backlog:closedAtCommit "0fcf009c072dbe238973eee948f04cec9b6116a3" .
+    backlog:hasStateDigest "1058dbe7545c27bd789724f4d6d05a6a6895c695b34762fe28d6400a464b4f3c" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
