@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.11.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.12.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -2106,7 +2106,7 @@ const DISCOVERY_INTENTS = [
   { name:'what_is_this',
     trigger: q => /\b(what is this|what's this|about this|what does this (kb|knowledge base) do)\b/.test(q),
     query: () => queryTriples('?', 'hasCategory', '?'),
-    synthesize: rows => `This is the LCW Principles Knowledge Base: ${MISSION} (the graph currently holds ${rows.length} principles across ${new Set(rows.map(r=>r[2])).size} categories - queried live, not stated.)`
+    synthesize: rows => `This is the Code Abundance Research Companion: ${MISSION} (the graph currently holds ${rows.length} principles across ${new Set(rows.map(r=>r[2])).size} categories - queried live, not stated.)`
   },
   { name:'companies_compared',
     trigger: q => (/\b(what|which) (companies|firms)\b.*(compar|vs)/.test(q) || /company comparison/.test(q)),
@@ -2116,7 +2116,7 @@ const DISCOVERY_INTENTS = [
       rows.forEach(([s,p,o])=>{ o.split(',').forEach(c=>companySet.add(c)); });
       const names = [...companySet].map(k=>COMPANY_DATA.companies[k]?COMPANY_DATA.companies[k].name:k);
       const themes = new Set(rows.map(r=>r[1].replace('sharesThemeWith_','')));
-      return `Queried ${rows.length} sharesThemeWith triples: LC Waikiki's principles are compared against ${names.join(', ')} across ${themes.size} shared themes.`;
+      return `Queried ${rows.length} sharesThemeWith triples: this corpus's principles are compared against ${names.join(', ')} across ${themes.size} shared themes.`;
     }
   },
   { name:'list_categories',
@@ -2609,8 +2609,8 @@ async function retrieveContext(query, topK){
   if(mentionedKey){
     const c = COMPANY_DATA.companies[mentionedKey];
     const themes = COMPANY_DATA.themes.filter(t => t[mentionedKey]);
-    companyText = `\n\n${c.name}: ${c.principle_count} of this dataset's LCW principles are mapped against its real practices (source: ${c.source}). ` +
-      themes.map(t => `"${t.title_en}" (LCW: ${t.lcw.join(', ')}) vs ${c.name}: ${t[mentionedKey]}.`).join(' ');
+    companyText = `\n\n${c.name}: ${c.principle_count} of this dataset's principles are mapped against its real practices (source: ${c.source}). ` +
+      themes.map(t => `"${t.title_en}" (this corpus: ${t.lcw.join(', ')}) vs ${c.name}: ${t[mentionedKey]}.`).join(' ');
   }
   return {considered, used, scope: scope || null, truncatedCandidates: considered > used, contextText: lines.join('\n') + companyText, sourceIds: hits.map(h=>h.p.id), companyMatched: mentionedKey || null};
 }
@@ -2950,12 +2950,10 @@ function buildCompanyView(){
   }).join('');
   const covered = new Set(themes.flatMap(t=>t.lcw));
   return `<div class="card">
-    <h3>Company principles comparison (source: LCWPrinciples.zip, EK-1 through EK-6)</h3>
-    <div class="disclosure">This is the cross-company comparison the original LC Waikiki memo itself references
-    ("...ekte global çapta başarılı olan kurumların prensiplerini... karşılaştırılmasını da paylaşıyoruz") — 14 themes
-    This subject has no comparative-company dataset (COMPANY_DATA is empty for this corpus), extracted verbatim from the user-supplied EK-1..EK-6 documents via pandoc, not invented.
-    ${covered.size}/20 LCW principles are covered by at least one theme; P11 and P18 are honestly not covered because
-    EK-1 itself doesn't map them to any theme.</div>
+    <h3>Company principles comparison</h3>
+    <div class="disclosure">This subject has no comparative-company dataset -- COMPANY_DATA and this cross-company comparison table are inherited structure from this package's own template and are not populated for this corpus, which has no equivalent comparative-company source.
+    ${covered.size}/18 principles are covered by at least one theme; this corpus's own principles are honestly not covered here because
+    no theme data exists for this subject.</div>
     <div style="overflow-x:auto;">
     <table class="cite"><thead><tr><th>#</th><th>Theme</th><th colspan="5">No comparative-company data for this subject</th></tr></thead>
     <tbody>${rows}</tbody></table>
@@ -2983,9 +2981,9 @@ const SEMTECH_CATALOGUE = [
   {subject:"T5_SolutionEcosystem / AgenticGraphMemorySystem",
    name:"Agentic graph memory systems",
    applied:"The 4-agent Ask console (Intent->Retrieval->Synthesis->Grounding Critic) is described with real agentic-systems vocabulary (agsys:MultiAgentSystem, Pattern_Pipeline) and now also consults the graph, not just flat lookup.", status:"Applied"},
-  {subject:"T12_LCWaikikiSemanticLayerBlueprint / T12C1_ReferenceArchitecture",
-   name:"LCW's own semantic-layer reference architecture (governed metrics + product-anchored KG + graph-grounded agent retrieval)",
-   applied:"This package is a small, concrete instance of exactly that layered design, scoped to the 20 corporate principles rather than the full retail product graph the blueprint targets.", status:"Pattern followed at KB scale"},
+  {subject:"T12_SemanticLayerReferenceArchitecture",
+   name:"A governed-metrics + product-anchored-KG + graph-grounded-retrieval reference architecture",
+   applied:"This package is a small, concrete instance of exactly that layered design, scoped to this corpus's own 18 principles rather than a full product graph.", status:"Pattern followed at KB scale"},
   {subject:"T12C2_AdoptionRoadmap",
    name:"5-phase adoption roadmap (governance, metrics, product graph, GraphRAG, regulation readiness)",
    applied:"This package's own BRSF roadmap (Mission/Goals/Objectives/Backlog/Epics) mirrors the same governance-first, metrics-bound sequencing philosophy.", status:"Pattern followed"},
@@ -3262,8 +3260,8 @@ let WEBLLM_STATE = 'idle'; // idle | unsupported | loading | ready | error
    below (not summarized, not re-typed) so the graph genuinely contains
    the whole corpus, not a hand-picked subset. ==================== */
 const SKOS_TTL = "";
-const BIAS_TTL = "@prefix : <https://altunelyusuf.github.io/ontologies/lcw-principles#> .\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n\n#################################################################\n#  lcw-principles-kb \u2014 FirstPrinciple.zip corpus mining extension (EP13)\n#  Source: reseacher_output_example.pdf (\"The LCW Managerial Reasoning\n#  Framework\"), which cites Shane Parrish's \"Clear Thinking\" (Turkish\n#  summary in this same zip: \"Berrak D\u00fc\u015f\u00fcnme_Kitap \u00d6zeti.pdf\") naming\n#  four \"biological defaults\" that produce fast-but-wrong decisions:\n#  Emotion, Ego, Social conformity, Inertia. This refines P09's single\n#  \"Unreflective reaction\" bias into the four specific defaults the\n#  LCW-specific playbook actually names, each with real text extracted\n#  via pdftotext, not invented.\n#################################################################\n\n<https://altunelyusuf.github.io/ontologies/lcw-principles-firstprinciple-mining> a owl:Ontology ;\n    owl:imports <https://altunelyusuf.github.io/ontologies/lcw-principles> ;\n    owl:versionInfo \"1.0.0\" ;\n    dcterms:source \"FirstPrinciple.zip / reseacher_output_example.pdf, citing Shane Parrish's Clear Thinking (Berrak D\u00fc\u015f\u00fcnme_Kitap \u00d6zeti.pdf, same zip)\" .\n\n:Bias_Emotion a :CognitiveBias ; rdfs:label \"Emotion default (react to inner tension)\"@en ;\n    rdfs:comment \"One of four 'biological defaults' named in the LCW-specific reasoning playbook mined from FirstPrinciple.zip, citing Shane Parrish's Clear Thinking.\"@en .\n\n:Bias_Ego a :CognitiveBias ; rdfs:label \"Ego default (be right rather than get it right)\"@en ;\n    rdfs:comment \"Second of the four defaults; the playbook's phrasing: 'be right rather than be right' (sic, contrasting being seen as right vs. actually being right).\"@en .\n\n:Bias_SocialConformity a :CognitiveBias ; rdfs:label \"Social default (agree to belong)\"@en ;\n    rdfs:comment \"Third of the four defaults - conforming to group opinion to maintain social standing rather than to reach the correct answer.\"@en .\n\n:Bias_Inertia a :CognitiveBias ; rdfs:label \"Inertia default (defend the status quo)\"@en ;\n    rdfs:comment \"Fourth of the four defaults - defending existing decisions/processes by default rather than re-examining them.\"@en .\n\n:P09 :controlsBias :Bias_Emotion, :Bias_Ego, :Bias_SocialConformity, :Bias_Inertia .\n";
-const AGENTIC_TTL = "@prefix agsys: <http://example.org/agentic-systems#> .\n@prefix backlog: <http://example.org/backlog#> .\n@prefix ex: <http://example.org/lcw-principles-kb#> .\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n@prefix dcterms: <http://purl.org/dc/terms/> .\n\n#################################################################\n#  lcw-principles-kb \u2014 agentic layer (EP02)\n#  Describes the KB's Q&A console as a real agsys:MultiAgentSystem,\n#  reusing altunelyusuf/agentic-systems TBox v0.2.1 directly\n#  (owl:imports, not redefinition \u2014 reuse-before-build, same\n#  pattern agentic-systems itself uses for backlog: reuse).\n#  DISCLOSURE: agentic-systems is pre-1.0/\"illustrative\" per its\n#  own README (v0.17.0) \u2014 this ABox is a worked example of using\n#  it, not a claim that agentic-systems itself is production-ready.\n#################################################################\n\n<http://example.org/lcw-principles-kb-agentic> a owl:Ontology ;\n    owl:imports <http://example.org/agentic-systems> ;\n    dcterms:title \"LCW Principles KB \u2014 agentic console description\"@en ;\n    owl:versionInfo \"0.1.0\" .\n\n#################################################################\n#  The four member agents (each a TaskOrientedAgent with a Capability)\n#################################################################\n\nex:Agent_Intent a agsys:TaskOrientedAgent ;\n    rdfs:label \"Intent Agent\"@en ;\n    agsys:hasTaskSpecification \"Classify a member's question into one of: principle lookup, category query, framework query, bias query, application/realization query.\"^^xsd:string ;\n    agsys:hasCapability ex:Cap_Classification .\n\nex:Agent_Retrieval a agsys:TaskOrientedAgent ;\n    rdfs:label \"Retrieval Agent\"@en ;\n    agsys:hasTaskSpecification \"Given a classified intent, find the matching principle individual(s) in lcw_principles_domain_v1_0_0.ttl by exact/partial term match against id, category, framework, or bias fields.\"^^xsd:string ;\n    agsys:hasCapability ex:Cap_OntologyRetrieval .\n\nex:Agent_Synthesis a agsys:TaskOrientedAgent ;\n    rdfs:label \"Synthesis Agent\"@en ;\n    agsys:hasTaskSpecification \"Compose a natural-language answer strictly from the retrieved individual's asserted properties (title, category, framework, application step) \u2014 no content beyond what was retrieved.\"^^xsd:string ;\n    agsys:hasCapability ex:Cap_GroundedComposition .\n\nex:Agent_Critic a agsys:TaskOrientedAgent ;\n    rdfs:label \"Grounding Critic\"@en ;\n    agsys:hasTaskSpecification \"Check that every claim in the Synthesis Agent's answer traces to an asserted triple; state plainly when a query had no match rather than let a guess through.\"^^xsd:string ;\n    agsys:hasCapability ex:Cap_GroundingCheck .\n\nex:Cap_Classification a agsys:Capability ; rdfs:label \"Intent classification\"@en .\nex:Cap_OntologyRetrieval a agsys:Capability ; rdfs:label \"Ontology-grounded retrieval\"@en .\nex:Cap_GroundedComposition a agsys:Capability ; rdfs:label \"Grounded answer composition\"@en .\nex:Cap_GroundingCheck a agsys:Capability ; rdfs:label \"Grounding verification\"@en .\n\n#################################################################\n#  The system: a pipeline of the four agents above\n#################################################################\n\nex:Console a agsys:MultiAgentSystem ;\n    rdfs:label \"LCW Principles KB Q&A console\"@en ;\n    agsys:hasMember ex:Agent_Intent, ex:Agent_Retrieval, ex:Agent_Synthesis, ex:Agent_Critic ;\n    agsys:appliesOrchestrationPattern agsys:Pattern_Pipeline ;\n    agsys:hasOwnerUser \"LC Waikiki member (any)\"^^xsd:string ;\n    agsys:generatesLineageFor <http://example.org/lcw-principles-kb#Backlog> ;\n    rdfs:comment \"Pattern_Pipeline: Intent -> Retrieval -> Synthesis -> Grounding Critic, strictly sequential, each stage's output is the next stage's input. Rule-based implementation (no live LLM call) \u2014 every stage is deterministic code over the ontology, disclosed as such in the interactive page.\"@en .\n";
+const BIAS_TTL = "";
+const AGENTIC_TTL = "";
 const PROV_TTL = "@prefix : <https://altunelyusuf.github.io/ontologies/lcw-principles#> .\n@prefix lcwkb: <http://example.org/lcw-principles-kb-prov#> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n#################################################################\n#  lcw-principles-kb \u2014 PROV-O provenance (EP18)\n#  Real W3C PROV-O, applied to THIS package's own artifact history\n#  for the first time (the OE Pack ecosystem this session's discipline\n#  comes from uses PROV-O extensively for its own release history, but\n#  this package had never applied it to its own outputs before now).\n#  Each entity below is one delivered file; each activity is the\n#  session turn that produced/revised it; wasGeneratedBy /\n#  wasRevisionOf / used chain the real build order.\n#################################################################\n\nlcwkb:Agent_Claude a prov:Agent, prov:SoftwareAgent ;\n    rdfs:label \"Claude (session agent)\"@en .\n\nlcwkb:Agent_User a prov:Agent, prov:Person ;\n    rdfs:label \"Session requester\"@en .\n\n#################################################################\n#  Activities - one per turn that produced or revised an artifact\n#################################################################\n\nlcwkb:Act_T1_Research a prov:Activity ; rdfs:label \"Turn 1: research + domain ontology + report + interactive v1.0.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:startedAtTime \"2026-08-08T06:10:00\"^^xsd:dateTime .\n\nlcwkb:Act_T2_Ceremony a prov:Activity ; rdfs:label \"Turn 2: OE ceremony + BRSF lineage v0.1.0 scaffold\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T1_Research .\n\nlcwkb:Act_T3_KB a prov:Activity ; rdfs:label \"Turn 3: application steps + agentic ABox + interactive v0.2.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T2_Ceremony .\n\nlcwkb:Act_T4_Relations a prov:Activity ; rdfs:label \"Turn 4: typed relation discovery + interactive v0.3.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T3_KB .\n\nlcwkb:Act_T5_Corpus a prov:Activity ; rdfs:label \"Turn 5: real corpus ingestion (LCWPrinciples.zip, FirstPrinciple.zip, semtech_landscape) + interactive v0.4.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T4_Relations ;\n    prov:used lcwkb:Entity_LCWPrinciplesZip, lcwkb:Entity_FirstPrincipleZip, lcwkb:Entity_SemtechZip .\n\nlcwkb:Act_T6_Semtech a prov:Activity ; rdfs:label \"Turn 6: semtech catalogue + graph-augmented retrieval + interactive v0.5.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T5_Corpus .\n\nlcwkb:Act_T7_QueryConsole a prov:Activity ; rdfs:label \"Turn 7: triple query console + JSON-LD export + interactive v0.6.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T6_Semtech .\n\nlcwkb:Act_T8_MultiHop a prov:Activity ; rdfs:label \"Turn 8: fixed multi-hop traversal bugs + interactive v0.7.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T7_QueryConsole .\n\nlcwkb:Act_T9_ExplorerFix a prov:Activity ; rdfs:label \"Turn 9: root-cause explorer fix + agent NLU upgrade + algorithm analysis + interactive v0.8.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T8_MultiHop .\n\nlcwkb:Act_T10_AgentUX a prov:Activity ; rdfs:label \"Turn 10: agent console pipeline visualization redesign + interactive v0.9.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T9_ExplorerFix .\n\nlcwkb:Act_T11_Autonomous a prov:Activity ; rdfs:label \"Turn 11: autonomous backlog completion (gate script, SKOS, PROV-O, and further epics)\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude ;\n    prov:wasInformedBy lcwkb:Act_T10_AgentUX ;\n    prov:startedAtTime \"2026-08-08T08:00:00\"^^xsd:dateTime .\n\n#################################################################\n#  Entities - the delivered files, chained by revision\n#################################################################\n\nlcwkb:Entity_LCWPrinciplesZip a prov:Entity ; rdfs:label \"LCWPrinciples.zip (user-supplied)\"@en ; prov:wasAttributedTo lcwkb:Agent_User .\nlcwkb:Entity_FirstPrincipleZip a prov:Entity ; rdfs:label \"FirstPrinciple.zip (user-supplied)\"@en ; prov:wasAttributedTo lcwkb:Agent_User .\nlcwkb:Entity_SemtechZip a prov:Entity ; rdfs:label \"semtech_landscape_v6_9_0.zip (user-supplied)\"@en ; prov:wasAttributedTo lcwkb:Agent_User .\n\nlcwkb:Entity_DomainOntology a prov:Entity ; rdfs:label \"lcw_principles_domain_v1_0_0.ttl\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T1_Research ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_BRSFLineage_v01 a prov:Entity ; rdfs:label \"lcw_kb_brsf_lineage_v0_1_0.ttl (initial)\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T2_Ceremony ; prov:wasAttributedTo lcwkb:Agent_Claude .\nlcwkb:Entity_BRSFLineage_current a prov:Entity ; rdfs:label \"lcw_kb_brsf_lineage_v0_1_0.ttl (current, 28+ epics)\"@en ;\n    prov:wasRevisionOf lcwkb:Entity_BRSFLineage_v01 ;\n    prov:wasGeneratedBy lcwkb:Act_T11_Autonomous ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_RelationsOntology a prov:Entity ; rdfs:label \"lcw_kb_relations_v1_0_0.ttl\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T4_Relations ; prov:used lcwkb:Entity_DomainOntology ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_CompanyComparison a prov:Entity ; rdfs:label \"lcw_company_comparison_v1_0_0.ttl\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T5_Corpus ; prov:used lcwkb:Entity_LCWPrinciplesZip ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_SKOSScheme a prov:Entity ; rdfs:label \"lcw_principles_skos_v1_0_0.ttl\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T11_Autonomous ; prov:used lcwkb:Entity_DomainOntology, lcwkb:Entity_RelationsOntology ;\n    prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_ReleaseCheckScript a prov:Entity ; rdfs:label \"release_check.py\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T11_Autonomous ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_InteractiveHTML_v010 a prov:Entity ; rdfs:label \"lcw_principles_interactive_v1_0_0.html\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T1_Research ; prov:wasAttributedTo lcwkb:Agent_Claude .\nlcwkb:Entity_InteractiveHTML_v090 a prov:Entity ; rdfs:label \"lcw_kb_interactive_v0_9_0.html (current)\"@en ;\n    prov:wasRevisionOf lcwkb:Entity_InteractiveHTML_v010 ;\n    prov:wasGeneratedBy lcwkb:Act_T10_AgentUX ; prov:wasAttributedTo lcwkb:Agent_Claude .\n";
 // v0.61.0: real, requested change - the governed BRSF lineage TTL is now
 // genuinely embedded in this shipped page, the same way SKOS_TTL/BIAS_TTL/
@@ -3352,7 +3350,7 @@ async function answerRoleQuery(roleKeyword){
   // the way the deterministic pipeline's answers are.
   if(WEBLLM_STATE === 'ready'){
     try {
-      const general = await askWebLLMGeneral(`Given these LC Waikiki-style corporate principles, which would matter most to someone whose role is "${roleKeyword}", and why? Be concise.`);
+      const general = await askWebLLMGeneral(`Given these corpus principles, which would matter most to someone whose role is "${roleKeyword}", and why? Be concise.`);
       grounded += `<div class="answer-card" style="background:#f7f2ff;border-color:#d9c7ff;margin-top:10px;"><div class="lbl">Also, from general reasoning (Live LLM, SmolLM2-360M) - not verified against this dataset's own role tags</div>${formatAnswerText(general)}</div>`;
     } catch(e) { /* best-effort supplement only - the grounded answer above already stands on its own */ }
   }
@@ -3674,7 +3672,7 @@ function metaCapabilityAnswer(query){
   const capBlurb = `<div>This assistant answers only from the ${total} entries and ${catCount} categories actually loaded
     into this page - not from general knowledge. What it can do:
     <ul>
-      <li>Look up one entry by its identifier - e.g. "What is P17?"</li>
+      <li>Look up one entry by its identifier - e.g. "What is ContextPillar?"</li>
       <li>List everything, or everything in one category, when you ask for the list or name the category</li>
       <li>Show how several named entries relate to each other, including any framework they cite</li>
       <li>Match a paraphrased question against the entries' own recorded wording</li>
@@ -3910,7 +3908,7 @@ function describeEntityInProse(entity){
       const [key, c] = found;
       const themes = COMPANY_DATA.themes.filter(t => t[key]);
       const themeText = themes.length
-        ? ` Real, recorded overlaps with LCW principles: ` + themes.slice(0,3).map(t => `"${t.title_en}" (${t[key]})`).join('; ') + '.'
+        ? ` Real, recorded overlaps with this corpus's principles: ` + themes.slice(0,3).map(t => `"${t.title_en}" (${t[key]})`).join('; ') + '.'
         : '';
       // v0.38.0 fix: not every company record uses the same descriptive
       // field (amazon: top5, musk: algorithm, nvidia/google/apple:
@@ -3919,7 +3917,7 @@ function describeEntityInProse(entity){
       // amazon/musk the moment the type-matching bug above stopped
       // hiding this.
       const desc = c.summary || (c.top5 ? `Top listed practices: ${c.top5.join(', ')}.` : '') || (c.algorithm ? `Algorithm: ${c.algorithm}` : '');
-      return `${c.name}: ${desc} ${c.principle_count} of this dataset's LCW principles are mapped against ${c.name}'s real practices (source: ${c.source}).${themeText}`;
+      return `${c.name}: ${desc} ${c.principle_count} of this dataset's principles are mapped against ${c.name}'s real practices (source: ${c.source}).${themeText}`;
     }
   }
   if(entity.type === 'PrincipleCategory'){
@@ -4224,10 +4222,8 @@ function buildArchitectureView(){
     <tbody>${AGENTS.map(a=>`<tr><td>${a.label}</td><td>${a.cap}</td><td>${a.task}</td></tr>`).join('')}</tbody></table>
     <hr class="sep">
     <h3>Additional agent spec found in the corpus (not yet wired into the console)</h3>
-    <div class="disclosure">${COACH_AGENT.label} — sourced from <span class="mono">${COACH_AGENT.source}</span>,
-    a real LCW CEO-commissioned assistant specification. ${COACH_AGENT.task} This is disclosed as a found
-    specification, not a built feature — wiring it into the live console is tracked as a new backlog epic
-    (see Mission &amp; Backlog).</div>
+    <div class="disclosure">${COACH_AGENT.label} — source: <span class="mono">${COACH_AGENT.source}</span>.
+    ${COACH_AGENT.task}</div>
     <hr class="sep">
     <h3>New this session: two real, distinct agentic patterns beyond the pipeline above</h3>
     <p class="small">Both require Live LLM (opt-in, SmolLM2-360M via WebGPU) - the pipeline above stays the default,
@@ -4311,10 +4307,10 @@ function buildMissionView(){
       <td><b>${o.current}${o.unit||''}</b></td><td>${o.target}${o.unit||''}</td><td>${o.dir}</td></tr>`).join('')}</tbody></table>
   </div>
   <div class="card"><h3>Scope</h3>
-    <p><b>IN:</b> the 20-principle ontology, a semantic-layer-grounded explorer/search/Q&A page, an agentic
+    <p><b>IN:</b> the 18-principle ontology, a semantic-layer-grounded explorer/search/Q&A page, an agentic
     Q&A layer following agentic-systems conventions, a BRSF-tracked delivery register.</p>
     <p><b>OUT (v1):</b> write access / member-submitted content, authentication or per-member personalization,
-    integration with any live LCW internal system.</p></div>
+    integration with any external live system.</p></div>
   <div class="card"><h3>Backlog - Epics</h3>
     <table class="cite"><thead><tr><th>Epic</th><th>Title</th><th>State</th><th>Note</th></tr></thead>
     <tbody>${EPICS.map(e=>`<tr><td class="mono">${e.id}</td><td>${e.title}</td><td>${stateBadge(e.state)}</td><td class="small">${e.note}</td></tr>`).join('')}</tbody></table>
@@ -5625,7 +5621,7 @@ async function withOneAutoFix(task, agentFn){
   return {...second, autoFixed:true, autoFixWorked:secondSafe, firstAttemptReason:reasonText};
 }
 async function agentCodeGen(task, genConfigOverride){
-  const dataShape = `PRINCIPLES: list of 20 dicts, each with id (e.g. "P01"), cat (category key), short, en, en_short, apply, fw (list), reinforces (list), roles (list).
+  const dataShape = `PRINCIPLES: list of 18 dicts, each with id (e.g. "AgentPlatformPillar"), cat (category key), short, en, en_short, apply, fw (list), reinforces (list), roles (list).
 CATEGORIES: dict of {key: {label}}. FRAMEWORKS: dict of {key: {name, url, note}}.
 RELATIONS: list of {source, target, type, subtype, evidence}. COMPANY_DATA.companies: dict of company records.`;
   const systemPrompt = `You are a code generation agent for a real project. Its actual mission statement, verbatim from the project's own BRSF lineage: "${MISSION}"
@@ -5650,7 +5646,7 @@ Only load the ones you actually use. Respond with ONE python code block (triple 
 // Core: test generation. Extracted from runTestGenAgent, same single-implementation rule.
 async function agentTestGen(gherkin, genConfigOverride){
   const systemPrompt = `You are a test generation agent for a real project. Its actual mission statement: "${MISSION}"
-Given a Gherkin-style acceptance criterion (Given/When/Then), write a real, runnable Python 3 test that checks whether the Then condition genuinely holds, structured as three clear sections matching Given (real setup), When (the action), Then (real assert statements with a clear failure message). Prefer real assert statements over just printing - a test should fail loudly if the criterion isn't met, not silently pass. Do NOT import pytest, unittest, cucumber, behave, or any other testing framework - none of them are available here; write plain assert statements directly in top-level code, no test framework, no fixtures, no decorators. The code runs inside Pyodide via direct execution (like exec()) - never write "if __name__ == '__main__':" or a main() function. No file I/O, no pip installs, no network calls. Only Python's standard library is available - no third-party packages exist in this sandbox, do not import them. If the criterion references this project's own data, it is available as: principles = json.loads(LCW_JSON) (list of 20 dicts with id/cat/short/en/en_short/apply/fw/reinforces/roles), categories = json.loads(CATEGORIES_JSON), frameworks = json.loads(FRAMEWORKS_JSON), relations = json.loads(RELATIONS_JSON), company_data = json.loads(COMPANY_JSON). Respond with ONE python code block followed by a short explanation of what the test checks and why.`;
+Given a Gherkin-style acceptance criterion (Given/When/Then), write a real, runnable Python 3 test that checks whether the Then condition genuinely holds, structured as three clear sections matching Given (real setup), When (the action), Then (real assert statements with a clear failure message). Prefer real assert statements over just printing - a test should fail loudly if the criterion isn't met, not silently pass. Do NOT import pytest, unittest, cucumber, behave, or any other testing framework - none of them are available here; write plain assert statements directly in top-level code, no test framework, no fixtures, no decorators. The code runs inside Pyodide via direct execution (like exec()) - never write "if __name__ == '__main__':" or a main() function. No file I/O, no network calls - that is never fixable by trying a different package. Python's full standard library is available. In addition, exactly three real third-party packages are genuinely installed and importable when you use them: numpy, pandas, networkx - no others exist in this sandbox. If the criterion references this project's own data, it is available as: principles = json.loads(LCW_JSON) (list of 18 dicts with id/cat/short/en/en_short/apply/fw/reinforces/roles), categories = json.loads(CATEGORIES_JSON), frameworks = json.loads(FRAMEWORKS_JSON), relations = json.loads(RELATIONS_JSON), company_data = json.loads(COMPANY_JSON). Respond with ONE python code block followed by a short explanation of what the test checks and why.`;
   const reply = await WEBLLM_ENGINE.chat.completions.create({messages:[{role:'system',content:systemPrompt},{role:'user',content:gherkin}], ...WEBLLM_CODE_CONFIG, ...(genConfigOverride||{})});
   const raw = reply.choices[0].message.content;
   const res = await extractAndCheckCode(raw);
@@ -5715,7 +5711,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_11_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_12_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>
@@ -5745,47 +5741,32 @@ function buildMain(){
     <div id="sub-about-semtech" class="subview">${buildSemtechView()}</div>
     <div id="sub-about-provenance" class="subview">
     <div class="card"><h3>Provenance &amp; disclosed gaps</h3>
-    <div class="disclosure">This page reuses vocabulary/content from four SHA-verified external packages:
-    <span class="mono">backlog-roadmap-framework</span> for the Mission/Backlog lineage; <span class="mono">agentic-systems</span>
-    (v0.17.0, pre-1.0) for the agent-console description; <span class="mono">LCWPrinciples.zip</span> (EK-1..EK-6, uploaded
-    this turn) for the entire Company Comparison tab and its 90+ discovered cross-company facts; and
-    <span class="mono">semtech_landscape_v6_9_0.zip</span> (uploaded this turn, 472/472 SHA-verified against its own manifest)
-    inventoried but not yet code-reused - see the correction note below.</div>
-    <div class="disclosure"><b>Correction from the prior turn:</b> this session previously stated FirstPrinciple.zip,
-    LCWPrinciples.zip, and a SemanticTechnologies zip package had never attached. That was accurate for every turn up to
-    and including that statement - the uploads directory was checked programmatically each time and was genuinely empty
-    of them. They attached for the first time this turn and are now processed as described above.</div>
+    <div class="disclosure">This page was built via RDODI's own four-stage pipeline (research, domain, document,
+    interactive-page) under BRSF governance, and reuses vocabulary from two SHA-verified external packages:
+    <span class="mono">backlog-roadmap-framework</span> for the Mission/Backlog lineage, and
+    <span class="mono">agentic-systems</span> for the agent-console description.</div>
     <ul>
-      <li>The 20-principle ontology (<span class="mono">lcw_principles_domain_v1_0_0.ttl</span>) and application steps
-      (<span class="mono">lcw_principles_application_v1_0_0.ttl</span>) are this build's own work, grounded against the
-      source LCW memo and independently verified external citations.</li>
-      <li>Application steps are this build's synthesis - concrete suggestions grounded in the source text - flagged as such
-      everywhere they appear.</li>
-      <li><b>90 typed relations</b> (<span class="mono">lcw_kb_relations_v1_0_0.ttl</span>) were programmatically mined
-      from the 20-principle dataset by <span class="mono">discover_relations.py</span> and classified into 5 types
-      (structural 40, semantic 36, behavioral 10, syntactic 3, business 1) - not hand-asserted, not defaulted to one
-      bucket. Business relations are honestly thin (1) because the corpus itself names very few shared ceremonies/roles
-      across principle pairs - that's a fact about the source memo, not an under-mined pass.</li>
-      <li><b>Corpus now processed:</b> LCWPrinciples.zip's 6 documents (EK-1..EK-6) were fully text-extracted via
-      pandoc and structured into the Company Comparison tab (14 themes, 5 companies, 18/20 LCW principles covered — P11
-      and P18 honestly uncovered because the source document itself doesn't map them). This subject has no equivalent internal document to spec the Coaching Agent (Agentic Architecture tab); its 5 PDF summaries
-      (Clear Thinking, Thinking Fast and Slow, a leader checklist, a retail first-principles piece, a researcher-output
-      example) are inventoried but not yet text-mined - tracked as EP12. semtech_landscape_v6_9_0.zip was SHA-verified
-      (472/472) and inventoried (00-inputs through 08-agents); deep reuse of its actual code/tooling is tracked as EP13,
-      not rushed into this pass.</li>
+      <li>This build's own 18-principle ontology (<span class="mono">code_abundance_domain_tbox_v1_11_0.ttl</span> /
+      <span class="mono">_abox_v1_11_0.ttl</span>) is this session's own real work, grounded against the source
+      article (Staples, 2026, "When Code Is Abundant") and independently verified external citations -- see the
+      Citations tab.</li>
+      <li>Application steps are this build's own synthesis -- concrete suggestions grounded in the source text --
+      flagged as such everywhere they appear.</li>
+      <li>This corpus has no comparative-company dataset; the Company Comparison structure inherited from this
+      page's own template is disclosed as inapplicable rather than populated with invented data -- see the
+      Semantic Tech tab.</li>
       <li>Search is a genuine <b>TF-IDF vector-space model</b> (term-frequency/inverse-document-frequency, cosine
-      similarity) - a real vector-based retrieval method, but not a production embedding model or external vector
-      database. See EP09 in Mission &amp; Backlog for what a production-scale RAG layer would add and why it's out of
-      scope for a static HTML file.</li>
-      <li>The BRSF lineage (<span class="mono">lcw_kb_brsf_lineage_v0_1_0.ttl</span>) validates CONFORMS:True, 0 violations
-      against the vendored BRSF SHACL shapes v1.7.0 - a stale mirror of the public standard (now v1.33.x); not
-      independently re-checked against the current public shapes this turn.</li>
-      <li>The Ask-the-Agents console is rule-based, grounded strictly in the bundled dataset - no live LLM call (see EP10).</li>
-      <li>The Code Lab genuinely executes via Pyodide - nothing faked or pre-canned.</li>
-      <li>EP05 (a single committed, re-runnable gate script) is <b>in progress</b>; EP09-EP11 are honestly <b>proposed</b>,
-      not built - see Mission &amp; Backlog for what each needs before it can start.</li>
+      similarity) -- a real vector-based retrieval method, not a production embedding model or external vector
+      database.</li>
+      <li>The BRSF lineage (<span class="mono">code_abundance_backlog_register_v1_0_0.ttl</span>) is real,
+      independently re-verifiable governance, not a static claim: run it yourself against the current
+      backlog-roadmap-framework SHACL suite to see its live conformance state.</li>
+      <li>The Ask-the-Agents console supports both a rule-based, dataset-grounded path (no live LLM required) and
+      a real, optional Live LLM pipeline (WebLLM, in-browser) -- see the Interact tab for which is active.</li>
+      <li>The Code Lab genuinely executes via Pyodide -- nothing faked or pre-canned, including real, in-browser
+      package installation for a curated safe set (numpy, pandas, networkx).</li>
     </ul>
-    <p class="small">Package: lcw-principles-kb - Interactive v0.92.0 - 2026-08-20</p>
+    <p class="small">Package: code-abundance-rdodi</p>
     </div>
     </div>
   </section>`;
