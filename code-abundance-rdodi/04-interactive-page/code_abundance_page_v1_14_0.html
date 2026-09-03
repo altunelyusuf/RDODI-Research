@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.13.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.14.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -325,7 +325,12 @@ const ABBR = {
   "BRSF":"BRSF - Backlog & Roadmap Semantic Framework, the machine-checkable governance layer for this project's Mission/Goals/Backlog.",
   "OE":"OE - Ontology Engineering, the operating discipline governing this whole build.",
   "TTL":"TTL - Terse RDF Triple Language (Turtle), the ontology file format.",
-  "AI":"AI - Artificial Intelligence.", "HR":"HR - Human Resources.", "IT":"IT - Information Technology."
+  "AI":"AI - Artificial Intelligence.", "HR":"HR - Human Resources.", "IT":"IT - Information Technology.",
+  "RDF":"RDF - Resource Description Framework, the W3C standard data model this corpus's own triples are expressed in.",
+  "SPARQL":"SPARQL - the W3C standard query language for RDF graphs, run here by a real, in-browser SPARQL 1.1 engine.",
+  "SHACL":"SHACL - Shapes Constraint Language, the W3C standard used to validate this corpus's own RDF data against real, machine-checkable rules.",
+  "WASM":"WASM - WebAssembly, the binary format that runs the real Rust SPARQL engine and Python (Pyodide) directly in this browser, no server involved.",
+  "SKOS":"SKOS - Simple Knowledge Organization System, the W3C vocabulary used here for concept schemes like the corpus's own category hierarchy."
 };
 
 const MISSION = "Help a reader understand, question, and independently verify Staples' (2026) claim that AI-driven code abundance shifts software engineering's binding constraint from producing code to trusting it -- and answer their real questions about which parts of that claim the evidence in this research corpus actually supports.";
@@ -614,7 +619,7 @@ function buildOverview(){
   <div class="card"><h3>What this is</h3>
   <p><b>Mission:</b> ${MISSION}</p>
   <p>This knowledge base is governed under ${abbrTip('OE')} discipline with a ${abbrTip('BRSF')} Mission-Goals-Objectives-Scope-Backlog-Roadmap lineage
-  (see <b>Mission &amp; Backlog</b> tab - SHACL-validated, 0 violations), built via the ${abbrTip('RDODI')} pipeline, and
+  (see <b>Mission &amp; Backlog</b> tab - ${abbrTip('SHACL')}-validated, 0 violations), built via the ${abbrTip('RDODI')} pipeline, and
   answered by a 4-agent pipeline described using real agentic-systems vocabulary (see <b>Agentic Architecture</b>).</p>
   <p>Every principle below carries its full text, category, cited external framework (where the source names one),
   and one concrete "how to apply this" suggestion - the suggestion is this build's own synthesis, grounded in
@@ -1314,7 +1319,7 @@ function renderSearchUI(){
     <div class="card" id="expertPanel" style="margin-bottom:8px;"></div>
   </div>
   <div id="sub-search-sparql" class="subview"><div class="card">
-    <h3>Real SPARQL 1.1 engine (Oxigraph, WASM)</h3>
+    <h3>Real ${abbrTip('SPARQL')} 1.1 engine (Oxigraph, ${abbrTip('WASM')})</h3>
     <p class="small">Real Rust SPARQL 1.1 engine compiled to WebAssembly (github.com/oxigraph/oxigraph), loaded
     directly from a CDN with no bundler - genuinely resolves the earlier "needs Vite/Webpack" blocker by using the
     package's separate browser (web.js) build. Runs actual SELECT queries with joins, not pattern matching.</p>
@@ -4135,8 +4140,8 @@ function buildBlueprintView(){
     Real technologies, each doing one real job - not a mockup of an architecture, the actual one.</p>
     <table class="cite"><thead><tr><th>Layer</th><th>Technology</th><th>What it actually does here</th></tr></thead>
     <tbody>
-      <tr><td>Data</td><td>Turtle/RDF (11 curated .ttl files)</td><td>The real source of truth - 20 principles, 90 typed
-        relations, SKOS concepts, company-comparison facts, the BRSF mission/backlog lineage, all hand-authored and
+      <tr><td>Data</td><td>Turtle/${abbrTip('RDF')} (11 curated .ttl files)</td><td>The real source of truth - 20 principles, 90 typed
+        relations, ${abbrTip('SKOS')} concepts, company-comparison facts, the BRSF mission/backlog lineage, all hand-authored and
         SHACL-validated, not generated at runtime.</td></tr>
       <tr><td>Data (mirror)</td><td>Plain JS objects (PRINCIPLES/CATEGORIES/etc.)</td><td>A fast, dependency-free
         in-memory mirror of the same facts, used by the deterministic pipeline and Code Lab so those never need the
@@ -5712,7 +5717,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_13_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_14_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>
