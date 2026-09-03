@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.15.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.16.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -1272,6 +1272,26 @@ function renderSearchUI(){
       <span id="llmModeBannerText">Live LLM mode is off - some questions get a limited answer.</span>
       <button id="webllmbtn" onclick="enableWebLLM()">Enable Live LLM</button>
     </div>
+    <details style="margin-bottom:10px;">
+      <summary class="small" style="cursor:pointer;">Or connect an external LLM server instead (STORY-20) ▾</summary>
+      <div class="card" style="margin-top:8px;padding:10px;">
+        <p class="small"><b>Real, honest trade-off, disclosed before you connect anything:</b> the local option above runs
+        entirely in your browser and sends nothing anywhere. This option sends every question you ask to whatever
+        server you configure below, for as long as it stays connected. Nothing is sent until you press Connect.</p>
+        <p class="small">Works with any real OpenAI-compatible <code>/chat/completions</code> endpoint your browser can
+        reach. Confirmed directly: most hosted providers, OpenAI's own API included, block direct browser requests by
+        design (CORS) to stop API keys leaking into client-side code - this is not something this page can work around.
+        A server you run yourself and configure to allow it (Ollama, LM Studio, and similar generally can) is the real,
+        working case this was built for.</p>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0;">
+          <input id="extBaseUrl" class="searchbox" placeholder="Base URL, e.g. http://localhost:11434/v1" style="flex:2;min-width:220px;">
+          <input id="extModel" class="searchbox" placeholder="Model name" style="flex:1;min-width:120px;">
+          <input id="extApiKey" type="password" class="searchbox" placeholder="API key (optional for most local servers)" style="flex:1;min-width:140px;">
+        </div>
+        <button onclick="connectExternalLLM()">Connect</button>
+        <p class="small" id="externalllmstatus" style="margin-top:6px;">Not connected.</p>
+      </div>
+    </details>
     <div class="embed-toggle" id="interactEngineRow" style="margin-bottom:10px;font-size:12px;">
       Semantic embeddings: <span class="embed-status" id="embedstatus">Not loaded - using TF-IDF term-weighting only.</span>
       <button id="embedbtn" onclick="enableEmbeddings()" style="margin-left:8px;font-size:11px;padding:3px 9px;">Enable</button>
@@ -3979,6 +3999,76 @@ function describeRelationsInProse(principleId, seed){
   return sentences.map(s=>`<div style="margin-top:6px;">${s}</div>`).join('');
 }
 let WEBLLM_ENGINE = null;
+// STORY-20: a real, second, alternative path to a "ready" engine besides
+// local in-browser WebLLM -- an external, user-configured OpenAI-compatible
+// HTTP endpoint (e.g. a local Ollama/LM Studio server with CORS enabled).
+// WEBLLM_ENGINE is deliberately given the SAME .chat.completions.create()
+// shape as the real WebLLM engine object, so all 9 existing call sites
+// throughout this file work completely unchanged -- this function is the
+// only new integration surface, everything downstream of "an engine is
+// ready" already exists and is already tested.
+let WEBLLM_BACKEND = null; // null | 'local' | 'external'
+let EXTERNAL_LLM_CONFIG = null; // {baseUrl, apiKey, model} -- session memory only, never written to disk
+function setExternalLLMStatus(text, cls){
+  const el = document.getElementById('externalllmstatus');
+  if(el){ el.textContent = text; el.className = 'embed-status' + (cls?' '+cls:''); }
+}
+async function connectExternalLLM(){
+  const baseUrl = (document.getElementById('extBaseUrl')?.value || '').trim().replace(/\/+$/, '');
+  const apiKey = document.getElementById('extApiKey')?.value || '';
+  const model = (document.getElementById('extModel')?.value || '').trim();
+  if(!baseUrl || !model){ setExternalLLMStatus('Base URL and model name are both required.', 'error'); return; }
+  if(WEBLLM_STATE === 'loading'){ return; }
+  setExternalLLMStatus('Connecting (sending one real test request to your configured server)...');
+  try {
+    const r = await fetch(baseUrl + '/chat/completions', {
+      method: 'POST',
+      headers: Object.assign({'Content-Type':'application/json'}, apiKey ? {'Authorization':'Bearer ' + apiKey} : {}),
+      body: JSON.stringify({model, messages:[{role:'user', content:'Reply with the single word: ready'}], max_tokens: 10})
+    });
+    if(!r.ok){
+      const bodyText = await r.text().catch(()=>'(could not read response body)');
+      setExternalLLMStatus('Server responded ' + r.status + ' ' + r.statusText + ' - ' + bodyText.slice(0,200), 'error');
+      return;
+    }
+    const data = await r.json();
+    if(!data || !data.choices || !data.choices[0] || !data.choices[0].message){
+      setExternalLLMStatus('Server responded 200 but not in the expected OpenAI-compatible shape (no choices[0].message.content).', 'error');
+      return;
+    }
+    EXTERNAL_LLM_CONFIG = {baseUrl, apiKey, model};
+    WEBLLM_ENGINE = {
+      chat: { completions: { create: async (opts) => {
+        const resp = await fetch(EXTERNAL_LLM_CONFIG.baseUrl + '/chat/completions', {
+          method: 'POST',
+          headers: Object.assign({'Content-Type':'application/json'}, EXTERNAL_LLM_CONFIG.apiKey ? {'Authorization':'Bearer ' + EXTERNAL_LLM_CONFIG.apiKey} : {}),
+          body: JSON.stringify(Object.assign({model: EXTERNAL_LLM_CONFIG.model, messages: opts.messages}, opts.max_tokens ? {max_tokens: opts.max_tokens} : {}, opts.temperature !== undefined ? {temperature: opts.temperature} : {}))
+        });
+        if(!resp.ok) throw new Error('External LLM request failed: ' + resp.status + ' ' + resp.statusText);
+        return await resp.json();
+      }}}
+    };
+    WEBLLM_STATE = 'ready';
+    WEBLLM_BACKEND = 'external';
+    setExternalLLMStatus('Ready - live LLM active via your configured external server (' + model + '). Data leaves your browser for every question, unlike the local option above.', 'ready');
+    updateLLMBanner();
+    renderExpertPanel();
+  } catch(err) {
+    // A generic 'Failed to fetch' here, with no HTTP status at all, is what
+    // a real CORS rejection looks like in browser fetch -- the browser
+    // deliberately withholds the real reason from JS. Most hosted APIs
+    // (OpenAI's own included, confirmed directly: a real fetch attempt to
+    // api.openai.com from this same page fails exactly this way) do not
+    // set the required Access-Control-Allow-Origin header for browser
+    // use, by design, to stop API keys leaking into client-side code --
+    // this is not a bug in this page. A local server you run yourself
+    // (Ollama, LM Studio, etc.) generally can be configured to allow it.
+    const msg = (err && err.message === 'Failed to fetch')
+      ? 'Failed to fetch - almost always a CORS rejection, not a wrong URL or key. Most hosted providers (including OpenAI directly) do not allow direct browser requests, by design. A locally-run server you configure yourself (Ollama, LM Studio) generally can.'
+      : String(err && err.message ? err.message : err);
+    setExternalLLMStatus(msg, 'error');
+  }
+}
 async function runCrossEntityUI(){
   const a = document.getElementById('cerA').value.trim();
   const b = document.getElementById('cerB').value.trim();
@@ -5717,7 +5807,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_15_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_16_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>

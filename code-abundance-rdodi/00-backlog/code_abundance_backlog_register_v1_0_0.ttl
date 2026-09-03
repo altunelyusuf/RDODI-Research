@@ -401,7 +401,7 @@ bl:AC_StoryDeepRAGSubjectCleanup a backlog:AcceptanceCriterion, owl:NamedIndivid
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The chat/RAG layer's retrieval, fact-checking, and test fixtures reference this corpus's own real scheme, and the chat still works"@en ;
     backlog:hasGherkinText "Given the chat console's retrieval, embedding, chunking, and fact-checking logic and its test fixtures, When searched for the source subject's own identity markers (the literal strings 'LCW' and 'LC Waikiki', and the 'P01'-'P20' ID pattern), Then none remain -- every reference has been genuinely reworked to this corpus's own real 18-item scheme and identifiers, not blind string-substituted. And Given the reworked chat console, When a real search/fact-check query is run through it via Playwright, Then it returns a correct, real answer grounded in this corpus's own data, with 0 console/page errors." ;
-    backlog:satisfiedByArtifact "REGRESSION_QUESTIONS array and SNIPPETS.chain (JS in code_abundance_page_v1_15_0.html)" .
+    backlog:satisfiedByArtifact "REGRESSION_QUESTIONS array and SNIPPETS.chain (JS in code_abundance_page_v1_16_0.html)" .
 
 bl:Refinement_StoryDeepRAGSubjectCleanup a backlog:RefinementEvent, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -520,7 +520,7 @@ bl:WSJF_Story10 a backlog:WSJFScore, owl:NamedIndividual ;
     rdfs:label "WSJF score for StoryAgentOrchestrationRedesign"@en ;
     backlog:scoredByMethod backlog:Method_WSJF ;
     backlog:hasScoreValue "1.0"^^xsd:decimal ;
-    backlog:scoredAt "2026-09-03T15:00:00Z"^^xsd:dateTime ;
+    backlog:scoredAt "2026-09-03T17:00:00Z"^^xsd:dateTime ;
     backlog:hasUserBusinessValue "4.0"^^xsd:decimal ;
     backlog:hasTimeCriticality "2.0"^^xsd:decimal ;
     backlog:hasRiskReductionValue "3.0"^^xsd:decimal ;
@@ -1407,7 +1407,7 @@ bl:AC_StoryBuildNoCodeBlockRemedy a backlog:AcceptanceCriterion, owl:NamedIndivi
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The no-code-block flag carries a specific, actionable remedy"@en ;
     backlog:hasGherkinText "Given a generation reply containing no fenced Python code block, When extractAndCheckCode processes it, Then the resulting flagged entry carries a real remedy telling the model exactly the required fence format and explicitly forbidding prose/paraphrase in its place. And Given the fix, When the real 24-question regression suite is re-run, Then all 24 still pass." ;
-    backlog:satisfiedByArtifact "no code block found in response (JS string literal in code_abundance_page_v1_15_0.html's extractAndCheckCode function)" .
+    backlog:satisfiedByArtifact "no code block found in response (JS string literal in code_abundance_page_v1_16_0.html's extractAndCheckCode function)" .
 
 bl:Evidence_StoryBuildNoCodeBlockRemedy a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1478,7 +1478,7 @@ bl:WSJF_Story18 a backlog:WSJFScore, owl:NamedIndividual ;
     rdfs:label "WSJF score for StoryPipelinePersistToRegister"@en ;
     backlog:scoredByMethod backlog:Method_WSJF ;
     backlog:hasScoreValue "0.7"^^xsd:decimal ;
-    backlog:scoredAt "2026-09-03T15:00:00Z"^^xsd:dateTime ;
+    backlog:scoredAt "2026-09-03T17:00:00Z"^^xsd:dateTime ;
     backlog:hasUserBusinessValue "4.0"^^xsd:decimal ;
     backlog:hasTimeCriticality "1.0"^^xsd:decimal ;
     backlog:hasRiskReductionValue "2.0"^^xsd:decimal ;
@@ -1533,7 +1533,7 @@ bl:AC_StoryDocStandardsAcronymGate a backlog:AcceptanceCriterion, owl:NamedIndiv
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The 5 real acronym gaps get a real first-use expansion at their genuine prose location, and nothing else changes"@en ;
     backlog:hasGherkinText "Given the real RDODI Documentation Standards gate run against this page's own extracted prose, When the genuinely missing acronyms (RDF, SPARQL, SHACL, WASM, SKOS) are identified and false positives (real JS identifiers, code comments, embedded vocabulary) are excluded, Then each is added to the page's own existing ABBR glossary and wrapped with abbrTip() at its real, verified first prose occurrence only -- never inside a code snippet, developer comment, or agent-log context. And Given the change, When the real 24-question regression suite is re-run, Then all 24 still pass and 0 console/page errors occur." ;
-    backlog:satisfiedByArtifact "ABBR object and its 5 new entries, code_abundance_page_v1_15_0.html" .
+    backlog:satisfiedByArtifact "ABBR object and its 5 new entries, code_abundance_page_v1_16_0.html" .
 
 bl:Evidence_StoryDocStandardsAcronymGate a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1619,6 +1619,109 @@ bl:Harness_Task31 a backlog:TestHarness, owl:NamedIndividual ;
     rdfs:label "Test harness for TASK-31"@en ;
     backlog:harnessFor bl:Task31 ;
     backlog:hasHarnessEvidence bl:Evidence_StoryDeepRAGSubjectCleanup ;
+    backlog:harnessComplete true .
+
+bl:WSJF_Story20 a backlog:WSJFScore, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "WSJF score for StoryExternalLLMEndpoint"@en ;
+    backlog:scoredByMethod backlog:Method_WSJF ;
+    backlog:hasScoreValue "3.5"^^xsd:decimal ;
+    backlog:scoredAt "2026-09-03T16:30:00Z"^^xsd:dateTime ;
+    backlog:hasUserBusinessValue "6.0"^^xsd:decimal ;
+    backlog:hasTimeCriticality "2.0"^^xsd:decimal ;
+    backlog:hasRiskReductionValue "6.0"^^xsd:decimal ;
+    backlog:hasJobSize "4.0"^^xsd:decimal ;
+    rdfs:comment "Business value: real -- a genuine second path to a stronger model than the local 360M option, and directly unblocks real behavioural testing of STORY-10-style orchestration work for both this session and any future user. Time criticality: low, no deadline. Risk reduction: real and substantial -- confirmed via an actual mock-server test, not assumed, that the integration code itself (connect, error handling, the chat.completions.create wrapper) works correctly; this removes the single blocker STORY-10 was stuck on for real future work, though it does not by itself unblock STORY-10 (a genuine third-party LLM would still be needed for that story's own behavioural test). Job size: small -- unlike STORY-10, this reuses the existing WEBLLM_ENGINE/WEBLLM_STATE gates at all 9 real call sites unchanged, needed no execution-flow rewrite, and was fully testable end-to-end with a real, minimal mock server built for exactly this purpose (both the success and the real CORS-failure path)." .
+
+bl:StoryExternalLLMEndpoint a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-20" ;
+    backlog:hasState backlog:Done ;
+    backlog:finishedAt "2026-09-03T17:00:00Z"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-03T17:00:00Z"^^xsd:dateTime ;
+    backlog:lastAuditedAt "2026-09-03T17:00:00Z"^^xsd:dateTime ;
+    backlog:hasActualEffort "4"^^xsd:decimal ;
+    backlog:hasCostEstimate bl:Estimate_Story20 ;
+    backlog:hasApplicableConcern backlog:Concern_Interaction, backlog:Concern_Architecture, backlog:Concern_Security ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryExternalLLMEndpoint ;
+    backlog:hasEvidence bl:Evidence_StoryExternalLLMEndpoint ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasPriorityScore bl:WSJF_Story20 ;
+    backlog:hasInvestmentCategory backlog:Cat_NewCapability ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing ;
+    rdfs:label "Support a real, external, user-configured OpenAI-compatible LLM endpoint as an alternative to local WebLLM"@en ;
+    backlog:asRole "the package maintainer, and any user who runs their own local model server" ;
+    backlog:wantsCapability "a real settings panel to configure a base URL, model name, and optional API key for any real OpenAI-compatible /chat/completions endpoint, with an honest, explicit privacy disclosure before anything connects, and a real connection test before it is treated as ready -- reusing the page's existing WEBLLM_ENGINE/WEBLLM_STATE interface exactly so all 9 existing real call sites work unchanged" ;
+    backlog:soThat "owner's own real correction of STORY-10's disclosed blocker: 'live LLM can be accomplished by providing integration options not direct access.' Investigated the real technical shape of that proposal before building anything: confirmed via a real fetch attempt that OpenAI's own hosted API is CORS-blocked from direct browser JavaScript (by design, to stop API keys leaking client-side) -- ruling out 'paste an OpenAI key directly' -- while a locally-run, CORS-enabled server (Ollama, LM Studio, and similar) is the real, working case. Built a real, minimal OpenAI-compatible mock HTTP server specifically to test this end-to-end, since no real external LLM credential is available in this session: verified via actual Playwright execution against that real server, both the success path (a real connect, then a real chat completion through the WEBLLM_ENGINE wrapper, correctly relaying the message and the Authorization header) and the real failure path (a genuine CORS rejection against api.openai.com, handled with an honest, specific error message rather than a generic one). Does not itself close STORY-10 -- that story's own real behavioural test needs a genuine third-party model's actual output, which this session still has no credential for -- but removes the integration-code risk entirely, leaving only 'does a real provider's response satisfy the orchestration's real timing and structure', a materially smaller and more honestly scoped remaining question." .
+
+bl:Estimate_Story20 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-20 (external LLM endpoint integration, real mock-server tested)"@en ;
+    backlog:hasEffortEstimate "4"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: matches the WSJF job-size component (4.0) computed before work began; recorded here in the same unit now the real work is complete." ;
+    backlog:hasBasisKind backlog:Basis_Judged ;
+    backlog:hasEstimateConfidence "High"^^xsd:string ;
+    backlog:estimatedAt "2026-09-03T17:00:00Z"^^xsd:dateTime .
+
+bl:AC_StoryExternalLLMEndpoint a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "A real external endpoint can be connected and used, with honest disclosure and honest error handling"@en ;
+    backlog:hasGherkinText "Given a real, reachable OpenAI-compatible /chat/completions endpoint with CORS enabled, When a base URL, model name, and optional key are entered and Connect is pressed, Then a real test request is sent, the engine becomes ready on success, and every one of this page's existing 9 real call sites can use it unchanged via the same WEBLLM_ENGINE interface. And Given a CORS-blocked endpoint (e.g. a hosted provider's API called directly), When Connect is pressed, Then the real failure is caught and reported with an honest, specific explanation, not a generic error, and the engine state is not incorrectly marked ready. And Given the panel is present but nothing has been connected, When the page is used normally, Then the real 24-question regression suite still passes and 0 console/page errors occur." ;
+    backlog:satisfiedByArtifact "connectExternalLLM, EXTERNAL_LLM_CONFIG, WEBLLM_BACKEND (JS in code_abundance_page_v1_16_0.html)" .
+
+bl:Evidence_StoryExternalLLMEndpoint a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real mock-server end-to-end test of both the success and CORS-failure paths"@en ;
+    backlog:evidenceVerified true ;
+    backlog:hasReleaseVersion "1.45.0" ;
+    backlog:hasPackageSHA256 "8691368e0145a2e9d40fc63ae3459c35f7878c049e061ffe06d0f9c61eb08eb3" ;
+    backlog:verifiedByTool "Playwright (headless Chromium); a real, minimal OpenAI-compatible mock HTTP server built for this test (CORS-enabled, /chat/completions)" ;
+    backlog:attestsCriterion bl:AC_StoryExternalLLMEndpoint ;
+    backlog:hasVerificationMethod "Designed the integration by reusing WEBLLM_ENGINE's existing .chat.completions.create() shape exactly, so all 9 real existing call sites need no change -- confirmed by grep before writing any code, not assumed. Tested the real CORS question first: a real fetch() to api.openai.com from this page fails with a real, generic browser TypeError; confirmed this was genuinely CORS (not a sandbox network restriction) via a real control fetch to a known CORS-friendly public API, which succeeded. Built a real, minimal Python HTTP server implementing one real OpenAI-compatible endpoint with real CORS headers, specifically to test this feature end-to-end since no real external LLM credential exists in this session. Ran the real success path via actual Playwright: entered real values into the real UI fields, called the real connectExternalLLM(), confirmed WEBLLM_STATE/WEBLLM_BACKEND correctly set, then called WEBLLM_ENGINE.chat.completions.create() directly (the same call every one of the 9 real sites makes) and confirmed a real, correct reply came back, correctly carrying the real Authorization header. Ran the real failure path against the real api.openai.com endpoint: confirmed the honest, specific CORS error message renders and WEBLLM_STATE correctly stays 'idle', not falsely 'ready'. Re-ran the full 24-question regression suite after integrating the change: 24/24 passing, 0 console/page errors." .
+
+bl:Harness_StoryExternalLLMEndpoint a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for STORY-20"@en ;
+    backlog:harnessFor bl:StoryExternalLLMEndpoint ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryExternalLLMEndpoint ;
+    backlog:harnessComplete true .
+
+bl:Refinement_StoryExternalLLMEndpoint a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Grooming and closing STORY-20 in one pass"@en ;
+    backlog:refines bl:StoryExternalLLMEndpoint ;
+    backlog:refinedAt "2026-09-03T16:30:00Z"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Investigated the real CORS constraint before designing anything, which directly shaped the scope (a locally-run server, not a hosted-API key field) and the honest disclosure text shown to the user before connecting." ;
+    backlog:addressesConcern backlog:Concern_Interaction, backlog:Concern_Architecture, backlog:Concern_Security .
+
+bl:Task34 a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Implement and mock-server-verify the external LLM endpoint integration"@en ;
+    backlog:hasIdentifier "TASK-34" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasTaskType backlog:Task_Implementation ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasEvidence bl:Evidence_StoryExternalLLMEndpoint ;
+    backlog:finishedAt "2026-09-03T17:00:00Z"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-03T17:00:00Z"^^xsd:dateTime ;
+    backlog:memberOfContainer bl:Iteration3 .
+
+bl:Plan_StoryExternalLLMEndpoint a backlog:PlanningEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Planning event: STORY-20 chosen directly from owner's real proposed alternative"@en ;
+    backlog:plansItem bl:StoryExternalLLMEndpoint ;
+    backlog:plannedInto bl:Iteration3 ;
+    backlog:plannedAt "2026-09-03T16:30:00Z"^^xsd:dateTime ;
+    backlog:plannedBy backlog:Owner ;
+    backlog:producesTask bl:Task34 .
+
+bl:Harness_Task34 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for TASK-34"@en ;
+    backlog:harnessFor bl:Task34 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryExternalLLMEndpoint ;
     backlog:harnessComplete true .
 
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
@@ -2373,8 +2476,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "f07bc543568ab41524764ee722cd5523ee7601474f583ceceecfb02bb72f5811" ;
-    backlog:closedAtCommit "5f183dc654e5baf90503872421547a8ddb1d2d5a" .
+    backlog:hasStateDigest "1ddd4963b77c37474e665b528e0929f919e980da4aa0e74a88308f50123d50d9" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
