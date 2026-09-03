@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.14.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.15.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -1340,7 +1340,7 @@ function renderSearchUI(){
     <div id="sparqlbox" style="display:none;">
       <div class="snippetbar">
         <button onclick="loadSparqlExample('behavioral')">All behavioral relations</button>
-        <button onclick="loadSparqlExample('p09rels')">Everything about P09</button>
+        <button onclick="loadSparqlExample('p09rels')">Everything about AgentPlatformPillar</button>
         <button onclick="loadSparqlExample('frameworks')">Framework citations</button>
         <button onclick="loadSparqlExample('join')">JOIN: semantic AND behavioral</button>
       </div>
@@ -1358,14 +1358,14 @@ SELECT ?s ?o WHERE { ?s :relatesTo_behavioral ?o }</textarea>
     predicates, and cross-company theme links). Not a full SPARQL engine (no joins/OPTIONAL/FILTER) - a real, honest
     triple-pattern matcher sized to a 20-node corpus rather than a heavyweight in-browser RDF engine this scale doesn't need.</p>
     <div class="grid3">
-      <div><label class="small">Subject (e.g. P09, or ? for any)</label><input class="searchbox" id="qs" placeholder="?" value="?"></div>
+      <div><label class="small">Subject (e.g. AgentPlatformPillar, or ? for any)</label><input class="searchbox" id="qs" placeholder="?" value="?"></div>
       <div><label class="small">Predicate (e.g. relatesTo_behavioral)</label><input class="searchbox" id="qp" placeholder="?" value="?"></div>
-      <div><label class="small">Object (e.g. P10, or partial text)</label><input class="searchbox" id="qo" placeholder="?" value="?"></div>
+      <div><label class="small">Object (e.g. ContextPillar, or partial text)</label><input class="searchbox" id="qo" placeholder="?" value="?"></div>
     </div>
     <div class="snippetbar">
       <button onclick="setQ('?','relatesTo_behavioral','?')">All behavioral relations</button>
       <button onclick="setQ('?','relatesTo_business','?')">All business relations</button>
-      <button onclick="setQ('P09','?','?')">Everything about P09</button>
+      <button onclick="setQ('AgentPlatformPillar','?','?')">Everything about AgentPlatformPillar</button>
       <button onclick="setQ('?','citesFramework','?')">All framework citations</button>
       <button onclick="setQ('?','addressesBias','?')">All bias-addressing triples</button>
     </div>
@@ -2151,7 +2151,7 @@ const DISCOVERY_INTENTS = [
   { name:'help',
     trigger: q => /\b(what can you do|help|what (questions|can i ask))\b/.test(q),
     query: () => queryTriples('?', 'hasCategory', '?'),
-    synthesize: rows => `You can ask about: a specific principle (e.g. "P09"), a category, a framework, a bias, how to apply a principle, how two principles relate, or an overview question like "what are the principles" (currently ${rows.length} in the graph) or "how many relations".`
+    synthesize: rows => `You can ask about: a specific principle (e.g. "AgentPlatformPillar"), a category, a framework, a bias, how to apply a principle, how two principles relate, or an overview question like "what are the principles" (currently ${rows.length} in the graph) or "how many relations".`
   },
 ];
 
@@ -3219,7 +3219,7 @@ const SPARQL_EXAMPLES = {
   behavioral: `PREFIX : <http://lcw-kb.example.org/>
 SELECT ?s ?o WHERE { ?s :relatesTo_behavioral ?o }`,
   p09rels: `PREFIX : <http://lcw-kb.example.org/>
-SELECT ?p ?o WHERE { :P09 ?p ?o }`,
+SELECT ?p ?o WHERE { :AgentPlatformPillar ?p ?o }`,
   frameworks: `PREFIX : <http://lcw-kb.example.org/>
 SELECT ?s ?f WHERE { ?s :citesFramework ?f } ORDER BY ?f`,
   join: `PREFIX : <http://lcw-kb.example.org/>
@@ -3267,7 +3267,7 @@ let WEBLLM_STATE = 'idle'; // idle | unsupported | loading | ready | error
 const SKOS_TTL = "";
 const BIAS_TTL = "";
 const AGENTIC_TTL = "";
-const PROV_TTL = "@prefix : <https://altunelyusuf.github.io/ontologies/lcw-principles#> .\n@prefix lcwkb: <http://example.org/lcw-principles-kb-prov#> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix owl: <http://www.w3.org/2002/07/owl#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .\n\n#################################################################\n#  lcw-principles-kb \u2014 PROV-O provenance (EP18)\n#  Real W3C PROV-O, applied to THIS package's own artifact history\n#  for the first time (the OE Pack ecosystem this session's discipline\n#  comes from uses PROV-O extensively for its own release history, but\n#  this package had never applied it to its own outputs before now).\n#  Each entity below is one delivered file; each activity is the\n#  session turn that produced/revised it; wasGeneratedBy /\n#  wasRevisionOf / used chain the real build order.\n#################################################################\n\nlcwkb:Agent_Claude a prov:Agent, prov:SoftwareAgent ;\n    rdfs:label \"Claude (session agent)\"@en .\n\nlcwkb:Agent_User a prov:Agent, prov:Person ;\n    rdfs:label \"Session requester\"@en .\n\n#################################################################\n#  Activities - one per turn that produced or revised an artifact\n#################################################################\n\nlcwkb:Act_T1_Research a prov:Activity ; rdfs:label \"Turn 1: research + domain ontology + report + interactive v1.0.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:startedAtTime \"2026-08-08T06:10:00\"^^xsd:dateTime .\n\nlcwkb:Act_T2_Ceremony a prov:Activity ; rdfs:label \"Turn 2: OE ceremony + BRSF lineage v0.1.0 scaffold\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T1_Research .\n\nlcwkb:Act_T3_KB a prov:Activity ; rdfs:label \"Turn 3: application steps + agentic ABox + interactive v0.2.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T2_Ceremony .\n\nlcwkb:Act_T4_Relations a prov:Activity ; rdfs:label \"Turn 4: typed relation discovery + interactive v0.3.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T3_KB .\n\nlcwkb:Act_T5_Corpus a prov:Activity ; rdfs:label \"Turn 5: real corpus ingestion (LCWPrinciples.zip, FirstPrinciple.zip, semtech_landscape) + interactive v0.4.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T4_Relations ;\n    prov:used lcwkb:Entity_LCWPrinciplesZip, lcwkb:Entity_FirstPrincipleZip, lcwkb:Entity_SemtechZip .\n\nlcwkb:Act_T6_Semtech a prov:Activity ; rdfs:label \"Turn 6: semtech catalogue + graph-augmented retrieval + interactive v0.5.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T5_Corpus .\n\nlcwkb:Act_T7_QueryConsole a prov:Activity ; rdfs:label \"Turn 7: triple query console + JSON-LD export + interactive v0.6.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T6_Semtech .\n\nlcwkb:Act_T8_MultiHop a prov:Activity ; rdfs:label \"Turn 8: fixed multi-hop traversal bugs + interactive v0.7.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T7_QueryConsole .\n\nlcwkb:Act_T9_ExplorerFix a prov:Activity ; rdfs:label \"Turn 9: root-cause explorer fix + agent NLU upgrade + algorithm analysis + interactive v0.8.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T8_MultiHop .\n\nlcwkb:Act_T10_AgentUX a prov:Activity ; rdfs:label \"Turn 10: agent console pipeline visualization redesign + interactive v0.9.0\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude, lcwkb:Agent_User ;\n    prov:wasInformedBy lcwkb:Act_T9_ExplorerFix .\n\nlcwkb:Act_T11_Autonomous a prov:Activity ; rdfs:label \"Turn 11: autonomous backlog completion (gate script, SKOS, PROV-O, and further epics)\"@en ;\n    prov:wasAssociatedWith lcwkb:Agent_Claude ;\n    prov:wasInformedBy lcwkb:Act_T10_AgentUX ;\n    prov:startedAtTime \"2026-08-08T08:00:00\"^^xsd:dateTime .\n\n#################################################################\n#  Entities - the delivered files, chained by revision\n#################################################################\n\nlcwkb:Entity_LCWPrinciplesZip a prov:Entity ; rdfs:label \"LCWPrinciples.zip (user-supplied)\"@en ; prov:wasAttributedTo lcwkb:Agent_User .\nlcwkb:Entity_FirstPrincipleZip a prov:Entity ; rdfs:label \"FirstPrinciple.zip (user-supplied)\"@en ; prov:wasAttributedTo lcwkb:Agent_User .\nlcwkb:Entity_SemtechZip a prov:Entity ; rdfs:label \"semtech_landscape_v6_9_0.zip (user-supplied)\"@en ; prov:wasAttributedTo lcwkb:Agent_User .\n\nlcwkb:Entity_DomainOntology a prov:Entity ; rdfs:label \"lcw_principles_domain_v1_0_0.ttl\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T1_Research ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_BRSFLineage_v01 a prov:Entity ; rdfs:label \"lcw_kb_brsf_lineage_v0_1_0.ttl (initial)\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T2_Ceremony ; prov:wasAttributedTo lcwkb:Agent_Claude .\nlcwkb:Entity_BRSFLineage_current a prov:Entity ; rdfs:label \"lcw_kb_brsf_lineage_v0_1_0.ttl (current, 28+ epics)\"@en ;\n    prov:wasRevisionOf lcwkb:Entity_BRSFLineage_v01 ;\n    prov:wasGeneratedBy lcwkb:Act_T11_Autonomous ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_RelationsOntology a prov:Entity ; rdfs:label \"lcw_kb_relations_v1_0_0.ttl\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T4_Relations ; prov:used lcwkb:Entity_DomainOntology ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_CompanyComparison a prov:Entity ; rdfs:label \"lcw_company_comparison_v1_0_0.ttl\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T5_Corpus ; prov:used lcwkb:Entity_LCWPrinciplesZip ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_SKOSScheme a prov:Entity ; rdfs:label \"lcw_principles_skos_v1_0_0.ttl\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T11_Autonomous ; prov:used lcwkb:Entity_DomainOntology, lcwkb:Entity_RelationsOntology ;\n    prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_ReleaseCheckScript a prov:Entity ; rdfs:label \"release_check.py\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T11_Autonomous ; prov:wasAttributedTo lcwkb:Agent_Claude .\n\nlcwkb:Entity_InteractiveHTML_v010 a prov:Entity ; rdfs:label \"lcw_principles_interactive_v1_0_0.html\"@en ;\n    prov:wasGeneratedBy lcwkb:Act_T1_Research ; prov:wasAttributedTo lcwkb:Agent_Claude .\nlcwkb:Entity_InteractiveHTML_v090 a prov:Entity ; rdfs:label \"lcw_kb_interactive_v0_9_0.html (current)\"@en ;\n    prov:wasRevisionOf lcwkb:Entity_InteractiveHTML_v010 ;\n    prov:wasGeneratedBy lcwkb:Act_T10_AgentUX ; prov:wasAttributedTo lcwkb:Agent_Claude .\n";
+const PROV_TTL = "";
 // v0.61.0: real, requested change - the governed BRSF lineage TTL is now
 // genuinely embedded in this shipped page, the same way SKOS_TTL/BIAS_TTL/
 // AGENTIC_TTL/PROV_TTL already are. This is the actual file this session
@@ -4539,8 +4539,8 @@ def chain_from(pid, seen=None):
     for r in by_id[pid].get("reinforces", []):
         if r not in seen: chain_from(r, seen)
     return seen
-print("Chain from P01:", " -> ".join(chain_from("P01")))
-print("Chain from P09:", " -> ".join(chain_from("P09")))`
+print("Chain from AgentPlatformPillar:", " -> ".join(chain_from("AgentPlatformPillar")))
+print("Chain from SynthesisAndImplications:", " -> ".join(chain_from("SynthesisAndImplications")))`
 };
 const CODELAB_LOG = [];
 function codelabLog(event, detail){
@@ -5717,7 +5717,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_14_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_15_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>
