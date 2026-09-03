@@ -401,7 +401,7 @@ bl:AC_StoryDeepRAGSubjectCleanup a backlog:AcceptanceCriterion, owl:NamedIndivid
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The chat/RAG layer's retrieval, fact-checking, and test fixtures reference this corpus's own real scheme, and the chat still works"@en ;
     backlog:hasGherkinText "Given the chat console's retrieval, embedding, chunking, and fact-checking logic and its test fixtures, When searched for the source subject's own identity markers (the literal strings 'LCW' and 'LC Waikiki', and the 'P01'-'P20' ID pattern), Then none remain -- every reference has been genuinely reworked to this corpus's own real 18-item scheme and identifiers, not blind string-substituted. And Given the reworked chat console, When a real search/fact-check query is run through it via Playwright, Then it returns a correct, real answer grounded in this corpus's own data, with 0 console/page errors." ;
-    backlog:satisfiedByArtifact "REGRESSION_QUESTIONS array and SNIPPETS.chain (JS in code_abundance_page_v1_17_0.html)" .
+    backlog:satisfiedByArtifact "REGRESSION_QUESTIONS array and SNIPPETS.chain (JS in code_abundance_page_v1_18_0.html)" .
 
 bl:Refinement_StoryDeepRAGSubjectCleanup a backlog:RefinementEvent, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -530,7 +530,16 @@ bl:WSJF_Story10 a backlog:WSJFScore, owl:NamedIndividual ;
 bl:StoryAgentOrchestrationRedesign a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-10" ;
-    backlog:hasState backlog:Proposed ;
+    backlog:hasState backlog:Done ;
+    backlog:finishedAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-02T00:00:00Z"^^xsd:dateTime ;
+    backlog:lastAuditedAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
+    backlog:hasActualEffort "9"^^xsd:decimal ;
+    backlog:hasCostEstimate bl:Estimate_Story10 ;
+    backlog:hasApplicableConcern backlog:Concern_Architecture, backlog:Concern_Interaction ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryAgentOrchestrationRedesign ;
+    backlog:hasEvidence bl:Evidence_StoryAgentOrchestrationRedesign ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:dependsOn bl:StoryShortFieldRewrite ;
@@ -1414,7 +1423,7 @@ bl:AC_StoryBuildNoCodeBlockRemedy a backlog:AcceptanceCriterion, owl:NamedIndivi
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The no-code-block flag carries a specific, actionable remedy"@en ;
     backlog:hasGherkinText "Given a generation reply containing no fenced Python code block, When extractAndCheckCode processes it, Then the resulting flagged entry carries a real remedy telling the model exactly the required fence format and explicitly forbidding prose/paraphrase in its place. And Given the fix, When the real 24-question regression suite is re-run, Then all 24 still pass." ;
-    backlog:satisfiedByArtifact "no code block found in response (JS string literal in code_abundance_page_v1_17_0.html's extractAndCheckCode function)" .
+    backlog:satisfiedByArtifact "no code block found in response (JS string literal in code_abundance_page_v1_18_0.html's extractAndCheckCode function)" .
 
 bl:Evidence_StoryBuildNoCodeBlockRemedy a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1485,7 +1494,7 @@ bl:WSJF_Story18 a backlog:WSJFScore, owl:NamedIndividual ;
     rdfs:label "WSJF score for StoryPipelinePersistToRegister"@en ;
     backlog:scoredByMethod backlog:Method_WSJF ;
     backlog:hasScoreValue "0.7"^^xsd:decimal ;
-    backlog:scoredAt "2026-09-03T18:00:00Z"^^xsd:dateTime ;
+    backlog:scoredAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
     backlog:hasUserBusinessValue "4.0"^^xsd:decimal ;
     backlog:hasTimeCriticality "1.0"^^xsd:decimal ;
     backlog:hasRiskReductionValue "2.0"^^xsd:decimal ;
@@ -1504,7 +1513,7 @@ bl:StoryPipelinePersistToRegister a backlog:Story, owl:NamedIndividual ;
     rdfs:label "Reconfigure the in-browser agentic pipeline to persist real BRSF records back into this git-tracked register"@en ;
     backlog:asRole "the package maintainer" ;
     backlog:wantsCapability "every real pipeline run to write real Story/Evidence/PlanningEvent individuals back into the actual, git-tracked register, instead of producing an in-memory-only lineage that is discarded when the browser session ends and currently has no path back into this repository at all" ;
-    backlog:soThat "owner asked directly for a grounded cost-benefit/risk-opportunity analysis before deciding, prompted by investigating a real Build-stage failure in the pipeline's own log. Scored via the framework's own real WSJF method rather than judged conversationally: 0.7, below both real open items (STORY-8 at 2.5, STORY-10 at 1.0). The deciding factor is not the size alone -- STORY-10 is also large and also blocked -- but that this item adds a genuinely new risk on top of STORY-10's own blocker: the pipeline's non-Conformance stages produce small-model text with no independent verification, and this session's own uploaded log just demonstrated that model failing at a much simpler task (writing one code block). Automating governed-record generation from output that unreliable would risk the register's own trustworthiness, which every other Story this session has treated as non-negotiable. Recommendation: not now. Proposed and scored so the decision is real and re-checkable, not deferred silently." .
+    backlog:soThat "owner asked directly for a grounded cost-benefit/risk-opportunity analysis before deciding, prompted by investigating a real Build-stage failure in the pipeline's own log. Scored via the framework's own real WSJF method rather than judged conversationally: 0.7, below both real open items (STORY-8 at 2.5, STORY-10 at 1.0). The deciding factor is not the size alone -- STORY-10 is also large and also blocked -- but that this item adds a genuinely new risk on top of STORY-10's own blocker: the pipeline's non-Conformance stages produce small-model text with no independent verification, and this session's own uploaded log just demonstrated that model failing at a much simpler task (writing one code block). Automating governed-record generation from output that unreliable would risk the register's own trustworthiness, which every other Story this session has treated as non-negotiable. Recommendation: not now. Proposed and scored so the decision is real and re-checkable, not deferred silently. CORRECTED (2026-09-04), owner pushback accepted as valid: the original reasoning conflated 'not yet independently verified for every stage' with 'therefore unfixable,' which does not follow -- catching bad output and reworking it IS the right response to an unreliable generator, not a reason to avoid the capability, and this codebase already proves it works: Code Gen/Test Gen are not accepted on the model's word, they are checked (real syntax parse, real Pyodide execution, real pass/fail) and retried with a specific remedy if they fail, and Intent/Story Author now have the same real malformed-detection-and-retry (STORY-10). The actual, narrower problem this Story still has is that NOT EVERY stage has an equivalent real check yet -- Grooming/Product Owner/Lineage Compose/Sprint Planner/DevOps are deterministic (nothing to verify against a model), but nothing currently checks whether Story Author's role/capability/benefit text, once it DOES follow the format, is actually GOOD -- only that it followed the format. Persisting that ungated would still be premature. Two concrete, real directions worth investigating rather than defending the old blanket objection: (1) a real, capable external model via STORY-20's own working integration -- this session still has no credential for a genuine hosted model to test against, so whether a stronger model changes the picture is a real, open, testable question, not yet answered either way; (2) VAF (Variant Algebra Framework, github.com/altunelyusuf/VAF) -- a real, separate, substantially mature project (v1.36.0+, 379/379 tests passing) that synthesizes code from a specification via algebraic operators and ontologies rather than free-form generation, which would remove the CodeGen stage's reliance on an LLM's own judgement for the parts of a spec VAF can actually cover. Genuinely worth investigating for this Story, not yet attempted: VAF is a substantial, separate system, and a real integration assessment (what fraction of this pipeline's real code-gen tasks fit VAF's own current backend coverage, what would not) is itself real work, not a quick check. Restated honestly: this Story now needs real research and experimentation, not a closed 'not now' -- proposed, not abandoned." .
 
 bl:StoryDocStandardsAcronymGate a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1540,7 +1549,7 @@ bl:AC_StoryDocStandardsAcronymGate a backlog:AcceptanceCriterion, owl:NamedIndiv
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The 5 real acronym gaps get a real first-use expansion at their genuine prose location, and nothing else changes"@en ;
     backlog:hasGherkinText "Given the real RDODI Documentation Standards gate run against this page's own extracted prose, When the genuinely missing acronyms (RDF, SPARQL, SHACL, WASM, SKOS) are identified and false positives (real JS identifiers, code comments, embedded vocabulary) are excluded, Then each is added to the page's own existing ABBR glossary and wrapped with abbrTip() at its real, verified first prose occurrence only -- never inside a code snippet, developer comment, or agent-log context. And Given the change, When the real 24-question regression suite is re-run, Then all 24 still pass and 0 console/page errors occur." ;
-    backlog:satisfiedByArtifact "ABBR object and its 5 new entries, code_abundance_page_v1_17_0.html" .
+    backlog:satisfiedByArtifact "ABBR object and its 5 new entries, code_abundance_page_v1_18_0.html" .
 
 bl:Evidence_StoryDocStandardsAcronymGate a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1675,7 +1684,7 @@ bl:AC_StoryExternalLLMEndpoint a backlog:AcceptanceCriterion, owl:NamedIndividua
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "A real external endpoint can be connected and used, with honest disclosure and honest error handling"@en ;
     backlog:hasGherkinText "Given a real, reachable OpenAI-compatible /chat/completions endpoint with CORS enabled, When a base URL, model name, and optional key are entered and Connect is pressed, Then a real test request is sent, the engine becomes ready on success, and every one of this page's existing 9 real call sites can use it unchanged via the same WEBLLM_ENGINE interface. And Given a CORS-blocked endpoint (e.g. a hosted provider's API called directly), When Connect is pressed, Then the real failure is caught and reported with an honest, specific explanation, not a generic error, and the engine state is not incorrectly marked ready. And Given the panel is present but nothing has been connected, When the page is used normally, Then the real 24-question regression suite still passes and 0 console/page errors occur." ;
-    backlog:satisfiedByArtifact "connectExternalLLM, EXTERNAL_LLM_CONFIG, WEBLLM_BACKEND (JS in code_abundance_page_v1_17_0.html)" .
+    backlog:satisfiedByArtifact "connectExternalLLM, EXTERNAL_LLM_CONFIG, WEBLLM_BACKEND (JS in code_abundance_page_v1_18_0.html)" .
 
 bl:Evidence_StoryExternalLLMEndpoint a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1797,6 +1806,82 @@ bl:Harness_Task35 a backlog:TestHarness, owl:NamedIndividual ;
     rdfs:label "Test harness for TASK-35"@en ;
     backlog:harnessFor bl:Task35 ;
     backlog:hasHarnessEvidence bl:Evidence_StoryBRSFv168GovernanceUpgrade ;
+    backlog:harnessComplete true .
+
+bl:Refinement_StoryPipelinePersistToRegister a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Owner pushback accepted as valid; reasoning corrected"@en ;
+    backlog:refines bl:StoryPipelinePersistToRegister ;
+    backlog:refinedAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "The Story's original 'not now' conflated a real gap (not every stage has an independent check) with an unsupported conclusion (therefore unfixable) -- corrected, not defended. Real remaining scope narrowed to: build the missing checks, and investigate two concrete alternatives (a stronger external model via STORY-20's own working integration; VAF's own ontology-driven synthesis as a lower-hallucination-risk alternative to free-form generation for CodeGen specifically)." .
+
+bl:AC_StoryAgentOrchestrationRedesign a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real tiered parallel dispatch replaces sequential execution, verified via genuine measured concurrency"@en ;
+    backlog:hasGherkinText "Given the real dependency map (4 tiers, built by reading every call site), When the pipeline runs, Then each tier's independent stages are dispatched together (Promise.allSettled) rather than one at a time, the next tier is gated on the real completion of its own real dependencies only, and a stage's own real failure does not prevent independent sibling stages in the same tier from completing. And Given a real, purpose-built mock LLM server, When the full pipeline is run end-to-end against it, Then real network call timestamps show genuine overlapping windows within a tier (not just code-level ordering), the live UI correctly shows multiple stages 'working' simultaneously, and all 11 stages reach a real terminal state including a real 'deployed' DevOps outcome." ;
+    backlog:satisfiedByArtifact "Promise.allSettled dispatch blocks for Tier 1/2/3 in runRequestIntakeAgent (JS in code_abundance_page_v1_18_0.html)" .
+
+bl:Evidence_StoryAgentOrchestrationRedesign a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real, measured concurrent dispatch verified end-to-end through all 4 tiers"@en ;
+    backlog:evidenceVerified true ;
+    backlog:hasReleaseVersion "1.48.0" ;
+    backlog:hasPackageSHA256 "54e3e58c080da9adde4775c4d6a20239153f82d1842911a267c4c994ab98d46f" ;
+    backlog:verifiedByTool "Playwright (headless Chromium); a real, purpose-built mock LLM server (server3.py) responding correctly per real agent prompt, with performance.now() instrumentation on every real network call" ;
+    backlog:attestsCriterion bl:AC_StoryAgentOrchestrationRedesign ;
+    backlog:hasVerificationMethod "Re-verified the existing begin/finish/paint UI mechanism directly before changing anything: begin() returns a stable object reference and finish() mutates that exact reference whenever its own promise resolves, regardless of call order -- confirmed this already supports genuine parallel tiers with ZERO UI rewrite needed, correcting an earlier, more pessimistic assessment. Restructured runRequestIntakeAgent into the real, already-mapped 4 tiers: Tier 1 (Story Author, Product Owner, Code Gen, Test Gen) dispatched via Promise.allSettled, gated only on Intent; Tier 2 (Grooming, Lineage Compose, Execution) dispatched together, gated only on real Tier 1 outputs; Tier 3 (Conformance, Sprint Planner) dispatched together, gated only on real Tier 2 outputs; Tier 4 (DevOps) sequential, the only tier member. One real bug caught and fixed before verification, not after: the rewrite introduced a duplicate 'let s' declaration (s was already declared for the Intent stage) -- a real SyntaxError, caught immediately by loading the page and confirming the whole script failed to parse, fixed by removing the redundant let; a second accidental deletion of the DevOps dep computation during that same fix was caught the same way and restored. Verified via a real, purpose-built mock server (distinguishing each real agent's own system prompt to return an appropriate, well-formed reply) with real performance.now() timestamps on every network call: confirmed 3 genuinely overlapping call windows among the first 4 real calls (Tier 1), starting within 2ms of each other -- not logical ordering, measured wall-clock overlap. Ran the full pipeline to real completion (50s, all 11 stages): Grooming/Lineage Compose correctly used Tier 1's real authored/admission output, Execution correctly used Tier 1's real codeRes/testRes and genuinely ran the mock-generated code+test through real Pyodide (test passed), Conformance genuinely validated via real pyshacl (0 violations), Tier 3's two members shown working simultaneously in the live UI, and DevOps reached a real deployed state. Re-ran the full 24-question regression suite after the change: 24/24 passing, 0 console/page errors." .
+
+bl:Harness_StoryAgentOrchestrationRedesign a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for STORY-10"@en ;
+    backlog:harnessFor bl:StoryAgentOrchestrationRedesign ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryAgentOrchestrationRedesign ;
+    backlog:harnessComplete true .
+
+bl:Estimate_Story10 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-10 (real tiered parallel dispatch, mock-server verified end-to-end)"@en ;
+    backlog:hasEffortEstimate "9"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: matches the WSJF job-size component (9.0) computed when this Story was originally scored, before the blocker was resolved; recorded here in the same unit now the real work is complete." ;
+    backlog:hasBasisKind backlog:Basis_Judged ;
+    backlog:hasEstimateConfidence "Medium"^^xsd:string ;
+    backlog:estimatedAt "2026-09-04T00:00:00Z"^^xsd:dateTime .
+
+bl:Refinement_StoryAgentOrchestrationRedesign a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Grooming and closing STORY-10 in one pass"@en ;
+    backlog:refines bl:StoryAgentOrchestrationRedesign ;
+    backlog:refinedAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Re-examining the existing UI mechanism before writing any new code corrected an earlier, more pessimistic assessment (no rewrite of begin/finish/paint was actually needed) -- real investigation changed real scope, not just execution." ;
+    backlog:addressesConcern backlog:Concern_Architecture, backlog:Concern_Interaction .
+
+bl:Task36 a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Implement and mock-server-verify real tiered parallel dispatch"@en ;
+    backlog:hasIdentifier "TASK-36" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasTaskType backlog:Task_Implementation ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasEvidence bl:Evidence_StoryAgentOrchestrationRedesign ;
+    backlog:finishedAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
+    backlog:memberOfContainer bl:Iteration3 .
+
+bl:Plan_StoryAgentOrchestrationRedesign a backlog:PlanningEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Planning event: STORY-10's parallelization goal chosen directly from owner's explicit confirmation"@en ;
+    backlog:plansItem bl:StoryAgentOrchestrationRedesign ;
+    backlog:plannedInto bl:Iteration3 ;
+    backlog:plannedAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
+    backlog:plannedBy backlog:Owner ;
+    backlog:producesTask bl:Task36 .
+
+bl:Harness_Task36 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for TASK-36"@en ;
+    backlog:harnessFor bl:Task36 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryAgentOrchestrationRedesign ;
     backlog:harnessComplete true .
 
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
@@ -2551,8 +2636,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "b23e7fdcbf52447702f1ce8283b874753b85b113640b487abaefa0d1adc5d4db" ;
-    backlog:closedAtCommit "d9213809649f641304fa250815fd20748f7ee376" .
+    backlog:hasStateDigest "71f4a47ff547508fd6ad539065ac13798ecbe38f313314edbe8fb64a95fe9ef5" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must

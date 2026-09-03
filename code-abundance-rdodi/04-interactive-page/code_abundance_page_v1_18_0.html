@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.17.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.18.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -5207,106 +5207,143 @@ async function runRequestIntakeAgent(){
        ${intent.truncated?'<p class="small" style="color:#a03a3a;">⚠ cut off at the output budget.</p>':''}`,
       intent.ac);
 
-    s = begin('agentStoryAuthor','User story');
+    // STORY-10: real, tiered parallel dispatch replacing the old strictly
+    // sequential order, matching the real dependency map built by reading
+    // every call site (2026-09-02) -- verified safe with NO change to
+    // begin/finish/paint: begin() returns a stable object reference, and
+    // finish() mutates that exact reference whenever its own real promise
+    // resolves, regardless of order. Pre-allocating all of a tier's cards
+    // as 'working' before awaiting anything is enough for genuine parallel
+    // UI + execution; no accordion rewrite was actually needed.
+
+    // TIER 1 (parallel): Story Author, Product Owner, Code Gen, Test Gen --
+    // each depends on Intent's own output ONLY, confirmed independent of
+    // each other by the real dependency map.
+    const sAuthor = begin('agentStoryAuthor','User story');
+    const sOwner = begin('agentProductOwner','Prioritisation');
+    const sCode = begin('agentCodeGen','Build');
+    const sTest = begin('agentTestGen','Test');
+
+    const [authorOutcome, ownerOutcome, codeOutcome, testOutcome] = await Promise.allSettled([
+      agentStoryAuthor(intent.title, intent.ac),
+      (async()=>agentProductOwner([{id:'this', title:intent.title, done:0, total:1}]))(),
+      withOneAutoFix(intent.ac, agentCodeGen),
+      withOneAutoFix(intent.ac, agentTestGen),
+    ]);
+
     let authored=null;
-    try{ authored = await agentStoryAuthor(intent.title, intent.ac);
-      finish(s,'done',authored.retried?(authored.retryWorked?'role / capability / benefit (fixed automatically after 1 retry)':'role / capability / benefit (fallback text used - retry also did not follow the format)'):'role / capability / benefit',
+    if(authorOutcome.status==='fulfilled'){
+      authored = authorOutcome.value;
+      finish(sAuthor,'done',authored.retried?(authored.retryWorked?'role / capability / benefit (fixed automatically after 1 retry)':'role / capability / benefit (fallback text used - retry also did not follow the format)'):'role / capability / benefit',
         `<p class="small"><b>As</b> ${escapeHtmlText(authored.asRole)}<br><b>I want</b> ${escapeHtmlText(authored.wantsCapability)}<br><b>So that</b> ${escapeHtmlText(authored.soThat)}</p>
          ${authored.retried?`<p class="small" style="color:#667;">⚙ First attempt did not follow the required ROLE:/CAPABILITY:/BENEFIT: format - automatically retried once with that format named explicitly. ${authored.retryWorked?'The retry followed it.':'The retry still did not; the fallback text above was used.'}</p>`:''}`,
         `As ${authored.asRole}\nI want ${authored.wantsCapability}\nSo that ${authored.soThat}`);
-    }catch(e){ finish(s,'refused','authoring failed; neutral template used','<p class="small">The story author did not return a usable story; the composer falls back to a neutral template.</p>',String(e)); }
+    } else {
+      finish(sAuthor,'refused','authoring failed; neutral template used','<p class="small">The story author did not return a usable story; the composer falls back to a neutral template.</p>',String(authorOutcome.reason));
+    }
 
-    s = begin('agentGrooming','Grooming');
-    const groom = agentGrooming({ac:intent.ac, asRole:authored&&authored.asRole, wantsCapability:authored&&authored.wantsCapability,
-                                 soThat:authored&&authored.soThat, objective:true, scoreable:false});
-    // DEF-24: owner-reported "the status is not informative at all" for
-    // refused agents. Confirmed by direct read: groom.outcome ALREADY
-    // contains the real, specific reason ('acceptance criterion is missing
-    // "given"', etc.) - it was passed to finish() as the DETAIL/body (only
-    // visible after clicking into the agent), while the SUMMARY shown at a
-    // glance was just a bare count ('1 finding(s)'). Fixed to surface the
-    // real findings themselves in the summary - no new diagnostic logic
-    // invented, just showing what was already computed.
-    finish(s, groom.ready?'done':'refused', groom.ready?'ready to plan':groom.findings.join('; '),
-      `<p class="small">${escapeHtmlText(groom.outcome)}</p>`, groom.outcome);
-
-    s = begin('agentProductOwner','Prioritisation');
-    const ranked = agentProductOwner([{id:'this', title:intent.title, done:0, total:1}]);
-    finish(s,'done','ranked with a stated reason',
+    const ranked = ownerOutcome.status==='fulfilled' ? ownerOutcome.value : [{reason:'ranking failed'}];
+    finish(sOwner,'done','ranked with a stated reason',
       `<p class="small">${escapeHtmlText(ranked[0].reason)}</p>`, ranked[0].reason);
 
-    s = begin('agentLineageCompose','Lineage composition');
-    const metric = "Whether the capability this request names exists and has been exercised at least once - counted over the real artifact, not asserted";
-    // DEF-28 (owner-requested): a real WIP-limited, dependency-aware
-    // admission check runs BEFORE composing, using the framework's own
-    // Team/WipLimit vocabulary rather than blindly force-planning every
-    // request into a fresh disposable Iteration regardless of capacity.
-    const admission = admitToFlow({title: intent.title}, IN_FLIGHT_WORK, CodeAbundance_WIP_LIMIT);
-    const {slug, draftTurtle, stages} = agentLineageCompose(intent.title, intent.ac, metric, authored, admission);
-    LAST_COMPOSED = {slug, draftTurtle};
-    IN_FLIGHT_WORK.push({title: intent.title, slug, done:false, startedAt: admission.admitted ? new Date().toISOString() : null});
-    finish(s,'done',`${stages.length} stages`,
-      `<table class="cite"><tbody>${stages.map(st=>`<tr><td style="width:150px;"><b>${escapeHtmlText(st[0])}</b></td><td class="mono" style="font-size:11px;">${escapeHtmlText(st[1])}</td></tr>`).join('')}</tbody></table>
-       <p class="small" style="${admission.admitted?'color:#2f6b3a;':'color:#8a6d00;'}">${admission.admitted?'✔':'⏳'} ${escapeHtmlText(admission.reason)}</p>
-       <pre>${escapeHtmlText(draftTurtle)}</pre>
-       <button onclick="triggerBlobDownload([${jsAttr(draftTurtle)}],'text/turtle','${slug}.ttl');">⬇ Download lineage (.ttl)</button>`,
-      draftTurtle);
-
-    s = begin('validateAgainstRealShacl','Conformance');
-    let shacl=null;
-    try{ shacl = await validateAgainstRealShacl(draftTurtle);
-      // DEF-24: same fix as Grooming above - shacl.report already contains
-      // the real violation text; surface its first line (the concrete
-      // violated shape/constraint) instead of the generic 'refused by the
-      // real shapes', which named no actual violation.
-      const shaclLead = shacl.report ? shacl.report.split('\n').find(l=>l.trim()) || 'refused' : 'refused';
-      finish(s, shacl.conforms?'done':'refused', shacl.conforms?'0 Violation-severity results':shaclLead.slice(0,140),
-        shacl.conforms?'<p class="small">Validated against the framework\'s own shapes with the real lineage as context.</p>'
-                      :`<pre>${escapeHtmlText(shacl.report)}</pre>`, shacl.report||'conforms');
-    }catch(e){ finish(s,'idle','pySHACL unavailable this session','<p class="small">Opt-in infrastructure; the pipeline continues without it.</p>',String(e)); }
-
-    s = begin('agentCodeGen','Build');
-    const codeRes = await withOneAutoFix(intent.ac, agentCodeGen);
+    const codeRes = codeOutcome.status==='fulfilled' ? codeOutcome.value : {code:'', syntaxOk:false, flagged:[{label:String(codeOutcome.reason)}]};
     const codeSafe = codeRes.code && codeRes.syntaxOk && !codeRes.flagged.length;
-    finish(s, codeSafe?'done':'refused',
+    finish(sCode, codeSafe?'done':'refused',
       codeSafe
         ? (codeRes.autoFixed ? 'safe, syntax-checked (fixed automatically after 1 retry)' : 'safe, syntax-checked')
         : (codeRes.autoFixed ? `still unsafe after 1 automatic retry: ${codeRes.flagged.map(f=>f.label).join('; ')||codeRes.syntaxErr||'no code'}` : (codeRes.flagged.map(f=>f.label).join('; ')||codeRes.syntaxErr||'no code')),
       `<pre>${escapeHtmlText(codeRes.code||'(no code extracted)')}</pre>${codeRes.autoFixed?`<p class="small" style="color:#667;">⚙ First attempt was unsafe (${escapeHtmlText(codeRes.firstAttemptReason)}) - automatically retried once with that reason named. ${codeRes.autoFixWorked?'The retry fixed it.':'The retry still did not produce safe code.'}</p>`:''}`,
       codeRes.code);
 
-    s = begin('agentTestGen','Test');
-    const testRes = await withOneAutoFix(intent.ac, agentTestGen);
+    const testRes = testOutcome.status==='fulfilled' ? testOutcome.value : {code:'', syntaxOk:false, flagged:[{label:String(testOutcome.reason)}]};
     const testSafe = testRes.code && testRes.syntaxOk && !testRes.flagged.length;
-    finish(s, testSafe?'done':'refused',
+    finish(sTest, testSafe?'done':'refused',
       testSafe
         ? (testRes.autoFixed ? 'safe, syntax-checked (fixed automatically after 1 retry)' : 'safe, syntax-checked')
         : (testRes.autoFixed ? `still unsafe after 1 automatic retry: ${testRes.flagged.map(f=>f.label).join('; ')||testRes.syntaxErr||'no code'}` : (testRes.flagged.map(f=>f.label).join('; ')||testRes.syntaxErr||'no code')),
       `<pre>${escapeHtmlText(testRes.code||'(no code extracted)')}</pre>${testRes.autoFixed?`<p class="small" style="color:#667;">⚙ First attempt was unsafe (${escapeHtmlText(testRes.firstAttemptReason)}) - automatically retried once with that reason named. ${testRes.autoFixWorked?'The retry fixed it.':'The retry still did not produce safe code.'}</p>`:''}`,
       testRes.code);
 
-    s = begin('runCode','Execution');
-    let ran=false, ok=false, output='';
-    if(codeSafe && testSafe){
-      try{ await ensurePyodide();
-        await ensureSafePackagesInstalled([...(codeRes.installable||[]), ...(testRes.installable||[])]);
-        let cap='';
-        pyodide.setStdout({batched:(x)=>{cap+=x+'\n';}});
-        await pyodide.runPythonAsync(codeRes.code + '\n\n' + testRes.code);
-        ran=true; ok=true; output=cap||'(no output; no AssertionError raised)';
-      }catch(e){ ran=true; ok=false; output=String(e); }
+    // TIER 2 (parallel): Grooming, Lineage Compose (both need Story Author's
+    // real output only) and Execution (needs Code Gen + Test Gen's real
+    // output only) -- confirmed independent of each other by the real
+    // dependency map; none needs another Tier 2 member's own result.
+    const sGroom = begin('agentGrooming','Grooming');
+    const sLineage = begin('agentLineageCompose','Lineage composition');
+    const sExec = begin('runCode','Execution');
+
+    const admission = admitToFlow({title: intent.title}, IN_FLIGHT_WORK, CodeAbundance_WIP_LIMIT);
+    const metric = "Whether the capability this request names exists and has been exercised at least once - counted over the real artifact, not asserted";
+
+    const [groomOutcome, lineageOutcome, execOutcome] = await Promise.allSettled([
+      (async()=>agentGrooming({ac:intent.ac, asRole:authored&&authored.asRole, wantsCapability:authored&&authored.wantsCapability,
+                                 soThat:authored&&authored.soThat, objective:true, scoreable:false}))(),
+      (async()=>agentLineageCompose(intent.title, intent.ac, metric, authored, admission))(),
+      (async()=>{
+        let ran=false, ok=false, output='';
+        if(codeSafe && testSafe){
+          try{ await ensurePyodide();
+            await ensureSafePackagesInstalled([...(codeRes.installable||[]), ...(testRes.installable||[])]);
+            let cap='';
+            pyodide.setStdout({batched:(x)=>{cap+=x+'\n';}});
+            await pyodide.runPythonAsync(codeRes.code + '\n\n' + testRes.code);
+            ran=true; ok=true; output=cap||'(no output; no AssertionError raised)';
+          }catch(e){ ran=true; ok=false; output=String(e); }
+        }
+        return {ran, ok, output};
+      })(),
+    ]);
+
+    const groom = groomOutcome.status==='fulfilled' ? groomOutcome.value : {ready:false, findings:['grooming failed'], outcome:String(groomOutcome.reason)};
+    finish(sGroom, groom.ready?'done':'refused', groom.ready?'ready to plan':groom.findings.join('; '),
+      `<p class="small">${escapeHtmlText(groom.outcome)}</p>`, groom.outcome);
+
+    let slug='', draftTurtle='', stages=[];
+    if(lineageOutcome.status==='fulfilled'){
+      ({slug, draftTurtle, stages} = lineageOutcome.value);
+      LAST_COMPOSED = {slug, draftTurtle};
+      IN_FLIGHT_WORK.push({title: intent.title, slug, done:false, startedAt: admission.admitted ? new Date().toISOString() : null});
+      finish(sLineage,'done',`${stages.length} stages`,
+        `<table class="cite"><tbody>${stages.map(st=>`<tr><td style="width:150px;"><b>${escapeHtmlText(st[0])}</b></td><td class="mono" style="font-size:11px;">${escapeHtmlText(st[1])}</td></tr>`).join('')}</tbody></table>
+         <p class="small" style="${admission.admitted?'color:#2f6b3a;':'color:#8a6d00;'}">${admission.admitted?'✔':'⏳'} ${escapeHtmlText(admission.reason)}</p>
+         <pre>${escapeHtmlText(draftTurtle)}</pre>
+         <button onclick="triggerBlobDownload([${jsAttr(draftTurtle)}],'text/turtle','${slug}.ttl');">⬇ Download lineage (.ttl)</button>`,
+        draftTurtle);
+    } else {
+      finish(sLineage,'refused','composition failed','<p class="small">Lineage composition did not complete.</p>',String(lineageOutcome.reason));
     }
-    finish(s, !ran?'idle':(ok?'done':'refused'), !ran?'skipped - build or test needs review':(ok?'test passed':'test FAILED'),
+
+    const {ran, ok, output} = execOutcome.status==='fulfilled' ? execOutcome.value : {ran:true, ok:false, output:String(execOutcome.reason)};
+    finish(sExec, !ran?'idle':(ok?'done':'refused'), !ran?'skipped - build or test needs review':(ok?'test passed':'test FAILED'),
       `<pre>${escapeHtmlText(output||'(not run)')}</pre>`, output);
 
-    s = begin('agentSprintPlanner','Capacity & flow planning');
-    // DEF-28: replaces the old "N planned into iteration" text (which was
-    // always true regardless of capacity) with the REAL admission decision
-    // computed before composition - admitted-and-in-progress, or genuinely
-    // queued behind a WIP limit or an unfinished dependency.
-    const plan = agentSprintPlanner([{ready:groom.ready,id:slug}], 'the composed iteration', admission);
-    finish(s, groom.ready?'done':'refused', plan.note, `<p class="small">${escapeHtmlText(plan.note)}</p>`, plan.note);
+    // TIER 3 (parallel): Conformance (needs Lineage Compose's real draftTurtle
+    // only) and Sprint Planner (needs Grooming's real ready flag and Lineage
+    // Compose's real slug only) -- confirmed independent of each other.
+    const sShacl = begin('validateAgainstRealShacl','Conformance');
+    const sPlan = begin('agentSprintPlanner','Capacity & flow planning');
 
+    const [shaclOutcome, planOutcome] = await Promise.allSettled([
+      validateAgainstRealShacl(draftTurtle),
+      (async()=>agentSprintPlanner([{ready:groom.ready,id:slug}], 'the composed iteration', admission))(),
+    ]);
+
+    if(shaclOutcome.status==='fulfilled'){
+      const shacl = shaclOutcome.value;
+      const shaclLead = shacl.report ? shacl.report.split('\n').find(l=>l.trim()) || 'refused' : 'refused';
+      finish(sShacl, shacl.conforms?'done':'refused', shacl.conforms?'0 Violation-severity results':shaclLead.slice(0,140),
+        shacl.conforms?'<p class="small">Validated against the framework\'s own shapes with the real lineage as context.</p>'
+                      :`<pre>${escapeHtmlText(shacl.report)}</pre>`, shacl.report||'conforms');
+    } else {
+      finish(sShacl,'idle','pySHACL unavailable this session','<p class="small">Opt-in infrastructure; the pipeline continues without it.</p>',String(shaclOutcome.reason));
+    }
+
+    const plan = planOutcome.status==='fulfilled' ? planOutcome.value : {note:'planning failed'};
+    finish(sPlan, groom.ready?'done':'refused', plan.note, `<p class="small">${escapeHtmlText(plan.note)}</p>`, plan.note);
+
+    // TIER 4: DevOps -- needs Execution's real ran/ok AND Code Gen AND Test
+    // Gen's real output together; the only Tier 4 member, so nothing to
+    // parallelize it against, kept as a plain await.
     s = begin('agentDevOps','Package & deploy');
     const dep = agentDevOps({title:intent.title, code:codeRes.code, codeSafe, testSafe, testRan:ran, testPassed:ok});
     // DEF-24: same fix again - dep.blockers already names the real reason
@@ -5322,6 +5359,7 @@ async function runRequestIntakeAgent(){
     }
     finish(s, dep.deployed?'done':'refused', dep.deployed?`deployed as ${dep.id}`:dep.blockers.join('; '),
       `<p class="small">${escapeHtmlText(dep.verdict)}</p>`, dep.verdict);
+
 
     // THE FINAL ARTIFACT - previously the pipeline used the generated code
     // internally and never showed it, so there was no source to read and no way
@@ -5839,7 +5877,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_17_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_18_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>
