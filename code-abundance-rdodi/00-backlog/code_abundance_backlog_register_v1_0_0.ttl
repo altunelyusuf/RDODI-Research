@@ -2237,7 +2237,8 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "15d968f6a0186c59ed492e2f72c90f050258054bc40fade1738a8154709b4127" .
+    backlog:hasStateDigest "15d968f6a0186c59ed492e2f72c90f050258054bc40fade1738a8154709b4127" ;
+    backlog:closedAtCommit "b3100cd0713778f1f78d5072522a55029ec0c17b" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
