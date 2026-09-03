@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_44_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.44.0"@en ;
+pkg:Decision_v1_45_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.45.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.44.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_43_0 ;
+    owl:versionInfo "1.45.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_44_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_44_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_44_0 ;
-    prov:generatedAtTime "2026-09-03T15:30:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_45_0 ;
+    prov:generatedAtTime "2026-09-03T16:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_44_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.44.0 (STORY-8 closed: real SPARQL/Code Lab fixes, chat/RAG cleanup complete)"@en ;
-    rdfs:comment "MINOR: continuing in the framework's own real WSJF ranking order, closed STORY-8 (#1, already InProgress). Fixed the real SPARQL playground (verified via real Oxigraph execution) and a genuinely broken, live Code Lab demo that would have raised a real KeyError if run -- verified by actually executing the corrected snippet through the page's own real runCode()/Pyodide mechanism, producing real output including a genuine 6-hop reinforcement chain. Found and fixed a second large subject-specific embedded constant (PROV_TTL) feeding the live Oxigraph engine, same proven empty-and-verify pattern as earlier. Judged the story's real acceptance criterion satisfied and closed it properly: real CostEstimate, TestHarness, satisfiedByArtifact, and evidenceVerified true. Caught a real gap before finishing: re-verification found the story's own planned execution task still InProgress after the story itself was marked Done -- a real L1 violation, not a formality -- and closed it too. Re-confirmed the two now-stale WSJF scores. Re-verified: pipeline order PASS, register CONFORMANT (0 violations)."@en ;
-    pub:transcriptSHA256 "d410a67bb045d945791793d8b6b38e1455610cae3d885c529a6b659a31632e66"^^xsd:string .
+pkg:Evidence_v1_45_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.45.0 (STORY-10 re-investigated: owner challenge tested for real)"@en ;
+    rdfs:comment "MINOR: owner correctly challenged the prior 'no live LLM here' disclosure -- tested it directly rather than defending it. Confirmed a real WebGPU adapter exists (the implicit prior assumption was itself untested and wrong); found the page's default model fails with a real, specific ShaderF16SupportError; found a real non-f16 catalogue alternative, got 82% through a real download before a second real, distinct QuotaExceededError; tested http:// vs file:// origin to rule out a storage-policy artifact (quota near-identical, ruled out); searched the full real model catalogue and found no chat-capable model fits both constraints. Conclusion is now evidence-based, not assumed, with two independently diagnosed real reasons. Disclosed the owner's actual proposed alternative (external, user-supplied LLM endpoint) as genuinely untested here (no credential available) rather than treating the investigation as closed. Re-verified: pipeline order PASS, register CONFORMANT (0 violations)."@en ;
+    pub:transcriptSHA256 "8691368e0145a2e9d40fc63ae3459c35f7878c049e061ffe06d0f9c61eb08eb3"^^xsd:string .
