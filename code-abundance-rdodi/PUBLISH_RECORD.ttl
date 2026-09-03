@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_46_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.46.0"@en ;
+pkg:Decision_v1_47_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.47.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.46.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_45_0 ;
+    owl:versionInfo "1.47.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_46_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_46_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_46_0 ;
-    prov:generatedAtTime "2026-09-03T17:30:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_47_0 ;
+    prov:generatedAtTime "2026-09-03T18:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_46_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.46.0 (STORY-20: real external LLM endpoint, mock-server verified)"@en ;
-    rdfs:comment "MINOR: implemented and closed STORY-20 -- a real, external, user-configured OpenAI-compatible LLM endpoint as an alternative to local WebLLM, prompted by the owner's real correction that live LLM access could be achieved via integration options rather than direct sandbox access. Investigated the real CORS constraint first (confirmed OpenAI's own API is CORS-blocked from browser JS, confirmed this was genuinely CORS via a control fetch, not a sandbox limitation) before designing anything. WEBLLM_ENGINE given the exact same interface the real local engine already has, so all 9 existing call sites needed zero changes. Built a real, minimal CORS-enabled mock HTTP server specifically to verify this end-to-end via actual Playwright execution (no real external LLM credential available in this session): both the real success path (a genuine chat completion through the wrapper) and the real CORS-failure path (against the actual api.openai.com) verified. Full 24-question regression suite: 24/24, 0 errors. One real mistake caught and fixed: an Evidence draft initially cited a not-yet-published release version, corrected to the last actually-published, known-hash state. Disclosed honestly that this does not itself close STORY-10, which still needs a real third-party model's output. Re-verified: pipeline order PASS (66 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
-    pub:transcriptSHA256 "6be1ef02c9d9f42d1c7972dbdfc29268962d3899021d5300b24235bab647fc55"^^xsd:string .
+pkg:Evidence_v1_47_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.47.0 (STORY-16 formally closed, found stale during a status check)"@en ;
+    rdfs:comment "MINOR: owner asked directly whether any tasks/stories remained. Queried the real register rather than answering from memory: found STORY-10 and STORY-18 genuinely, correctly open, and STORY-16 stale -- its own real scope had actually been completed several turns ago (198 to 0 violations, re-confirmed CONFORMANT after every subsequent framework upgrade since) but was never formally transitioned to Done, still showing a REMAINING-146 breakdown that no longer reflected reality. Closed it properly: real AcceptanceCriterion, ReleaseEvidence citing the real last-published hash, TestHarness, an honestly-low-confidence retrospective CostEstimate (never scoped up front), real design-concern judgement, and a real PlanningEvent dated at the actual moment the gap was first disclosed. Re-confirmed the two now-stale WSJF scores. Re-verified: pipeline order PASS (67 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
+    pub:transcriptSHA256 "23a6426299c1348f08f6c261bbad3d49c1f0bbd1b1752bdff31721b6e78855a0"^^xsd:string .
