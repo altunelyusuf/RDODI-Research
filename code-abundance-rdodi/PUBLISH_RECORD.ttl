@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_41_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.41.0"@en ;
+pkg:Decision_v1_42_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.42.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.41.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_40_0 ;
+    owl:versionInfo "1.42.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_41_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_41_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_41_0 ;
-    prov:generatedAtTime "2026-09-03T13:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_42_0 ;
+    prov:generatedAtTime "2026-09-03T13:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_41_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.41.0 (real Build-stage fix from owner log; RegisterSession addressed)"@en ;
-    rdfs:comment "MINOR: investigated an owner-uploaded real session log showing agentCodeGen/agentTestGen both refusing with 'no code block found in response'. Read the raw captured model output directly: the retry attempt was paraphrasing the combined remedy text back as rambling prose rather than writing corrected code. Root-caused to the one flagged-result branch in the whole file with no remedy field; added a specific, actionable one. Verified via real Playwright and the full 24-question regression suite, 24/24 passing, 0 errors. A real new BRSF requirement (RegisterSession) was addressed honestly with a real session record. Re-confirmed both prior WSJF scores, correctly flagged stale by a new completion; one real mistake (an accidental line deletion during that edit) caught and fixed immediately by re-reading the result. Re-verified: pipeline order PASS, register CONFORMANT (0 violations)."@en ;
-    pub:transcriptSHA256 "639d25ddf31097cf853fca4e65980e2845e51b9ae52ac2f6b4c62c933c715c77"^^xsd:string .
+pkg:Evidence_v1_42_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.42.0 (STORY-18: real WSJF-scored decision against pipeline BRSF reconfiguration)"@en ;
+    rdfs:comment "MINOR: recorded a real, WSJF-scored decision (0.7) against reconfiguring the in-browser agentic pipeline to persist governed records into this register, requested explicitly by the owner as a grounded cost-benefit/risk-opportunity analysis. The score's own rationale names the deciding factor: automating evidenceVerified claims from the pipeline's own small-local-model output risks writing false governance records, demonstrated concretely by that same model's real failure earlier this session (regurgitating remedy instructions instead of writing code). Recorded as a real Proposed, scored Story rather than conversational advice. Re-verified: pipeline order PASS (62 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
+    pub:transcriptSHA256 "4c934f8d0ae96ff1d4e848b47db0255c57157e46937eba588482662754908f4f"^^xsd:string .
