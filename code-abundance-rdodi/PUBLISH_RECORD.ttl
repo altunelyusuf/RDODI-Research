@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_39_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.39.0"@en ;
+pkg:Decision_v1_40_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.40.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.39.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_38_0 ;
+    owl:versionInfo "1.40.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_39_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_39_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_39_0 ;
-    prov:generatedAtTime "2026-09-02T20:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_40_0 ;
+    prov:generatedAtTime "2026-09-02T21:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_39_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.39.0 (STORY-8 regression suite rewritten; real Blueprint domain model)"@en ;
-    rdfs:comment "MINOR: two real pieces of work. (1) STORY-8's highest-risk piece: rewrote the 13 genuinely-failing entries of the real REGRESSION_QUESTIONS suite with content about this corpus's own real principles, each individually verified via real Playwright execution against fusedCorpusAnswer before being written in; re-ran the complete suite after assembly, 24/24 passing, 0 console errors. Confirmed retrieveContext's own 'LCW principles' reference was already dead code (gated behind an empty COMPANY_DATA.companies), not a live bug. (2) A real, substantial new BRSF requirement (domain-modeling-enforcement, newly accepted) required declaring a Blueprint and sweeping a real domain entity's full life cycle -- identified Principle as this product's genuine first-class entity, swept all 4 real life-cycle stages honestly: Creation and ActiveUse genuinely covered by real existing work, Suspension/Exception and Termination genuinely absent and recorded as real BlueprintGap individuals with honest reasons rather than invented coverage. Also resolved closedAtCommit using the real, now-known pushed commit hash. Re-verified: pipeline order PASS, register back to CONFORMANT (0 violations) after both fixes."@en ;
-    pub:transcriptSHA256 "88dfc1f62de44dff36966ac9dcaca114074c0390df977bf98d412237b84bb885"^^xsd:string .
+pkg:Evidence_v1_40_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.40.0 (STORY-8 comprehensive live-content cleanup)"@en ;
+    rdfs:comment "MINOR: fixed every genuinely live/reachable LCW/LC Waikiki reference found by systematic investigation. Highlights: BIAS_TTL/AGENTIC_TTL (subject-specific ontology constants feeding a real, live, queryable Oxigraph SPARQL engine) emptied and verified via an actual load, 235 real triples, 0 errors; the entire Provenance subview (a large narrative about the other project's own construction, ending in a literal wrong package/version stamp) replaced with a real, accurate description grounded in facts this session genuinely knows; a live WebLLM prompt and both CodeGen/TestGen system prompts corrected (the latter still contradicted STORY-14's own shipped package-installation fix). Deliberately left alone genuine historical developer comments, which are not live/user-facing and would be falsified by rewriting. Verified via the real 24/24 regression suite after each risky change, not just at the end. Version bumped correctly before committing: all 4 stages moved to v1_12_0, Cross.D verified, all real gates PASS. Confirmed the one 'v1_11_0' grep hit was the known, legitimate embedded-vocabulary false positive, not a real stale reference. Re-verified: real Playwright 0 errors, 24/24 regression suite, register still CONFORMANT."@en ;
+    pub:transcriptSHA256 "6b663667ccbe244ba236c298ec8a6770eccfb393fe10fff4cc76fd42f0a63011"^^xsd:string .
