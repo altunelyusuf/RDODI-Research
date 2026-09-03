@@ -1459,6 +1459,32 @@ bl:Session_20260903_BuildFailureInvestigation a backlog:RegisterSession, owl:Nam
     backlog:hasSessionScopeNote "Set out to: investigate a real owner-uploaded session log showing agentCodeGen/agentTestGen both refusing with 'no code block found in response'; find and fix the real root cause if one exists; build a real cost-benefit/risk-opportunity analysis for reconfiguring the agentic pipeline toward BRSF compliance, per the owner's explicit request. Deliberately left alone: the second, distinct failure mode found in the same log (the model writing forbidden requests/bs4 code) -- already correctly caught and remedied by the existing suspiciousPatterns checks; not a new defect, disclosed rather than re-worked in the same pass." ;
     backlog:changedItem bl:StoryBuildNoCodeBlockRemedy .
 
+bl:WSJF_Story18 a backlog:WSJFScore, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "WSJF score for StoryPipelinePersistToRegister"@en ;
+    backlog:scoredByMethod backlog:Method_WSJF ;
+    backlog:hasScoreValue "0.7"^^xsd:decimal ;
+    backlog:scoredAt "2026-09-03T13:00:00Z"^^xsd:dateTime ;
+    backlog:hasUserBusinessValue "4.0"^^xsd:decimal ;
+    backlog:hasTimeCriticality "1.0"^^xsd:decimal ;
+    backlog:hasRiskReductionValue "2.0"^^xsd:decimal ;
+    backlog:hasJobSize "10.0"^^xsd:decimal ;
+    rdfs:comment "Business value: real if it worked -- every future pipeline run would generate governed BRSF records automatically instead of being manually backfilled after the fact, as this whole session has been doing. Time criticality: none, no deadline or external trigger. Risk reduction: genuinely low, and there is a real, opposing risk this component does not net out -- the pipeline's Conformance stage already does real, trustworthy pyshacl validation, but stages like StoryAuthor and ProductOwner produce small-local-model text with no independent check; this session's own uploaded log just demonstrated that model regurgitating instructions instead of writing code. Automating evidenceVerified/hasVerificationMethod claims from that same model's own self-report would risk writing FALSE governance records into a system whose entire value rests on records being checked, not asserted -- structurally the same failure the framework's own retired SelfExemptionShape existed to prevent, arriving from a different direction. Job size: large -- real persistence (browser to git) is new, complex surface area, has no existing pattern in this package to build from, and inherits STORY-10's own structural blocker (no live LLM connection in this sandbox for genuine end-to-end testing) on top of its own new risk." .
+
+bl:StoryPipelinePersistToRegister a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-18" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:hasPriorityScore bl:WSJF_Story18 ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing ;
+    rdfs:label "Reconfigure the in-browser agentic pipeline to persist real BRSF records back into this git-tracked register"@en ;
+    backlog:asRole "the package maintainer" ;
+    backlog:wantsCapability "every real pipeline run to write real Story/Evidence/PlanningEvent individuals back into the actual, git-tracked register, instead of producing an in-memory-only lineage that is discarded when the browser session ends and currently has no path back into this repository at all" ;
+    backlog:soThat "owner asked directly for a grounded cost-benefit/risk-opportunity analysis before deciding, prompted by investigating a real Build-stage failure in the pipeline's own log. Scored via the framework's own real WSJF method rather than judged conversationally: 0.7, below both real open items (STORY-8 at 2.5, STORY-10 at 1.0). The deciding factor is not the size alone -- STORY-10 is also large and also blocked -- but that this item adds a genuinely new risk on top of STORY-10's own blocker: the pipeline's non-Conformance stages produce small-model text with no independent verification, and this session's own uploaded log just demonstrated that model failing at a much simpler task (writing one code block). Automating governed-record generation from output that unreliable would risk the register's own trustworthiness, which every other Story this session has treated as non-negotiable. Recommendation: not now. Proposed and scored so the decision is real and re-checkable, not deferred silently." .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -2211,8 +2237,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "1058dbe7545c27bd789724f4d6d05a6a6895c695b34762fe28d6400a464b4f3c" ;
-    backlog:closedAtCommit "96ce816eaf040b651b9f5375adc8d05217af3847" .
+    backlog:hasStateDigest "15d968f6a0186c59ed492e2f72c90f050258054bc40fade1738a8154709b4127" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
