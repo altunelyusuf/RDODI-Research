@@ -9,7 +9,7 @@
 # ============================================================================
 # RDODI Stage 2 — Domain Ontology TBox (subject-specific)
 # Subject: code-abundance-rdodi
-# Input: Stage 1 concept inventory (14 concepts, code_abundance_research_v1_10_0.ttl)
+# Input: Stage 1 concept inventory (14 concepts, code_abundance_research_v1_11_0.ttl)
 # Note (B4): this is a SUBJECT ontology, distinct from RDODI's generic
 #   domain-ontology METHODOLOGY vocabulary (rdodi-domain:*), which defines
 #   what a properly-formed subject ontology looks like, not the subject itself.
@@ -20,7 +20,7 @@
     dcterms:created "2026-08-27"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
     dcterms:description "RDODI Stage 2 subject taxonomy for the code-abundance-rdodi run: a 2-level class hierarchy over the six thematic clusters and fifteen concepts identified in Stage 1's concept inventory of Staples (2026), 'When Code Is Abundant.'"@en ;
-    dcterms:identifier "code_abundance_domain_tbox_v1_10_0" ;
+    dcterms:identifier "code_abundance_domain_tbox_v1_11_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-08-27"^^xsd:date ;
     dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
@@ -28,7 +28,7 @@
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
     rdfs:comment "ORIGINATION lineage. Taxonomy method: top-down clustering of the Stage 1 concept inventory by the article's own section structure (a CompetencyQuestionDrivenMethod in RDODI methodology terms, combined with top-down: which economic unit, which architectural pillars, which development modes, which role, which lifecycle model, which concrete implementations)."@en ;
     owl:versionIRI <http://example.org/rdodi/code-abundance/domain/tbox/1.1.0> ;
-    owl:versionInfo "1.10.0" ;
+    owl:versionInfo "1.11.0" ;
     owl:priorVersion <http://example.org/rdodi/code-abundance/domain/tbox/1.0.0> ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
     prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> ;
@@ -40,32 +40,32 @@
 
 ca:EconomicReframing a owl:Class ;
     rdfs:label "Economic Reframing"@en ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C01_CostPerAcceptedChange, #ca:C02_CodeIsPrecious"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C01_CostPerAcceptedChange, #ca:C02_CodeIsPrecious"@en ;
     skos:definition "The article's central economic argument: which unit of cost matters once code generation is cheap, and what constraint it replaces."@en .
 
 ca:ArchitecturalPillar a owl:Class ;
     rdfs:label "Architectural Pillar"@en ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C05-C08"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C05-C08"@en ;
     skos:definition "One of the four durable platform capabilities the article argues an enterprise needs once code generation is abundant."@en .
 
 ca:DevelopmentMode a owl:Class ;
     rdfs:label "Development Mode"@en ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C04_ThreeModes"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C04_ThreeModes"@en ;
     skos:definition "One of the three modes of software development the article argues will coexist long-term rather than forming a single adoption curve."@en .
 
 ca:OrganizationalRole a owl:Class ;
     rdfs:label "Organizational Role"@en ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C10_Builder"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C10_Builder"@en ;
     skos:definition "A role for a person acting within the article's proposed development model."@en .
 
 ca:LifecycleModel a owl:Class ;
     rdfs:label "Lifecycle Model"@en ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C09_PDLC"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C09_PDLC"@en ;
     skos:definition "A named model for how work moves from business intent to shipped, verified software."@en .
 
 ca:IndustryImplementation a owl:Class ;
     rdfs:label "Industry Implementation"@en ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C11-C14"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C11-C14"@en ;
     skos:definition "A concrete, named, real-world system or format the article cites as evidence for its argument."@en .
 
 # ----------------------------------------------------------------------------
@@ -75,13 +75,13 @@ ca:IndustryImplementation a owl:Class ;
 ca:CostPerAcceptedChange a owl:Class ;
     rdfs:label "Cost Per Accepted Change"@en ;
     rdfs:subClassOf ca:EconomicReframing ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C01_CostPerAcceptedChange"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C01_CostPerAcceptedChange"@en ;
     skos:definition "The article's proposed replacement for cost-per-line-of-code: a unit bundling generation, environment setup, context, verification, review, remediation and governance."@en .
 
 ca:CodeIsPreciousConstraint a owl:Class ;
     rdfs:label "Code-Is-Precious Constraint"@en ;
     rdfs:subClassOf ca:EconomicReframing ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C02_CodeIsPrecious"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C02_CodeIsPrecious"@en ;
     owl:disjointWith ca:CostPerAcceptedChange ;
     skos:definition "The historical constraint the article argues is breaking: sixty years of software engineering organized around code being scarce, expensive and fragile to produce."@en .
 
@@ -92,27 +92,27 @@ ca:CodeIsPreciousConstraint a owl:Class ;
 ca:AgentPlatformPillar a owl:Class ;
     rdfs:label "Agent Platform Pillar"@en ;
     rdfs:subClassOf ca:ArchitecturalPillar ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C05_AgentPlatform"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C05_AgentPlatform"@en ;
     skos:definition "The capability to create, customize and operate agents the organization owns, on models and infrastructure it chooses, while also supporting third-party agents."@en .
 
 ca:ExecutionPillar a owl:Class ;
     rdfs:label "Execution Pillar"@en ;
     rdfs:subClassOf ca:ArchitecturalPillar ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C06_Execution"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C06_Execution"@en ;
     owl:disjointWith ca:AgentPlatformPillar, ca:ContextPillar, ca:GovernancePillar ;
     skos:definition "Next-generation source control, artifact management and CI/CD able to build, test, deploy and operate software at machine scale."@en .
 
 ca:ContextPillar a owl:Class ;
     rdfs:label "Context Pillar"@en ;
     rdfs:subClassOf ca:ArchitecturalPillar ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C07_Context"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C07_Context"@en ;
     owl:disjointWith ca:GovernancePillar ;
     skos:definition "A coherent, persistent picture of requirement, code, history, priority and constraints surrounding a piece of work."@en .
 
 ca:GovernancePillar a owl:Class ;
     rdfs:label "Governance Pillar"@en ;
     rdfs:subClassOf ca:ArchitecturalPillar ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C08_Governance"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C08_Governance"@en ;
     skos:definition "Enforceable boundaries around security, compliance, quality, identity and permissions, plus visibility into what agents did and why it was allowed."@en .
 
 # ----------------------------------------------------------------------------
@@ -122,20 +122,20 @@ ca:GovernancePillar a owl:Class ;
 ca:HumanControlledLegacyMode a owl:Class ;
     rdfs:label "Human-Controlled Legacy Mode"@en ;
     rdfs:subClassOf ca:DevelopmentMode ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C04_ThreeModes"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C04_ThreeModes"@en ;
     skos:definition "Mode 1: systems with undocumented dependencies and operational knowledge that still resides in people, remaining largely human-controlled until retired or rewritten."@en .
 
 ca:AgenticallyAcceleratedMode a owl:Class ;
     rdfs:label "Agentically Accelerated Mode"@en ;
     rdfs:subClassOf ca:DevelopmentMode ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C04_ThreeModes"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C04_ThreeModes"@en ;
     owl:disjointWith ca:HumanControlledLegacyMode, ca:AutonomousMode ;
     skos:definition "Mode 2: humans remain in control while agents assist with implementation, testing, migration, review, documentation and security analysis; where the article says most enterprise development sits today."@en .
 
 ca:AutonomousMode a owl:Class ;
     rdfs:label "Autonomous Mode"@en ;
     rdfs:subClassOf ca:DevelopmentMode ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C04_ThreeModes"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C04_ThreeModes"@en ;
     owl:disjointWith ca:HumanControlledLegacyMode ;
     skos:definition "Mode 3: agents operate the implementation loop while humans provide intent, constraints and oversight."@en .
 
@@ -146,7 +146,7 @@ ca:AutonomousMode a owl:Class ;
 ca:BuilderRole a owl:Class ;
     rdfs:label "Builder Role"@en ;
     rdfs:subClassOf ca:OrganizationalRole ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C10_Builder"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C10_Builder"@en ;
     skos:definition "A broadened role -- engineer, designer, product manager, security expert, marketer or domain expert -- covering anyone who can express intent, direct agents, evaluate results and turn an idea into working software."@en .
 
 # ----------------------------------------------------------------------------
@@ -156,7 +156,7 @@ ca:BuilderRole a owl:Class ;
 ca:ProductDevelopmentLifecycle a owl:Class ;
     rdfs:label "Product Development Lifecycle"@en ;
     rdfs:subClassOf ca:LifecycleModel ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C09_PDLC"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C09_PDLC"@en ;
     skos:definition "The article's proposed successor to the SDLC: business intent enters the system, agents turn it into software, verification and governance determine what can proceed, and production results feed back into the next decision."@en .
 
 # ----------------------------------------------------------------------------
@@ -166,27 +166,27 @@ ca:ProductDevelopmentLifecycle a owl:Class ;
 ca:AgentsMdFormat a owl:Class ;
     rdfs:label "AGENTS.md Format"@en ;
     rdfs:subClassOf ca:IndustryImplementation ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C11_AgentsMdFormat"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C11_AgentsMdFormat"@en ;
     skos:definition "An open format for providing project instructions and context to coding agents, cited as an example of portable organizational context."@en .
 
 ca:MinionsAgent a owl:Class ;
     rdfs:label "Minions (Stripe)"@en ;
     rdfs:subClassOf ca:IndustryImplementation ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C12_Minions"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C12_Minions"@en ;
     owl:disjointWith ca:HonkAgent, ca:GitLabDuoAgentPlatform ;
     skos:definition "Stripe's homegrown, unattended coding agents merging human-reviewed pull requests weekly, combining deterministic blueprints with agent loops in isolated devbox environments."@en .
 
 ca:HonkAgent a owl:Class ;
     rdfs:label "Honk (Spotify)"@en ;
     rdfs:subClassOf ca:IndustryImplementation ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C13_Honk"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C13_Honk"@en ;
     owl:disjointWith ca:GitLabDuoAgentPlatform ;
     skos:definition "Spotify's background coding agent for large-scale, continuous code migration, replacing deterministic scripts for the long tail of edge cases they could not resolve."@en .
 
 ca:GitLabDuoAgentPlatform a owl:Class ;
     rdfs:label "GitLab Duo Agent Platform"@en ;
     rdfs:subClassOf ca:IndustryImplementation ;
-    dcterms:source "code_abundance_research_v1_10_0.ttl#ca:C14_GitLabDuoAgentPlatform"@en ;
+    dcterms:source "code_abundance_research_v1_11_0.ttl#ca:C14_GitLabDuoAgentPlatform"@en ;
     skos:definition "GitLab's own platform for creating, customizing and operating owned agents, presented as the concrete implementation of the Agent Platform pillar."@en .
 
 # ----------------------------------------------------------------------------

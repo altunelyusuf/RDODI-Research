@@ -348,8 +348,8 @@ bl:Estimate_Story7 a backlog:CostEstimate, owl:NamedIndividual ;
 bl:AC_StoryVisualContentAudit a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Every user-visible, glaring content-quality defect found by real screenshots is fixed and re-verified"@en ;
-    backlog:hasGherkinText "Given code_abundance_page_v1_10_0.html opened in a real browser, When a reader looks at the header, the overview stats, the footer, and a principle's detail view, Then no LCWKB-subject text, no 'undefined' field, and no internally-inconsistent statistic (a table's real breakdown contradicting the summary number above it) appears anywhere in the visible UI. And When 0-error Playwright verification is re-run after the fix, Then it still holds." ;
-    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_10_0.html" .
+    backlog:hasGherkinText "Given code_abundance_page_v1_11_0.html opened in a real browser, When a reader looks at the header, the overview stats, the footer, and a principle's detail view, Then no LCWKB-subject text, no 'undefined' field, and no internally-inconsistent statistic (a table's real breakdown contradicting the summary number above it) appears anywhere in the visible UI. And When 0-error Playwright verification is re-run after the fix, Then it still holds." ;
+    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_11_0.html" .
 
 bl:Evidence_StoryVisualContentAudit a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -411,16 +411,41 @@ bl:Refinement_StoryDeepRAGSubjectCleanup a backlog:RefinementEvent, owl:NamedInd
     backlog:hasRefinementOutcome "Compared against STORY-10 using the framework's own real WSJF method rather than an ad-hoc pick: STORY-8 scored 2.5 against STORY-10's 1.0, driven by a real, disclosed difference -- STORY-10's own record states it cannot be behaviourally tested in this environment at all (no live LLM connection), which raises its effective job size past what its business value justifies working on now. Confirmed STORY-8's one dependency (StoryVisualContentAudit) is genuinely Done before proceeding, then wrote a real, testable Gherkin AcceptanceCriterion and assessed which design concerns genuinely apply (Data: the retrieval/embedding data structures are being reworked; Interaction: the chat's own real answers are what a user reads) before transitioning to Ready." ;
     backlog:addressesConcern backlog:Concern_Data, backlog:Concern_Interaction .
 
+bl:Evidence_StoryDeepRAGSubjectCleanup a backlog:Evidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Regression suite fully rewritten and verified against this corpus's own real content; comment/dead-code cleanup still open"@en ;
+    backlog:evidenceVerified false ;
+    backlog:hasVerificationMethod "Real, functionally-critical progress, not yet complete: established a precise, real baseline first by running the actual REGRESSION_QUESTIONS suite (fusedCorpusAnswer, no live LLM needed) via Playwright against this corpus's own real data before touching anything -- 11/24 already passed (subject-agnostic structural tests), 13/24 genuinely failed because they referenced the source subject's own P01-P20 IDs and 'LC Waikiki principles' phrasing. Investigated retrieveContext directly first: confirmed its own 'LCW principles' reference is dead code, gated behind a company-name match that can never fire since COMPANY_DATA.companies is empty for this corpus -- the retrieval logic itself was already correct, only the test suite's hardcoded expectations were stale. Rewrote all 13 failing entries with real questions about this corpus's own content, preserving each original's structural lesson (explicit-identifier priority, enumeration, multi-entry naming, honest hedging under embedding-free semantic uncertainty) -- every single replacement verified individually via real Playwright execution against the real fusedCorpusAnswer before being written into the suite, not assumed to behave equivalently. Re-ran the complete suite after assembly: 24/24 passing, 0 console/page errors. NOT YET DONE: roughly 20 further 'LCW'/'LC Waikiki' references remain in code comments, embedded reference constants (BIAS_TTL, AGENTIC_TTL), and one dead company-comparison code branch -- lower-risk than the test suite (none affect real, reachable chat behavior) but still real source-code contamination, left for a following pass rather than rushed alongside the higher-risk test-suite work in the same edit." .
+
+bl:Task31 a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Rewrite and verify the regression suite against this corpus's own real content"@en ;
+    backlog:hasIdentifier "TASK-31" ;
+    backlog:hasState backlog:InProgress ;
+    backlog:hasTaskType backlog:Task_Implementation ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:memberOfContainer bl:Iteration3 .
+
+bl:Plan_StoryDeepRAGSubjectCleanup a backlog:PlanningEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Planning event: commit STORY-8 to Iteration 3, chosen by real WSJF comparison against STORY-10"@en ;
+    backlog:plansItem bl:StoryDeepRAGSubjectCleanup ;
+    backlog:plannedInto bl:Iteration3 ;
+    backlog:plannedAt "2026-09-02T19:00:00Z"^^xsd:dateTime ;
+    backlog:plannedBy backlog:Owner ;
+    backlog:producesTask bl:Task31 .
+
 bl:StoryDeepRAGSubjectCleanup a backlog:Story, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     backlog:hasIdentifier "STORY-8" ;
-    backlog:hasState backlog:Ready ;
+    backlog:hasState backlog:InProgress ;
     backlog:memberOfContainer bl:CodeAbundanceBacklog ;
     backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
     backlog:dependsOn bl:StoryVisualContentAudit ;
     backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
     backlog:hasPriorityScore bl:WSJF_Story8 ;
     backlog:hasAcceptanceCriterion bl:AC_StoryDeepRAGSubjectCleanup ;
+    backlog:hasEvidence bl:Evidence_StoryDeepRAGSubjectCleanup ;
     backlog:hasApplicableConcern backlog:Concern_Data, backlog:Concern_Interaction ;
     rdfs:label "Rebuild the chat/RAG layer's deep subject-specific assumptions (source subject's own name, P01-P20 ID scheme, 20-item count) for this corpus"@en ;
     backlog:asRole "the package maintainer" ;
@@ -515,7 +540,7 @@ bl:AC_StoryConformanceFixAndMenuCleanup a backlog:AcceptanceCriterion, owl:Named
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The pipeline's Conformance stage passes on a real run, and the Explorer sidebar shows no duplicate navigation"@en ;
     backlog:hasGherkinText "Given the same pipeline request the user's own uploaded session log recorded ('Find the sentences where a word or text exist within the corpus'), When the Lineage Compose and Conformance stages run, Then Conformance no longer reports 'A team must name the register or project it delivers from' -- checked by reproducing the exact SHACL merge the browser worker performs, not assumed. And Given the Principle Explorer's sidebar, When a reader looks at it, Then no block duplicates the always-visible top navigation bar." ;
-    backlog:satisfiedByArtifact "LINEAGE_TTL (JS const in code_abundance_page_v1_10_0.html)" .
+    backlog:satisfiedByArtifact "LINEAGE_TTL (JS const in code_abundance_page_v1_11_0.html)" .
 
 bl:Evidence_StoryConformanceFixAndMenuCleanup a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -563,7 +588,7 @@ bl:AC_StoryMsExplorerRedesign a backlog:AcceptanceCriterion, owl:NamedIndividual
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The sidebar shows short labels only, with icons, and clicking a category filters the middle list to its own contents"@en ;
     backlog:hasGherkinText "Given the Principle Explorer's left tree and middle list, When a reader looks at any row, Then it shows only a short label with an icon (folder for categories, document for principles), never the raw ontology identifier. And Given a reader clicks a category in the left tree, When the middle panel updates, Then it shows only that category's own items with a count and a 'Show all' control to reset -- real folder-click behaviour, not a second, always-everything duplicate of the tree." ;
-    backlog:satisfiedByArtifact "renderExplorerList (JS function in code_abundance_page_v1_10_0.html)" .
+    backlog:satisfiedByArtifact "renderExplorerList (JS function in code_abundance_page_v1_11_0.html)" .
 
 bl:Evidence_StoryMsExplorerRedesign a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -611,7 +636,7 @@ bl:AC_StoryPackageInstallAnalysis a backlog:AcceptanceCriterion, owl:NamedIndivi
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The Conformance fix is confirmed working in a real user session, and network/package-import refusals get a stronger, targeted retry"@en ;
     backlog:hasGherkinText "Given the user's own uploaded session log recording a real pipeline run, When the Conformance stage's real result is read, Then it shows 'done, 0 Violation-severity results', confirming the earlier LINEAGE_TTL fix genuinely holds outside this session's own testing. And Given Code Gen or Test Gen refuses code for a network or package-related reason, When the automatic retry runs, Then the correction message restates the exact constraint (no network, no pip, use only the local data and standard library) rather than a generic 'fix it' note." ;
-    backlog:satisfiedByArtifact "await micropip.install (JS call in code_abundance_page_v1_10_0.html's SHACL worker, the real evidence the analysis was grounded in)" .
+    backlog:satisfiedByArtifact "await micropip.install (JS call in code_abundance_page_v1_11_0.html's SHACL worker, the real evidence the analysis was grounded in)" .
 
 bl:Evidence_StoryPackageInstallAnalysis a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -659,7 +684,7 @@ bl:AC_StoryRealPackageInstall a backlog:AcceptanceCriterion, owl:NamedIndividual
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "A curated set of real packages actually installs and runs, and failure objects carry their own remedy consumed generically"@en ;
     backlog:hasGherkinText "Given Python code importing numpy, pandas, or networkx, When it runs in either the pipeline's Execution stage or the standalone Code Lab, Then the package is actually installed via a real micropip call before the code runs, and the code's own real output is produced -- not a ModuleNotFoundError. And Given any safety check in extractAndCheckCode flags a violation, When withOneAutoFix builds its retry, Then it uses that check's own remedy field directly, with no code in withOneAutoFix inspecting the violation's label text or guessing its category." ;
-    backlog:satisfiedByArtifact "ensureSafePackagesInstalled (JS function in code_abundance_page_v1_10_0.html)" .
+    backlog:satisfiedByArtifact "ensureSafePackagesInstalled (JS function in code_abundance_page_v1_11_0.html)" .
 
 bl:Evidence_StoryRealPackageInstall a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -707,7 +732,7 @@ bl:AC_StoryGenericRetryStrategy a backlog:AcceptanceCriterion, owl:NamedIndividu
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "A near-miss package name gets a 'did you mean' hint, and a truncated retry gets a genuinely larger output budget, both generically"@en ;
     backlog:hasGherkinText "Given code importing a package within edit-distance 2 of a real installable package, When the safety check flags it, Then the remedy names the likely intended package by real edit-distance comparison against the actual allowed set, not a hardcoded pairing. And Given a generation reply with finish_reason=length, When withOneAutoFix builds its retry, Then the retry call uses a genuinely larger max_tokens, read generically from the flagged entry's own retryGenConfig, with no code in withOneAutoFix specific to truncation." ;
-    backlog:satisfiedByArtifact "withOneAutoFix (JS function in code_abundance_page_v1_10_0.html)" .
+    backlog:satisfiedByArtifact "withOneAutoFix (JS function in code_abundance_page_v1_11_0.html)" .
 
 bl:Evidence_StoryGenericRetryStrategy a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -1320,8 +1345,8 @@ bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
 bl:AC_StoryBuildPageABox a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The real page ABox passes every gate the RDODI default deliverable's own procedure names for it"@en ;
-    backlog:hasGherkinText "Given code_abundance_page_abox_v1_10_0.ttl, When Stage4.A (parse), Stage4.B (SHACL), Cross.B (provenance chain), and the widget gates Stage4.H-K (warrant, grounding, design-test, intention-coverage) are run, Then all PASS, checked by actually re-executing each gate's real tooling against the real file, not asserted." ;
-    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_abox_v1_10_0.ttl" .
+    backlog:hasGherkinText "Given code_abundance_page_abox_v1_11_0.ttl, When Stage4.A (parse), Stage4.B (SHACL), Cross.B (provenance chain), and the widget gates Stage4.H-K (warrant, grounding, design-test, intention-coverage) are run, Then all PASS, checked by actually re-executing each gate's real tooling against the real file, not asserted." ;
+    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_abox_v1_11_0.ttl" .
 
 bl:Evidence_StoryBuildPageABox a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -1330,7 +1355,7 @@ bl:Evidence_StoryBuildPageABox a backlog:Evidence, backlog:ReleaseEvidence, owl:
     rdfs:label "Real page ABox built and verified: every applicable gate PASS, including 18/18 intention coverage"@en ;
     backlog:evidenceVerified true ;
     backlog:verifiedAt "2026-09-01T00:00:00Z"^^xsd:dateTime ;
-    backlog:hasVerificationMethod "Resolved the design question by direct investigation of the real page's own JS, not by force-fitting the old pattern: found principleDetailHTML(p), a genuine per-concept interaction rendering real framework citations and typed relation chips, each independently clickable -- confirmed live via Playwright (57 real clickable navigation chips rendered on a real click) before writing any triple. Built code_abundance_page_abox_v1_10_0.ttl: 18 ChapterSections (one per real Stage 2 leaf concept, not the old pattern's 21 flat sections -- Cross.B chain confirmed 18/18 unbroken), 18 InstructionalWidgets each instantiating a new, honestly-named primitive (ca:PrincipleDetailNavigator, genuinely distinct from the old CitationDisclosureToggle), and 7 real LearningObjectives (one per actual category, not invented). Re-ran every applicable real gate fresh: Stage4.A parse PASS (391 triples); Stage4.B SHACL PASS (0 violations); Cross.B PASS (18/18 provenance chains unbroken); Stage4.H (widget warrant) PASS; Stage4.I (widget grounding) PASS; Stage4.J (widget design-test) PASS; Stage4.K (intention coverage) PASS -- 18/18 covered, 0 disclosed-scope, 0 decoration widgets, genuinely stronger than the old pattern's own ABox, which declared 6 learning objectives but linked zero widgets to any of them (all disclosed-uncovered)." ;
+    backlog:hasVerificationMethod "Resolved the design question by direct investigation of the real page's own JS, not by force-fitting the old pattern: found principleDetailHTML(p), a genuine per-concept interaction rendering real framework citations and typed relation chips, each independently clickable -- confirmed live via Playwright (57 real clickable navigation chips rendered on a real click) before writing any triple. Built code_abundance_page_abox_v1_11_0.ttl: 18 ChapterSections (one per real Stage 2 leaf concept, not the old pattern's 21 flat sections -- Cross.B chain confirmed 18/18 unbroken), 18 InstructionalWidgets each instantiating a new, honestly-named primitive (ca:PrincipleDetailNavigator, genuinely distinct from the old CitationDisclosureToggle), and 7 real LearningObjectives (one per actual category, not invented). Re-ran every applicable real gate fresh: Stage4.A parse PASS (391 triples); Stage4.B SHACL PASS (0 violations); Cross.B PASS (18/18 provenance chains unbroken); Stage4.H (widget warrant) PASS; Stage4.I (widget grounding) PASS; Stage4.J (widget design-test) PASS; Stage4.K (intention coverage) PASS -- 18/18 covered, 0 disclosed-scope, 0 decoration widgets, genuinely stronger than the old pattern's own ABox, which declared 6 learning objectives but linked zero widgets to any of them (all disclosed-uncovered)." ;
     backlog:verifiedByTool "Playwright (headless Chromium)" ;
     backlog:attestsCriterion bl:AC_StoryBuildPageABox .
 
@@ -1358,7 +1383,7 @@ bl:StoryBuildPageABox a backlog:Story, owl:NamedIndividual ;
     backlog:hasScoreabilityReason "Freshly identified by direct investigation of the RDODI procedure's own literal text; not yet run through the framework's prioritisation method." ;
     rdfs:label "Build the real page ABox the RDODI default deliverable's own procedure requires (Stage4.A/B/G, steps 4-6)"@en ;
     backlog:asRole "the package maintainer" ;
-    backlog:wantsCapability "a genuine code_abundance_page_abox_v1_10_0.ttl satisfying Stage4.A (parses), Stage4.B (SHACL-clean against interactive_page_ontology_shacl), Stage4.G (every individual dcterms:source-linked to its Stage 3 Section), and Stage4.H-K's real widget-intention model -- reached by first deciding honestly how that model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity (chat console, relation map, principle browsing), not by force-fitting the old shape" ;
+    backlog:wantsCapability "a genuine code_abundance_page_abox_v1_11_0.ttl satisfying Stage4.A (parses), Stage4.B (SHACL-clean against interactive_page_ontology_shacl), Stage4.G (every individual dcterms:source-linked to its Stage 3 Section), and Stage4.H-K's real widget-intention model -- reached by first deciding honestly how that model, built for per-section click-reveal widgets, applies to this pattern's actual interactivity (chat console, relation map, principle browsing), not by force-fitting the old shape" ;
     backlog:soThat "the Epic's own Definition of Done (RDODI gates passing) is genuinely, not partially, satisfied -- found by direct investigation (2026-09-01): the procedure's own numbered steps 4-6 for the DEFAULT deliverable explicitly require a page ABox, unlike Cross.A's finding two turns ago (a cross-stage assumption that didn't transfer), this is the procedure's own literal text for the pattern this Epic adopted. Confirmed via test-drive: zero ABox-generation tooling exists anywhere in the corpus-instantiation template (08-brsf-corpus-template/02-tooling/ contains exactly one script, and it never touches an ABox) -- this is a genuine, currently-unaddressed gap, not a doesn't-apply situation." ;
     backlog:partOf bl:EpicAdoptRichDefault ;
     backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing, bl:ObjStagesFullyGateClean, bl:ObjStage4MatchesCurrentDefault .
@@ -1534,7 +1559,7 @@ bl:GoalMissionKeepsPace a backlog:Goal, owl:NamedIndividual ;
 bl:ObjStage4MatchesCurrentDefault a backlog:Objective, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The current Stage 4 artifact matches the currently-governing RDODI default"@en ;
-    backlog:hasObjectiveStatement "Binary check, counted: does the artifact at code-abundance-rdodi/04-interactive-page/ match the pattern RDODI procedure v1.3.0 names as its default. As of this pass (2026-09-01): yes -- code_abundance_page_v1_10_0.html is the corpus-instantiated rich pattern, shipped and Playwright-verified; the old single-flowing-page artifact (built under procedure v1.2.2) has been retired to 99-retired/. 1 of 1, target reached." ;
+    backlog:hasObjectiveStatement "Binary check, counted: does the artifact at code-abundance-rdodi/04-interactive-page/ match the pattern RDODI procedure v1.3.0 names as its default. As of this pass (2026-09-01): yes -- code_abundance_page_v1_11_0.html is the corpus-instantiated rich pattern, shipped and Playwright-verified; the old single-flowing-page artifact (built under procedure v1.2.2) has been retired to 99-retired/. 1 of 1, target reached." ;
     backlog:hasSuccessMetric bl:MetricStage4MatchesCurrentDefault ;
     backlog:hasTargetDirection backlog:Dir_Increase ;
     backlog:hasBaselineValue "0"^^xsd:decimal ;
@@ -1790,7 +1815,7 @@ bl:AC_EpicAdoptRichDefault a backlog:AcceptanceCriterion, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Path B is genuinely shipped: real corpus, real page, real ABox, 0 errors, every applicable gate passes"@en ;
     backlog:hasGherkinText "Given code-abundance-rdodi's Stage 4 artifact, When the currently-governing RDODI procedure's default pattern is checked against what actually ships, Then it matches (corpus-instantiated, real page + real ABox, not the retired single-flowing-page). And Given the real shipped page opened in a real browser, When loaded and interacted with, Then 0 console/page errors occur. And Given all genuinely-applicable Stage4/Cross gates, When re-run against the real artifacts, Then all 13 pass; the 2 gates whose literal wording assumes a structure this pattern does not have, and the 1 gate this content's single-tier sourcing does not trigger, are disclosed as such, not silently passed or force-fit." ;
-    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_10_0.html" ;
+    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_11_0.html" ;
     backlog:coveredByCase bl:TestCase_EpicRealPageZeroErrors .
 
 bl:Evidence_EpicAdoptRichDefault a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
@@ -1808,7 +1833,7 @@ bl:TestCase_EpicRealPageZeroErrors a backlog:TestCase, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real page loads and is interacted with in a real headless browser, 0 console/page errors"@en ;
     backlog:exercisesCriterion bl:AC_EpicAdoptRichDefault ;
-    backlog:runsOnData "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_10_0.html, loaded via Playwright chromium.launch() and page.goto(), with Explorer/Overview/Citations/About tabs each clicked and the category-filter/reset interaction exercised" .
+    backlog:runsOnData "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_11_0.html, loaded via Playwright chromium.launch() and page.goto(), with Explorer/Overview/Citations/About tabs each clicked and the category-filter/reset interaction exercised" .
 
 bl:EpicAdoptRichDefault a backlog:Epic, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1895,7 +1920,7 @@ bl:AC_StoryInstantiateAndVerify a backlog:AcceptanceCriterion, owl:NamedIndividu
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The instantiated page renders with 0 real errors and carries no residual prior-subject content"@en ;
     backlog:hasGherkinText "Given code_abundance_page_v1_0_0.html opened in a real headless browser, When the page loads and a reader clicks through the Overview, Principle Explorer, Citations, and Interact tabs, Then 0 console or page errors occur. And Given the page's full text, When searched for the prior subject's distinctive terms (LCWKB, its own citation authors, its own concept-scheme entries), Then none are found in any user-facing or functional location -- only non-user-facing code comments may remain, and only if confirmed harmless." ;
-    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_10_0.html (Citations tab content)" .
+    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_11_0.html (Citations tab content)" .
 
 bl:Evidence_StoryInstantiateAndVerify a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -1941,7 +1966,7 @@ bl:AC_StorySyncStage4ToStage3 a backlog:AcceptanceCriterion, owl:NamedIndividual
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Cross.A/C's real intent, full traceable concept coverage, is measurably satisfied against the real shipped page"@en ;
     backlog:hasGherkinText "Given the real shipped page's actual CATEGORIES and PRINCIPLES data (not the corpus contract source file), When counted, Then the total equals Stage 2's own 25-class taxonomy count exactly. And Given Stage 1's real concept inventory, When each concept is checked for a traceable match somewhere in the shipped page's real principle text, Then the fraction covered is at least 0.80 (Cross.C's own threshold), checked programmatically against the actual artifact, not assumed from the corpus contract that produced it." ;
-    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_10_0.html" .
+    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_11_0.html" .
 
 bl:Evidence_StorySyncStage4ToStage3 a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -1987,7 +2012,7 @@ bl:AC_StoryAlignReleaseVersions a backlog:AcceptanceCriterion, owl:NamedIndividu
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "All 4 stage artifacts carry the same version token, cross-references consistent, gates still pass"@en ;
     backlog:hasGherkinText "Given the 4 real RDODI stage files (research, domain tbox/abox/shacl, document, interactive-page), When their filenames' version tokens are listed, Then exactly one distinct version appears across all of them. And Given every internal cross-file reference (dcterms:description, dcterms:source), When checked, Then none point at a superseded filename. And Given the real RDODI gates, When re-run against the renamed files, Then all still pass, and the real page still renders with 0 console errors." ;
-    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_10_0.html (owl:versionInfo \"1.10.0\", shared by all 4 stage files)" .
+    backlog:satisfiedByArtifact "code-abundance-rdodi/04-interactive-page/code_abundance_page_v1_11_0.html (owl:versionInfo \"1.10.0\", shared by all 4 stage files)" .
 
 bl:Evidence_StoryAlignReleaseVersions a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:hasReleaseVersion "1.34.0" ;
@@ -2058,8 +2083,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "c934f3c8702fb74e7736c9dbbb4849afa287c7c4de53bee37a71164b62c64bd5" ;
-    backlog:closedAtCommit "0daa32a67b6bfb76df71e3aea8ebe6a73bdf4467" .
+    backlog:hasStateDigest "ba3d01d1fd3d1f8bb0a5667a4325c97145246590c6a99dd37e2c458f2c88a771" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must

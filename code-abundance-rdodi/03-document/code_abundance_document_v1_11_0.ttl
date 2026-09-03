@@ -16,7 +16,7 @@
 # explanation of the two theoretical frameworks the report invokes (Theory of
 # Constraints, Jevons paradox); (2) a genuine critical-analysis section
 # evaluating the article's central claims against counter-evidence; (3) a
-# closing synthesis. 25 sections, 1:1 with code_abundance_domain_tbox_v1_10_0.ttl
+# closing synthesis. 25 sections, 1:1 with code_abundance_domain_tbox_v1_11_0.ttl
 # (7 top-level, 18 leaf).
 # ============================================================================
 
@@ -25,14 +25,14 @@
     dcterms:created "2026-08-27"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
     dcterms:description "RDODI Stage 3 document, substantially rewritten for academic and industrial depth: mechanism-level theory, critical evaluation, and synthesis, in 1:1 correspondence with the 25-class Stage 2 taxonomy."@en ;
-    dcterms:identifier "code_abundance_document_v1_10_0" ;
+    dcterms:identifier "code_abundance_document_v1_11_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-08-27"^^xsd:date ;
     dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
     dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
     owl:versionIRI <http://example.org/rdodi/code-abundance/document/1.2.0> ;
-    owl:versionInfo "1.10.0" ;
+    owl:versionInfo "1.11.0" ;
     owl:priorVersion <http://example.org/rdodi/code-abundance/document/1.1.0> ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
     prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> .
