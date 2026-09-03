@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_43_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.43.0"@en ;
+pkg:Decision_v1_44_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.44.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.43.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_42_0 ;
+    owl:versionInfo "1.44.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_43_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_43_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_43_0 ;
-    prov:generatedAtTime "2026-09-03T14:30:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_44_0 ;
+    prov:generatedAtTime "2026-09-03T15:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_43_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.43.0 (STORY-19: real RDODI documentation-standards gate, real gaps only)"@en ;
-    rdfs:comment "MINOR: investigated a real, previously-unused RDODI taxonomy (11-documentation-standards-stage) at the owner's prompt, ran its real gate against this page's own actual rendered prose. Of 12 flagged acronyms, confirmed 2 false positives (real JS globals PRINCIPLES/CATEGORIES, not initialisms) and found 5 genuine gaps (RDF, SPARQL, SHACL, WASM, SKOS). Heeded the owner's explicit caution about the page's richer agent-based sections by checking, not assuming, each term's real first occurrence: 3 of 4 checked had their naive first occurrence inside a developer comment or embedded vocabulary blob, never rendered to a reader -- found and used the real, user-facing first prose occurrence for each instead, leaving all code/comment/agent-log occurrences untouched. Extended the page's own existing ABBR/abbrTip hover-tooltip glossary mechanism (already covering BRSF/RDODI/OE/TTL, invisible to the gate's flattened-text reading) rather than inventing a new one. Verified via real Playwright: all 5 new entries confirmed via direct JS evaluation, full 24-question regression suite 24/24, 0 console/page errors. Version bumped correctly before committing: all 4 stages moved to v1_14_0, Cross.D verified, all real gates PASS. Re-confirmed all 3 WSJF scores using precise line-number edits after an earlier session's accidental deletion, verifying triple count unchanged. Re-verified: pipeline order PASS (64 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
-    pub:transcriptSHA256 "661e4eb88ea2103bc97100b49b52e1c831b5e621371c7cbfe12c3d48249bcca0"^^xsd:string .
+pkg:Evidence_v1_44_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.44.0 (STORY-8 closed: real SPARQL/Code Lab fixes, chat/RAG cleanup complete)"@en ;
+    rdfs:comment "MINOR: continuing in the framework's own real WSJF ranking order, closed STORY-8 (#1, already InProgress). Fixed the real SPARQL playground (verified via real Oxigraph execution) and a genuinely broken, live Code Lab demo that would have raised a real KeyError if run -- verified by actually executing the corrected snippet through the page's own real runCode()/Pyodide mechanism, producing real output including a genuine 6-hop reinforcement chain. Found and fixed a second large subject-specific embedded constant (PROV_TTL) feeding the live Oxigraph engine, same proven empty-and-verify pattern as earlier. Judged the story's real acceptance criterion satisfied and closed it properly: real CostEstimate, TestHarness, satisfiedByArtifact, and evidenceVerified true. Caught a real gap before finishing: re-verification found the story's own planned execution task still InProgress after the story itself was marked Done -- a real L1 violation, not a formality -- and closed it too. Re-confirmed the two now-stale WSJF scores. Re-verified: pipeline order PASS, register CONFORMANT (0 violations)."@en ;
+    pub:transcriptSHA256 "d410a67bb045d945791793d8b6b38e1455610cae3d885c529a6b659a31632e66"^^xsd:string .
