@@ -297,7 +297,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
     <main id="main"></main>
   </div>
   <footer class="status">
-    <span>code-abundance-rdodi - Interactive v1.18.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
+    <span>code-abundance-rdodi - Interactive v1.19.0 - 18/18 principles loaded - Pyodide: <span id="pyostatus">not loaded</span></span>
     <span>Right-click a principle for quick actions - Hover <span class="abbr" title="tooltip">underlined terms</span> for definitions</span>
   </footer>
 </div>
@@ -4691,15 +4691,24 @@ async function downloadCodeLabLogZip(){
       } else if(e.event === 'codegen_error'){
         lines.push(`  task: ${e.task}`);
         lines.push(`  error: ${e.error}`);
-      } else if(e.event === 'codegen'){
+      } else if(e.event === 'codegen' || e.event === 'testgen'){
+        // DEF-30 (owner-uploaded log, 2026-09-04): agentTestGen's own
+        // real logCodeLab call used the hardcoded 'codegen' event label,
+        // so every real TestGen failure/success was indistinguishable
+        // from a real CodeGen one in the exported log -- confirmed
+        // directly from the owner's own uploaded codelab_log.json, where
+        // all 4 real entries (2 Build, 2 Test) showed event:'codegen'.
+        // Fixed at the source (agentTestGen now logs 'testgen'); this
+        // consumer now writes each to its own real folder.
+        const folder = e.event;
         genIdx++;
         lines.push(`  task: ${e.task}`);
         lines.push(`  safety flags: ${e.flags && e.flags.length ? e.flags.join(', ') : 'none'}`);
         const tsHeader = `Generated at ${e.at}\n\n`;
-        zip.file(`codegen/${String(genIdx).padStart(2,'0')}_task.txt`, tsHeader + e.task);
-        zip.file(`codegen/${String(genIdx).padStart(2,'0')}_raw_model_response.txt`, tsHeader + (e.raw || ''));
-        zip.file(`codegen/${String(genIdx).padStart(2,'0')}_extracted_code.py`, `# Generated at ${e.at}\n\n` + (e.code || '# (no code extracted)'));
-        zip.file(`codegen/${String(genIdx).padStart(2,'0')}_docs.txt`, tsHeader + (e.docs || ''));
+        zip.file(`${folder}/${String(genIdx).padStart(2,'0')}_task.txt`, tsHeader + e.task);
+        zip.file(`${folder}/${String(genIdx).padStart(2,'0')}_raw_model_response.txt`, tsHeader + (e.raw || ''));
+        zip.file(`${folder}/${String(genIdx).padStart(2,'0')}_extracted_code.py`, `# Generated at ${e.at}\n\n` + (e.code || '# (no code extracted)'));
+        zip.file(`${folder}/${String(genIdx).padStart(2,'0')}_docs.txt`, tsHeader + (e.docs || ''));
       }
       lines.push('');
     });
@@ -4943,14 +4952,22 @@ async function extractAndCheckCode(raw){
 }
 
 async function processGeneratedCode(out, task, raw, cardLabel){
+  // DEF-30 (owner-uploaded log, 2026-09-04): this function is shared by
+  // both the manual Code Lab 'Generate' buttons (runCodeGenAgent AND
+  // runTestGenAgent both call it) and hardcoded its own codelabLog event
+  // to 'codegen' regardless of which one called it -- the same real
+  // mislabeling bug as agentTestGen's own direct call, fixed there
+  // separately. cardLabel already distinguishes the two callers; reuse
+  // it rather than adding a new parameter.
+  const logEvent = /test/i.test(cardLabel) ? 'testgen' : 'codegen';
   try{
     const {code, docs, flagged, syntaxOk, syntaxErr} = await extractAndCheckCode(raw);
     if(!code){
-      codelabLog('codegen', {task, raw, code: '', docs: raw, flags: flagged.map(f=>f.label)});
+      codelabLog(logEvent, {task, raw, code: '', docs: raw, flags: flagged.map(f=>f.label)});
       out.innerHTML = `<div class="answer-card-llm"><div class="lbl">🤖 Live LLM</div><p class="small">No code was found in the response - here's the raw output:</p>${formatAnswerText(raw)}</div>`;
       return;
     }
-    codelabLog('codegen', {task, raw, code, docs, flags: flagged.map(f=>f.label), syntaxOk, syntaxErr});
+    codelabLog(logEvent, {task, raw, code, docs, flags: flagged.map(f=>f.label), syntaxOk, syntaxErr});
     const needsConfirm = flagged.length || !syntaxOk;
     const myId = ++CODEGEN_INSTANCE;
     const warnText = !syntaxOk ? 'has a real Python syntax error and will not run as-is' : 'was flagged for ' + flagged.map(f=>f.label).join(', ');
@@ -5818,7 +5835,7 @@ Given a Gherkin-style acceptance criterion (Given/When/Then), write a real, runn
   const res = await extractAndCheckCode(raw);
   const trunc = truncationFlag(reply);
   if(trunc) res.flagged.push(trunc);
-  codelabLog('codegen', {task:gherkin, raw, code:res.code, docs:res.docs, flags:res.flagged.map(f=>f.label), syntaxOk:res.syntaxOk, syntaxErr:res.syntaxErr});
+  codelabLog('testgen', {task:gherkin, raw, code:res.code, docs:res.docs, flags:res.flagged.map(f=>f.label), syntaxOk:res.syntaxOk, syntaxErr:res.syntaxErr});
   return {raw, ...res};
 }
 
@@ -5877,7 +5894,7 @@ function buildMain(){
 
   <section id="view-research" class="view">
     <div class="card"><h3>Citations</h3>
-      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_18_0.ttl) --
+      <p class="small">Matches this package's own Stage 1 research corpus (code_abundance_research_v1_19_0.ttl) --
       same numbering, same order, replacing the source template's prior subject's citation list.</p>
       <table class="cite"><tbody>
         <tr><td>[1]</td><td>Staples, B. (2026). When Code Is Abundant.</td><td class="small"></td></tr>

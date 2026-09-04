@@ -401,7 +401,7 @@ bl:AC_StoryDeepRAGSubjectCleanup a backlog:AcceptanceCriterion, owl:NamedIndivid
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The chat/RAG layer's retrieval, fact-checking, and test fixtures reference this corpus's own real scheme, and the chat still works"@en ;
     backlog:hasGherkinText "Given the chat console's retrieval, embedding, chunking, and fact-checking logic and its test fixtures, When searched for the source subject's own identity markers (the literal strings 'LCW' and 'LC Waikiki', and the 'P01'-'P20' ID pattern), Then none remain -- every reference has been genuinely reworked to this corpus's own real 18-item scheme and identifiers, not blind string-substituted. And Given the reworked chat console, When a real search/fact-check query is run through it via Playwright, Then it returns a correct, real answer grounded in this corpus's own data, with 0 console/page errors." ;
-    backlog:satisfiedByArtifact "REGRESSION_QUESTIONS array and SNIPPETS.chain (JS in code_abundance_page_v1_18_0.html)" .
+    backlog:satisfiedByArtifact "REGRESSION_QUESTIONS array and SNIPPETS.chain (JS in code_abundance_page_v1_19_0.html)" .
 
 bl:Refinement_StoryDeepRAGSubjectCleanup a backlog:RefinementEvent, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1423,7 +1423,7 @@ bl:AC_StoryBuildNoCodeBlockRemedy a backlog:AcceptanceCriterion, owl:NamedIndivi
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The no-code-block flag carries a specific, actionable remedy"@en ;
     backlog:hasGherkinText "Given a generation reply containing no fenced Python code block, When extractAndCheckCode processes it, Then the resulting flagged entry carries a real remedy telling the model exactly the required fence format and explicitly forbidding prose/paraphrase in its place. And Given the fix, When the real 24-question regression suite is re-run, Then all 24 still pass." ;
-    backlog:satisfiedByArtifact "no code block found in response (JS string literal in code_abundance_page_v1_18_0.html's extractAndCheckCode function)" .
+    backlog:satisfiedByArtifact "no code block found in response (JS string literal in code_abundance_page_v1_19_0.html's extractAndCheckCode function)" .
 
 bl:Evidence_StoryBuildNoCodeBlockRemedy a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1494,7 +1494,7 @@ bl:WSJF_Story18 a backlog:WSJFScore, owl:NamedIndividual ;
     rdfs:label "WSJF score for StoryPipelinePersistToRegister"@en ;
     backlog:scoredByMethod backlog:Method_WSJF ;
     backlog:hasScoreValue "0.7"^^xsd:decimal ;
-    backlog:scoredAt "2026-09-04T00:00:00Z"^^xsd:dateTime ;
+    backlog:scoredAt "2026-09-04T02:30:00Z"^^xsd:dateTime ;
     backlog:hasUserBusinessValue "4.0"^^xsd:decimal ;
     backlog:hasTimeCriticality "1.0"^^xsd:decimal ;
     backlog:hasRiskReductionValue "2.0"^^xsd:decimal ;
@@ -1549,7 +1549,7 @@ bl:AC_StoryDocStandardsAcronymGate a backlog:AcceptanceCriterion, owl:NamedIndiv
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "The 5 real acronym gaps get a real first-use expansion at their genuine prose location, and nothing else changes"@en ;
     backlog:hasGherkinText "Given the real RDODI Documentation Standards gate run against this page's own extracted prose, When the genuinely missing acronyms (RDF, SPARQL, SHACL, WASM, SKOS) are identified and false positives (real JS identifiers, code comments, embedded vocabulary) are excluded, Then each is added to the page's own existing ABBR glossary and wrapped with abbrTip() at its real, verified first prose occurrence only -- never inside a code snippet, developer comment, or agent-log context. And Given the change, When the real 24-question regression suite is re-run, Then all 24 still pass and 0 console/page errors occur." ;
-    backlog:satisfiedByArtifact "ABBR object and its 5 new entries, code_abundance_page_v1_18_0.html" .
+    backlog:satisfiedByArtifact "ABBR object and its 5 new entries, code_abundance_page_v1_19_0.html" .
 
 bl:Evidence_StoryDocStandardsAcronymGate a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1684,7 +1684,7 @@ bl:AC_StoryExternalLLMEndpoint a backlog:AcceptanceCriterion, owl:NamedIndividua
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "A real external endpoint can be connected and used, with honest disclosure and honest error handling"@en ;
     backlog:hasGherkinText "Given a real, reachable OpenAI-compatible /chat/completions endpoint with CORS enabled, When a base URL, model name, and optional key are entered and Connect is pressed, Then a real test request is sent, the engine becomes ready on success, and every one of this page's existing 9 real call sites can use it unchanged via the same WEBLLM_ENGINE interface. And Given a CORS-blocked endpoint (e.g. a hosted provider's API called directly), When Connect is pressed, Then the real failure is caught and reported with an honest, specific explanation, not a generic error, and the engine state is not incorrectly marked ready. And Given the panel is present but nothing has been connected, When the page is used normally, Then the real 24-question regression suite still passes and 0 console/page errors occur." ;
-    backlog:satisfiedByArtifact "connectExternalLLM, EXTERNAL_LLM_CONFIG, WEBLLM_BACKEND (JS in code_abundance_page_v1_18_0.html)" .
+    backlog:satisfiedByArtifact "connectExternalLLM, EXTERNAL_LLM_CONFIG, WEBLLM_BACKEND (JS in code_abundance_page_v1_19_0.html)" .
 
 bl:Evidence_StoryExternalLLMEndpoint a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1820,7 +1820,7 @@ bl:AC_StoryAgentOrchestrationRedesign a backlog:AcceptanceCriterion, owl:NamedIn
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Real tiered parallel dispatch replaces sequential execution, verified via genuine measured concurrency"@en ;
     backlog:hasGherkinText "Given the real dependency map (4 tiers, built by reading every call site), When the pipeline runs, Then each tier's independent stages are dispatched together (Promise.allSettled) rather than one at a time, the next tier is gated on the real completion of its own real dependencies only, and a stage's own real failure does not prevent independent sibling stages in the same tier from completing. And Given a real, purpose-built mock LLM server, When the full pipeline is run end-to-end against it, Then real network call timestamps show genuine overlapping windows within a tier (not just code-level ordering), the live UI correctly shows multiple stages 'working' simultaneously, and all 11 stages reach a real terminal state including a real 'deployed' DevOps outcome." ;
-    backlog:satisfiedByArtifact "Promise.allSettled dispatch blocks for Tier 1/2/3 in runRequestIntakeAgent (JS in code_abundance_page_v1_18_0.html)" .
+    backlog:satisfiedByArtifact "Promise.allSettled dispatch blocks for Tier 1/2/3 in runRequestIntakeAgent (JS in code_abundance_page_v1_19_0.html)" .
 
 bl:Evidence_StoryAgentOrchestrationRedesign a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
@@ -1891,6 +1891,105 @@ bl:Refinement_StoryPipelinePersistToRegister_Research a backlog:RefinementEvent,
     backlog:refinedAt "2026-09-04T01:00:00Z"^^xsd:dateTime ;
     backlog:refinedBy backlog:Owner ;
     backlog:hasRefinementOutcome "Cloned and directly inspected VAF's own real repository rather than reasoning about it abstractly; ran its real confidence-quarantine check to confirm it genuinely works. Read agentic-sdlc's own real, sourced Stage-1 research report for directly relevant, citable literature (ReDeFo, ClarifyGPT, Specification-Driven Development) and its own risk/governance domain (TRiSM, OWASP Agentic Top 10), which independently corroborates this Story's own original concern as a real, field-wide gap. Searched externally for a real, current, small, benchmarked coding model deployable via STORY-20's own integration. Produced three concrete, grounded next steps, none yet executed." .
+
+bl:StoryFixTestGenLogLabel a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-21" ;
+    backlog:hasState backlog:Done ;
+    backlog:finishedAt "2026-09-04T02:30:00Z"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-04T02:30:00Z"^^xsd:dateTime ;
+    backlog:lastAuditedAt "2026-09-04T02:30:00Z"^^xsd:dateTime ;
+    backlog:hasActualEffort "1"^^xsd:decimal ;
+    backlog:hasApplicableConcern backlog:Concern_Interaction ;
+    backlog:hasAcceptanceCriterion bl:AC_StoryFixTestGenLogLabel ;
+    backlog:hasEvidence bl:Evidence_StoryFixTestGenLogLabel ;
+    backlog:hasExecutionModality backlog:Mode_Automated ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasCostEstimate bl:Estimate_Story21 ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    backlog:pursuesObjective bl:ObjRDODIDefaultGatesPassing ;
+    rdfs:label "Fix agentTestGen's own real log entries being mislabeled as CodeGen's (DEF-30)"@en ;
+    backlog:asRole "anyone reading a real downloaded Code Lab log" ;
+    backlog:wantsCapability "agentTestGen's own real generation attempts, both via the agentic pipeline and the manual Code Lab 'Generate Test' button, to be logged and exported under their own real event/folder, distinguishable from agentCodeGen's" ;
+    backlog:soThat "owner uploaded a real, fresh session log (2026-09-04) from their own genuinely working live-LLM browser session, useful for two real things at once: it independently, live-confirmed STORY-10's own real tiered parallel dispatch working correctly in production (Story Author/Product Owner/Build/Test all completing within milliseconds of each other, real timestamps, not this session's own mock server); and its own raw codelab_log.json showed all 4 real entries -- 2 genuinely from Build, 2 genuinely from Test -- logged under the identical event:'codegen', making them indistinguishable without cross-referencing the task text by hand, exactly the confusion this session itself briefly ran into while reading it. Traced to source: agentTestGen's own real codelabLog call hardcoded 'codegen'; the shared processGeneratedCode function (serving both manual Code Lab buttons) had the identical bug, fixed there too using its own existing cardLabel parameter rather than adding a new one. Verified via real Playwright calls to the real functions directly: agentCodeGen/agentTestGen now log 'codegen'/'testgen' respectively; processGeneratedCode correctly derives the same distinction from cardLabel for both manual-button callers." .
+
+bl:Estimate_Story21 a backlog:CostEstimate, owl:NamedIndividual ;
+    rdfs:label "Cost estimate: STORY-21 (real log-label bug, found via owner-uploaded log)"@en ;
+    backlog:hasEffortEstimate "1"^^xsd:decimal ;
+    backlog:hasCostBasis "Judged: a small, well-isolated fix once traced to source; the real work was tracing it correctly across all 3 real call sites, not the fix itself." ;
+    backlog:hasBasisKind backlog:Basis_Judged ;
+    backlog:hasEstimateConfidence "High"^^xsd:string ;
+    backlog:estimatedAt "2026-09-04T02:30:00Z"^^xsd:dateTime .
+
+bl:AC_StoryFixTestGenLogLabel a backlog:AcceptanceCriterion, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "TestGen's own real log entries carry their own real event label, at every real call site"@en ;
+    backlog:hasGherkinText "Given a real call to agentTestGen (via the agentic pipeline) or to processGeneratedCode with a Test-labelled cardLabel (via the manual Code Lab button), When the resulting real codelabLog entry is inspected, Then its event field reads 'testgen', not 'codegen', and the real ZIP-export consumer writes it to a testgen/ folder, not codegen/. And Given the real 24-question regression suite, When re-run after the fix, Then all 24 still pass with 0 console/page errors." ;
+    backlog:satisfiedByArtifact "agentTestGen's own codelabLog call and processGeneratedCode's logEvent derivation (JS in code_abundance_page_v1_19_0.html)" .
+
+bl:Evidence_StoryFixTestGenLogLabel a backlog:Evidence, backlog:ReleaseEvidence, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real, direct verification of the corrected event label at every real call site"@en ;
+    backlog:evidenceVerified true ;
+    backlog:hasReleaseVersion "1.50.0" ;
+    backlog:hasPackageSHA256 "3dbb21a43f9bcda39c6d67bbce354e2d6bdfbf66d6d6d4c372ba6725a54c2b1c" ;
+    backlog:verifiedByTool "Playwright (headless Chromium); a real, purpose-built mock LLM server" ;
+    backlog:attestsCriterion bl:AC_StoryFixTestGenLogLabel ;
+    backlog:hasVerificationMethod "Read the owner's own uploaded codelab_log.json directly rather than trusting the readable summary: all 4 real entries showed event:'codegen', 2 of which were genuinely agentTestGen's own attempts (confirmed by their task text matching the readable log's own Test-stage failure). Traced to 3 real call sites: agentTestGen's own direct codelabLog call (fixed to 'testgen'); processGeneratedCode's two codelabLog calls, shared by both manual Code Lab buttons (fixed to derive the label from the existing cardLabel parameter, no new parameter added); and the real ZIP-export consumer, updated to write either folder correctly rather than only ever writing codegen/. Verified via real Playwright, not read-and-assumed: called agentCodeGen then agentTestGen directly against a real mock server and confirmed CODELAB_LOG shows ['codegen','testgen'] in order; called processGeneratedCode directly with both real cardLabel values ('Code Generation Agent', 'Test Generation Agent') and confirmed the same correct pair. Re-ran the full 24-question regression suite: 24/24 passing, 0 console/page errors." .
+
+bl:Harness_StoryFixTestGenLogLabel a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for STORY-21"@en ;
+    backlog:harnessFor bl:StoryFixTestGenLogLabel ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryFixTestGenLogLabel ;
+    backlog:harnessComplete true .
+
+bl:Task37 a backlog:ExecutionTask, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Trace and fix the real TestGen log-label bug at all 3 call sites"@en ;
+    backlog:hasIdentifier "TASK-37" ;
+    backlog:hasState backlog:Done ;
+    backlog:hasTaskType backlog:Task_Implementation ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasEvidence bl:Evidence_StoryFixTestGenLogLabel ;
+    backlog:finishedAt "2026-09-04T02:30:00Z"^^xsd:dateTime ;
+    backlog:startedAt "2026-09-04T02:30:00Z"^^xsd:dateTime ;
+    backlog:memberOfContainer bl:Iteration3 .
+
+bl:Plan_StoryFixTestGenLogLabel a backlog:PlanningEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Planning event: STORY-21 found and chosen directly from the owner's uploaded log"@en ;
+    backlog:plansItem bl:StoryFixTestGenLogLabel ;
+    backlog:plannedInto bl:Iteration3 ;
+    backlog:plannedAt "2026-09-04T02:00:00Z"^^xsd:dateTime ;
+    backlog:plannedBy backlog:Owner ;
+    backlog:producesTask bl:Task37 .
+
+bl:Harness_Task37 a backlog:TestHarness, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Test harness for TASK-37"@en ;
+    backlog:harnessFor bl:Task37 ;
+    backlog:hasHarnessEvidence bl:Evidence_StoryFixTestGenLogLabel ;
+    backlog:harnessComplete true .
+
+bl:Session_20260904_UploadedLog a backlog:RegisterSession, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Session: investigate a fresh owner-uploaded log, fix a real bug it revealed"@en ;
+    backlog:sessionFor bl:CodeAbundanceBacklog ;
+    backlog:sessionStartedAt "2026-09-04T02:00:00Z"^^xsd:dateTime ;
+    backlog:stateVerifiedAtStart true ;
+    backlog:hasSessionScopeNote "Set out to: finish the prior turn's pending manifest/publish cycle, then investigate a newly uploaded real session log. The log independently confirmed STORY-10's real parallel dispatch working in production with a genuine live model, and its own raw codelab_log.json revealed a real, previously undetected log-labeling bug (agentTestGen's attempts indistinguishable from agentCodeGen's in the exported log) -- traced to 3 real call sites and fixed. Also directly confirmed, via the same log, that a genuine live model still fails 'no code block found' even against STORY-17's own specific remedy -- real, fresh, corroborating evidence for STORY-18's own research conclusion that the underlying model, not the remedy wording, is the real limit." ;
+    backlog:changedItem bl:StoryFixTestGenLogLabel .
+
+bl:Refinement_StoryFixTestGenLogLabel a backlog:RefinementEvent, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Grooming and closing STORY-21 in one pass"@en ;
+    backlog:refines bl:StoryFixTestGenLogLabel ;
+    backlog:refinedAt "2026-09-04T02:30:00Z"^^xsd:dateTime ;
+    backlog:refinedBy backlog:Owner ;
+    backlog:hasRefinementOutcome "Root cause was clear once traced to the 3 real call sites; the real grooming work was confirming processGeneratedCode's existing cardLabel parameter could be reused rather than adding a new one, and confirming the ZIP-export consumer's own folder logic needed updating too, not just the log call itself." ;
+    backlog:addressesConcern backlog:Concern_Interaction .
 
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
@@ -2644,8 +2743,7 @@ bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "71f4a47ff547508fd6ad539065ac13798ecbe38f313314edbe8fb64a95fe9ef5" ;
-    backlog:closedAtCommit "2258d0a885f05b9dd8e97e4d645cf0acec3ccbb6" .
+    backlog:hasStateDigest "06d584b6d98e14d366ecc173348bad8cd15bca90c0b5534204ce78d5d9cd209b" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must

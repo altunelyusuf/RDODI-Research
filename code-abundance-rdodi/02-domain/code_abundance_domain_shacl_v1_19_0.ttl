@@ -11,15 +11,15 @@
     rdfs:label "Code Abundance Domain Ontology SHACL v1.0.0"@en ;
     dcterms:created "2026-08-27"^^xsd:date ;
     dcterms:creator <http://example.org/rdodi/agent/YusufAltunel> ;
-    dcterms:description "Constrains code_abundance_domain_tbox_v1_18_0.ttl / _abox_v1_0_0.ttl: every class needs a label+definition+source, every NamedIndividual needs a label+definition+source linking back to Stage 1."@en ;
-    dcterms:identifier "code_abundance_domain_shacl_v1_18_0" ;
+    dcterms:description "Constrains code_abundance_domain_tbox_v1_19_0.ttl / _abox_v1_0_0.ttl: every class needs a label+definition+source, every NamedIndividual needs a label+definition+source linking back to Stage 1."@en ;
+    dcterms:identifier "code_abundance_domain_shacl_v1_19_0" ;
     dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:modified "2026-08-27"^^xsd:date ;
     dcterms:publisher <http://example.org/rdodi/agent/IstanbulKulturUniversity> ;
     dcterms:rights "Copyright (c) 2026 Yusuf Altunel. Licensed CC BY 4.0."@en ;
     dcterms:rightsHolder <http://example.org/rdodi/agent/YusufAltunel> ;
     owl:versionIRI <http://example.org/rdodi/code-abundance/domain/shacl/1.0.0> ;
-    owl:versionInfo "1.18.0" ;
+    owl:versionInfo "1.19.0" ;
     prov:wasAttributedTo <http://example.org/rdodi/agent/YusufAltunel> ;
     prov:wasGeneratedBy <http://example.org/rdodi/activity/CodeAbundanceRDODIRun_v1_0_0> .
 
