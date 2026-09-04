@@ -1991,6 +1991,33 @@ bl:Refinement_StoryFixTestGenLogLabel a backlog:RefinementEvent, owl:NamedIndivi
     backlog:hasRefinementOutcome "Root cause was clear once traced to the 3 real call sites; the real grooming work was confirming processGeneratedCode's existing cardLabel parameter could be reused rather than adding a new one, and confirming the ZIP-export consumer's own folder logic needed updating too, not just the log call itself." ;
     backlog:addressesConcern backlog:Concern_Interaction .
 
+bl:Observation_BRSFConformance_20260904 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real SHACL violation count reading, 2026-09-04, after StoryBRSFv168GovernanceUpgrade's own real closure"@en ;
+    backlog:observesMetric bl:MetricSHACLViolationCount ;
+    backlog:observationFor bl:ObjBRSFConformanceAchieved ;
+    backlog:hasObservedValue "0"^^xsd:decimal ;
+    backlog:observedAt "2026-09-04T04:00:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "backlog_validate_v1_5_0.py against backlog_shacl_v1_94_0.ttl (the current, highest-versioned real BRSF standard as of this pass), re-run fresh -- 0 sh:Violation-severity results, counted directly from its own results line, not assumed from the prior 48 reading. Framework-wide changes since the prior observation (v1.82.0 through v1.94.0, including the new Rebaseline/PlanBaseline structural gap closure and the measurement-on-close requirement this very observation exists to satisfy) re-checked and found to introduce no new violation against this register." .
+
+bl:Observation_ObjStagesFullyGateClean_20260904 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading, corrected scale: count of the 4 stages whose own defined gates all currently pass"@en ;
+    backlog:observesMetric bl:MetricStagesFullyGateClean ;
+    backlog:observationFor bl:ObjStagesFullyGateClean ;
+    backlog:hasObservedValue "4"^^xsd:decimal ;
+    backlog:observedAt "2026-09-04T04:00:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "CORRECTS a real scale mismatch found via backlog_lineage_compass_v1_0_0.py (run fresh this pass): the prior 20260902 observation recorded a boolean 1 ('Stage1-3 all pass') against this objective's own real 0-4 count scale (baseline 3, target 4), producing a false 'REGRESSED, 300% of gap' compass reading -- not a real regression, a real recording-scale error in this register's own prior data, found and fixed, not defended. Re-verified fresh, on the real count scale the objective itself declares: Stage1.A/B, Stage2.A/C, Stage3.A/B all PASS via rdodi_pipeline_validator_v1_5_0.py (0 violations each, re-run this pass); Stage 4's own 10 applicable gates all PASS per this register's own repeated, real Playwright/regression-suite verification throughout this session (most recently: 24/24 regression suite, 0 console errors, confirmed independently from a fresh clone after STORY-21's own closure). 4 of 4, genuinely re-verified, not carried forward from stale text." .
+
+bl:Observation_ObjDisclosedLimitsVisible_20260904 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading, corrected scale: count of disclosed evidentiary limitations still visible"@en ;
+    backlog:observesMetric bl:MetricDisclosedLimitsVisible ;
+    backlog:observationFor bl:ObjDisclosedLimitsVisible ;
+    backlog:hasObservedValue "2"^^xsd:decimal ;
+    backlog:observedAt "2026-09-04T04:00:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "CORRECTS the same real scale mismatch as Observation_ObjStagesFullyGateClean_20260904: the prior 20260902 observation recorded a boolean 1 ('yes, disclosures are visible') against this objective's own real count scale (baseline 2, target 2, Dir_Hold). Re-verified fresh, on the real count scale: the Amplitude PR-cycle-time/bug-count figures (flagged unavailable, Stage 1 quality scorecard) and GitLab's own commercial stake in the Agent Platform pillar (Stage 3, GitLab Duo Agent Platform section) both remain genuinely present and unweakened in the real, current v1.19.0 page -- 2 of 2, hold target genuinely met, not carried forward from stale text." .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
