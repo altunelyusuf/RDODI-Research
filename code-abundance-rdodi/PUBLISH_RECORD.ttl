@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_51_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.51.0"@en ;
+pkg:Decision_v1_52_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.52.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.51.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_50_0 ;
+    owl:versionInfo "1.52.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_51_0 ;
     quality:passesGate true ;
-    pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
-    pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
+    pub:disciplineSHA256 "079e5290f186d7a6950c195c8fd5b1ff372913bc9ad8499fd2cfe3a4bd522600"^^xsd:string ;
+    pub:governanceSource "backlog_shacl_v1_94_0.ttl (attached via altunelyusuf/Ontologies backlog-roadmap-framework/02-shacl-safeguards/)"^^xsd:string ;
     pub:manifestVerified 23 ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_51_0 ;
-    prov:generatedAtTime "2026-09-04T03:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_52_0 ;
+    prov:generatedAtTime "2026-09-04T04:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_51_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.51.0 (STORY-21: real TestGen log-label bug found via owner-uploaded log, fixed)"@en ;
-    rdfs:comment "MINOR: investigated a fresh owner-uploaded session log. It independently confirmed STORY-10's real parallel dispatch working correctly in production with a genuine live model, and its own raw codelab_log.json revealed a real, previously undetected bug -- agentTestGen's own log entries indistinguishable from agentCodeGen's, both logged under event:'codegen'. Traced to 3 real call sites and fixed, verified via real Playwright calls to the real functions. The same log also provided fresh, corroborating evidence for STORY-18's own prior research conclusion: a genuine live model still failed to produce a fenced code block even against STORY-17's own specific remedy, confirming the limitation is the model's own capability. Full 24-question regression suite: 24/24, 0 errors. Re-verified: pipeline order PASS (70 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
-    pub:transcriptSHA256 "cf1db8c60d2b26055f44abc6d0b84e077cd418d74ce65e8f5360c2b79d32fde8"^^xsd:string .
+pkg:Evidence_v1_52_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.52.0 (adapted to BRSF v1.191.0; mission now eligible for closure)"@en ;
+    rdfs:comment "MINOR: adapted this register to BRSF's own real, substantial framework evolution (v1.180.0-v1.191.0, lineage discipline v29->v41, SHACL v1.87.0->v1.94.0), per owner direction to read and adapt before proceeding. Re-ran the real validator under the new standard: 4 real violations. Root-caused with the framework's own new backlog_lineage_compass tool: 2 of 3 flagged objectives carried a real, pre-existing scale-mismatch bug (boolean 0/1 recorded against a real 0-4/0-2 count scale), producing a false 'regressed' compass reading -- found and corrected, not defended. Fixed with fresh, correctly-scaled, freshly-verified observations for all 3 objectives, including the new measurement-on-close requirement for STORY-16's own closure. Re-ran the compass tool after the fix: this lineage's mission is now genuinely ELIGIBLE for Out_Achieved, all 9 objectives MET. Reported, not acted on unilaterally, following the same discipline the framework's own changelog demonstrates for this exact situation. Re-verified: pipeline order PASS, register CONFORMANT (0 violations) against the current, real v1.94.0 SHACL."@en ;
+    pub:transcriptSHA256 "0cbfb488d57da0653763f796d75daa40050e3f5322316b7819f5cc64b0370f8f"^^xsd:string .
