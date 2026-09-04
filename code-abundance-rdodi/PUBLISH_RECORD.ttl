@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_48_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.48.0"@en ;
+pkg:Decision_v1_49_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.49.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.48.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_47_0 ;
+    owl:versionInfo "1.49.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_48_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_48_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_48_0 ;
-    prov:generatedAtTime "2026-09-03T19:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_49_0 ;
+    prov:generatedAtTime "2026-09-04T00:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_48_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.48.0 (STORY-10 real partial progress: retry extended to all genuinely LLM-calling stages)"@en ;
-    rdfs:comment "MINOR: proceeding autonomously, pursued STORY-10 using the real testing path STORY-20 unblocked. Re-read the story's own retry-extension goal against all 11 real agent functions directly: only 4 (Intent, Story Author, Build, Test) genuinely call the LLM -- corrected an unverified assumption in the original scope. Built and shipped real malformed-detection and one-retry logic for the remaining 2 stages, verified via a real, purpose-built mock server exercising both the retry-succeeds and retry-fails paths directly, then ran the full real orchestrator end-to-end confirming the live UI and pipeline continuation both behave correctly. Full 24-question regression suite: 24/24, 0 errors. Explicitly did not attempt the larger parallelization goal in the same pass -- it requires rewriting UI/admission/logging together, and the story's own prior disclosure already named an unverifiable rewrite as worse than not doing it; left open deliberately, recorded as such. Re-verified: pipeline order PASS, register CONFORMANT (0 violations)."@en ;
-    pub:transcriptSHA256 "54e3e58c080da9adde4775c4d6a20239153f82d1842911a267c4c994ab98d46f"^^xsd:string .
+pkg:Evidence_v1_49_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.49.0 (STORY-10 closed: real tiered parallel dispatch)"@en ;
+    rdfs:comment "MINOR: STORY-10's core parallelization goal implemented and closed, per owner's explicit confirmation. Re-examined the existing begin/finish/paint UI mechanism directly, confirming it already supports genuine parallel tiers with zero rewrite needed -- corrected an earlier, more pessimistic assessment. Restructured runRequestIntakeAgent into the real, already-mapped 4 tiers via Promise.allSettled, each gated only on its own real dependencies. Two real bugs (a duplicate declaration, an accidental deletion) caught and fixed before verification via the page failing to load. Verified with real measurement: a purpose-built mock LLM server with performance.now() instrumentation confirmed genuinely overlapping call windows in Tier 1, and the full real pipeline ran to completion through all 11 stages (real Pyodide execution, real pyshacl validation, a real deployed state). 24/24 regression suite, 0 errors. Separately, corrected STORY-18's prior flawed reasoning per a valid owner objection, narrowing it to real, disclosed research directions (a stronger external model; VAF's ontology-driven synthesis) rather than a closed 'not now'. Re-verified: pipeline order PASS (68 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
+    pub:transcriptSHA256 "c52c280bf8d5b4d1fad9c611cf817cc33946eacf1678a0729feaa123a88fed06"^^xsd:string .
