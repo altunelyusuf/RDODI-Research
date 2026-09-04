@@ -8,11 +8,11 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_50_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.50.0"@en ;
+pkg:Decision_v1_51_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.51.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.50.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_49_0 ;
+    owl:versionInfo "1.51.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_50_0 ;
     quality:passesGate true ;
     pub:disciplineSHA256 "cf4693529049a8124878591d5f08bdfb11f57f92482ea9b72904391d418041a3"^^xsd:string ;
     pub:governanceSource "knowledge_base_abox_v2_22_0.ttl (attached via altunelyusuf/Ontologies oe-pack/01-ontologies/)"^^xsd:string ;
@@ -20,10 +20,10 @@ pkg:Decision_v1_50_0 a quality:GateDecision, owl:NamedIndividual ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_50_0 ;
-    prov:generatedAtTime "2026-09-04T02:00:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_51_0 ;
+    prov:generatedAtTime "2026-09-04T03:00:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_50_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.50.0 (STORY-18: real research against VAF, agentic-sdlc, external literature)"@en ;
-    rdfs:comment "MINOR: conducted real research for STORY-18, per owner direction, against VAF's own real repository (cloned, its confidence-quarantine mechanism run directly and confirmed working), agentic-sdlc's own real Stage-1 research report (citing ReDeFo, ClarifyGPT, Specification-Driven Development, and real risk/governance frameworks independently corroborating this Story's original concern), and external search for a real, current, deployable small coding model. Produced three concrete, grounded next steps, none yet executed. Re-verified: pipeline order PASS, register CONFORMANT (0 violations)."@en ;
-    pub:transcriptSHA256 "3dbb21a43f9bcda39c6d67bbce354e2d6bdfbf66d6d6d4c372ba6725a54c2b1c"^^xsd:string .
+pkg:Evidence_v1_51_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.51.0 (STORY-21: real TestGen log-label bug found via owner-uploaded log, fixed)"@en ;
+    rdfs:comment "MINOR: investigated a fresh owner-uploaded session log. It independently confirmed STORY-10's real parallel dispatch working correctly in production with a genuine live model, and its own raw codelab_log.json revealed a real, previously undetected bug -- agentTestGen's own log entries indistinguishable from agentCodeGen's, both logged under event:'codegen'. Traced to 3 real call sites and fixed, verified via real Playwright calls to the real functions. The same log also provided fresh, corroborating evidence for STORY-18's own prior research conclusion: a genuine live model still failed to produce a fenced code block even against STORY-17's own specific remedy, confirming the limitation is the model's own capability. Full 24-question regression suite: 24/24, 0 errors. Re-verified: pipeline order PASS (70 subjects, reproduces), register CONFORMANT (0 violations)."@en ;
+    pub:transcriptSHA256 "cf1db8c60d2b26055f44abc6d0b84e077cd418d74ce65e8f5360c2b79d32fde8"^^xsd:string .
