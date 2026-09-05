@@ -2018,6 +2018,65 @@ bl:Observation_ObjDisclosedLimitsVisible_20260904 a backlog:MetricObservation, o
     backlog:observedAt "2026-09-04T04:00:00Z"^^xsd:dateTime ;
     backlog:hasObservationMethod "CORRECTS the same real scale mismatch as Observation_ObjStagesFullyGateClean_20260904: the prior 20260902 observation recorded a boolean 1 ('yes, disclosures are visible') against this objective's own real count scale (baseline 2, target 2, Dir_Hold). Re-verified fresh, on the real count scale: the Amplitude PR-cycle-time/bug-count figures (flagged unavailable, Stage 1 quality scorecard) and GitLab's own commercial stake in the Agent Platform pillar (Stage 3, GitLab Duo Agent Platform section) both remain genuinely present and unweakened in the real, current v1.19.0 page -- 2 of 2, hold target genuinely met, not carried forward from stale text." .
 
+bl:GoalAgenticCapabilityGenuine a backlog:Goal, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "The interactive page's own advertised on-the-fly agentic code generation genuinely, reliably works"@en ;
+    backlog:hasGoalStatement "Bring in force by the owner's own direct challenge, 2026-09-04: 'on the fly code generation is still not functional. This is one of the critical functional scope.' Checked directly, not assumed: this real capability (the pipeline's agentCodeGen/agentTestGen stages, and the Code Lab's own manual generate buttons) was never named by this lineage's own real scope, mission, or any of its 8 prior Goals -- not measured, not explicitly excluded either, silently absent from a register that had otherwise been reported eligible for closure. This Goal exists to make that gap real and visible rather than leave it unmeasured, per the owner's own stated position: faking the measure is unacceptable, and leaving it silently uncovered while calling the mission achieved is the same failure by omission." ;
+    backlog:derivesFromScope bl:CodeAbundanceScope ;
+    backlog:contributesToMission bl:CodeAbundanceMission ;
+    backlog:decidedBy backlog:Owner ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:hasGoalFacing backlog:Facing_Mission .
+
+bl:ObjOnTheFlyGenerationReliable a backlog:Objective, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Whether the page's default, bundled on-the-fly code generation genuinely produces usable code"@en ;
+    backlog:hasObjectiveStatement "Counted directly from real evidence already on file in this register, not asserted: whether a real, unmodified request through agentCodeGen/agentTestGen, using this page's own default bundled local model (no external endpoint configured), reliably yields real, safe, syntactically valid code. Current real reading: NO, disclosed honestly rather than hidden. Direct evidence, from two separate real production logs the owner uploaded, the second dated after this session's own remedy fix (STORY-17) had already shipped: both Build and Test genuinely failed with 'no code block found in response' -- the raw captured model output showed prose describing what code would do, never an actual fenced code block, even when the retry explicitly named the required triple-backtick format. This is not a wording problem in this pipeline's own prompts; STORY-18's own real research (VAF's confidence-quarantine pattern, agentic-sdlc's own cited literature, and a real, current, benchmarked external alternative) independently corroborates that the limitation is the bundled model's own capability. What IS proven, and disclosed as a genuinely different, narrower claim: the surrounding pipeline mechanics -- retry logic, safety/syntax checking, real Pyodide execution once code exists, real parallel tier dispatch, real logging -- all genuinely work, verified via a real mock server and via the owner's own real production log. STORY-20's real external-endpoint integration is a proven, working path to a capable model, but remains untested end-to-end for code generation specifically, since no real external LLM credential has been available in any session so far." ;
+    backlog:hasSuccessMetric bl:MetricOnTheFlyGenerationReliable ;
+    backlog:hasTargetDirection backlog:Dir_Increase ;
+    backlog:hasBaselineValue "0"^^xsd:decimal ;
+    backlog:hasTargetValue "1"^^xsd:decimal ;
+    backlog:hasMeasurementKind backlog:Meas_Counted ;
+    backlog:metricMovableBy bl:StoryProveOnTheFlyGeneration ;
+    backlog:contributesToGoal bl:GoalAgenticCapabilityGenuine ;
+    backlog:hasIntentOrigin backlog:IOrigin_SessionDrafted ;
+    backlog:fillsScope bl:CodeAbundanceScope ;
+    backlog:hasCheckpoint bl:Checkpoint_ObjOnTheFlyGenerationReliable .
+
+bl:MetricOnTheFlyGenerationReliable a backlog:SuccessMetric, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "1 = a real, unmodified request through the default bundled model yields real, safe, valid code; 0 = it does not"@en .
+
+bl:Observation_OnTheFlyGenerationReliable_20260904 a backlog:MetricObservation, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Real reading: 0, disclosed honestly -- the default bundled model does not reliably produce code"@en ;
+    backlog:observesMetric bl:MetricOnTheFlyGenerationReliable ;
+    backlog:observationFor bl:ObjOnTheFlyGenerationReliable ;
+    backlog:hasObservedValue "0"^^xsd:decimal ;
+    backlog:observedAt "2026-09-04T05:00:00Z"^^xsd:dateTime ;
+    backlog:hasObservationMethod "Direct evidence from two separate real owner-uploaded production session logs (2026-09-04, the second dated after STORY-17's own remedy fix had already shipped): agentCodeGen and agentTestGen both genuinely failed 'no code block found in response' against the real bundled default model, confirmed from the raw captured model output (codelab_log.json), not the summary alone. Not re-attempted as a fresh test in this pass, since the same real model and the same real failure mode are already the subject of live, dated, first-party evidence more authoritative than a new attempt in this sandbox (which cannot run the default model at all -- STORY-10's own real investigation). Distinct from, and not overridden by, this session's own mock-server tests: those prove the surrounding pipeline mechanics work, never the default model's own generation reliability, which is exactly the real distinction this objective exists to keep visible." .
+
+bl:Checkpoint_ObjOnTheFlyGenerationReliable a backlog:ObjectiveCheckpoint, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    rdfs:label "Checkpoint for ObjOnTheFlyGenerationReliable, conditional on a real, credentialed end-to-end test"@en ;
+    backlog:checkpointCondition bl:StoryProveOnTheFlyGeneration ;
+    backlog:expectedValue "1"^^xsd:decimal .
+
+bl:StoryProveOnTheFlyGeneration a backlog:Story, owl:NamedIndividual ;
+    backlog:belongsToLineage bl:CodeAbundanceLineage ;
+    backlog:hasIdentifier "STORY-22" ;
+    backlog:hasState backlog:Proposed ;
+    backlog:memberOfContainer bl:CodeAbundanceBacklog ;
+    backlog:effectiveDefinitionOfDone bl:DoDCodeAbundance ;
+    backlog:hasInvestmentCategory backlog:Cat_TechnicalDebt ;
+    backlog:notYetScoreable true ;
+    backlog:hasScoreabilityReason "Freshly disclosed (2026-09-04) in direct response to the owner's own challenge; not yet run through the framework's prioritisation method." ;
+    backlog:pursuesObjective bl:ObjOnTheFlyGenerationReliable ;
+    rdfs:label "Prove on-the-fly code generation genuinely works, with real evidence, not asserted"@en ;
+    backlog:asRole "the owner and any real user of this page's own advertised capability" ;
+    backlog:wantsCapability "direct, real, dated evidence that a request through agentCodeGen/agentTestGen -- either the default bundled model or a real external endpoint via STORY-20 -- yields real, safe, syntactically valid, actually-executable code, not merely that the surrounding pipeline mechanics are sound" ;
+    backlog:soThat "the owner directly challenged this session's own prior 'eligible for closure' finding: on-the-fly code generation is a critical functional scope item, and either fake the measure, don't cover it, or prove it -- explicitly rejecting the first as unacceptable. This Story exists to close the real gap the challenge correctly identified: the capability was silently unmeasured, not honestly excluded, while the mission was reported achievable. Real, disclosed options for closing it for real, none yet executed: (1) connect a real, credentialed external model via STORY-20's own working integration (a genuinely capable model, e.g. a real Qwen2.5-Coder-class endpoint per STORY-18's own research) and run a real end-to-end generation-through-execution test, the only way to genuinely prove the capability rather than the mechanics around it; (2) if no such credential becomes available, the honest alternative is not silence but continued, explicit disclosure of the real 0 reading for as long as it remains true." .
+
 bl:Estimate_Story6 a backlog:CostEstimate, owl:NamedIndividual ;
     rdfs:label "Cost estimate: STORY-6 (page ABox)"@en ;
     backlog:hasEffortEstimate "5"^^xsd:decimal ;
@@ -2754,24 +2813,21 @@ bl:StageOutput_Goal a backlog:StageOutput, owl:NamedIndividual ;
     rdfs:label "Stage 3 (Goal) output"@en ;
     backlog:outputOfStage backlog:Stage_Goal ;
     backlog:consumesOutput bl:StageOutput_Scope ;
-    backlog:hasStateDigest "5acd6640aab906beba87a2812babd949354a8d74102b64e6ffe74099f143a34e" ;
-    backlog:closedAtCommit "6f19d5fa6e0976577be9471c1e3ba69a43127ad8" .
+    backlog:hasStateDigest "383696a1703f493d0e31e5502df665a6db6cfad422a74de9374a9c3ffcb6eceb" .
 
 bl:StageOutput_Objective a backlog:StageOutput, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 4 (Objective) output"@en ;
     backlog:outputOfStage backlog:Stage_Objective ;
     backlog:consumesOutput bl:StageOutput_Goal ;
-    backlog:hasStateDigest "08bc5f33a1e631c05161dee7e20b97dda948804695dcc452fbbb9be2d80444be" ;
-    backlog:closedAtCommit "6f19d5fa6e0976577be9471c1e3ba69a43127ad8" .
+    backlog:hasStateDigest "dc47141fac6b15475271b854e807dd372974b5b3ba75ea59f1247c82cc740f15" .
 
 bl:StageOutput_Backlog a backlog:StageOutput, owl:NamedIndividual ;
     backlog:belongsToLineage bl:CodeAbundanceLineage ;
     rdfs:label "Stage 5 (Backlog) output"@en ;
     backlog:outputOfStage backlog:Stage_Backlog ;
     backlog:consumesOutput bl:StageOutput_Objective ;
-    backlog:hasStateDigest "06d584b6d98e14d366ecc173348bad8cd15bca90c0b5534204ce78d5d9cd209b" ;
-    backlog:closedAtCommit "b07d3ae808f612c94ed9f54990e75726a8115e94" .
+    backlog:hasStateDigest "fa7ae35e88a5db132326c591070cf128c12aba8ff4a0b65cacaa99e70f070235" .
 
 # ----------------------------------------------------------------------------
 # Adoption profile -- declares the conformance level the SHACL suite must
