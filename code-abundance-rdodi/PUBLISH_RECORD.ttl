@@ -8,22 +8,22 @@
 @prefix rel: <http://example.org/oe/reliability#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-pkg:Decision_v1_52_0 a quality:GateDecision, owl:NamedIndividual ;
-    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.52.0"@en ;
+pkg:Decision_v1_53_0 a quality:GateDecision, owl:NamedIndividual ;
+    rdfs:label "Publish ceremony decision for code-abundance-rdodi v1.53.0"@en ;
     dcterms:identifier "code-abundance-rdodi"^^xsd:string ;
-    owl:versionInfo "1.52.0"^^xsd:string ;
-    owl:priorVersion pkg:Decision_v1_51_0 ;
+    owl:versionInfo "1.53.0"^^xsd:string ;
+    owl:priorVersion pkg:Decision_v1_52_0 ;
     quality:passesGate true ;
-    pub:disciplineSHA256 "079e5290f186d7a6950c195c8fd5b1ff372913bc9ad8499fd2cfe3a4bd522600"^^xsd:string ;
-    pub:governanceSource "backlog_shacl_v1_94_0.ttl (attached via altunelyusuf/Ontologies backlog-roadmap-framework/02-shacl-safeguards/)"^^xsd:string ;
+    pub:disciplineSHA256 "2e05a217ddcb8dfc947a3763419582afa5d78a45bb832ec34b1acf70df2f3d27"^^xsd:string ;
+    pub:governanceSource "backlog_shacl_v1_95_0.ttl (attached via altunelyusuf/Ontologies backlog-roadmap-framework/02-shacl-safeguards/)"^^xsd:string ;
     pub:manifestVerified 23 ;
     pub:manifestTotal 23 ;
     pub:packageGate "PASS"^^xsd:string ;
     rel:authoringSession "article-review-session"^^xsd:string ;
-    quality:evidencedBy pkg:Evidence_v1_52_0 ;
-    prov:generatedAtTime "2026-09-04T04:30:00Z"^^xsd:dateTime .
+    quality:evidencedBy pkg:Evidence_v1_53_0 ;
+    prov:generatedAtTime "2026-09-04T05:30:00Z"^^xsd:dateTime .
 
-pkg:Evidence_v1_52_0 a quality:Evidence, owl:NamedIndividual ;
-    rdfs:label "Gate transcript for code-abundance-rdodi v1.52.0 (adapted to BRSF v1.191.0; mission now eligible for closure)"@en ;
-    rdfs:comment "MINOR: adapted this register to BRSF's own real, substantial framework evolution (v1.180.0-v1.191.0, lineage discipline v29->v41, SHACL v1.87.0->v1.94.0), per owner direction to read and adapt before proceeding. Re-ran the real validator under the new standard: 4 real violations. Root-caused with the framework's own new backlog_lineage_compass tool: 2 of 3 flagged objectives carried a real, pre-existing scale-mismatch bug (boolean 0/1 recorded against a real 0-4/0-2 count scale), producing a false 'regressed' compass reading -- found and corrected, not defended. Fixed with fresh, correctly-scaled, freshly-verified observations for all 3 objectives, including the new measurement-on-close requirement for STORY-16's own closure. Re-ran the compass tool after the fix: this lineage's mission is now genuinely ELIGIBLE for Out_Achieved, all 9 objectives MET. Reported, not acted on unilaterally, following the same discipline the framework's own changelog demonstrates for this exact situation. Re-verified: pipeline order PASS, register CONFORMANT (0 violations) against the current, real v1.94.0 SHACL."@en ;
-    pub:transcriptSHA256 "0cbfb488d57da0653763f796d75daa40050e3f5322316b7819f5cc64b0370f8f"^^xsd:string .
+pkg:Evidence_v1_53_0 a quality:Evidence, owl:NamedIndividual ;
+    rdfs:label "Gate transcript for code-abundance-rdodi v1.53.0 (real gap corrected: on-the-fly code generation honestly tracked, mission no longer falsely eligible)"@en ;
+    rdfs:comment "MINOR: owner directly challenged the prior turn's 'eligible for closure' finding, correctly identifying that on-the-fly code generation reliability was never measured by this register's own scope, silently absent rather than honestly excluded. Analysed the owner's three stated options honestly: faking the measure rejected outright; the honest answer to 'prove it' is that this session cannot, for the default bundled model -- real evidence already on file (two separate real owner-uploaded production logs) shows repeated, genuine failure, not proof of success. Built a new Goal and Objective tracking this specific capability honestly, current reading 0. Re-ran the framework's own compass tool: this lineage is now correctly reported NOT eligible for closure, with this objective named as the real, sole blocker. Re-verified: pipeline order PASS (all 3 changed stage digests recomputed using the real tool's own accumulation logic), register CONFORMANT (0 violations)."@en ;
+    pub:transcriptSHA256 "a7c3f73312fe7a6e8e762298fc0a73c4f8167d65c72f56ee938fd5c6d14fa375"^^xsd:string .
